@@ -6,12 +6,10 @@ describe('SideLeftComponent', () => {
   let component: SideLeftComponent;
   let fixture: ComponentFixture<SideLeftComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SideLeftComponent]
-    })
-    .compileComponents();
-    
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [SideLeftComponent]
+    });
     fixture = TestBed.createComponent(SideLeftComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
