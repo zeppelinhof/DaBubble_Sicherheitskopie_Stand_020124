@@ -9,7 +9,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ChannelComponent } from './channel/channel.component';
+import { ChannelComponent } from './sub-components/channel/channel.component';
 import { MessageComponent } from './message/message.component';
 
 
