@@ -1,0 +1,36 @@
+
+
+header{
+    display: flex;
+    align-items: center;
+    
+}
+
+input{
+    border-radius: 42px;
+    padding: 10px 40px;
+    
+    min-width: 300px;
+    border: 0px;
+}
+
+.current-user{
+    display: flex;
+    align-items: center;
+    gap:20px
+}
+
+.name-of-user{
+    font-size: 32px;
+}
+
+.current-user-img{
+    height: 72px;
+    width: 72px;
+    border-radius: 42px;
+}
+
+.arrow-down-icon{
+    height: 30px;
+    width: 30px;
+}
