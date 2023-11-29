@@ -9,7 +9,11 @@ import { HeaderComponent } from './components/header/header.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './dashboard/dashboard.component';
+<<<<<<< HEAD
 import { ChannelComponent } from './components-sub/channel/channel.component';
+=======
+import { ChannelComponent } from './sub-components/channel/channel.component';
+>>>>>>> c889c01e7c73f1ad9d4028587f61024a57cec26b
 import { MessageComponent } from './message/message.component';
 
 @NgModule({
