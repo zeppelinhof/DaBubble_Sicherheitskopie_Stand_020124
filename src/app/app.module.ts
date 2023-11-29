@@ -8,9 +8,9 @@ import { SideRightComponent } from './components/side-right/side-right.component
 import { HeaderComponent } from './components/header/header.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardComponent } from './components-sub/dashboard/dashboard.component';
 import { ChannelComponent } from './components-sub/channel/channel.component';
-import { MessageComponent } from './message/message.component';
+import { MessageComponent } from './components-sub/message/message.component';
 
 @NgModule({
   declarations: [

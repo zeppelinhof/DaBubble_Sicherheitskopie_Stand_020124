@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChannelComponent } from './components-sub/channel/channel.component';
-import { MessageComponent } from './message/message.component';
+import { MessageComponent } from './components-sub/message/message.component';
 
 
 
