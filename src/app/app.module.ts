@@ -9,10 +9,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ChannelComponent } from './channel/channel.component';
+import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './message/message.component';
-
-
 
 @NgModule({
   declarations: [
@@ -28,10 +26,19 @@ import { MessageComponent } from './message/message.component';
     BrowserModule,
     AppRoutingModule,
 
-    provideFirebaseApp(() => initializeApp({"projectId":"dabubble-d4948","appId":"1:567130022113:web:caa3fc9e6b5e87cff357a0","storageBucket":"dabubble-d4948.appspot.com","apiKey":"AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs","authDomain":"dabubble-d4948.firebaseapp.com","messagingSenderId":"567130022113"})),
+    provideFirebaseApp(() =>
+      initializeApp({
+        projectId: 'dabubble-d4948',
+        appId: '1:567130022113:web:caa3fc9e6b5e87cff357a0',
+        storageBucket: 'dabubble-d4948.appspot.com',
+        apiKey: 'AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs',
+        authDomain: 'dabubble-d4948.firebaseapp.com',
+        messagingSenderId: '567130022113',
+      })
+    ),
     provideFirestore(() => getFirestore()),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
