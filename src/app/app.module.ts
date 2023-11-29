@@ -8,7 +8,7 @@ import { SideRightComponent } from './components/side-right/side-right.component
 import { HeaderComponent } from './components/header/header.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+
 
 @NgModule({
   declarations: [
@@ -20,9 +20,9 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp({"projectId":"dabubble-5a655","appId":"1:559912553009:web:61897cdecc594e43e4e310","storageBucket":"dabubble-5a655.appspot.com","apiKey":"AIzaSyD9PaK2LETdLnFUjMGhTF2A-m7nRYg2Ias","authDomain":"dabubble-5a655.firebaseapp.com","messagingSenderId":"559912553009"})),
+
+    provideFirebaseApp(() => initializeApp({"projectId":"dabubble-d4948","appId":"1:567130022113:web:caa3fc9e6b5e87cff357a0","storageBucket":"dabubble-d4948.appspot.com","apiKey":"AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs","authDomain":"dabubble-d4948.firebaseapp.com","messagingSenderId":"567130022113"})),
     provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]
