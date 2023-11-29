@@ -8,6 +8,10 @@ import { SideRightComponent } from './components/side-right/side-right.component
 import { HeaderComponent } from './components/header/header.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChannelComponent } from './channel/channel.component';
+import { MessageComponent } from './message/message.component';
+
 
 
 @NgModule({
@@ -15,7 +19,10 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     AppComponent,
     SideLeftComponent,
     SideRightComponent,
-    HeaderComponent
+    HeaderComponent,
+    DashboardComponent,
+    ChannelComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,
