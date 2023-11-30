@@ -11,6 +11,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './components-sub/dashboard/dashboard.component';
 import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MessageComponent } from './components-sub/message/message.component';
     DashboardComponent,
     ChannelComponent,
     MessageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { MessageComponent } from './components-sub/message/message.component';
       })
     ),
     provideFirestore(() => getFirestore()),
+    provideFirebaseApp(() => initializeApp({"projectId":"dabubble-d4948","appId":"1:567130022113:web:caa3fc9e6b5e87cff357a0","storageBucket":"dabubble-d4948.appspot.com","apiKey":"AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs","authDomain":"dabubble-d4948.firebaseapp.com","messagingSenderId":"567130022113"})),
   ],
   providers: [],
   bootstrap: [AppComponent],

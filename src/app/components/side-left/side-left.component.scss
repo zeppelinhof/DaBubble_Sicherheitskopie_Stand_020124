@@ -186,6 +186,7 @@ $add-img-width: 20px;
 }
 
 .list-container-contacts {
+    overflow-y: scroll;
     @extend .list-container-channels;
 }
 

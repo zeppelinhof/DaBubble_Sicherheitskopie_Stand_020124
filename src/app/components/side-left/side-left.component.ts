@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class SideLeftComponent {
   channelNames: string[] = ['Entwicklerteam', 'Office'];
-  contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth'];
+  contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth', 'test test' ,'Noah Braun',];
   arrowClickedChannels: boolean = false;
   arrowClickedContacts: boolean = false;
 
