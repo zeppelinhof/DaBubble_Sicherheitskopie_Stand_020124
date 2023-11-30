@@ -112,12 +112,70 @@
     padding: 4px 20px;
 }
 
-.logo-item-contact{
+.add-channel-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.add-purple {
+    opacity: 0;
+}
+
+$add-img-width: 20px;
+
+.add-channel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    .add-img-wrap {
+        display: flex;
+        width: $add-img-width;
+        height: 100%;
+        position: relative;
+
+        .add-standard,
+        .add-purple {
+            position: absolute;
+            left: 0px;
+            top: 2px;
+            height: $add-img-width;
+            width: $add-img-width;
+        }
+    }
+
+    &:hover {
+        .add-standard {
+            opacity: 0;
+        }
+
+        .add-purple {
+            opacity: 1;
+            scale: 1.1;
+        }
+
+        .text-add-channel {
+            color: $purple;
+        }
+
+    }
+
+    .text-add-channel {
+        font-size: 18px;
+        font-weight: 400;
+    }
+
+
+
+}
+
+.logo-item-contact {
     @extend .logo-item-channel;
     cursor: pointer;
     transition: 100ms;
 
-    &:hover{
+    &:hover {
         background-color: $light-violet;
     }
 }
