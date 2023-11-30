@@ -11,6 +11,7 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './components-sub/dashboard/dashboard.component';
 import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MessageComponent } from './components-sub/message/message.component';
     DashboardComponent,
     ChannelComponent,
     MessageComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
