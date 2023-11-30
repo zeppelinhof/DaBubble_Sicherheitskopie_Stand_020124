@@ -15,11 +15,11 @@
       <div class="dropdown-line">
         <div class="arrow-headline">
 
-          <img src="assets/icons/arrow_drop_down.png">
+          <img (click)="clickDownArrowChannels()" src="assets/icons/arrow_drop_down.png">
 
           <div class="dots-headline">
             <img src="assets/icons/three_dots.png">
-            <div class="headline-channels">
+            <div class="headline-secondary">
               Channels
             </div>
           </div>
@@ -28,11 +28,11 @@
         <img class="add-icon" src="assets/icons/add.png">
       </div>
 
-      <div class="channel-list-container">
-        <div *ngFor="let cn of channelNames" class="line">
-          <div class="logo-item">
+      <div *ngIf="true" class="list-container-channels">
+        <div *ngFor="let cn of channelNames" class="item-line">
+          <div class="logo-item-channel">
             <img src="assets/icons/tag.png">
-            <div class="oneName">
+            <div class="oneName-channel">
               {{cn}}
             </div>
           </div>
@@ -45,11 +45,11 @@
       <div class="dropdown-line">
         <div class="arrow-headline">
 
-          <img src="assets/icons/arrow_drop_down.png">
+          <img (click)="clickDownArrowContacts()" src="assets/icons/arrow_drop_down.png">
 
           <div class="dots-headline">
             <img src="assets/icons/account_circle.png">
-            <div class="headline-channels">
+            <div class="headline-secondary">
               Direktnachrichten
             </div>
           </div>
@@ -60,6 +60,14 @@
     </div>
   </div>
 
-
-
+  <div *ngIf="true" class="list-container-contacts">
+    <div *ngFor="let cn of contactsNames" class="item-line">
+      <div class="logo-item-contact">
+        <img class="profile-image" src="assets/imgs/userMale3.png">
+        <div class="oneName-contact">
+          {{cn}}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
