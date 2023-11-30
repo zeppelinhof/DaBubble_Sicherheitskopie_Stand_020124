@@ -69,11 +69,11 @@
   </div>
 
   <div *ngIf="true" class="list-container-contacts">
-    <div *ngFor="let cn of contactsNames" class="item-line">
+    <div *ngFor="let user of myUsers" class="item-line">
       <div class="logo-item-contact">
         <img class="profile-image" src="assets/imgs/userMale3.png">
         <div class="oneName-contact">
-          {{cn}}
+          {{ user.firstName }} {{ user.lastName}}
         </div>
       </div>
     </div>

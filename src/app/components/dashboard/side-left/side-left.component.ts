@@ -13,8 +13,10 @@ export class SideLeftComponent {
 
 
   constructor(private service: UserService) {
-    this.myUsers.push(this.service.allUsers) // getting allUsers from user.service.ts 
+    this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
     console.log(this.myUsers);
+
+
   }
 
   arrowClickedChannels: boolean = false;
