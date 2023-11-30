@@ -1,10 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+$light-violet: #eceefe;
+$purple: #535AF1;
 
-body{
-    background-color: #eceefe;
+body {
+    background-color: $light-violet;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
     margin: 20px 20px;
 
+}
+
+.headline-white-box {
+    font-size: 24px;
 }
 

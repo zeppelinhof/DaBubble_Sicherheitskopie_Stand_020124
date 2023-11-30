@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-left.component.scss']
 })
 export class SideLeftComponent {
+  channelNames: string[] = ['Entwicklerteam', 'Office'];
 
 }
