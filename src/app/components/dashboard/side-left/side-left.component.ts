@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-side-left',
@@ -7,7 +8,15 @@ import { Component } from '@angular/core';
 })
 export class SideLeftComponent {
   channelNames: string[] = ['Entwicklerteam', 'Office'];
-  contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth', 'test test' ,'Noah Braun',];
+  contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth', 'test test', 'Noah Braun',];
+  myUsers: any = [];
+
+
+  constructor(private service: UserService) {
+    this.myUsers.push(this.service.allUsers) // getting allUsers from user.service.ts 
+    console.log(this.myUsers);
+  }
+
   arrowClickedChannels: boolean = false;
   arrowClickedContacts: boolean = false;
 
