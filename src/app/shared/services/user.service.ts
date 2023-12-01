@@ -1,5 +1,8 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, Firestore, getDocs } from '@angular/fire/firestore';
+import { addDoc, collection, Firestore, getDocs } from '@angular/fire/firestore';
+import { User } from 'src/app/interfaces/user';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +10,16 @@ import { collection, Firestore, getDocs } from '@angular/fire/firestore';
 export class UserService {
   firestore: Firestore = inject(Firestore)
   allUserCol = collection(this.firestore, "allUsers");
-  allUsers: any[] = []; 
-
+  allUsers: any[] = [];
+  
 
   constructor() {
     this.getUserFromFirestore();
+    
+    
   }
 
-  
+
 
   // getting allUser from DB and pushing data to -> allUsers: any[] = [];
   async getUserFromFirestore() {
@@ -24,4 +29,9 @@ export class UserService {
       this.allUsers.push(doc.data());
     });
   };
+
+  async sendDocToDB(item: User) {
+    await addDoc(this.allUserCol, item);
+  }
+
 }
