@@ -10,7 +10,14 @@ $add-img-width: 20px;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    box-sizing: border-box; //
+    box-sizing: border-box;
+
+    transform: translateX(0); // Standard-Position
+    transition: opacity 1s, transform 1s// Füge die Opaz
+}
+
+.side-left-container.hidden {
+    transform: translateX(-100%); // Verschiebe den Container nach links außerhalb des Sichtbereichs
 }
 
 .first-line {
@@ -81,15 +88,19 @@ $add-img-width: 20px;
                 scale: 1.1;
             }
 
-            .account_circle_standard{
+            .account_circle_standard {
                 opacity: 0;
             }
 
-            .account_circle_purple{
+            .account_circle_purple {
                 opacity: 1;
             }
 
             .text-add-channel {
+                color: $purple;
+            }
+
+            .headline-secondary {
                 color: $purple;
             }
 
@@ -114,9 +125,12 @@ $add-img-width: 20px;
 
 
 
-    .dropdown_arrow_purple, .dots_purple, .account_circle_purple  {
+    .dropdown_arrow_purple,
+    .dots_purple,
+    .account_circle_purple {
         opacity: 0;
     }
+
     .dots-headline {
         display: flex;
         align-items: center;
@@ -131,13 +145,9 @@ $add-img-width: 20px;
 
     .headline-secondary {
         font-size: 20px;
-
-        &:hover{
-            color: $purple;
-        }
     }
 
-    .dots_wrap{
+    .dots_wrap {
         display: flex;
         width: $add-img-width;
         height: 100%;
@@ -153,7 +163,7 @@ $add-img-width: 20px;
         }
     }
 
-    .account_circle_wrap{
+    .account_circle_wrap {
         display: flex;
         width: $add-img-width;
         height: 100%;
@@ -271,7 +281,7 @@ $add-img-width: 20px;
     color: $purple;
 }
 
-.list-container-contacts {    
+.list-container-contacts {
     @extend .list-container-channels;
     overflow-y: auto;
 }
@@ -293,4 +303,45 @@ $add-img-width: 20px;
     height: 50px;
     width: 50px;
     border-radius: 100%;
+}
+
+.close-workspace {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color: white;
+    padding: 14px 23px;
+    gap: 10px;
+    z-index: 1000;
+    transform: rotate(-90deg);
+    transform-origin: left top;
+    white-space: nowrap;
+    /* Damit wird der Text in einer einzigen horizontalen Linie angezeigt */
+    box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: 100ms;
+
+    .close-workspace-text {
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    img {
+        height: 32px;
+        width: 32px;
+    }
+
+    &:hover{
+        color: $purple;
+
+        .close-workspace-text{
+            scale: 1.03;
+        }
+
+    }
 }
