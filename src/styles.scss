@@ -1,19 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
 $light-violet: #eceefe;
-$purple: #535AF1;
+$light-grey: #adb0d9;
+$grey: #686868;
+$purple: #535af1;
+$purple2: #797ef3;
+$purple3: #444df2;
+$rosaError: #ed1e79;
 
 body {
-    background-color: $light-violet;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    margin: 20px 20px;
-
+  background-color: $light-violet;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  margin: 32px 32px;
 }
 
 .headline-white-box {
-    font-size: 24px;
+  font-size: 24px;
 }
 
-.bg-light-violet{
-    background-color: $light-violet;
+.bg-light-violet {
+  background-color: $light-violet;
 }

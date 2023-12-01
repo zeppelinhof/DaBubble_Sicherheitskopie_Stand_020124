@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'DaBubble';
 
-  dashboard: boolean = true;
+  dashboard: boolean = false;
 }

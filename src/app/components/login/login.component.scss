@@ -1,0 +1,38 @@
+@import "src/styles.scss";
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .container-spans {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+    font-size: 18px;
+  }
+  .create-account {
+    color: $purple2;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid transparent;
+    &:hover {
+      border-color: $light-grey;
+      cursor: pointer;
+    }
+  }
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.display-container {
+  width: clamp(350px, 30%, 650px);
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+}

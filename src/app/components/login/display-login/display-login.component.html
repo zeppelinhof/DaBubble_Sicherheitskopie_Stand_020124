@@ -1,0 +1,25 @@
+<section>
+  <span class="headline">Anmeldung</span>
+  <span class="description">
+    Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
+    verwendest.
+  </span>
+  <form action="">
+    <div class="container-input-field">
+      <img src="assets/icons/mail.png" alt="icon of mail" />
+      <input type="email" placeholder="test@email.com" />
+      <span *ngIf="emailIsInvalid" class="error"
+        >Diese E-Mail-Adresse ist leider ungültig.</span
+      >
+    </div>
+    <div class="container-input-field">
+      <img src="assets/icons/lock.png" alt="icon of lock" />
+      <input type="password" placeholder="test" />
+      <span *ngIf="passwordIsWrong" class="error"
+        >Falsches Passwort. Bitte noch einmal versuchen.</span
+      >
+    </div>
+  </form>
+  <a class="forgot-password" href="">Passwort vergessen?</a>
+  <!--Router Link einfügen-->
+</section>
