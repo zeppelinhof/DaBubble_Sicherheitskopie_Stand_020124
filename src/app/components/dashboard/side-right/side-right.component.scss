@@ -1,6 +1,32 @@
+$purple: #535af1;
+
 .side-right-container {
   height: 85vh;
   width: 485px;
   background-color: white;
   border-radius: 30px;
+}
+
+.thread-header-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.thread-header-title {
+  font-size: 24px;
+}
+
+.inner-padding-of-thread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 40px;
+
+  box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+}
+
+.thread-name {
+  color: $purple;
+  font-weight: 400;
 }
