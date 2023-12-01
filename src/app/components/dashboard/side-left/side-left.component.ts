@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-side-left',
@@ -7,20 +8,18 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./side-left.component.scss']
 })
 export class SideLeftComponent {
+  arrowClickedChannels: boolean = false;
+  arrowClickedContacts: boolean = false;  
+  
   channelNames: string[] = ['Entwicklerteam', 'Office'];
-  contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth', 'test test', 'Noah Braun',];
+  // contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth', 'test test', 'Noah Braun',];
   myUsers: any = [];
 
 
-  constructor(private service: UserService) {
+  constructor(private service: UserService, public ws: WorkspaceService) {
     this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
     console.log(this.myUsers);
-
-
   }
-
-  arrowClickedChannels: boolean = false;
-  arrowClickedContacts: boolean = false;
 
   clickDownArrowChannels() {
     this.arrowClickedChannels = !this.arrowClickedChannels ? true : false;

@@ -1,5 +1,11 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, Firestore, getDocs } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collection,
+  Firestore,
+  getDocs,
+} from '@angular/fire/firestore';
+import { User } from 'src/app/interfaces/user';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +26,9 @@ export class UserService {
     querySnapshot.forEach((doc) => {
       this.allUsers.push(doc.data());
     });
+  }
+
+  async sendDocToDB(item: User) {
+    await addDoc(this.allUserCol, item);
   }
 }

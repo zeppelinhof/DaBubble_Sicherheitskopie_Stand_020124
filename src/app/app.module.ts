@@ -28,17 +28,6 @@ import { DisplayLoginComponent } from './components/login/display-login/display-
   imports: [
     BrowserModule,
     AppRoutingModule,
-
-    provideFirebaseApp(() =>
-      initializeApp({
-        projectId: 'dabubble-d4948',
-        appId: '1:567130022113:web:caa3fc9e6b5e87cff357a0',
-        storageBucket: 'dabubble-d4948.appspot.com',
-        apiKey: 'AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs',
-        authDomain: 'dabubble-d4948.firebaseapp.com',
-        messagingSenderId: '567130022113',
-      })
-    ),
     provideFirestore(() => getFirestore()),
     provideFirebaseApp(() =>
       initializeApp({

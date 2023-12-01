@@ -1,4 +1,4 @@
-<div class="side-left-container">
+<div [class.hidden]="!this.ws.showSideLeft" class="side-left-container">
   <div class="first-line">
     <div class="logo-headline">
       <img class="logo-code-learning" src="assets/imgs/workspace_logo.png">
@@ -13,12 +13,18 @@
   <div class="overview-panel">
     <div class="overview-channels">
       <div class="dropdown-line">
-        <div class="arrow-headline">
+        <div (click)="clickDownArrowChannels()" class="arrow-headline">
 
-          <img (click)="clickDownArrowChannels()" src="assets/icons/arrow_drop_down.png">
+          <div class="arrow_img_wrap">
+            <img class="dropdown_arrow" src="assets/icons/arrow_drop_down.png">
+            <img class="dropdown_arrow_purple" src="assets/icons/arrow_drop_down_purple.png">
+          </div>
 
           <div class="dots-headline">
-            <img src="assets/icons/three_dots.png">
+            <div class="dots_wrap">
+              <img class="dots_standard" src="assets/icons/three_dots.png">
+              <img class="dots_purple" src="assets/icons/three_dots_purple.png">
+            </div>
             <div class="headline-secondary">
               Channels
             </div>
@@ -28,7 +34,7 @@
         <img class="add-icon" src="assets/icons/add.png">
       </div>
 
-      <div *ngIf="true" class="list-container-channels">
+      <div *ngIf="arrowClickedChannels" class="list-container-channels">
         <div *ngFor="let cn of channelNames" class="item-line">
           <div class="logo-item-channel">
             <img src="assets/icons/tag.png">
@@ -52,12 +58,18 @@
 
     <div class="overview-direct-messages">
       <div class="dropdown-line">
-        <div class="arrow-headline">
+        <div (click)="clickDownArrowContacts()" class="arrow-headline">
 
-          <img (click)="clickDownArrowContacts()" src="assets/icons/arrow_drop_down.png">
+          <div class="arrow_img_wrap">
+            <img class="dropdown_arrow" src="assets/icons/arrow_drop_down.png">
+            <img class="dropdown_arrow_purple" src="assets/icons/arrow_drop_down_purple.png">
+          </div>
 
           <div class="dots-headline">
-            <img src="assets/icons/account_circle.png">
+            <div class="account_circle_wrap">
+              <img class="account_circle_standard" src="assets/icons/account_circle.png">
+              <img class="account_circle_purple" src="assets/icons/account_circle_purple.png">
+            </div>
             <div class="headline-secondary">
               Direktnachrichten
             </div>
@@ -68,7 +80,7 @@
     </div>
   </div>
 
-  <div *ngIf="true" class="list-container-contacts">
+  <div *ngIf="arrowClickedContacts" class="list-container-contacts">
     <div *ngFor="let user of myUsers" class="item-line">
       <div class="logo-item-contact">
         <img class="profile-image" src="assets/imgs/userMale3.png">
@@ -78,4 +90,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div (click)="this.ws.closeSideLeft()" class="close-workspace">
+  <div class="close-workspace-text">Workspace-Menü schließen</div>
+  <img src="assets/icons/workspace_close.png">
 </div>

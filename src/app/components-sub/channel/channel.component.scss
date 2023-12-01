@@ -1,9 +1,14 @@
-$abc: 24px;
+$width-channel: 989px;
 
 .channel-div-container {
   height: 85vh;
-  width: 989px;
+  // width: $width-channel;
   background-color: white;
   border-radius: 30px;
   margin-right: 15px;
+  transition: opacity 1s, transform 1s // Füge die Opaz
+}
+
+.grow {
+  // transform: translateX(-100px);
 }
