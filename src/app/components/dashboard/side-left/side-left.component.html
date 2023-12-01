@@ -43,7 +43,7 @@
             </div>
           </div>
         </div>
-        <div class="add-channel-wrap">
+        <div (click)="this.ws.openCreateChannel()" class="add-channel-wrap">
           <div class="add-channel">
             <div class="add-img-wrap">
               <img class="add-standard" src="assets/icons/add_circle.png">
@@ -97,5 +97,5 @@
   <img src="assets/icons/workspace_close.png">
 </div>
 
-<app-create-channel *ngIf="false"></app-create-channel>
-<!-- *ngIf="this.ws.showCreateChannel" -->
+<app-create-channel *ngIf="true"></app-create-channel>
+<!-- this.ws.showCreateChannel -->

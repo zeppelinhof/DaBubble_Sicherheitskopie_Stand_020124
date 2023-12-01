@@ -1,28 +1,65 @@
-<div class="wrap">
+<div class="wrap" *ngIf="this.ws.showCreateChannel">
     <div class="dialog">
-        <div class="first-line">
-            <div class="headline-white-box ">Channel erstellen</div>
-            <img src="assets/icons/close.png" alt="">
-        </div>
-        <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen
-            sein #marketing zum
-            Beispiel.</div>
-
-        <div class="channel-property">
-            <div class="channel-property-title">
-                Channel name
+        <div *ngIf="this.ws.dialogGeneralData" class="dialog-general-data">
+            <div class="first-line">
+                <div class="headline-white-box ">Channel erstellen</div>
+                <div (click)="this.ws.openCreateChannel()" class="around-close">
+                    <img src="assets/icons/close.png" alt="">
+                </div>
             </div>
-            <input [(ngModel)]="inputName" (input)="allFieldsFilled()" class="channel-property-input" placeholder="# z.B. Kooperationsprojekte">
+            <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen
+                sein #marketing zum
+                Beispiel.</div>
+
+            <div class="channel-property">
+                <div class="channel-property-title">
+                    Channel name
+                </div>
+                <input [(ngModel)]="this.ws.inputName" (input)="allFieldsFilled()" class="channel-property-input"
+                    placeholder="# z.B. Kooperationsprojekte">
+            </div>
+
+            <div class="channel-property">
+                <div class="channel-property-title">
+                    Beschreibung (optional)
+                </div>
+                <input [(ngModel)]="this.ws.inputDescription" (input)="allFieldsFilled()" class="channel-property-input"
+                    placeholder="Dein Text hier">
+            </div>
+
         </div>
 
-        <div class="channel-property">
-            <div class="channel-property-title">
-                Beschreibung (optional)
+        <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
+            <div class="first-line">
+                <div class="headline-white-box ">Leute hinzufügen</div>
+                <div (click)="this.ws.openCreateChannel()" class="around-close">
+                    <img src="assets/icons/close.png">
+                </div>
             </div>
-            <input [(ngModel)]="inputDescription" (input)="allFieldsFilled()"  class="channel-property-input" placeholder="Dein Text hier">
+
+            <div class="options">
+                <div class="option" (click)="changeRadioButton()">
+                    <div class="radio-wrap">
+                        <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
+                        <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
+                        <div>Alle Mitglieder von OfficeTeam hinzufügen</div>
+                    </div>
+                </div>
+                <div class="option" (click)="changeRadioButton()">
+                    <div class="radio-wrap">
+                        <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
+                        <img *ngIf="!this.ws.radioButtonFirst"src="assets/icons/radio_button_checked.png">
+                        <div>Bestimmte Leute hinzufügen</div>
+                    </div>
+                </div>
+            </div>
+            <input *ngIf="!this.ws.radioButtonFirst" [(ngModel)]="this.ws.inputCertainMembers" (input)="allFieldsFilled()" class="channel-property-input"
+                    placeholder="Name eingeben">
         </div>
-        <div *ngIf="allFieldsFilled()" class="btn-wap">
-            <div class="btn-create">Erstellen</div>
+        <div *ngIf="allFieldsFilled()" class="btn-wrap">
+            <div (click)="btnClicked()" class="btn-create">Erstellen</div>
         </div>
     </div>
+
+    
 </div>

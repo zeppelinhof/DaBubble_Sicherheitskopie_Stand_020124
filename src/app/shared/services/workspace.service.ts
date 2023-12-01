@@ -5,15 +5,32 @@ import { Injectable } from '@angular/core';
 })
 export class WorkspaceService {
   showSideLeft: boolean = true;
-  showCreateChannel: boolean = false
+  showCreateChannel: boolean = false;
+  dialogGeneralData: boolean = true;
+  showCreateChannelButton: boolean = false;
+  radioButtonFirst: boolean = true;
+  inputName: string = '';
+  inputDescription: string = '';
+  inputCertainMembers: string = '';
+
 
   constructor() { }
 
-  closeSideLeft(){
+  closeSideLeft() {
     this.showSideLeft = this.showSideLeft ? false : true;
   }
 
-  openCreateChannel(){
+  openCreateChannel() {
     this.showCreateChannel = this.showCreateChannel ? false : true;
+
+    if (!this.showCreateChannel) {
+      this.showCreateChannel = false;
+      this.dialogGeneralData = true;
+      this.showCreateChannelButton = false;
+      this.radioButtonFirst = true;
+      this.inputName = '';
+      this.inputDescription= '';
+      this.inputCertainMembers = '';
+    }
   }
 }

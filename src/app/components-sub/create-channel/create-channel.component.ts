@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -8,14 +9,19 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 
 export class CreateChannelComponent {
-  showCreateChannelButton: boolean = false;
+
+  constructor(public ws: WorkspaceService) { }
   
-
-  inputName: string = '';
-  inputDescription: string = '';
-
   allFieldsFilled(): Boolean {
-    return this.inputName != '' && this.inputDescription != '';
+    return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
-  
+
+  btnClicked() {
+    this.ws.dialogGeneralData = false;
+  }
+
+  changeRadioButton() {
+    return this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true;
+  }
+
 }
