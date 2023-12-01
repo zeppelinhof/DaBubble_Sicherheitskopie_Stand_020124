@@ -1,4 +1,5 @@
 @import 'src/styles.scss';
+$add-img-width: 20px;
 
 .side-left-container {
     height: 85vh;
@@ -54,7 +55,6 @@
 
     .arrow-headline {
         display: flex;
-        align-items: center;
         gap: 15px;
 
         img {
@@ -62,8 +62,61 @@
             width: 30px;
             cursor: pointer;
         }
+
+        &:hover {
+            .dots_standard {
+                opacity: 0;
+            }
+
+            .dots_purple {
+                opacity: 1;
+            }
+
+            .dropdown_arrow {
+                opacity: 0;
+            }
+
+            .dropdown_arrow_purple {
+                opacity: 1;
+                scale: 1.1;
+            }
+
+            .account_circle_standard{
+                opacity: 0;
+            }
+
+            .account_circle_purple{
+                opacity: 1;
+            }
+
+            .text-add-channel {
+                color: $purple;
+            }
+
+        }
     }
 
+    .arrow_img_wrap {
+        display: flex;
+        width: $add-img-width;
+        height: 100%;
+        position: relative;
+
+        .dropdown_arrow,
+        .dropdown_arrow_purple {
+            position: absolute;
+            left: 0px;
+            top: 2px;
+            height: $add-img-width;
+            width: $add-img-width;
+        }
+    }
+
+
+
+    .dropdown_arrow_purple, .dots_purple, .account_circle_purple  {
+        opacity: 0;
+    }
     .dots-headline {
         display: flex;
         align-items: center;
@@ -78,6 +131,42 @@
 
     .headline-secondary {
         font-size: 20px;
+
+        &:hover{
+            color: $purple;
+        }
+    }
+
+    .dots_wrap{
+        display: flex;
+        width: $add-img-width;
+        height: 100%;
+        position: relative;
+
+        .dots_standard,
+        .dots_purple {
+            position: absolute;
+            left: 0px;
+            top: 2px;
+            height: $add-img-width;
+            width: $add-img-width;
+        }
+    }
+
+    .account_circle_wrap{
+        display: flex;
+        width: $add-img-width;
+        height: 100%;
+        position: relative;
+
+        .account_circle_standard,
+        .account_circle_purple {
+            position: absolute;
+            left: 0px;
+            top: 2px;
+            height: $add-img-width;
+            width: $add-img-width;
+        }
     }
 
     .add-icon {
@@ -120,8 +209,6 @@
 .add-purple {
     opacity: 0;
 }
-
-$add-img-width: 20px;
 
 .add-channel {
     display: flex;
@@ -184,9 +271,22 @@ $add-img-width: 20px;
     color: $purple;
 }
 
-.list-container-contacts {
-    overflow-y: scroll;
+.list-container-contacts {    
     @extend .list-container-channels;
+    overflow-y: auto;
+}
+
+.list-container-contacts::-webkit-scrollbar {
+    width: 4px;
+}
+
+.list-container-contacts::-webkit-scrollbar-track {
+    background-color: white;
+}
+
+.list-container-contacts::-webkit-scrollbar-thumb {
+    background-color: $purple;
+    border-radius: 25px;
 }
 
 .profile-image {

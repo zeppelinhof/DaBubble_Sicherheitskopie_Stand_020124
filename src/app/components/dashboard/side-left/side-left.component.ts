@@ -19,8 +19,6 @@ export class SideLeftComponent {
     console.log(this.myUsers);
   }
 
-  
-
   clickDownArrowChannels() {
     this.arrowClickedChannels = !this.arrowClickedChannels ? true : false;
   }
