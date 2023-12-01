@@ -1,0 +1,75 @@
+$light-purple: #ADB0D9;
+$btn-purple: #444DF2;
+$height-dialog: 450px;
+
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba($color: #00000048, $alpha: .5);
+}
+
+.dialog {
+    height: $height-dialog;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 30px;
+    padding: 40px;
+    gap: 20px;
+}
+
+.first-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+        height: 24px;
+        width: 24px;
+    }
+}
+
+.channel-expl {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.channel-property {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .channel-property-title {
+        font-size: 18px;
+    }
+
+    .channel-property-input {
+        border-radius: 40px;
+        padding: 18px 20px;
+        border: 1px solid $light-purple;
+        outline: none;
+    }
+}
+
+.btn-wap {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-create {
+        display: flex;
+        justify-content: center;
+        background-color: $btn-purple;
+        border-radius: 25px;
+        padding: 12px 25px;
+        color: white;
+        cursor: pointer;
+    }
+}

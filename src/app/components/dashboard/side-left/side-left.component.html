@@ -31,7 +31,7 @@
           </div>
 
         </div>
-        <img class="add-icon" src="assets/icons/add.png">
+        <img (click)="this.ws.openCreateChannel()" class="add-icon" src="assets/icons/add.png">
       </div>
 
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
@@ -96,3 +96,6 @@
   <div class="close-workspace-text">Workspace-Menü schließen</div>
   <img src="assets/icons/workspace_close.png">
 </div>
+
+<app-create-channel *ngIf="false"></app-create-channel>
+<!-- *ngIf="this.ws.showCreateChannel" -->

@@ -1,0 +1,28 @@
+<div class="wrap">
+    <div class="dialog">
+        <div class="first-line">
+            <div class="headline-white-box ">Channel erstellen</div>
+            <img src="assets/icons/close.png" alt="">
+        </div>
+        <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen
+            sein #marketing zum
+            Beispiel.</div>
+
+        <div class="channel-property">
+            <div class="channel-property-title">
+                Channel name
+            </div>
+            <input [(ngModel)]="inputName" (input)="allFieldsFilled()" class="channel-property-input" placeholder="# z.B. Kooperationsprojekte">
+        </div>
+
+        <div class="channel-property">
+            <div class="channel-property-title">
+                Beschreibung (optional)
+            </div>
+            <input [(ngModel)]="inputDescription" (input)="allFieldsFilled()"  class="channel-property-input" placeholder="Dein Text hier">
+        </div>
+        <div *ngIf="allFieldsFilled()" class="btn-wap">
+            <div class="btn-create">Erstellen</div>
+        </div>
+    </div>
+</div>
