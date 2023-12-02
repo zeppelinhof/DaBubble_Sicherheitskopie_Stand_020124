@@ -22,8 +22,12 @@ body {
   background-color: $light-violet;
 }
 
-.close-icon-container{
-    img{
-        cursor: pointer;
-    }
+.close-icon-container {
+  img {
+    cursor: pointer;
+  }
+}
+
+.d-none {
+  display: none;
 }

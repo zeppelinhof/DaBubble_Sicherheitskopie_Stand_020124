@@ -61,14 +61,56 @@ form {
 }
 
 .forgot-password {
-  display: inline-block;
+  display: inline;
   text-decoration: none;
   color: $purple2;
   margin-top: 16px;
+  font-size: 18px;
   &:hover {
     border-radius: 30px;
     background: $light-violet;
-    font-weight: bold;
     color: $purple3;
+  }
+}
+
+.or-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  img {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+  span {
+    background-color: #fff;
+    padding: 0px 10px;
+    z-index: 10;
+  }
+}
+
+.btn-google {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+  padding: 9px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  outline: none;
+  background-color: $light-violet;
+  color: $purple2;
+  cursor: pointer;
+  &:hover {
+    font-weight: bold;
+    border-color: $purple2;
+    color: $purple3;
+  }
+  img {
+    width: 38px;
+    height: 38px;
   }
 }
