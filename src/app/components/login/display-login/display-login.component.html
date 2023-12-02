@@ -24,7 +24,6 @@
   <div class="forgot-password-container">
     <a>Passwort vergessen?</a>
   </div>
-
   <!--Router link-->
 
   <div class="or-container">
@@ -38,9 +37,9 @@
   </button>
 
   <div class="register-container">
-    <button class="button-layout">Anmelden</button>
+    <button class="button-layout btn-login">Anmelden</button>
     <button
-      class="button-layout"
+      class="button-layout btn-login-guest"
       (click)="userSessionService.userIsLogged = true"
       routerLink="/channel"
     >
