@@ -1,3 +1,5 @@
+/*Uhrzeit last response kann aus letztem json in thread jeweils gezogen werden*/
+
 let channels = [
   {
     name: 'Entwicklerteams',
