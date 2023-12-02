@@ -5,8 +5,8 @@ import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
 
 const routes: Routes = [
-  { path: '', component: ChannelComponent },
-  { path: 'login', component: DisplayLoginComponent },
+  { path: 'channel', component: ChannelComponent },
+  { path: '', component: DisplayLoginComponent },
   { path: 'message', component: MessageComponent },
 ];
 
