@@ -35,15 +35,9 @@ form {
   }
 
   input {
-    width: 100%;
-    font-size: 18px;
     padding: 18px 18px 18px 48px;
-    border: 1px solid transparent;
-    border-radius: 100px;
-    outline: none;
     background-color: $light-violet;
     color: $grey;
-    cursor: pointer;
     &:hover {
       border-color: $grey;
     }
@@ -101,12 +95,8 @@ form {
   gap: 20px;
   font-size: 18px;
   padding: 9px;
-  border: 1px solid transparent;
-  border-radius: 100px;
-  outline: none;
   background-color: $light-violet;
   color: $purple2;
-  cursor: pointer;
   &:hover {
     font-weight: bold;
     border-color: $purple2;

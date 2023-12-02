@@ -35,3 +35,18 @@ span {
 .d-none {
   display: none;
 }
+
+.button-layout {
+  border: 1px solid transparent;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.input-layout {
+  width: 100%;
+  font-size: 18px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  outline: none;
+  cursor: pointer;
+}
