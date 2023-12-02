@@ -60,16 +60,19 @@ form {
   }
 }
 
-.forgot-password {
-  display: inline;
-  text-decoration: none;
-  color: $purple2;
+.forgot-password-container {
   margin-top: 16px;
-  font-size: 18px;
-  &:hover {
-    border-radius: 30px;
-    background: $light-violet;
-    color: $purple3;
+  a {
+    text-decoration: none;
+    color: $purple2;
+    font-size: 18px;
+    padding: 5px 15px;
+    cursor: pointer;
+    &:hover {
+      border-radius: 30px;
+      background: $light-violet;
+      color: $purple3;
+    }
   }
 }
 
@@ -113,5 +116,4 @@ form {
     width: 38px;
     height: 38px;
   }
-
 }
