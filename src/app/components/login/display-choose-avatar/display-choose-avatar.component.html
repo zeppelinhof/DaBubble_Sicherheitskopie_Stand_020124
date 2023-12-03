@@ -1,1 +1,45 @@
-<p>display-choose-avatar works!</p>
+<section>
+  <div class="headline-container">
+    <img
+      *ngIf="!arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      src="assets/icons/arrow_back.png"
+      alt="icon of black arrow"
+    />
+    <img
+      *ngIf="arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      routerLink=""
+      src="assets/icons/arrow_back_purple.png"
+      alt="icon of purple arrow"
+    />
+    <span>Wähle deinen Avatar</span>
+  </div>
+
+  <div class="container-profile-image">
+    <img src="assets/imgs/person.png" alt="profile image" />
+  </div>
+
+  <span class="name">Frederik Beck </span>
+
+  <span class="description">Aus der Liste wählen</span>
+
+  <div class="selection-images">
+    <img
+      *ngFor="let imagePath of avatarImages"
+      src="assets/imgs/{{ imagePath }}"
+      alt="avatar iamge"
+    />
+  </div>
+
+  <form>
+    <input type="file " />
+    <button type="button">Bilder hochladen</button>
+  </form>
+
+  <div class="continue-container">
+    <a class="button-layout">Weiter</a>
+  </div>
+</section>
