@@ -26,7 +26,7 @@
 
   <!-- container of input -->
   <div class="input-box-container">
-    <input type="text" placeholder="Nachricht an #Entwicklerteam" />
+    <input type="text" (input)="onInput($event)" placeholder="Nachricht an #Entwicklerteam" />
 
     <div class="bottom-container-of-input">
       <div class="add-data-to-input-box-container">
@@ -36,13 +36,20 @@
         </div>
 
         <div class="att-and-smiley-container">
-          <img src="assets/icons/@-icon-grey.png" />
-          <img src="assets/icons/smiley-icon-grey.png" />
+          <div class="att-icons-container">
+            <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />
+            <img class="att-icon-purple" src="assets/icons/@-icon-purple.png" />
+          </div>
+          <div class="smiley-icons-container">
+            <img class="smiley-icon-grey" src="assets/icons/smiley-icon-grey.png" />
+            <img class="smiley-icon-purple" src="assets/icons/smiley-icon-purple.png" />
+          </div>
         </div>
       </div>
 
-      <div>
-        <img src="assets/icons/send.png" />
+      <div class="send-btn-container">
+        <img *ngIf="!isWriting" class="send-btn-false" src="assets/icons/disabeld_send-icon.png" />
+        <img *ngIf="isWriting" class="send-btn-true" src="assets/icons/send.png" />
       </div>
     </div>
   </div>
