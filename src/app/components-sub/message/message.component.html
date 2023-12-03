@@ -1,1 +1,22 @@
-<p>message works!</p>
+<div class="message-div-container">
+  <div class="message-header-container">
+    <img src="assets/imgs/userMale2.png" />
+    <div class="message-user-name">Otto Bushcraft</div>
+  </div>
+<!-- inner info card -->
+  <div *ngIf="!this.service.isWriting" class="inner-info-card-container">
+    <div class="message-inner-container">
+      <img src="assets/imgs/userMale2.png" />
+      <div class="message-inner-name">Otto Bushcraft</div>
+    </div>
+  
+    <div class="this-conversation-text-container">
+      <div>Diese Unterhaltung findet nur zwischen</div>
+      <div class="name-of-chat-partner">@Otto Bushcraft</div>
+      <div>und dir statt.</div>
+    </div>
+  </div>
+  <!--  -->
+
+  <app-input-field></app-input-field>
+</div>

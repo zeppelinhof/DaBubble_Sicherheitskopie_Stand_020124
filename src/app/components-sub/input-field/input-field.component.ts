@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MessageComponent } from '../message/message.component';
+import { InputService } from '../../shared/services/input.service';
 
 @Component({
   selector: 'app-input-field',
@@ -8,7 +10,7 @@ import { Component } from '@angular/core';
 export class InputFieldComponent {
   isWriting:boolean = false;
 
-  onInput(event: any): void {
-    this.isWriting = event.target.value.length > 0;
-  }
+  constructor(public service: InputService){}
+
+  
 }
