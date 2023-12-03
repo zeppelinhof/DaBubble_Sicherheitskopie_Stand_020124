@@ -12,6 +12,10 @@ import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
 import { LoginComponent } from './components/login/login.component';
 import { DisplayLoginComponent } from './components/login/display-login/display-login.component';
+import { DisplayCreateAccountComponent } from './components/login/display-create-account/display-create-account.component';
+import { DisplayChooseAvatarComponent } from './components/login/display-choose-avatar/display-choose-avatar.component';
+import { DisplayResetPwEnterEmailComponent } from './components/login/display-reset-pw-enter-email/display-reset-pw-enter-email.component';
+import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,10 @@ import { DisplayLoginComponent } from './components/login/display-login/display-
     MessageComponent,
     LoginComponent,
     DisplayLoginComponent,
+    DisplayCreateAccountComponent,
+    DisplayChooseAvatarComponent,
+    DisplayResetPwEnterEmailComponent,
+    DisplayResetPwEnterPwComponent,
   ],
   imports: [
     BrowserModule,
