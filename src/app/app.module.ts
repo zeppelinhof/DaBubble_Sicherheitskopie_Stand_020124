@@ -17,6 +17,7 @@ import { DisplayChooseAvatarComponent } from './components/login/display-choose-
 import { DisplayResetPwEnterEmailComponent } from './components/login/display-reset-pw-enter-email/display-reset-pw-enter-email.component';
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { InputFieldComponent } from './components-sub/input-field/input-field.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
     DisplayResetPwEnterEmailComponent,
     DisplayResetPwEnterPwComponent,
     PrivacyPolicyComponent,
+    InputFieldComponent,
   ],
   imports: [
     BrowserModule,
