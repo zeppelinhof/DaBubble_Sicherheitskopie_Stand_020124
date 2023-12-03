@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-right.component.scss']
 })
 export class SideRightComponent {
+  containerIsVisible: boolean = true;
 
+  constructor() { }
+  
+  toggleVisibility() {
+    this.containerIsVisible = !this.containerIsVisible;
+  }
 }

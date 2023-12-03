@@ -1,12 +1,13 @@
-<div class="side-right-container">
+<div [class.hidden]="!containerIsVisible" class="side-right-container">
 
   <div class="inner-padding-of-thread">
     <div class="thread-header-container">
       <div class="thread-header-title">Thread</div>
       <div class="thread-name"># Entwicklerteam</div>
     </div>
-    <div class="close-icon-container">
-      <img src="assets/icons/close.png" />
+    <div (click)="toggleVisibility()" class="close-icon-container">
+      <img class="close-icon-normal" src="assets/icons/close.png" />
+      <img class="close-icon-purple" src="assets/icons/close_purple.png">
     </div>
   </div>
 
