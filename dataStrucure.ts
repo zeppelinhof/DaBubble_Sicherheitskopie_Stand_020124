@@ -12,11 +12,11 @@ let channels = [
         amountResponses: 2,
         emogis: [
           {
-            idEmogis: 1,
+            idEmogi: 1,
             amountEmogi: 2,
           },
           {
-            idEmogis: 3,
+            idEmogi: 3,
             amountEmogi: 2,
           },
         ],
@@ -30,11 +30,11 @@ let channels = [
             message: 'Ich habe die gleiche Frage...',
             emogis: [
               {
-                idEmogis: 1,
+                idEmogi: 1,
                 amountEmogi: 2,
               },
               {
-                idEmogis: 3,
+                idEmogi: 3,
                 amountEmogi: 2,
               },
             ],
@@ -47,11 +47,11 @@ let channels = [
             message: 'Ja das ist es',
             emogis: [
               {
-                idEmogis: 1,
+                idEmogi: 1,
                 amountEmogi: 2,
               },
               {
-                idEmogis: 3,
+                idEmogi: 3,
                 amountEmogi: 2,
               },
             ],
@@ -67,11 +67,11 @@ let channels = [
         amountResponses: 1,
         emogis: [
           {
-            idEmogis: 2,
+            idEmogi: 2,
             amountEmogi: 1,
           },
           {
-            idEmogis: 4,
+            idEmogi: 4,
             amountEmogi: 3,
           },
         ],
@@ -85,7 +85,7 @@ let channels = [
             message: 'Ich stimme zu...',
             emogis: [
               {
-                idEmogis: 4,
+                idEmogi: 4,
                 amountEmogi: 2,
               },
             ],
@@ -101,11 +101,11 @@ let channels = [
         amountResponses: 3,
         emogis: [
           {
-            idEmogis: 1,
+            idEmogi: 1,
             amountEmogi: 1,
           },
           {
-            idEmogis: 3,
+            idEmogi: 3,
             amountEmogi: 2,
           },
         ],
@@ -119,7 +119,7 @@ let channels = [
             message: 'Ich schlage vor, XYZ hinzuzufügen...',
             emogis: [
               {
-                idEmogis: 2,
+                idEmogi: 2,
                 amountEmogi: 2,
               },
             ],
@@ -132,7 +132,7 @@ let channels = [
             message: 'Gute Idee! Ich bin dafür...',
             emogis: [
               {
-                idEmogis: 1,
+                idEmogi: 1,
                 amountEmogi: 1,
               },
             ],
@@ -153,7 +153,7 @@ let channels = [
         amountResponses: 2,
         emogis: [
           {
-            idEmogis: 1,
+            idEmogi: 1,
             amountEmogi: 2,
           },
           {
@@ -171,11 +171,11 @@ let channels = [
             message: 'Ich habe die gleiche Frage...',
             emogis: [
               {
-                idEmogis: 1,
+                idEmogi: 1,
                 amountEmogi: 2,
               },
               {
-                idEmogis: 3,
+                idEmogi: 3,
                 amountEmogi: 2,
               },
             ],
@@ -188,7 +188,7 @@ let channels = [
             message: 'Ja das ist es',
             emogis: [
               {
-                idEmogis: 1,
+                idEmogi: 1,
                 amountEmogi: 2,
               },
               {
@@ -219,7 +219,7 @@ let channels = [
         amountResponses: 1,
         emogis: [
           {
-            idEmogis: 2,
+            idEmogi: 2,
             amountEmogi: 1,
           },
         ],
@@ -233,7 +233,7 @@ let channels = [
             message: 'Ich schlage vor, XYZ einzustellen...',
             emogis: [
               {
-                idEmogis: 4,
+                idEmogi: 4,
                 amountEmogi: 2,
               },
             ],

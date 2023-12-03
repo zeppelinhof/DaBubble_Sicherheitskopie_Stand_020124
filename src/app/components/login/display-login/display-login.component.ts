@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./display-login.component.scss'],
 })
 export class DisplayLoginComponent {
-  emailIsInvalid: boolean = true;
-  passwordIsWrong: boolean = true;
+  emailIsInvalid: boolean = false;
+  passwordIsWrong: boolean = false;
 
   constructor(public userSessionService: UserSessionCheckService) {}
 }
