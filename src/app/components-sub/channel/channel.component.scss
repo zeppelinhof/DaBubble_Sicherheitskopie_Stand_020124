@@ -10,10 +10,6 @@ $light-violet: #eceefe;
   transition: opacity 1s, transform 1s; // Füge die Opaz
 }
 
-.grow {
-  // transform: translateX(-100px);
-}
-
 .channel-header-container {
   display: flex;
   justify-content: space-between;
@@ -177,21 +173,11 @@ $light-violet: #eceefe;
   }
 }
 
-
-.send-btn-container{
+.send-btn-container {
   display: flex;
   align-items: center;
-  
-  img{
-    cursor: pointer;
-  }
 
-  &:hover{
-    // .send-btn-true{
-    //   display: flex;
-    // }
-    // .send-btn-false{
-    //   display: none;
-    // }
+  img {
+    cursor: pointer;
   }
 }
