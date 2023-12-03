@@ -10,6 +10,7 @@ section {
 .headline {
   color: $purple3;
   font-size: 46px;
+  font-weight: 700;
 }
 
 .description {
@@ -34,7 +35,6 @@ form {
   }
 
   input {
-    padding: 18px 18px 18px 48px;
     background-color: $light-violet;
     color: $grey;
     &:hover {

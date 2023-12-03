@@ -1,3 +1,4 @@
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 import { DisplayResetPwEnterEmailComponent } from './components/login/display-reset-pw-enter-email/display-reset-pw-enter-email.component';
 import { DisplayChooseAvatarComponent } from './components/login/display-choose-avatar/display-choose-avatar.component';
@@ -24,6 +25,8 @@ const routes: Routes = [
   /*dashboard*/
   { path: 'channel', component: ChannelComponent },
   { path: 'message', component: MessageComponent },
+  /*privacy policy + imprint*/
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
 ];
 
 @NgModule({
