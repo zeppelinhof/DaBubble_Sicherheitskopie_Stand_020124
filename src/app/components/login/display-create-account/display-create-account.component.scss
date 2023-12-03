@@ -38,7 +38,7 @@ section {
 form {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 35px;
 }
 
 .container-input-field {
@@ -76,16 +76,29 @@ form {
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
+  margin-top: 16px;
+  a {
+    text-decoration: none;
+    color: $purple2;
+    &:hover {
+      border-radius: 30px;
+      background: $light-violet;
+      color: $purple3;
+    }
+  }
 }
 
-.btn-login-guest {
-  color: $purple2;
-  background-color: transparent;
-  border-color: $purple2;
-  padding: 12px 25px;
-  &:hover {
-    color: #fff;
+.continue-container {
+  display: flex;
+  justify-content: flex-end;
+  button {
     background-color: $purple3;
     border-color: $purple3;
+    color: #fff;
+    padding: 12px 25px;
+    &:hover {
+      background-color: $purple2;
+      border-color: $purple2;
+    }
   }
 }
