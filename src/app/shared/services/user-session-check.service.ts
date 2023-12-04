@@ -4,7 +4,5 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserSessionCheckService {
-  userIsLogged: boolean = true;
-
-  constructor() {}
+  userIsLogged: boolean = false;
 }
