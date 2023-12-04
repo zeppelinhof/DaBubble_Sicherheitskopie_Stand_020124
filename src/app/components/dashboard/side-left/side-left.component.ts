@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Channel } from 'src/app/interfaces/channel';
+import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
@@ -14,11 +16,12 @@ export class SideLeftComponent {
   channelNames: string[] = ['Entwicklerteam', 'Office'];
   // contactsNames: string[] = ['Frederik', 'Hans Müller', 'Noah Braun', 'Josef Roth', 'test test', 'Noah Braun',];
   myUsers: any = [];
+  myChannels: Channel[] = [];
 
 
-  constructor(private service: UserService, public ws: WorkspaceService) {
-    this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
-    console.log(this.myUsers);
+  constructor(private us: UserService, public ws: WorkspaceService, private cs: ChannelService) {
+    this.myUsers = this.us.allUsers;
+    this.myChannels = this.cs.allChannels;
   }
 
   clickDownArrowChannels() {

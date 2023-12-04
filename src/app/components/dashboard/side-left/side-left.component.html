@@ -35,11 +35,11 @@
       </div>
 
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
-        <div *ngFor="let cn of channelNames" class="item-line">
+        <div *ngFor="let cn of myChannels" class="item-line">
           <div class="logo-item-channel">
             <img src="assets/icons/tag.png">
             <div class="oneName-channel">
-              {{cn}}
+              {{cn.name}}
             </div>
           </div>
         </div>

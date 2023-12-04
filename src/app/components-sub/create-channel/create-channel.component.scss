@@ -18,9 +18,12 @@ $btn-purple: #444DF2;
 
 .dialog {
     display: flex;
+    justify-content: center;
     flex-direction: column;
     box-sizing: border-box;
     background-color: white;
+    width: 900px;
+    max-width: 90vw;
     border-radius: 30px;
     padding: 40px;
     box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
@@ -73,6 +76,7 @@ $btn-purple: #444DF2;
 }
 
 .channel-property-title {
+    font-weight: 700;
     font-size: 18px;
 }
 
@@ -189,10 +193,16 @@ $btn-purple: #444DF2;
             display: flex;
             align-items: center;
             gap: 15px;
+            cursor: pointer;            
 
             .name-text {
                 font-weight: 400;
                 font-size: 18px;
+                transition: 100ms;
+
+                &:hover {
+                    color: $purple;
+                }                
             }
         }
     }

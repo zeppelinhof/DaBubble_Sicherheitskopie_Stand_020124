@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from 'src/app/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class WorkspaceService {
   radioButtonFirst: boolean = true;
   inputName: string = '';
   inputDescription: string = '';
-  inputCertainMembers: string = '';
+  inputMember: string = '';
+  inputCertainMembers: User[] = [];
 
 
   constructor() { }
@@ -38,7 +40,7 @@ export class WorkspaceService {
       this.radioButtonFirst = true;
       this.inputName = '';
       this.inputDescription= '';
-      this.inputCertainMembers = '';
+      this.inputCertainMembers = [];
     }
   }
 }

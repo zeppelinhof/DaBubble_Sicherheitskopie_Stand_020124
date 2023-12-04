@@ -1,5 +1,5 @@
 <!-- this.ws.showCreateChannel -->
-<div class="wrap" *ngIf="true">
+<div class="wrap" *ngIf="this.ws.showCreateChannel">
     <div class="dialog">
         <div *ngIf="this.ws.dialogGeneralData" class="dialog-general-data">
             <div class="first-line">
@@ -31,7 +31,7 @@
         </div>
 
         <!-- !this.ws.dialogGeneralData -->
-        <div *ngIf="true" class="dialog-members">
+        <div *ngIf="!this.ws.dialogGeneralData " class="dialog-members">
             <div class="first-line">
                 <div class="headline-white-box ">Leute hinzufügen</div>
                 <div (click)="this.ws.openCloseCreateChannel()" class="around-close">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <input *ngIf="!this.ws.radioButtonFirst" [(ngModel)]="this.ws.inputCertainMembers"
+            <input *ngIf="!this.ws.radioButtonFirst" [(ngModel)]="this.ws.inputMember"
                 (input)="allFieldsFilled(); filterMembers()" class="channel-property-input" placeholder="Name eingeben">
 
             <div *ngIf="this.ws.showAddMembers" class="choose-members-wrap">
@@ -66,8 +66,8 @@
                     </div>
                 </div>
                 <div class="user-list-wrap">
-                    <div *ngFor="let user of filteredMembers" class="user-list">
-                        <div class="oneUser-line">
+                    <div class="user-list">
+                        <div class="oneUser-line" *ngFor="let user of filteredMembers" (click)="addMember(user)">
                             <img class="profile-image" src="assets/imgs/userMale3.png">
                             <div class="name-text">
                                 {{ user.firstName }} {{ user.lastName}}
