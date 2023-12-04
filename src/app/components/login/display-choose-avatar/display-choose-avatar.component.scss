@@ -62,6 +62,27 @@ section {
   }
 }
 
+.upload-own-image {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  span {
+    font-size: 20px;
+    font-size: 18px;
+  }
+  button {
+    color: $purple2;
+    background-color: transparent;
+    border: 1px solid $light-grey;
+    padding: 12px 25px;
+    &:hover {
+      background-color: $purple3;
+      border-color: $purple3;
+      color: #fff;
+    }
+  }
+}
+
 .continue-container {
   display: flex;
   justify-content: flex-end;

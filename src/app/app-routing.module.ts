@@ -1,3 +1,4 @@
+import { ImprintComponent } from './components/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 import { DisplayResetPwEnterEmailComponent } from './components/login/display-reset-pw-enter-email/display-reset-pw-enter-email.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'message', component: MessageComponent },
   /*privacy policy + imprint*/
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'imprint', component: ImprintComponent },
 ];
 
 @NgModule({
