@@ -15,20 +15,21 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 export class CreateChannelComponent {
   myUsers: User[] = [];
   filteredMembers: User[] = [];
-  channel: Channel = {name: '', description: '', members: []};
+  channel: Channel = { customId: '', name: '', description: '', members: [] };
 
   constructor(private service: UserService, public ws: WorkspaceService, private cs: ChannelService) {
     this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
-   }
-  
+  }
+
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
+    this.channel.createdBy = {firstName: 'Frederick', lastName: 'Beck', email: '', password: ''};
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
   btnClicked() {
-    if(!this.ws.dialogGeneralData){
+    if (!this.ws.dialogGeneralData) {
       this.cs.sendDocToDB(this.channel);
       this.ws.openCloseCreateChannel();
       this.ws.openCloseAddMembers();
@@ -50,7 +51,7 @@ export class CreateChannelComponent {
     });
   }
 
-  addMember(user: User){
+  addMember(user: User) {
     this.channel.members?.push(user);
   }
 
