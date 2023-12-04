@@ -31,7 +31,7 @@
           </div>
 
         </div>
-        <img (click)="this.ws.openCreateChannel()" class="add-icon" src="assets/icons/add.png">
+        <img (click)="this.ws.openCloseCreateChannel()" class="add-icon" src="assets/icons/add.png">
       </div>
 
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
@@ -43,13 +43,13 @@
             </div>
           </div>
         </div>
-        <div (click)="this.ws.openCreateChannel()" class="add-channel-wrap">
-          <div class="add-channel">
+        <div (click)="this.ws.openCloseCreateChannel()" class="add-object-wrap">
+          <div class="add-object">
             <div class="add-img-wrap">
               <img class="add-standard" src="assets/icons/add_circle.png">
               <img class="add-purple" src="assets/icons/add_circle_purple.png">
             </div>
-            <div class="text-add-channel">Channel hinzufügen</div>
+            <div class="text-add-object">Channel hinzufügen</div>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@
     <div *ngFor="let user of myUsers" class="item-line">
       <div class="logo-item-contact">
         <img class="profile-image" src="assets/imgs/userMale3.png">
-        <div class="oneName-contact">
+        <div>
           {{ user.firstName }} {{ user.lastName}}
         </div>
       </div>

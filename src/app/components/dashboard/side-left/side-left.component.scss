@@ -98,7 +98,7 @@ $add-img-width: 20px;
                 opacity: 1;
             }
 
-            .text-add-channel {
+            .text-add-object {
                 color: $purple;
             }
 
@@ -213,7 +213,7 @@ $add-img-width: 20px;
     padding: 4px 20px;
 }
 
-.add-channel-wrap {
+.add-object-wrap {
     display: flex;
     justify-content: center;
 }
@@ -222,7 +222,7 @@ $add-img-width: 20px;
     opacity: 0;
 }
 
-.add-channel {
+.add-object {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -254,13 +254,13 @@ $add-img-width: 20px;
             scale: 1.1;
         }
 
-        .text-add-channel {
+        .text-add-object {
             color: $purple;
         }
 
     }
 
-    .text-add-channel {
+    .text-add-object {
         font-size: 18px;
         font-weight: 400;
     }

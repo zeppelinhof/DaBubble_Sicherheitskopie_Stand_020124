@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class WorkspaceService {
   showSideLeft: boolean = true;
   showCreateChannel: boolean = false;
+  showAddMembers: boolean = false;
   dialogGeneralData: boolean = true;
   showCreateChannelButton: boolean = false;
   radioButtonFirst: boolean = true;
@@ -20,9 +21,16 @@ export class WorkspaceService {
     this.showSideLeft = this.showSideLeft ? false : true;
   }
 
-  openCreateChannel() {
+  openCloseCreateChannel() {
     this.showCreateChannel = this.showCreateChannel ? false : true;
+    this.clearValues();
+  }
 
+  openCloseAddMembers() {
+    this.showAddMembers = this.showAddMembers ? false : true;
+  }
+
+  clearValues(){
     if (!this.showCreateChannel) {
       this.showCreateChannel = false;
       this.dialogGeneralData = true;
