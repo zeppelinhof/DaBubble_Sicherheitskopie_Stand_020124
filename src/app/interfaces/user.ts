@@ -4,5 +4,11 @@ export interface User {
     email:string;
     password:string; 
     img?:any;
+    chats?:[
+        {
+            user: User,
+            messages:[any],
+        }
+    ];
 }
 

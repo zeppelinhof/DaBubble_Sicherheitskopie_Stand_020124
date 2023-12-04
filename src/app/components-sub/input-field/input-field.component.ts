@@ -9,6 +9,7 @@ import { InputService } from '../../shared/services/input.service';
 })
 export class InputFieldComponent {
   isWriting:boolean = false;
+  
 
   constructor(public service: InputService){}
 

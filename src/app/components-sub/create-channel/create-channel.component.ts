@@ -15,7 +15,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 export class CreateChannelComponent {
   myUsers: User[] = [];
   filteredMembers: User[] = [];
-  channel: Channel = { customId: '', name: '', description: '', members: [] };
+  channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: ''};
 
   constructor(private service: UserService, public ws: WorkspaceService, private cs: ChannelService) {
     this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
