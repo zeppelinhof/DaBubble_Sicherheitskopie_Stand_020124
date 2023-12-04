@@ -9,21 +9,21 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
   allChannels: any[] = [];
-
-  constructor() {
-    this.getChannelFromFirestore();
-  }
-
-  // getting allUser from DB and pushing data to -> allUsers: any[] = [];
-  async getChannelFromFirestore() {
-    const channelsRef = collection(this.firestore, 'channels');
-    const querySnapshot = await getDocs(channelsRef);
-    querySnapshot.forEach((doc) => {
-      this.allChannels.push(doc.data());
-    });
-  }
+  allCurrentChannels: Channel[] = [];
 
   async sendDocToDB(item: Channel) {
     await addDoc(this.allChannelsCol, item);
   }
+
+  setChannelObject(obj: any, id: string): Channel {
+    return {
+      customId: id,
+      name: obj.name,
+      description: obj.description,
+      createdBy: obj.createdBy,
+      members: obj.members
+    }
+  }
+
+  
 }

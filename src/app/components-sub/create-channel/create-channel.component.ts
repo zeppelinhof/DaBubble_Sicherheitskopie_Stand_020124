@@ -31,6 +31,7 @@ export class CreateChannelComponent {
     if(!this.ws.dialogGeneralData){
       this.cs.sendDocToDB(this.channel);
       this.ws.openCloseCreateChannel();
+      this.ws.openCloseAddMembers();
     }
     this.ws.dialogGeneralData = false;
   }
@@ -50,7 +51,6 @@ export class CreateChannelComponent {
   }
 
   addMember(user: User){
-    debugger
     this.channel.members?.push(user);
   }
 
