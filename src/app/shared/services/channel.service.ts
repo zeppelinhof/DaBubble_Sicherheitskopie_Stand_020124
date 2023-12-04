@@ -17,6 +17,7 @@ export class ChannelService {
   setChannelObject(obj: any, id: string): Channel {
     return {
       customId: id,
+      createdDate: obj.createdDate,
       name: obj.name,
       description: obj.description,
       createdBy: obj.createdBy,
