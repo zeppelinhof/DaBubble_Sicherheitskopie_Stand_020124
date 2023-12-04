@@ -1,1 +1,43 @@
-<p>display-reset-pw-enter-pw works!</p>
+<section>
+  <div class="headline-container">
+    <img
+      *ngIf="!arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      src="assets/icons/arrow_back.png"
+      alt="icon of black arrow"
+    />
+    <img
+      *ngIf="arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      routerLink="/reset-pw-enter-email"
+      src="assets/icons/arrow_back_purple.png"
+      alt="icon of purple arrow"
+    />
+    <span>Passwort zurücksetzen</span>
+  </div>
+  <form action="">
+    <div class="container-input-field">
+      <img src="assets/icons/lock.png" alt="icon of lock" />
+      <input
+        class="input-layout"
+        type="password"
+        placeholder="Neues Passwort"
+      />
+    </div>
+    <div class="container-input-field">
+      <img src="assets/icons/lock.png" alt="icon of lock" />
+      <input
+        class="input-layout"
+        type="password"
+        placeholder="Neues Passwort bestätigen"
+      />
+      <span class="error">Ihre Kennwörter stimmen nicht überein.</span>
+    </div>
+  </form>
+
+  <div class="change-password">
+    <a routerLink="/reset-pw-enter-pw" class="button-layout">E-Mail senden</a>
+  </div>
+</section>

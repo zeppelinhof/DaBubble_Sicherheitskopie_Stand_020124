@@ -63,6 +63,12 @@ form {
     cursor: pointer;
     padding: 5px 15px;
     cursor: pointer;
+    &:hover {
+      font-weight: bold;
+      color: $purple3;
+      background-color: $light-violet;
+      border-radius: 100px;
+    }
   }
 }
 

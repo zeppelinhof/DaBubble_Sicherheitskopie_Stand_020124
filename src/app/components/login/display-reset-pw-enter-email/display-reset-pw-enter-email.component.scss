@@ -1,0 +1,93 @@
+@import "src/styles.scss";
+
+section {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 20px;
+}
+
+.headline-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  img {
+    position: absolute;
+    left: -8px;
+    padding: 8px;
+    cursor: pointer;
+    &:hover {
+      padding: 8px;
+      border-radius: 50px;
+      background-color: $light-violet;
+      color: $purple;
+    }
+  }
+  span {
+    color: $purple3;
+    font-size: 46px;
+    font-weight: 700;
+  }
+}
+
+.description {
+  font-size: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.container-input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  img {
+    position: absolute;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+  }
+
+  input {
+    background-color: $light-violet;
+    color: $grey;
+    &:hover {
+      border-color: $grey;
+    }
+    &:focus {
+      border-color: $purple3;
+    }
+  }
+
+  .error {
+    position: absolute;
+    bottom: -17px;
+    font-size: 12px;
+    color: $rosaError;
+  }
+}
+
+.we-send-email {
+  font-size: 20px;
+  margin-top: 16px;
+}
+
+.send-me-email-container {
+  display: flex;
+  justify-content: flex-end;
+  a {
+    background-color: $grey;
+    border: 1px solid transparent;
+    color: #fff;
+    padding: 12px 25px;
+    text-decoration: none;
+    &:hover {
+      background-color: $purple2;
+      border-color: $purple2;
+    }
+  }
+}
