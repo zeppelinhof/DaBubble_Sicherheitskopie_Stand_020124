@@ -1,6 +1,104 @@
+$purple: #535af1;
+
 .side-right-container {
+  position: relative;
   height: 85vh;
   width: 485px;
   background-color: white;
   border-radius: 30px;
+}
+
+.thread-header-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.thread-header-title {
+  font-size: 24px;
+}
+.hidden {
+  display: none;
+}
+.inner-padding-of-thread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 40px;
+
+  box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+}
+
+.thread-name {
+  color: $purple;
+  font-weight: 400;
+}
+
+// eventuell ab hier user-thread-message copy paste
+
+.thread-user-container {
+  display: flex;
+  align-items: center;
+  padding: 32px 40px;
+  gap: 20px;
+}
+
+.thread-user-img-container {
+  img {
+    border-radius: 40px;
+    height: 70px;
+    width: 70px;
+  }
+}
+
+.thread-info-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .thread-user-name {
+    font-size: 18px;
+  }
+  .thread-message-time {
+    font-size: 14px;
+    font-weight: 400;
+    color: #686868;
+  }
+}
+
+.info-and-message-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.thread-message-container {
+  background-color: #eceefe;
+  border-radius: 0px 20px 20px 20px;
+  padding: 15px;
+  font-weight: 400;
+}
+.close-icon-purple {
+  display: none;
+
+  height: 24px;
+}
+.close-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    
+    padding: 5px;
+    border-radius: 20px;
+  }
+  &:hover {
+    .close-icon-normal {
+      display: none;
+    }
+    .close-icon-purple {
+      display: flex;
+      background-color: #eceefe;
+    }
+  }
 }

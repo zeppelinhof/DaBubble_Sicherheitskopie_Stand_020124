@@ -1,4 +1,16 @@
+<header>
+  <img src="assets/imgs/logo.png" alt="image of logo" />
+  <div *ngIf="loginDisplayIsOpen" class="container-spans">
+    <span>Neu bei DABubble?</span>
+    <a routerLink="create-account" class="create-account">Konto erstellen</a>
+  </div>
+</header>
+
+<main>
+  <div class="display-container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+
 <!-- call sendDoc with test JSON (see in login.component.ts)-->
-<button (click)="sendDoc()">
-    send test user
-</button>
+<button class="d-none" (click)="sendDoc()">send test user</button>

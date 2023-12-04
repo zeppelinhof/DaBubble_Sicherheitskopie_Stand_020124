@@ -1,3 +1,4 @@
-<app-login *ngIf="!dashboard"></app-login>
+<!-- <app-login *ngIf="!userSessionService.userIsLogged"></app-login>-->
+
 <!-- to see login please change "!"-->
-<app-dashboard *ngIf="dashboard"></app-dashboard>
+<app-dashboard *ngIf="userSessionService.userIsLogged"></app-dashboard>

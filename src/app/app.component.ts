@@ -1,3 +1,4 @@
+import { UserSessionCheckService } from './shared/services/user-session-check.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'DaBubble';
 
-  dashboard: boolean = true;
+  constructor(public userSessionService: UserSessionCheckService) {}
 }

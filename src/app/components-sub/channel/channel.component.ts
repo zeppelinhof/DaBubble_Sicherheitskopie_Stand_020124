@@ -9,5 +9,5 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 export class ChannelComponent {
 
   constructor(public ws: WorkspaceService){}
-
+ 
 }

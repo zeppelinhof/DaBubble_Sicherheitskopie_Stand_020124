@@ -1,0 +1,59 @@
+<section>
+  <div class="headline-container">
+    <img
+      *ngIf="!arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      src="assets/icons/arrow_back.png"
+      alt="icon of black arrow"
+    />
+    <img
+      *ngIf="arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      routerLink=""
+      src="assets/icons/arrow_back_purple.png"
+      alt="icon of purple arrow"
+    />
+    <span>Konto erstellen</span>
+  </div>
+  <span class="description">
+    Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
+    DABubble-Konto.
+  </span>
+  <form action="">
+    <div class="container-input-field">
+      <img src="assets/icons/person.png" alt="icon of person" />
+      <input
+        class="input-layout"
+        type="email"
+        placeholder="Name und Nachname"
+      />
+      <span class="error">Bitte schreiben Sie einen Namen.</span>
+    </div>
+    <div class="container-input-field">
+      <img src="assets/icons/mail.png" alt="icon of mail" />
+      <input
+        class="input-layout"
+        type="email"
+        placeholder="beispielname@email.com"
+      />
+      <span class="error">Diese E-Mail-Adresse ist leider ungültig.</span>
+    </div>
+    <div class="container-input-field">
+      <img src="assets/icons/lock.png" alt="icon of lock" />
+      <input class="input-layout" type="password" placeholder="Passwort" />
+      <span class="error">Bitte geben Sie ein Passwort ein.</span>
+    </div>
+  </form>
+
+  <label class="checkbox-privacy-policy">
+    <input type="checkbox" />
+    Ich stimme der
+    <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
+  </label>
+
+  <div class="continue-container">
+    <a routerLink="/choose-avatar" class="button-layout">Weiter</a>
+  </div>
+</section>
