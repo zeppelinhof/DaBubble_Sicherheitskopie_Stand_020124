@@ -15,7 +15,8 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 export class CreateChannelComponent {
   myUsers: User[] = [];
   filteredMembers: User[] = [];
-  channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: ''};
+  copiedList!: [{'nr': number, 'fn': string, 'ln': string, 'show': boolean}];
+  channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
 
   constructor(private service: UserService, public ws: WorkspaceService, private cs: ChannelService) {
     this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
@@ -24,7 +25,7 @@ export class CreateChannelComponent {
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
-    this.channel.createdBy = {firstName: 'Frederick', lastName: 'Beck', email: '', password: ''};
+    this.channel.createdBy = { firstName: 'Frederick', lastName: 'Beck', email: '', password: '' };
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
@@ -35,6 +36,7 @@ export class CreateChannelComponent {
       this.ws.openCloseAddMembers();
     }
     this.ws.dialogGeneralData = false;
+    this.copyUserlist();
   }
 
   changeRadioButton() {
@@ -49,6 +51,14 @@ export class CreateChannelComponent {
       const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
       return fullName.includes(searchTerm);
     });
+  }
+
+  copyUserlist(){
+    for (let index = 0; index < this.myUsers.length; index++) {
+      const ele = this.myUsers[index];
+      this.copiedList.push({'nr': index, 'fn': ele.firstName, 'ln': ele.lastName, 'show': true})
+      
+    }
   }
 
   addMember(user: User) {
