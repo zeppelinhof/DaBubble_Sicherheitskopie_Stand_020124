@@ -1,3 +1,4 @@
+import { LoginComponent } from './components/login/login.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
@@ -12,7 +13,8 @@ import { MessageComponent } from './components-sub/message/message.component';
 
 const routes: Routes = [
   /*login*/
-  { path: '', component: DisplayLoginComponent },
+
+  { path: 'login-display', component: DisplayLoginComponent },
   { path: 'choose-avatar', component: DisplayChooseAvatarComponent },
   { path: 'create-account', component: DisplayCreateAccountComponent },
   {

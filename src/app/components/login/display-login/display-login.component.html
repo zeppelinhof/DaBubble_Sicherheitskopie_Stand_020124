@@ -22,7 +22,7 @@
   </form>
 
   <div class="forgot-password-container">
-    <a routerLink="/reset-pw-enter-email">Passwort vergessen?</a>
+    <a routerLink="reset-pw-enter-email">Passwort vergessen?</a>
   </div>
 
   <div class="or-container">
@@ -37,11 +37,7 @@
 
   <div class="register-container">
     <button class="button-layout btn-login">Anmelden</button>
-    <button
-      class="button-layout btn-login-guest"
-      (click)="userSessionService.userIsLogged = true"
-      routerLink="/channel"
-    >
+    <button class="button-layout btn-login-guest" routerLink="/channel">
       Gäste-Login
     </button>
   </div>
