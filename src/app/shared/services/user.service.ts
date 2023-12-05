@@ -2,12 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
-  doc,
   Firestore,
-  getDoc,
-  getDocs,
   onSnapshot,
-  where,
   query,
 } from '@angular/fire/firestore';
 import { User } from 'src/app/interfaces/user';
