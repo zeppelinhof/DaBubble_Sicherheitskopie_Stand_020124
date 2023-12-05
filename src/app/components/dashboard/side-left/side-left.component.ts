@@ -24,6 +24,8 @@ export class SideLeftComponent implements OnInit {
   constructor(private us: UserService, public ws: WorkspaceService, private cs: ChannelService) {
     this.myUsers = this.us.allUsers; // gets all Users as a object
     this.myUserId = this.us.allUsersId; // gets all User(id's) as a string
+    console.log(this.myUserId);
+    console.log(this.myUsers);
     
   }
 
