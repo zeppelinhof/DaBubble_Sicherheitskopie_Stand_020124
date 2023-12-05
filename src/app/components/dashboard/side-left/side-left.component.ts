@@ -14,6 +14,8 @@ export class SideLeftComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   arrowClickedChannels: boolean = false;
   arrowClickedContacts: boolean = false;
+  rightArrowChannels: boolean= false;
+  rightArrowContacts: boolean= false;
 
   myUsers: any = [];
   myChannels: Channel[] = [];
@@ -34,11 +36,11 @@ export class SideLeftComponent implements OnInit {
   }
 
   clickDownArrowChannels() {
-    this.arrowClickedChannels = !this.arrowClickedChannels ? true : false;
+    this.arrowClickedChannels = this.rightArrowChannels = (!this.arrowClickedChannels ? true : false);  
   }
 
   clickDownArrowContacts() {
-    this.arrowClickedContacts = !this.arrowClickedContacts ? true : false;
+    this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts ? true : false;
   }
 
 }

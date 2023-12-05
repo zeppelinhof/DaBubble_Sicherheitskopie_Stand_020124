@@ -190,7 +190,6 @@ $add-img-width: 20px;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    transition: 100ms;
 }
 
 .item-line {
@@ -368,4 +367,8 @@ $add-img-width: 20px;
 
 .add-icon_purple {
     display: none;   
+}
+
+.right-arrow{
+    transform: rotate(-90deg);
 }

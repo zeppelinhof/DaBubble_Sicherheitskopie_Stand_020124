@@ -29,7 +29,7 @@ export class CreateChannelComponent {
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
-  btnClicked() {
+  createChannel() {
     if (!this.ws.dialogGeneralData) {
       this.cs.sendDocToDB(this.channel);
       this.ws.openCloseCreateChannel();
@@ -71,7 +71,7 @@ export class CreateChannelComponent {
   }
 
   addMember(user: User) {
-    this.channel.members?.push(user);    
+    this.channel.members?.push(user);
   }
 
   removeMember(email: string) {
@@ -92,6 +92,10 @@ export class CreateChannelComponent {
         this.filterMembers();
       }
     }, 1000);
+  }
+
+  clearChannelJSON() {
+    this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
   }
 
 }

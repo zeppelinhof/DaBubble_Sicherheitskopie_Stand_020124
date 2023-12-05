@@ -35,7 +35,7 @@
         <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
             <div class="first-line">
                 <div class="headline-white-box ">Leute hinzufügen</div>
-                <div (click)="this.ws.openCloseCreateChannel()" class="around-close">
+                <div (click)="this.ws.openCloseCreateChannel(); clearChannelJSON()" class="around-close">
                     <img src="assets/icons/close.png">
                 </div>
             </div>
@@ -99,7 +99,7 @@
             </div>
         </div>
         <div *ngIf="allFieldsFilled()" class="btn-wrap">
-            <div (click)="btnClicked()" class="btn-create">Erstellen</div>
+            <div (click)="createChannel()" class="btn-create">Erstellen</div>
         </div>
     </div>
 
