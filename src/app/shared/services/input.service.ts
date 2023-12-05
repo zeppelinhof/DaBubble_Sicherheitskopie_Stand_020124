@@ -4,14 +4,24 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class InputService {
-  isWriting: boolean = false;
-  
+  isWritingChannel: boolean = false;
+  isWritingThread: boolean = false;
+  isWritingMessage: boolean = false;
 
 
   constructor() { }
 
-  onInput(event: any): void {
-    this.isWriting = event.target.value.length > 0;
+  onInputChannel(event: any): void {
+    this.isWritingChannel = event.target.value.length > 0;
+    
+  }
+  onInputThread(event: any): void {
+    this.isWritingThread = event.target.value.length > 0;
+    
+  }
+
+  onInputMessage(event: any): void {
+    this.isWritingMessage = event.target.value.length > 0;
     
   }
 }

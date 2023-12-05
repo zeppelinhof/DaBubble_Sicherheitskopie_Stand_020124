@@ -4,7 +4,7 @@
     <div class="message-user-name">Otto Bushcraft</div>
   </div>
 <!-- inner info card -->
-  <div *ngIf="!this.service.isWriting" class="inner-info-card-container">
+  <div *ngIf="!this.service.isWritingMessage" class="inner-info-card-container">
     <div class="message-inner-container">
       <img src="assets/imgs/userMale2.png" />
       <div class="message-inner-name">Otto Bushcraft</div>
@@ -18,5 +18,5 @@
   </div>
   <!--  -->
 
-  <app-input-field></app-input-field>
+  <app-input-field-message></app-input-field-message>
 </div>

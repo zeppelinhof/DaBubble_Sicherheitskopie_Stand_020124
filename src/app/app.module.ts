@@ -17,10 +17,13 @@ import { DisplayChooseAvatarComponent } from './components/login/display-choose-
 import { DisplayResetPwEnterEmailComponent } from './components/login/display-reset-pw-enter-email/display-reset-pw-enter-email.component';
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
-import { InputFieldComponent } from './components-sub/input-field/input-field.component';
 import { CreateChannelComponent } from './components-sub/create-channel/create-channel.component';
 import { FormsModule } from '@angular/forms';
 import { ImprintComponent } from './components/imprint/imprint.component';
+import { InputFieldChannelComponent } from './components-sub/input-field-channel/input-field-channel.component';
+import { InputFieldThreadComponent } from './components-sub/input-field-thread/input-field-thread.component';
+import { InputFieldMessageComponent } from './components-sub/input-field-message/input-field-message.component';
+
 
 @NgModule({
   declarations: [
@@ -39,8 +42,10 @@ import { ImprintComponent } from './components/imprint/imprint.component';
     DisplayResetPwEnterEmailComponent,
     DisplayResetPwEnterPwComponent,
     PrivacyPolicyComponent,
-    InputFieldComponent,
     ImprintComponent,
+    InputFieldChannelComponent,
+    InputFieldThreadComponent,
+    InputFieldMessageComponent,
   ],
   imports: [
     FormsModule,
