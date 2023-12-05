@@ -32,6 +32,7 @@ export class LoginComponent /* implements OnChanges, OnInit*/ {
 
   // *TODO: change values with real login info
   createdUser: User = {
+    custId: '',
     firstName: 'neu',
     lastName: 'jaaa',
     email: 'test@gmail.com',

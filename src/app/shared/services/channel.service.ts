@@ -8,7 +8,6 @@ import { Channel } from 'src/app/interfaces/channel';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-  allChannels: any[] = [];
 
   async sendDocToDB(item: Channel) {
     await addDoc(this.allChannelsCol, item);

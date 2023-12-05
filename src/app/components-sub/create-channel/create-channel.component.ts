@@ -26,7 +26,7 @@ export class CreateChannelComponent {
     public ws: WorkspaceService, 
     private cs: ChannelService,
     private firestore: Firestore) {
-    this.myUsers = this.service.allUsers;
+    this.myUsers = this.service.allUsersNew;
   }
 
   ngOnInit(): void {
@@ -42,12 +42,14 @@ export class CreateChannelComponent {
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
-    this.channel.createdBy = { firstName: 'Frederick', lastName: 'Beck', email: '', password: '' };
+    this.channel.createdBy = { custId:'', img:'', firstName: 'Frederick', lastName: 'Beck', email: '', password: '' , };
     this.channel.customId = 'tbd';
     this.channel.createdDate = this.cs.todaysDate();
 
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
+
+
 
   createChannel() {
     if (!this.ws.dialogGeneralData) {
