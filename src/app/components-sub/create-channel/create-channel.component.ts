@@ -26,14 +26,19 @@ export class CreateChannelComponent {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
     this.channel.createdBy = { firstName: 'Frederick', lastName: 'Beck', email: '', password: '' };
+    this.channel.customId = 'tbd';
+    this.channel.createdDate = this.cs.todaysDate();
+    this.channel.members = [];
+
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
   createChannel() {
     if (!this.ws.dialogGeneralData) {
       this.cs.sendDocToDB(this.channel);
-      this.ws.openCloseCreateChannel();
-      this.ws.openCloseAddMembers();
+      this.closeWindows();
+      debugger
+      this.cs.writeUserData(this.channel, '1234')
       this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
     }
     this.ws.dialogGeneralData = false;
@@ -96,6 +101,11 @@ export class CreateChannelComponent {
 
   clearChannelJSON() {
     this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
+  }
+
+  closeWindows() {
+    this.ws.openCloseCreateChannel();
+    this.ws.openCloseAddMembers();
   }
 
 }

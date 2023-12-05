@@ -13,8 +13,8 @@
       <div class="dropdown-line">
         <div (click)="clickDownArrowChannels()" class="arrow-headline">
           <div class="arrow_img_wrap">
-            <img class="dropdown_arrow" src="assets/icons/arrow_drop_down.png" />
-            <img [class.right-arrow]="rightArrowChannels" class="dropdown_arrow_purple" src="assets/icons/arrow_drop_down_purple.png" />
+            <img class="dropdown_arrow" [class.right-arrow]="rightArrowChannels"  src="assets/icons/arrow_drop_down.png" />
+            <img class="dropdown_arrow_purple" [class.right-arrow]="rightArrowChannels" src="assets/icons/arrow_drop_down_purple.png" />
           </div>
 
           <div class="dots-headline">
@@ -56,7 +56,7 @@
       <div class="dropdown-line">
         <div (click)="clickDownArrowContacts()" class="arrow-headline">
           <div class="arrow_img_wrap">
-            <img class="dropdown_arrow" src="assets/icons/arrow_drop_down.png" />
+            <img [class.right-arrow]="rightArrowContacts" class="dropdown_arrow" src="assets/icons/arrow_drop_down.png" />
             <img [class.right-arrow]="rightArrowContacts" class="dropdown_arrow_purple" src="assets/icons/arrow_drop_down_purple.png" />
           </div>
 

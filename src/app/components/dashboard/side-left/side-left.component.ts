@@ -36,7 +36,8 @@ export class SideLeftComponent implements OnInit {
   }
 
   clickDownArrowChannels() {
-    this.arrowClickedChannels = this.rightArrowChannels = (!this.arrowClickedChannels ? true : false);  
+    this.arrowClickedChannels = this.rightArrowChannels = !this.arrowClickedChannels ? true : false;  
+    console.log('der Wert:', this.rightArrowChannels );
   }
 
   clickDownArrowContacts() {
