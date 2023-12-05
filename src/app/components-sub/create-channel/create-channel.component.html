@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="selected-members">
+            <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
                 <div *ngFor="let item of channel.members" class="complete-member">
                     <img class="profile-image" src="assets/imgs/userMale3.png">
                     <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
@@ -71,7 +71,7 @@
                     placeholder="Name eingeben">
             </div>
             <!-- this.ws.showAddMembers -->
-            <div *ngIf="this.ws.showAddMembers" class="choose-members-wrap">
+            <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap">
                 <div class="first-line">
                     <div class="headline-white-box">Mitglieder</div>
                     <div class="around-close" (click)="this.ws.openCloseAddMembers()">
