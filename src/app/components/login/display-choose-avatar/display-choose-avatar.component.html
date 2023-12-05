@@ -11,7 +11,7 @@
       *ngIf="arrowBackIsHovered"
       (mouseover)="arrowBackIsHovered = true"
       (mouseout)="arrowBackIsHovered = false"
-      routerLink=""
+      routerLink="/create-account"
       src="assets/icons/arrow_back_purple.png"
       alt="icon of purple arrow"
     />
@@ -34,10 +34,10 @@
     />
   </div>
 
-  <form>
-    <input type="file " />
-    <button type="button">Bilder hochladen</button>
-  </form>
+  <div class="upload-own-image">
+    <span>eigenes Bild verwenden</span>
+    <button class="button-layout">Bilder hochladen</button>
+  </div>
 
   <div class="continue-container">
     <a class="button-layout">Weiter</a>

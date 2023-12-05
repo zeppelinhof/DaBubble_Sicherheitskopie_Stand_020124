@@ -1,0 +1,29 @@
+<section>
+  <div class="arrow-container">
+    <img
+      *ngIf="!arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      src="assets/icons/arrow_back.png"
+      alt="icon of black arrow"
+    />
+    <img
+      *ngIf="arrowBackIsHovered"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      routerLink=""
+      src="assets/icons/arrow_back_purple.png"
+      alt="icon of purple arrow"
+    />
+  </div>
+
+  <span class="headline">Impressum</span>
+
+  <span class="description">Muhammed Akbas, Markus Gede, Laura Hesidenz </span>
+  <span class="description"
+    >[Address of the DABubble operator - e.g. one of the students]</span
+  >
+  <span class="description">[Postcode and city] </span>
+  <span class="headline">Kontakt</span>
+  <span class="description">Email: [Dein email]</span>
+</section>

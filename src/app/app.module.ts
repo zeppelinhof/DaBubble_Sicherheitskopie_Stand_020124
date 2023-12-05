@@ -20,6 +20,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { InputFieldComponent } from './components-sub/input-field/input-field.component';
 import { CreateChannelComponent } from './components-sub/create-channel/create-channel.component';
 import { FormsModule } from '@angular/forms';
+import { ImprintComponent } from './components/imprint/imprint.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     DisplayResetPwEnterEmailComponent,
     DisplayResetPwEnterPwComponent,
     PrivacyPolicyComponent,
-    InputFieldComponent
+    InputFieldComponent,
+    ImprintComponent,
   ],
   imports: [
     FormsModule,

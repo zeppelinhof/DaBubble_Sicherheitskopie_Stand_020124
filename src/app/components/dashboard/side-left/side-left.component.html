@@ -1,35 +1,38 @@
 <div [class.hidden]="!this.ws.showSideLeft" class="side-left-container">
   <div class="first-line">
     <div class="logo-headline">
-      <img class="logo-code-learning" src="assets/imgs/workspace_logo.png">
+      <img class="logo-code-learning" src="assets/imgs/workspace_logo.png" />
 
-      <div class="headline-white-box">
-        Code learning
-      </div>
+      <div class="headline-white-box">Code learning</div>
     </div>
-    <img class="logo-start-direct-message" src="assets/icons/edit_square.png">
+    <img class="logo-start-direct-message" src="assets/icons/edit_square.png" />
   </div>
 
   <div class="overview-panel">
     <div class="overview-channels">
       <div class="dropdown-line">
         <div (click)="clickDownArrowChannels()" class="arrow-headline">
-
           <div class="arrow_img_wrap">
-            <img class="dropdown_arrow" src="assets/icons/arrow_drop_down.png">
-            <img class="dropdown_arrow_purple" src="assets/icons/arrow_drop_down_purple.png">
+            <img
+              class="dropdown_arrow"
+              src="assets/icons/arrow_drop_down.png"
+            />
+            <img
+              class="dropdown_arrow_purple"
+              src="assets/icons/arrow_drop_down_purple.png"
+            />
           </div>
 
           <div class="dots-headline">
             <div class="dots_wrap">
-              <img class="dots_standard" src="assets/icons/three_dots.png">
-              <img class="dots_purple" src="assets/icons/three_dots_purple.png">
+              <img class="dots_standard" src="assets/icons/three_dots.png" />
+              <img
+                class="dots_purple"
+                src="assets/icons/three_dots_purple.png"
+              />
             </div>
-            <div class="headline-secondary">
-              Channels
-            </div>
+            <div class="headline-secondary">Channels</div>
           </div>
-
         </div>
         <div class="add-member">
           <img (click)="this.ws.openCloseCreateChannel()" class="add-icon" src="assets/icons/add.png">
@@ -40,17 +43,20 @@
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
         <div *ngFor="let cn of myChannels" class="item-line">
           <div class="logo-item-channel">
-            <img src="assets/icons/tag.png">
+            <img src="assets/icons/tag.png" />
             <div class="oneName-channel">
-              {{cn.name}}
+              {{ cn.name }}
             </div>
           </div>
         </div>
         <div (click)="this.ws.openCloseCreateChannel()" class="add-object-wrap">
           <div class="add-object">
             <div class="add-img-wrap">
-              <img class="add-standard" src="assets/icons/add_circle.png">
-              <img class="add-purple" src="assets/icons/add_circle_purple.png">
+              <img class="add-standard" src="assets/icons/add_circle.png" />
+              <img
+                class="add-purple"
+                src="assets/icons/add_circle_purple.png"
+              />
             </div>
             <div class="text-add-object">Channel hinzufügen</div>
           </div>
@@ -58,26 +64,33 @@
       </div>
     </div>
 
-
     <div class="overview-direct-messages">
       <div class="dropdown-line">
         <div (click)="clickDownArrowContacts()" class="arrow-headline">
-
           <div class="arrow_img_wrap">
-            <img class="dropdown_arrow" src="assets/icons/arrow_drop_down.png">
-            <img class="dropdown_arrow_purple" src="assets/icons/arrow_drop_down_purple.png">
+            <img
+              class="dropdown_arrow"
+              src="assets/icons/arrow_drop_down.png"
+            />
+            <img
+              class="dropdown_arrow_purple"
+              src="assets/icons/arrow_drop_down_purple.png"
+            />
           </div>
 
           <div class="dots-headline">
             <div class="account_circle_wrap">
-              <img class="account_circle_standard" src="assets/icons/account_circle.png">
-              <img class="account_circle_purple" src="assets/icons/account_circle_purple.png">
+              <img
+                class="account_circle_standard"
+                src="assets/icons/account_circle.png"
+              />
+              <img
+                class="account_circle_purple"
+                src="assets/icons/account_circle_purple.png"
+              />
             </div>
-            <div class="headline-secondary">
-              Direktnachrichten
-            </div>
+            <div class="headline-secondary">Direktnachrichten</div>
           </div>
-
         </div>
       </div>
     </div>
@@ -86,10 +99,8 @@
   <div *ngIf="arrowClickedContacts" class="list-container-contacts">
     <div *ngFor="let user of myUsers" class="item-line">
       <div class="logo-item-contact">
-        <img class="profile-image" src="assets/imgs/userMale3.png">
-        <div>
-          {{ user.firstName }} {{ user.lastName}}
-        </div>
+        <img class="profile-image" src="assets/imgs/userMale3.png" />
+        <div>{{ user.firstName }} {{ user.lastName }}</div>
       </div>
     </div>
   </div>
@@ -97,7 +108,7 @@
 
 <div (click)="this.ws.closeSideLeft()" class="close-workspace">
   <div class="close-workspace-text">Workspace-Menü schließen</div>
-  <img src="assets/icons/workspace_close.png">
+  <img src="assets/icons/workspace_close.png" />
 </div>
 
 <app-create-channel *ngIf="true"></app-create-channel>
