@@ -80,7 +80,7 @@
                 </div>
                 <div class="user-list-wrap">
                     <div class="user-list">
-                        <div class="oneUser-line" *ngFor="let user of filteredMembers" (click)="addMember(user); filterMembers()">
+                        <div class="oneUser-line" *ngFor="let user of filteredMembers" (click)="addMember(user); clearSearchInput()">
                             <img class="profile-image" src="assets/imgs/userMale3.png">
                             <div class="name-text">
                                 {{ user.firstName }} {{ user.lastName}}
