@@ -8,7 +8,7 @@ $btn-purple: #444DF2;
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 0;
+    top: 20px;
     left: 0;
     height: 100vh;
     width: 100vw;
@@ -17,6 +17,7 @@ $btn-purple: #444DF2;
 }
 
 .dialog {
+    position: relative;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -136,7 +137,6 @@ $btn-purple: #444DF2;
 
 .dialog-members {
     @extend .dialog-general-data;
-    position: relative;
 }
 
 .options {
@@ -158,10 +158,10 @@ $btn-purple: #444DF2;
 
 .choose-members-wrap {
     position: absolute;
-    left: 300px;
-    bottom: 100px;
+    top: 0;
+    right: 0px;
     min-width: 300px;
-    min-height: 100px;
+    max-height: 300px;
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -210,11 +210,28 @@ $btn-purple: #444DF2;
             }
         }
     }
-
+    
     .user-list-wrap {
         display: flex;
         flex-direction: column;
         gap: 15px;
+    }
+
+    .user-list-wrap {
+        overflow: auto;
+    }
+    
+    .user-list-wrap::-webkit-scrollbar {
+        width: 4px;
+    }
+    
+    .user-list-wrap::-webkit-scrollbar-track {
+        background-color: white;
+    }
+    
+    .user-list-wrap::-webkit-scrollbar-thumb {
+        background-color: $purple;
+        border-radius: 25px;
     }
 
     .user-list {
@@ -225,7 +242,8 @@ $btn-purple: #444DF2;
         .oneUser-line {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 15px;            
+            border-radius: 20px;
             cursor: pointer;            
 
             .name-text {
@@ -234,8 +252,12 @@ $btn-purple: #444DF2;
                 transition: 100ms;
 
                 &:hover {
-                    color: $purple;
+                    color: $purple;                    
                 }                
+            }
+
+            &:hover{
+                background-color: $light-violet;
             }
         }
     }
@@ -247,3 +269,31 @@ $btn-purple: #444DF2;
     border-radius: 100%;
 }
 
+.remove-member {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    background-color: $light-violet;
+    border-radius: 20px;
+    cursor: pointer;
+
+    img{
+        width: 16px;
+        height: 16px;
+    }
+  
+    &:hover {
+      .close-normal {
+        display: none;
+      }
+      .close-purple {
+        display: flex;
+      }
+    }
+  }
+
+  
+  .close-purple {
+    display: none;
+  }

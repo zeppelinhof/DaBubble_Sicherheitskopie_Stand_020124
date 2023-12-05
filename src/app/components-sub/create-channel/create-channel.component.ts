@@ -15,7 +15,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 export class CreateChannelComponent {
   myUsers: User[] = [];
   filteredMembers: User[] = [];
-  copiedList!: [{'nr': number, 'fn': string, 'ln': string, 'show': boolean}];
+  membersSelected: string[] = [];
   channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
 
   constructor(private service: UserService, public ws: WorkspaceService, private cs: ChannelService) {
@@ -34,9 +34,9 @@ export class CreateChannelComponent {
       this.cs.sendDocToDB(this.channel);
       this.ws.openCloseCreateChannel();
       this.ws.openCloseAddMembers();
+      this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
     }
     this.ws.dialogGeneralData = false;
-    this.copyUserlist();
   }
 
   changeRadioButton() {
@@ -49,20 +49,49 @@ export class CreateChannelComponent {
 
     this.filteredMembers = this.myUsers.filter(member => {
       const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
-      return fullName.includes(searchTerm);
+      if (this.ws.showAddMembers) {
+        this.refreshMemberList();
+      }
+      return fullName.includes(searchTerm) && !this.memberAlreadySelected(member.email);
     });
   }
 
-  copyUserlist(){
-    for (let index = 0; index < this.myUsers.length; index++) {
-      const ele = this.myUsers[index];
-      this.copiedList.push({'nr': index, 'fn': ele.firstName, 'ln': ele.lastName, 'show': true})
-      
+  memberAlreadySelected(email: string): boolean {
+    const members = this.channel.members;
+    if (members) {
+      for (let index = 0; index < members.length; index++) {
+        const ele = members[index].email;
+        if (ele == email) {
+          return true;
+        }
+      }
+      return false;
     }
+    return true;
   }
 
   addMember(user: User) {
-    this.channel.members?.push(user);
+    this.channel.members?.push(user);    
+  }
+
+  removeMember(email: string) {
+    const members = this.channel.members;
+    if (members) {
+      for (let index = 0; index < members.length; index++) {
+        const member = members[index];
+        if (member.email == email) {
+          members.splice(index, 1);
+        }
+      }
+    }
+  }
+
+  refreshMemberList() {
+    setTimeout(() => {
+      if (this.ws.showAddMembers) {
+        this.filterMembers();
+      }
+    }, 1000);
   }
 
 }

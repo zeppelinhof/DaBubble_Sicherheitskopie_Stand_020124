@@ -30,7 +30,7 @@ export class WorkspaceService {
   }
 
   openCloseAddMembers() {
-    this.showAddMembers = this.showAddMembers ? false : true;
+    this.showAddMembers = false;
   }
 
   clearValues(){
@@ -40,6 +40,7 @@ export class WorkspaceService {
       this.showCreateChannelButton = false;
       this.radioButtonFirst = true;
       this.inputName = '';
+      this.inputMember = '';
       this.inputDescription= '';
       this.inputCertainMembers = [];
     }

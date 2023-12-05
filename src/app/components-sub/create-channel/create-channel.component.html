@@ -1,7 +1,8 @@
 <!-- this.ws.showCreateChannel -->
-<div class="wrap" *ngIf="true">
+<div class="wrap" *ngIf="this.ws.showCreateChannel">
     <div class="dialog">
-        <div *ngIf="this.ws.dialogGeneralData" class="dialog-general-data">
+        <!-- this.ws.dialogGeneralData  -->
+        <div *ngIf="this.ws.dialogGeneralData " class="dialog-general-data">
             <div class="first-line">
                 <div class="headline-white-box">Channel erstellen</div>
                 <div (click)="this.ws.openCloseCreateChannel()" class="around-close">
@@ -31,7 +32,7 @@
         </div>
 
         <!-- !this.ws.dialogGeneralData -->
-        <div *ngIf="true" class="dialog-members">
+        <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
             <div class="first-line">
                 <div class="headline-white-box ">Leute hinzufügen</div>
                 <div (click)="this.ws.openCloseCreateChannel()" class="around-close">
@@ -55,16 +56,22 @@
                     </div>
                 </div>
             </div>
-            <div class="selected-members">
+            <div class="selected-members" id="selected-members">
                 <div *ngFor="let item of channel.members" class="complete-member">
-                    <img class="profile-image" src="assets/imgs/userMale3.png"> <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
+                    <img class="profile-image" src="assets/imgs/userMale3.png">
+                    <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
+                    <div class="remove-member" (click)="removeMember(item.email)">
+                        <img class="close-normal" src="assets/icons/close.png" />
+                        <img class="close-purple" src="assets/icons/close_purple.png" />
+                    </div>
                 </div>
-                <input *ngIf="!this.ws.radioButtonFirst" [(ngModel)]="this.ws.inputMember"
+                <!-- !this.ws.radioButtonFirst -->
+                <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
                     (input)="allFieldsFilled(); filterMembers()" class="channel-selected-member-input"
                     placeholder="Name eingeben">
             </div>
-<!-- this.ws.showAddMembers -->
-            <div *ngIf="true" class="choose-members-wrap">
+            <!-- this.ws.showAddMembers -->
+            <div *ngIf="this.ws.showAddMembers" class="choose-members-wrap">
                 <div class="first-line">
                     <div class="headline-white-box">Mitglieder</div>
                     <div class="around-close" (click)="this.ws.openCloseAddMembers()">
@@ -73,11 +80,11 @@
                 </div>
                 <div class="user-list-wrap">
                     <div class="user-list">
-                        <div class="oneUser-line" *ngFor="let user of filteredMembers" (click)="addMember(user)">
+                        <div class="oneUser-line" *ngFor="let user of filteredMembers;" (click)="addMember(user)">
                             <img class="profile-image" src="assets/imgs/userMale3.png">
                             <div class="name-text">
                                 {{ user.firstName }} {{ user.lastName}}
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="add-object-wrap">

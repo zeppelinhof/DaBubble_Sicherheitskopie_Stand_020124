@@ -31,7 +31,10 @@
           </div>
 
         </div>
-        <img (click)="this.ws.openCloseCreateChannel()" class="add-icon" src="assets/icons/add.png">
+        <div class="add-member">
+          <img (click)="this.ws.openCloseCreateChannel()" class="add-icon" src="assets/icons/add.png">
+          <img (click)="this.ws.openCloseCreateChannel()" class="add-icon_purple" src="assets/icons/add_purple.png">
+        </div>
       </div>
 
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
