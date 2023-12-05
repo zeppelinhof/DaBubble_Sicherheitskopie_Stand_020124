@@ -4,29 +4,39 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { User } from 'src/app/interfaces/user';
 import { Channel } from 'src/app/interfaces/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
-import { Firestore, collection, onSnapshot, query } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  onSnapshot,
+  query,
+} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-create-channel',
   templateUrl: './create-channel.component.html',
-  styleUrls: ['./create-channel.component.scss']
+  styleUrls: ['./create-channel.component.scss'],
 })
-
-
 export class CreateChannelComponent {
   myUsers: User[] = [];
   filteredMembers: User[] = [];
   membersSelected: string[] = [];
-  channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
+  channel: Channel = {
+    customId: '',
+    name: '',
+    description: '',
+    members: [],
+    createdDate: '',
+  };
 
   myChannels: Channel[] = [];
 
-
-  constructor(private service: UserService, 
-    public ws: WorkspaceService, 
+  constructor(
+    private service: UserService,
+    public ws: WorkspaceService,
     private cs: ChannelService,
-    private firestore: Firestore) {
-    this.myUsers = this.service.allUsersNew;
+    private firestore: Firestore
+  ) {
+    this.myUsers = this.service.myUsers;
   }
 
   ngOnInit(): void {
@@ -34,7 +44,9 @@ export class CreateChannelComponent {
     onSnapshot(q, (querySnapshot) => {
       this.myChannels = [];
       querySnapshot.forEach((element) => {
-        this.myChannels.push(this.cs.setChannelObject(element.data(), element.id));
+        this.myChannels.push(
+          this.cs.setChannelObject(element.data(), element.id)
+        );
       });
     });
   }
@@ -42,39 +54,53 @@ export class CreateChannelComponent {
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
-    this.channel.createdBy = { custId:'', img:'', firstName: 'Frederick', lastName: 'Beck', email: '', password: '' , };
+    this.channel.createdBy = {
+      custId: '',
+      img: '',
+      firstName: 'Frederick',
+      lastName: 'Beck',
+      email: '',
+      password: '',
+    };
     this.channel.customId = 'tbd';
     this.channel.createdDate = this.cs.todaysDate();
 
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
-
-
   createChannel() {
     if (!this.ws.dialogGeneralData) {
       this.cs.sendDocToDB(this.channel);
       this.closeWindows();
       // this.cs.writeUserData(this.channel, '1234')
-      this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
+      this.channel = {
+        customId: '',
+        name: '',
+        description: '',
+        members: [],
+        createdDate: '',
+      };
     }
     this.ws.dialogGeneralData = false;
   }
 
   changeRadioButton() {
-    return this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true;
+    return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);
   }
 
   filterMembers() {
     this.ws.showAddMembers = true;
     const searchTerm = this.ws.inputMember.toLowerCase();
 
-    this.filteredMembers = this.myUsers.filter(member => {
+    this.filteredMembers = this.myUsers.filter((member) => {
       const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
       if (this.ws.showAddMembers) {
         this.refreshMemberList();
       }
-      return fullName.includes(searchTerm) && !this.memberAlreadySelected(member.email);
+      return (
+        fullName.includes(searchTerm) &&
+        !this.memberAlreadySelected(member.email)
+      );
     });
   }
 
@@ -117,11 +143,17 @@ export class CreateChannelComponent {
   }
 
   clearChannelJSON() {
-    this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
+    this.channel = {
+      customId: '',
+      name: '',
+      description: '',
+      members: [],
+      createdDate: '',
+    };
   }
 
-  clearSearchInput(){
-    this.ws.inputMember='';
+  clearSearchInput() {
+    this.ws.inputMember = '';
   }
 
   closeWindows() {
@@ -129,7 +161,7 @@ export class CreateChannelComponent {
     this.ws.openCloseAddMembers();
   }
 
-  addMembersFromFirstChannel(){
+  addMembersFromFirstChannel() {
     if (this.myChannels[0].members) {
       for (let index = 0; index < this.myChannels[0].members.length; index++) {
         this.channel.members?.push(this.myChannels[0].members[index]);
