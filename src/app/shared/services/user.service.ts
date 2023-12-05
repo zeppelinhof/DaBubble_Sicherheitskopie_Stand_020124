@@ -15,6 +15,8 @@ export class UserService {
   allUserCol = collection(this.firestore, 'allUsers');
   allUsers: any[] = [];
 
+  allUsersId: any[] = [];
+
   constructor() {
     this.getUserFromFirestore();
   }
@@ -25,6 +27,7 @@ export class UserService {
     const querySnapshot = await getDocs(usersRef);
     querySnapshot.forEach((doc) => {
       this.allUsers.push(doc.data());
+      this.allUsersId.push(doc.id);
     });
   }
 
