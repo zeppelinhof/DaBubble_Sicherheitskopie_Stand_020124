@@ -19,13 +19,14 @@ export class CreateChannelComponent {
   membersSelected: string[] = [];
   channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
 
-  myChannels: Channel[] = [];  // AUSLAGERN
+  myChannels: Channel[] = [];
+
 
   constructor(private service: UserService, 
     public ws: WorkspaceService, 
     private cs: ChannelService,
     private firestore: Firestore) {
-    this.myUsers = this.service.allUsers
+    this.myUsers = this.service.allUsers;
   }
 
   ngOnInit(): void {
@@ -36,7 +37,7 @@ export class CreateChannelComponent {
         this.myChannels.push(this.cs.setChannelObject(element.data(), element.id));
       });
     });
-}
+  }
 
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;

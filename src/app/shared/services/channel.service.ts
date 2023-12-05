@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, addDoc, collection, doc, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, onSnapshot, query, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
 import { Channel } from 'src/app/interfaces/channel';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class ChannelService {
     await setDoc(doc(this.firestore, "channels", userId), channel);
   }
 
-  todaysDate():string {
+  todaysDate(): string {
     const today = new Date();
     const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
     const weekday = weekdays[today.getDay()];
