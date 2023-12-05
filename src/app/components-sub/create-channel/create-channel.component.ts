@@ -4,6 +4,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { User } from 'src/app/interfaces/user';
 import { Channel } from 'src/app/interfaces/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { Firestore, collection, onSnapshot, query } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-create-channel',
@@ -18,9 +19,24 @@ export class CreateChannelComponent {
   membersSelected: string[] = [];
   channel: Channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
 
-  constructor(private service: UserService, public ws: WorkspaceService, private cs: ChannelService) {
-    this.myUsers = this.service.allUsers// getting allUsers from user.service.ts 
+  myChannels: Channel[] = [];  // AUSLAGERN
+
+  constructor(private service: UserService, 
+    public ws: WorkspaceService, 
+    private cs: ChannelService,
+    private firestore: Firestore) {
+    this.myUsers = this.service.allUsers
   }
+
+  ngOnInit(): void {
+    const q = query(collection(this.firestore, 'channels'));
+    onSnapshot(q, (querySnapshot) => {
+      this.myChannels = [];
+      querySnapshot.forEach((element) => {
+        this.myChannels.push(this.cs.setChannelObject(element.data(), element.id));
+      });
+    });
+}
 
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;
@@ -28,7 +44,6 @@ export class CreateChannelComponent {
     this.channel.createdBy = { firstName: 'Frederick', lastName: 'Beck', email: '', password: '' };
     this.channel.customId = 'tbd';
     this.channel.createdDate = this.cs.todaysDate();
-    this.channel.members = [];
 
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
@@ -37,8 +52,7 @@ export class CreateChannelComponent {
     if (!this.ws.dialogGeneralData) {
       this.cs.sendDocToDB(this.channel);
       this.closeWindows();
-      debugger
-      this.cs.writeUserData(this.channel, '1234')
+      // this.cs.writeUserData(this.channel, '1234')
       this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
     }
     this.ws.dialogGeneralData = false;
@@ -103,9 +117,21 @@ export class CreateChannelComponent {
     this.channel = { customId: '', name: '', description: '', members: [], createdDate: '' };
   }
 
+  clearSearchInput(){
+    this.ws.inputMember='';
+  }
+
   closeWindows() {
     this.ws.openCloseCreateChannel();
     this.ws.openCloseAddMembers();
   }
 
+  addMembersFromFirstChannel(){
+    if (this.myChannels[0].members) {
+      for (let index = 0; index < this.myChannels[0].members.length; index++) {
+        this.channel.members?.push(this.myChannels[0].members[index]);
+      }
+      this.createChannel();
+    }
+  }
 }

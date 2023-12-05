@@ -88,9 +88,17 @@ $btn-purple: #444DF2;
     outline: none;
 }
 
+.first-channel-name{
+    display: flex;
+    padding-left: 4px;
+    padding-right: 4px;
+    color: $purple;
+}
+
 .channel-selected-member-input{
     border: none;
     outline: none;
+    flex: 1;
 }
 
 .selected-members{
@@ -100,7 +108,17 @@ $btn-purple: #444DF2;
     height: 24px;
     padding: 18px 6px;
     border: 1px solid $purple2;
-    // box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.selected-members::-webkit-scrollbar {
+    height: 4px;
+}
+
+.selected-members::-webkit-scrollbar-thumb {
+    background-color: $purple;
+    border-radius: 25px;
 }
 
 .complete-member{

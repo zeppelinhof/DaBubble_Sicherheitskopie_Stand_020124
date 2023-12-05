@@ -9,7 +9,6 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
   allChannels: any[] = [];
-  currentChannelId!: string;
 
   async sendDocToDB(item: Channel) {
     await addDoc(this.allChannelsCol, item);
