@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Channel } from 'src/app/interfaces/channel';
+import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
-import { ChannelService } from '../../shared/services/channel.service';
+
 
 
 @Component({
@@ -9,11 +11,16 @@ import { ChannelService } from '../../shared/services/channel.service';
   styleUrls: ['./input-field-channel.component.scss']
 })
 export class InputFieldChannelComponent {
+  clickedChannel!: Channel;
   
-  allUsers:[] = [];
+  constructor(public service: InputService, public cs: ChannelService){}
 
-  constructor(public service: InputService, public cs: ChannelService){
-    this.allUsers = this.cs.myChannels;
-    
+  ngOnInit(): void {
+    this.cs.clickedChannel
+      .subscribe((ch: Channel) => {
+        this.clickedChannel = ch;
+        console.log('Komponente Input Channel hat folgenden Channel erhalten:', ch)
+      });
   }
+  
 }

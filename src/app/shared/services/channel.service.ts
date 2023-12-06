@@ -20,7 +20,14 @@ export class ChannelService {
 
   clickedChannelId = new BehaviorSubject<string>('');
   myChannels: any = [];
-  clickedChannel!: Channel;
+  // clickedChannel!: Channel;
+  clickedChannel = new BehaviorSubject<Channel>({
+    customId: '',
+    name: '',
+    description: '',
+    members: [],
+    createdDate: '',
+  });
   unsubChannels;
 
   constructor() {
@@ -53,7 +60,9 @@ export class ChannelService {
         // wenn es sich um den aktuell angezeigten Channel handelt...
         if (elementId == channelList[index]['customId']) {
           // setze den aktuellen Channel (Objekt) gemäß angeklickter Channel Id
-          this.clickedChannel = channelList[index];
+          // this.clickedChannel = channelList[index];
+          // 
+          this.clickedChannel.next(channelList[index]);
           console.log('Der aktuelle Channel', this.clickedChannel);
           console.log(channelList[index]['customId'].value);
         }
@@ -64,6 +73,7 @@ export class ChannelService {
   setChannelView(id: string) {
     this.clickedChannelId.next(id);
     this.setCurrentChannel(this.clickedChannelId.value);
+
   }
 
   setChannelObject(obj: any, id: string): Channel {
