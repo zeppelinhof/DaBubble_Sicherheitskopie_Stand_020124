@@ -24,6 +24,8 @@ export class ChannelService {
 
   constructor() {
     this.unsubChannels = this.subChannelList();
+    console.log(this.myChannels);
+    
   }
 
   subChannelList() {

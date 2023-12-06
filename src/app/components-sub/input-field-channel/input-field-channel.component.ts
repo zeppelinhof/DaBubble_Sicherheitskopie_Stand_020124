@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { InputService } from 'src/app/shared/services/input.service';
+import { ChannelService } from '../../shared/services/channel.service';
 
 @Component({
   selector: 'app-input-field-channel',
@@ -8,5 +9,11 @@ import { InputService } from 'src/app/shared/services/input.service';
 })
 export class InputFieldChannelComponent {
   
-  constructor(public service: InputService){}
+  allUsers:[] = [];
+
+  constructor(public service: InputService, public cs: ChannelService){
+    this.allUsers = this.cs.myChannels; 
+    console.log("input:" ,this.allUsers);
+    
+  }
 }
