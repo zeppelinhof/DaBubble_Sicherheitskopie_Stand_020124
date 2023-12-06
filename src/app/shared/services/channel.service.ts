@@ -6,10 +6,9 @@ import {
   doc,
   onSnapshot,
   query,
-  getDoc,
-  getDocs,
   setDoc,
 } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { Channel } from 'src/app/interfaces/channel';
 
 @Injectable({
@@ -18,8 +17,10 @@ import { Channel } from 'src/app/interfaces/channel';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-
+  
+  clickedChannelId = new BehaviorSubject<string>('');
   myChannels: any = [];
+  clickedChannel!: Channel;
   unsubChannels;
 
   constructor() {
@@ -28,15 +29,41 @@ export class ChannelService {
     
   }
 
+  // Collection Channels beobachten
   subChannelList() {
     const qu = query(collection(this.firestore, 'channels'));
     onSnapshot(qu, (querySnapshot) => {
+      // bei jeder Änderung in der Collection folgendes tun:
       this.myChannels = [];
+      // Für jeden Channel in Channels (aus Firebase)...
       querySnapshot.forEach((element) => {
+        // ... Array myChannels füllen
         this.myChannels.push(this.setChannelObject(element.data(), element.id));
-        console.log('Element Id:', element);
+        // ausführen:
+        this.setCurrentChannel(element.id);
       });
     });
+  }
+
+  setCurrentChannel(elementId: string) {
+    const channelList = this.myChannels;
+    if (this.myChannels) {
+      // für alle Channels in Firebase
+      for (let index = 0; index < channelList.length; index++) {
+        // wenn es sich um den aktuell angezeigten Channel handelt...
+        if (elementId == channelList[index]['customId']) {
+          // setze den aktuellen Channel (Objekt) gemäß angeklickter Channel Id
+          this.clickedChannel = channelList[index];
+          console.log('Der aktuelle Channel', this.clickedChannel);
+          console.log(channelList[index]['customId'].value);
+        }        
+      }
+    }
+  }
+
+  setChannelView(id: string) {
+    this.clickedChannelId.next(id);
+    this.setCurrentChannel(this.clickedChannelId.value);
   }
 
   setChannelObject(obj: any, id: string): Channel {

@@ -28,7 +28,7 @@ export class UserService {
       this.myUsers = [];
       querySnapshot.forEach((element) => {
         this.myUsers.push(this.setUserObject(element.data(), element.id));
-        console.log('Element Id:', element);
+        // console.log('Element Id:', element);
       });
     });
   }

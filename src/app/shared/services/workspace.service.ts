@@ -30,7 +30,6 @@ export class WorkspaceService {
 
   openCloseAddMembers() {
     this.showAddMembers = false;
-    this.clearValues();
   }
 
   clearValues(){

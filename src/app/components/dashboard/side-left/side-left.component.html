@@ -51,7 +51,7 @@
       </div>
 
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
-        <div *ngFor="let cn of getChannels()" class="item-line">
+        <div *ngFor="let cn of getChannels()" class="item-line" routerLink="/channel" (click)="this.cs.setChannelView(cn.customId)">
           <div class="logo-item-channel">
             <img src="assets/icons/tag.png" />
             <div class="oneName-channel">

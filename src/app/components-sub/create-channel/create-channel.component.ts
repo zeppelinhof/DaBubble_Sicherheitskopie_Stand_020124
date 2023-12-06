@@ -17,7 +17,6 @@ import {
   styleUrls: ['./create-channel.component.scss'],
 })
 export class CreateChannelComponent {
-  myUsers: User[] = [];
   filteredMembers: User[] = [];
   membersSelected: string[] = [];
   channel: Channel = {
@@ -28,27 +27,25 @@ export class CreateChannelComponent {
     createdDate: '',
   };
 
-  myChannels: Channel[] = [];
+  
 
   constructor(
     private service: UserService,
     public ws: WorkspaceService,
     private cs: ChannelService,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private us: UserService
   ) {
-    this.myUsers = this.service.myUsers;
+    this.getUsers();
+    this.getChannels();
   }
 
-  ngOnInit(): void {
-    const q = query(collection(this.firestore, 'channels'));
-    onSnapshot(q, (querySnapshot) => {
-      this.myChannels = [];
-      querySnapshot.forEach((element) => {
-        this.myChannels.push(
-          this.cs.setChannelObject(element.data(), element.id)
-        );
-      });
-    });
+  getUsers(): User[] {
+    return this.us.myUsers;
+  }
+
+  getChannels() {
+    return this.cs.myChannels;
   }
 
   allFieldsFilled(): Boolean {
@@ -80,8 +77,10 @@ export class CreateChannelComponent {
         members: [],
         createdDate: '',
       };
+    } else{
+      this.ws.dialogGeneralData = false;
     }
-    this.ws.dialogGeneralData = false;
+    
   }
 
   changeRadioButton() {
@@ -92,7 +91,7 @@ export class CreateChannelComponent {
     this.ws.showAddMembers = true;
     const searchTerm = this.ws.inputMember.toLowerCase();
 
-    this.filteredMembers = this.myUsers.filter((member) => {
+    this.filteredMembers = this.getUsers().filter((member) => {
       const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
       if (this.ws.showAddMembers) {
         this.refreshMemberList();
@@ -162,9 +161,9 @@ export class CreateChannelComponent {
   }
 
   addMembersFromFirstChannel() {
-    if (this.myChannels[0].members) {
-      for (let index = 0; index < this.myChannels[0].members.length; index++) {
-        this.channel.members?.push(this.myChannels[0].members[index]);
+    if (this.getChannels()[0].members) {
+      for (let index = 0; index < this.getChannels()[0].members.length; index++) {
+        this.channel.members?.push(this.getChannels()[0].members[index]);
       }
       this.createChannel();
     }
