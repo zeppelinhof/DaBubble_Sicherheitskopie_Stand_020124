@@ -21,6 +21,12 @@ export class ChannelComponent {
         this.clickedChannelId = chId;
         console.log('Komponente Channel hat folgende Id erhalten:', chId)
       });
-  }  
+
+    this.cs.clickedChannel
+      .subscribe((ch: Channel) => {
+        this.clickedChannel = ch;
+        console.log('Komponente Channel hat folgenden Channel erhalten:', ch)
+      });
+  }
 
 }
