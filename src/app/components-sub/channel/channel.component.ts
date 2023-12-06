@@ -9,23 +9,17 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent {
-  currentChannelId!: string;
+  clickedChannelId!: string;
+  clickedChannel!: Channel;
+
 
   constructor(public ws: WorkspaceService, public cs: ChannelService) { }
-
-  // getChannel(): any {
-  //   if (this.cs.clickedChannel) {
-  //     this.currentChannel = this.cs.clickedChannel.value;
-  //     return this.currentChannel;
-  //   }
-  //   return '';
-  // }
 
   ngOnInit(): void {
     this.cs.clickedChannelId
       .subscribe((chId: string) => {
-        this.currentChannelId = chId;
-        debugger
+        this.clickedChannelId = chId;
+        console.log('Komponente Channel hat folgende Id erhalten:', chId)
       });
   }  
 

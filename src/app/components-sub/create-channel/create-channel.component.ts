@@ -48,19 +48,6 @@ export class CreateChannelComponent {
     return this.cs.myChannels;
   }
 
-  ngOnInit(): void {
-    
-    // const q = query(collection(this.firestore, 'channels'));
-    // onSnapshot(q, (querySnapshot) => {
-    //   this.myChannels = [];
-    //   querySnapshot.forEach((element) => {
-    //     this.myChannels.push(
-    //       this.cs.setChannelObject(element.data(), element.id)
-    //     );
-    //   });
-    // });
-  }
-
   allFieldsFilled(): Boolean {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
