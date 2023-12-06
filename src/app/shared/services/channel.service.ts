@@ -17,7 +17,7 @@ import { Channel } from 'src/app/interfaces/channel';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-  
+
   clickedChannelId = new BehaviorSubject<string>('');
   myChannels: any = [];
   clickedChannel!: Channel;
@@ -26,7 +26,7 @@ export class ChannelService {
   constructor() {
     this.unsubChannels = this.subChannelList();
     console.log(this.myChannels);
-    
+
   }
 
   // Collection Channels beobachten
@@ -56,7 +56,7 @@ export class ChannelService {
           this.clickedChannel = channelList[index];
           console.log('Der aktuelle Channel', this.clickedChannel);
           console.log(channelList[index]['customId'].value);
-        }        
+        }
       }
     }
   }
