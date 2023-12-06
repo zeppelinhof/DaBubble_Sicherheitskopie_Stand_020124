@@ -6,10 +6,9 @@ import {
   doc,
   onSnapshot,
   query,
-  getDoc,
-  getDocs,
   setDoc,
 } from '@angular/fire/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { Channel } from 'src/app/interfaces/channel';
 
 @Injectable({
@@ -18,6 +17,7 @@ import { Channel } from 'src/app/interfaces/channel';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
+  clickedChannelId = new BehaviorSubject<string>('');
 
   myChannels: any = [];
   unsubChannels;
@@ -32,9 +32,27 @@ export class ChannelService {
       this.myChannels = [];
       querySnapshot.forEach((element) => {
         this.myChannels.push(this.setChannelObject(element.data(), element.id));
-        console.log('Element Id:', element);
+        this.setCurrentChannelId();
       });
     });
+  }
+
+  setCurrentChannelId(){
+    const channelList = this.myChannels;
+    if (this.myChannels) {
+      for (let index = 0; index < channelList.length; index++) {
+        const chId = channelList[index]['customId'].value;        
+        if(chId == this.clickedChannelId.value){
+          this.setChannelView(chId);
+          debugger
+        }
+      }
+    }
+  }
+
+  setChannelView(id: string){
+    debugger
+    this.clickedChannelId.next(id);
   }
 
   setChannelObject(obj: any, id: string): Channel {

@@ -45,7 +45,7 @@
                     <div class="radio-wrap">
                         <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
                         <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div style="display: flex;">Alle Mitglieder von <div (click)="addMembersFromFirstChannel()" class="first-channel-name">{{myChannels[0].name}}</div> hinzufügen</div>
+                        <div style="display: flex;">Alle Mitglieder von <div (click)="addMembersFromFirstChannel()" class="first-channel-name">{{getChannels()[0].name}}</div> hinzufügen</div>
                     </div>
                 </div>
                 <div class="option" (click)="changeRadioButton()">

@@ -22,14 +22,13 @@ export class SideLeftComponent {
   rightArrowChannels: boolean = false;
   rightArrowContacts: boolean = false;
 
-  myChannels: Channel[] = [];
   myUserId: any = [];
 
   constructor(
     private us: UserService,
     public ws: WorkspaceService,
-    private cs: ChannelService
-  ) {}
+    public cs: ChannelService
+  ) { }
 
   getUsers() {
     return this.us.myUsers;
@@ -40,17 +39,10 @@ export class SideLeftComponent {
   }
 
   clickDownArrowChannels() {
-    this.arrowClickedChannels = this.rightArrowChannels = !this
-      .arrowClickedChannels
-      ? true
-      : false;
-    console.log('der Wert:', this.rightArrowChannels);
+    this.arrowClickedChannels = this.rightArrowChannels = !this.arrowClickedChannels ? true : false;
   }
 
   clickDownArrowContacts() {
-    this.arrowClickedContacts = this.rightArrowContacts = !this
-      .arrowClickedContacts
-      ? true
-      : false;
+    this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts ? true : false;
   }
 }
