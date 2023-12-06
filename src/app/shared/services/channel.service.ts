@@ -32,6 +32,8 @@ export class ChannelService {
 
   constructor() {
     this.unsubChannels = this.subChannelList();
+    console.log(this.myChannels);
+
   }
 
   // Collection Channels beobachten
