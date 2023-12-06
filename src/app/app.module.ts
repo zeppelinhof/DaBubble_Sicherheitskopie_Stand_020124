@@ -1,3 +1,4 @@
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { NgModule } from '@angular/core';
@@ -6,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideLeftComponent } from './components/dashboard/side-left/side-left.component';
 import { SideRightComponent } from './components/dashboard/side-right/side-right.component';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
