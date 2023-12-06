@@ -1,3 +1,4 @@
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -5,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SideLeftComponent } from './components/dashboard/side-left/side-left.component';
 import { SideRightComponent } from './components/dashboard/side-right/side-right.component';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChannelComponent } from './components-sub/channel/channel.component';
@@ -23,6 +23,7 @@ import { ImprintComponent } from './components/imprint/imprint.component';
 import { InputFieldChannelComponent } from './components-sub/input-field-channel/input-field-channel.component';
 import { InputFieldThreadComponent } from './components-sub/input-field-thread/input-field-thread.component';
 import { InputFieldMessageComponent } from './components-sub/input-field-message/input-field-message.component';
+
 
 
 @NgModule({
@@ -60,7 +61,7 @@ import { InputFieldMessageComponent } from './components-sub/input-field-message
         apiKey: 'AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs',
         authDomain: 'dabubble-d4948.firebaseapp.com',
         messagingSenderId: '567130022113',
-      })
+      }),
     ),
   ],
   providers: [],
