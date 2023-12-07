@@ -17,10 +17,9 @@ import { Channel } from 'src/app/interfaces/channel';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-
-  clickedChannelId = new BehaviorSubject<string>('');
+  
   myChannels: any = [];
-  // clickedChannel!: Channel;
+  clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>({
     customId: '',
     name: '',

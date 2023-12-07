@@ -11,7 +11,8 @@ import { InputService } from 'src/app/shared/services/input.service';
   styleUrls: ['./input-field-channel.component.scss']
 })
 export class InputFieldChannelComponent {
-  clickedChannel!: Channel;
+  clickedChannel!: Channel | undefined;
+  // oneMember: string = this.clickedChannel.members?[0].firstName | undefined;
   
   constructor(public service: InputService, public cs: ChannelService){}
 

@@ -109,7 +109,7 @@
   </div>
 
   <div *ngIf="arrowClickedContacts" class="list-container-contacts">
-    <div *ngFor="let user of getUsers()" class="item-line">
+    <div *ngFor="let user of getUsers()" class="item-line" routerLink="/message" (click)="this.us.setContactView(user.custId)">
       <div class="logo-item-contact">
         <img class="profile-image" src="assets/imgs/userMale3.png" />
         <div>{{ user.firstName }} {{ user.lastName }}</div>

@@ -8,7 +8,7 @@ export interface User {
     chats?:[
         {
             user: User,
-            messages:[any],
+            messages: any[],
         }
     ];
 }

@@ -1,18 +1,18 @@
 <div class="message-div-container">
   <div class="message-header-container">
     <img src="assets/imgs/userMale2.png" />
-    <div class="message-user-name">Otto Bushcraft</div>
+    <div class="message-user-name">{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
   </div>
 <!-- inner info card -->
   <div *ngIf="!this.service.isWritingMessage" class="inner-info-card-container">
     <div class="message-inner-container">
       <img src="assets/imgs/userMale2.png" />
-      <div class="message-inner-name">Otto Bushcraft</div>
+      <div class="message-inner-name">{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
     </div>
   
     <div class="this-conversation-text-container">
       <div>Diese Unterhaltung findet nur zwischen</div>
-      <div class="name-of-chat-partner">@Otto Bushcraft</div>
+      <div class="name-of-chat-partner">@{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
       <div>und dir statt.</div>
     </div>
   </div>

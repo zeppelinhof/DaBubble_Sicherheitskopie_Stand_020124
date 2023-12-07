@@ -25,12 +25,17 @@ export class SideLeftComponent {
   myUserId: any = [];
 
   constructor(
-    private us: UserService,
+    public us: UserService,
     public ws: WorkspaceService,
     public cs: ChannelService
   ) { }
 
   getUsers() {
+    // später: um nur die Kontakte anzuzeigen
+    // for (let index = 0; index < userLoggedIn.chats.length; index++) {
+    //   const contactName = userLoggedIn.chats[index].firstName;
+    //   return contactName;
+    // }
     return this.us.myUsers;
   }
 
