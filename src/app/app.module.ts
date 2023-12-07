@@ -23,6 +23,7 @@ import { ImprintComponent } from './components/imprint/imprint.component';
 import { InputFieldChannelComponent } from './components-sub/input-field-channel/input-field-channel.component';
 import { InputFieldThreadComponent } from './components-sub/input-field-thread/input-field-thread.component';
 import { InputFieldMessageComponent } from './components-sub/input-field-message/input-field-message.component';
+import { NewMessageComponent } from './components-sub/new-message/new-message.component';
 
 
 
@@ -47,6 +48,7 @@ import { InputFieldMessageComponent } from './components-sub/input-field-message
     InputFieldChannelComponent,
     InputFieldThreadComponent,
     InputFieldMessageComponent,
+    NewMessageComponent,
   ],
   imports: [
     FormsModule,

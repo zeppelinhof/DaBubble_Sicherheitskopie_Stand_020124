@@ -56,6 +56,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
                 <div *ngFor="let item of channel.members" class="complete-member">
                     <img class="profile-image" src="assets/imgs/userMale3.png">
@@ -70,6 +72,8 @@
                     (input)="allFieldsFilled(); filterMembers()" class="channel-selected-member-input"
                     placeholder="Name eingeben">
             </div>
+
+            
             <!-- this.ws.showAddMembers -->
             <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap">
                 <div class="first-line">

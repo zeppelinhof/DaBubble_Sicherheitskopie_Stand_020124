@@ -18,7 +18,6 @@ import {
 })
 export class CreateChannelComponent {
   filteredMembers: User[] = [];
-  membersSelected: string[] = [];
   channel: Channel = {
     customId: '',
     name: '',
@@ -30,10 +29,8 @@ export class CreateChannelComponent {
   
 
   constructor(
-    private service: UserService,
     public ws: WorkspaceService,
     private cs: ChannelService,
-    private firestore: Firestore,
     private us: UserService
   ) {
     this.getUsers();

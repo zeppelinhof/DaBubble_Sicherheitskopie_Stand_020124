@@ -10,6 +10,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
+import { NewMessageComponent } from './components-sub/new-message/new-message.component';
 
 const routes: Routes = [
   /*login*/
@@ -28,6 +29,7 @@ const routes: Routes = [
   /*dashboard*/
   { path: 'channel', component: ChannelComponent },
   { path: 'message', component: MessageComponent },
+  { path: 'new-message', component: NewMessageComponent },
   /*privacy policy + imprint*/
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'imprint', component: ImprintComponent },
