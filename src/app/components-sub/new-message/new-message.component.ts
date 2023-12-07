@@ -35,7 +35,8 @@ export class NewMessageComponent {
   async filterMembers() {
     this.allUsers = await this.getUsers();
     this.showAddMember = true;
-    const searchTerm = this.inputMember.toLowerCase();
+    const searchTerm = this.inputMember.slice(1).toLowerCase();
+    debugger
     this.filteredMembers = this.allUsers.filter((member) => {
       const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
       if (this.showAddMember) {
@@ -78,7 +79,7 @@ export class NewMessageComponent {
   }
 
   clearSearchInput() {
-    this.ws.inputMember = '';
+    this.inputMember = '';
   }
 
   openCloseAddMembers() {
