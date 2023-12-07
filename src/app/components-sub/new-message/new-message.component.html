@@ -10,14 +10,14 @@
                     <img class="close-purple" src="assets/icons/close_purple.png" />
                 </div>
             </div>
-            <input [(ngModel)]="this.inputMember" (input)="filterMembers();"
+            <input [(ngModel)]="this.inputValue" (input)="filterMembers();"
                 class="channel-selected-member-input" placeholder="An: #channel oder @jemand oder E-Mail Adresse">
         </div>
 
         <div *ngIf="showAddMember" class="choose-members-wrap">
             <div class="first-line">
                 <div class="headline-white-box">Mitglieder</div>
-                <div class="around-close" (click)="openCloseAddMembers()">
+                <div class="around-close" (click)="openCloseAdd()">
                     <img src="assets/icons/close.png">
                 </div>
             </div>
@@ -27,6 +27,25 @@
                         <img class="profile-image" src="assets/imgs/userMale3.png">
                         <div class="name-text">
                             {{ user.firstName }} {{ user.lastName}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="showAddChannel" class="choose-members-wrap">
+            <div class="first-line">
+                <div class="headline-white-box">Channels</div>
+                <div class="around-close" (click)="openCloseAdd()">
+                    <img src="assets/icons/close.png">
+                </div>
+            </div>
+            <div class="user-list-wrap">
+                <div class="user-list">
+                    <div class="oneUser-line" *ngFor="let channel of filteredChannels" (click)="addChannel(channel); clearSearchInput()">
+                        <img class="profile-image" src="assets/imgs/userMale3.png">
+                        <div class="name-text">
+                            {{ channel.name}}
                         </div>
                     </div>
                 </div>

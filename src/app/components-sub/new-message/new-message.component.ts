@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Channel } from 'src/app/interfaces/channel';
 import { User } from 'src/app/interfaces/user';
+import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
@@ -9,13 +11,16 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   styleUrls: ['./new-message.component.scss']
 })
 export class NewMessageComponent {
-  allUsers: User[]
+  allUsers: User[];
+  allChannels: Channel[];
 
-  inputMember: string = '';
+  inputValue: string = '';
 
   showAddMember: boolean = false;
+  showAddChannel: boolean = false;
 
   filteredMembers: User[] = [];
+  filteredChannels: Channel[] = [];
   member: User = {
     firstName: '',
     lastName: '',
@@ -24,35 +29,69 @@ export class NewMessageComponent {
     password: ''
   };
 
-  constructor(private us: UserService, private ws: WorkspaceService) {
+  channel: Channel = {
+    customId: '',
+    name: '',
+    description: '',
+    members: [],
+    createdDate: '',
+  };
+
+  constructor(private us: UserService, private ws: WorkspaceService, private cs: ChannelService) {
     this.allUsers = this.getUsers();
+    this.allChannels = this.getChannels();
   }
 
   getUsers(): User[] {
     return this.us.myUsers;
   }
 
-  async filterMembers() {
-    this.allUsers = await this.getUsers();
-    this.showAddMember = true;
-    const searchTerm = this.inputMember.slice(1).toLowerCase();
-    debugger
-    this.filteredMembers = this.allUsers.filter((member) => {
-      const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
-      if (this.showAddMember) {
-        this.refreshMemberList();
-      }
-
-      return (fullName.includes(searchTerm) &&
-        !this.memberAlreadySelected(member.email)
-      );
-
-    });
+  getChannels(): Channel[] {
+    return this.cs.myChannels;
   }
 
-  memberAlreadySelected(email: string): boolean {
-    const memberEmail = this.member.email;
-    if (memberEmail == email) {
+  async filterMembers() {
+    const searchType = this.inputValue.slice(0, 1).toLowerCase();
+    // Suche nach User mit @
+    if (searchType == '@') {
+      this.allUsers = await this.getUsers();
+      this.showAddMember = true;
+      const searchTerm = this.inputValue.slice(1).toLowerCase();
+      debugger
+      this.filteredMembers = this.allUsers.filter((member) => {
+        const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
+        if (this.showAddMember) {
+          this.refreshMemberList();
+        }
+
+        return (fullName.includes(searchTerm) &&
+          !this.alreadySelected(member.email, this.member.email)
+        );
+
+      });
+    } 
+    // Suche nach Channels mit #
+    else if(searchType == '#'){
+      this.allChannels = await this.getChannels();
+      this.showAddChannel = true;
+      const searchTerm = this.inputValue.slice(1).toLowerCase();
+      this.filteredChannels = this.allChannels.filter((member) => {
+        const fullName = `${member.name}`.toLowerCase();
+        if (this.showAddChannel) {
+          this.refreshMemberList();
+        }
+
+        return (fullName.includes(searchTerm) &&
+          !this.alreadySelected(member.name, this.channel.name)
+        );
+
+      });
+    }
+
+  }
+
+  alreadySelected(propertyList: string, propertyChosen: string): boolean {
+    if (propertyChosen == propertyList) {
       return true;
     }
     return false;
@@ -63,27 +102,27 @@ export class NewMessageComponent {
       if (this.showAddMember) {
         this.filterMembers();
       }
+      if (this.showAddChannel) {
+        this.filterMembers();
+      }
     }, 1000);
   }
-
-  // saveFieldData(member: User) {
-  //   this.member.custId = member.custId;
-  //   this.member.firstName = member.firstName;
-  //   this.member.lastName = member.lastName;
-  //   this.member.email = member.email;
-  //   this.member.password = member.password
-  // }
 
   addMember(user: User) {
     this.member = user;
   }
 
-  clearSearchInput() {
-    this.inputMember = '';
+  addChannel(channel: Channel) {
+    this.channel = channel;
   }
 
-  openCloseAddMembers() {
+  clearSearchInput() {
+    this.inputValue = '';
+  }
+
+  openCloseAdd() {
     this.showAddMember = false;
+    this.showAddChannel = false;
   }
 
   removeMember(email: string) {
