@@ -68,9 +68,9 @@ export class UserService {
     return new User(id, obj.firstName ,obj.lastName ,obj.email ,obj.password ,obj.img ,obj.chats )
   }
 
-  getCleanUserJson(user: User, id: string): {} {
+  getCleanUserJson(user: User): {} {
     return {
-      customId: id,
+      customId: user.customId,
       firstName: user.firstName,
       lastName: user.lastName || '',
       email: user.email,
@@ -81,6 +81,6 @@ export class UserService {
   }
 
   async sendDocToDB(item: User) {
-    await addDoc(this.allUserCol, this.getCleanUserJson(item, item.customId));
+    await addDoc(this.allUserCol, this.getCleanUserJson(item));
   }
 }

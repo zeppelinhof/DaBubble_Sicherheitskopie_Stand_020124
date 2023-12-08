@@ -31,7 +31,9 @@ export class LoginComponent /* implements OnChanges, OnInit*/ {
   */
 
   // *TODO: change values with real login info
-  createdUser: User = new User('', 'neu', 'jaaa', 'test@gmail.com', '12345');
+  createdUser2: User = new User('', 'neu', 'jaaa', 'test@gmail.com', '12345');
+
+  createdUser: User = new User();
 
   sendDoc() {
     // push user to createdUser:{}

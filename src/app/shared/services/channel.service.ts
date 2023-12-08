@@ -77,9 +77,9 @@ export class ChannelService {
   }
 
   // dies ist notwendig, da in Firebase (nur) Json gespeichert wird
-  getCleanChannelJson(channel: Channel, id: string): {} {
+  getCleanChannelJson(channel: Channel): {} {
     return {
-      customId: id,
+      customId: channel.customId,
       name: channel.name,
       description: channel.description,
       // members: channel.members,
@@ -93,14 +93,14 @@ export class ChannelService {
     const memberArray = [];
     for (let index = 0; index < members.length; index++) {
       const member = members[index];
-      const memberAsJson = this.us.getCleanUserJson(member, member.customId)
+      const memberAsJson = this.us.getCleanUserJson(member)
       memberArray.push(memberAsJson);
     }
     return memberArray;
   }
 
   async sendDocToDB(item: Channel) {
-    await addDoc(this.allChannelsCol, this.getCleanChannelJson(item, item.customId));
+    await addDoc(this.allChannelsCol, this.getCleanChannelJson(item));
   }
 
   async writeUserData(channel: Channel, userId: string) {
