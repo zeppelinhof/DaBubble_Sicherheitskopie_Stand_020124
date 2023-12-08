@@ -78,7 +78,6 @@ export class ChannelService {
 
   // dies ist notwendig, da in Firebase (nur) Json gespeichert wird
   getCleanChannelJson(channel: Channel, id: string): {} {
-    debugger
     return {
       customId: id,
       name: channel.name,

@@ -59,7 +59,6 @@ export class CreateChannelComponent {
 
   createChannel() {
     if (!this.ws.dialogGeneralData) {
-      debugger
       this.cs.sendDocToDB(this.channel);
       this.closeWindows();
       // this.cs.writeUserData(this.channel, '1234')
