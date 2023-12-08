@@ -11,6 +11,8 @@ import {
 import { BehaviorSubject } from 'rxjs';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
+import { UserService } from './user.service';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +20,13 @@ import { Channel } from 'src/app/models/channel';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-  
+
   myChannels: any = [];
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
   unsubChannels;
 
-  constructor() {
+  constructor(private us: UserService) {
     this.unsubChannels = this.subChannelList();
     console.log(this.myChannels);
 
@@ -71,23 +73,35 @@ export class ChannelService {
   }
 
   setChannelObject(obj: any, id: string): Channel {
-    return new Channel(id, obj.name, obj.description, obj.members,obj.createdDate, obj.createdBy);
+    return new Channel(id, obj.name, obj.description, obj.members, obj.createdDate, obj.createdBy);
   }
 
-  getCleanJson(channel: Channel, id: string): {} {
+  // dies ist notwendig, da in Firebase (nur) Json gespeichert wird
+  getCleanChannelJson(channel: Channel, id: string): {} {
+    debugger
     return {
-        customId: id,
-        name: channel.name,
-        description: channel.description,
-        members: channel.members,
-        createdDate: channel.createdDate,
-        createdBy: channel.createdBy,
+      customId: id,
+      name: channel.name,
+      description: channel.description,
+      // members: channel.members,
+      members: this.getCleanMemberJson(channel.members),
+      createdDate: channel.createdDate,
+      createdBy: channel.createdBy,
     }
   }
 
+  getCleanMemberJson(members: User[]): {} {
+    const memberArray = [];
+    for (let index = 0; index < members.length; index++) {
+      const member = members[index];
+      const memberAsJson = this.us.getCleanUserJson(member, member.customId)
+      memberArray.push(memberAsJson);
+    }
+    return memberArray;
+  }
+
   async sendDocToDB(item: Channel) {
-    debugger
-    await addDoc(this.allChannelsCol, this.getCleanJson(item, item.customId));
+    await addDoc(this.allChannelsCol, this.getCleanChannelJson(item, item.customId));
   }
 
   async writeUserData(channel: Channel, userId: string) {

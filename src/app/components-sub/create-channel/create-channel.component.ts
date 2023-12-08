@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
-import { User } from 'src/app/interfaces/user';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
+import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import {
   Firestore,
@@ -44,7 +44,7 @@ export class CreateChannelComponent {
     this.channel.name = this.ws.inputName;
     this.channel.description = this.ws.inputDescription;
     this.channel.createdBy = {
-      custId: '',
+      customId: '',
       img: '',
       firstName: 'Frederick',
       lastName: 'Beck',
@@ -59,15 +59,16 @@ export class CreateChannelComponent {
 
   createChannel() {
     if (!this.ws.dialogGeneralData) {
+      debugger
       this.cs.sendDocToDB(this.channel);
       this.closeWindows();
       // this.cs.writeUserData(this.channel, '1234')
       this.channel = new Channel();
     } else{
       this.ws.dialogGeneralData = false;
-    }
-    
+    }    
   }
+  
 
   changeRadioButton() {
     return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);

@@ -17,7 +17,7 @@ export class Channel {
         this.members = members || [];
         this.createdDate = createdDate || '';
         this.createdBy = createdBy || {
-            custId: '',
+            customId: '',
             img: '',
             firstName: 'Frederick',
             lastName: 'Beck',
@@ -26,7 +26,4 @@ export class Channel {
         };
     }    
 
-    //   setChannelObject(obj: any, id: string): Channel {
-    //     return new Channel(id, obj.name, obj.description, obj.members,obj.createdDate, obj.createdBy);
-    //   }
 }

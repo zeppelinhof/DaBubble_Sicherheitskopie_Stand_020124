@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
@@ -22,13 +22,7 @@ export class NewMessageComponent {
 
   filteredMembers: User[] = [];
   filteredChannels: Channel[] = [];
-  member: User = {
-    firstName: '',
-    lastName: '',
-    custId: '',
-    email: '@',
-    password: ''
-  };
+  member: User = new User('','','','@','');
 
   channel: Channel = new Channel();
 
@@ -126,7 +120,7 @@ export class NewMessageComponent {
         this.member = {
           firstName: '',
           lastName: '',
-          custId: '',
+          customId: '',
           email: '',
           password: ''
         }

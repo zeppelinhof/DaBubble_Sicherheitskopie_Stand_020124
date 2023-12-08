@@ -1,6 +1,6 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnChanges, OnInit } from '@angular/core';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -31,13 +31,7 @@ export class LoginComponent /* implements OnChanges, OnInit*/ {
   */
 
   // *TODO: change values with real login info
-  createdUser: User = {
-    custId: '',
-    firstName: 'neu',
-    lastName: 'jaaa',
-    email: 'test@gmail.com',
-    password: '12345',
-  };
+  createdUser: User = new User('', 'neu', 'jaaa', 'test@gmail.com', '12345');
 
   sendDoc() {
     // push user to createdUser:{}

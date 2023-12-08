@@ -7,7 +7,7 @@ import {
   query,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class UserService {
   myUsers: any = [];
   clickedContactId = new BehaviorSubject<string>('');
   clickedContact = new BehaviorSubject<User>({
-    custId: '',
+    customId: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -49,10 +49,10 @@ export class UserService {
     if (this.myUsers) {
       for (let index = 0; index < userList.length; index++) {
         // wenn es sich um den aktuell angezeigten Channel handelt...
-        if (elementId == userList[index]['custId']) {
+        if (elementId == userList[index]['customId']) {
           this.clickedContact.next(userList[index]);
           console.log('Der aktuelle Contact', this.clickedContact);
-          console.log(userList[index]['custId'].value);
+          console.log(userList[index]['customId'].value);
         }
       }
     }
@@ -65,18 +65,22 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
+    return new User(id, obj.firstName ,obj.lastName ,obj.email ,obj.password ,obj.img ,obj.chats )
+  }
+
+  getCleanUserJson(user: User, id: string): {} {
     return {
-      custId: id,
-      firstName: obj.firstName,
-      lastName: obj.lastName || '',
-      email: obj.email,
-      password: obj.password,
-      img: obj.img || '',
-      chats: obj.chats || [{}],
-    };
+      customId: id,
+      firstName: user.firstName,
+      lastName: user.lastName || '',
+      email: user.email,
+      password: user.password,
+      img: user.img || '',
+      chats: user.chats || [{}],
+    }
   }
 
   async sendDocToDB(item: User) {
-    await addDoc(this.allUserCol, item);
+    await addDoc(this.allUserCol, this.getCleanUserJson(item, item.customId));
   }
 }

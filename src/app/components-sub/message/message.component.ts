@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { InputService } from '../../shared/services/input.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { User } from 'src/app/interfaces/user';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-message',

@@ -1,5 +1,5 @@
 export class User {
-    custId: string;
+    customId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -7,21 +7,21 @@ export class User {
     img?: any;
     chats?: [
         {
-            user: User,
+            user: any[],
             messages: any[],
         }
     ];
 
-    constructor() {
-        this.custId = '';
-        this.firstName = '';
-        this.lastName = '';
-        this.email = '';
-        this.password = '';
-        this.img = '';
-        this.chats = [
+    constructor(customId?: string,firstName?: string,lastName?: string,email?: string,password?: string,img?: any,chats?: [{user: any[], messages: any[]}]) {
+        this.customId = customId || '';
+        this.firstName = firstName || '';
+        this.lastName = lastName || '';
+        this.email = email || '';
+        this.password = password || '';
+        this.img = img || '';
+        this.chats = chats ||  [
             {
-                user: new User(),
+                user: [''],
                 messages: ['']
             }
         ];
