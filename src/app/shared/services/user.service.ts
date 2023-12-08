@@ -17,15 +17,7 @@ export class UserService {
   allUserCol = collection(this.firestore, 'allUsers');
   myUsers: any = [];
   clickedContactId = new BehaviorSubject<string>('');
-  clickedContact = new BehaviorSubject<User>({
-    customId: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    img: '',
-    // chats: [{user: any, messages: []}]
-  });
+  clickedContact = new BehaviorSubject<User>(new User());
 
   unsubUsers;
 
@@ -65,7 +57,7 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    return new User(id, obj.firstName ,obj.lastName ,obj.email ,obj.password ,obj.img ,obj.chats )
+    return new User(id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
   getCleanUserJson(user: User): {} {
@@ -81,6 +73,7 @@ export class UserService {
   }
 
   async sendDocToDB(item: User) {
+    debugger
     await addDoc(this.allUserCol, this.getCleanUserJson(item));
   }
 }

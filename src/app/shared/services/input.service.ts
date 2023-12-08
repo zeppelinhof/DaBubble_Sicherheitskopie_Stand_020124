@@ -21,7 +21,6 @@ export class InputService {
   }
 
   onInputMessage(event: any): void {
-    this.isWritingMessage = event.target.value.length > 0;
-    
+    this.isWritingMessage = event.target.value.length > 0;    
   }
 }

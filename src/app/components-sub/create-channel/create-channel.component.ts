@@ -5,12 +5,6 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { Channel } from 'src/app/models/channel';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
-import {
-  Firestore,
-  collection,
-  onSnapshot,
-  query,
-} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-create-channel',
@@ -19,9 +13,7 @@ import {
 })
 export class CreateChannelComponent {
   filteredMembers: User[] = [];
-  channel: Channel = new Channel();
-
-  
+  channel!: Channel;
 
   constructor(
     public ws: WorkspaceService,
@@ -41,19 +33,12 @@ export class CreateChannelComponent {
   }
 
   allFieldsFilled(): Boolean {
-    this.channel.name = this.ws.inputName;
-    this.channel.description = this.ws.inputDescription;
-    this.channel.createdBy = {
-      customId: '',
-      img: '',
-      firstName: 'Frederick',
-      lastName: 'Beck',
-      email: '',
-      password: '',
-    };
-    this.channel.customId = 'tbd';
-    this.channel.createdDate = this.cs.todaysDate();
-
+    if (this.channel) {   // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
+      this.channel.name = this.ws.inputName;
+      this.channel.description = this.ws.inputDescription;
+    } else {              // diese Werte werden nur einmal für den Channel gesetzt
+      this.channel = new Channel('abc', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User('', 'Frederik', 'Beck', '', '', []))
+    }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
@@ -63,11 +48,11 @@ export class CreateChannelComponent {
       this.closeWindows();
       // this.cs.writeUserData(this.channel, '1234')
       this.channel = new Channel();
-    } else{
+    } else {
       this.ws.dialogGeneralData = false;
-    }    
+    }
   }
-  
+
 
   changeRadioButton() {
     return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);

@@ -85,7 +85,7 @@ export class ChannelService {
       // members: channel.members,
       members: this.getCleanMemberJson(channel.members),
       createdDate: channel.createdDate,
-      createdBy: channel.createdBy,
+      createdBy: this.us.getCleanUserJson(channel.createdBy)
     }
   }
 
@@ -100,6 +100,7 @@ export class ChannelService {
   }
 
   async sendDocToDB(item: Channel) {
+    debugger
     await addDoc(this.allChannelsCol, this.getCleanChannelJson(item));
   }
 

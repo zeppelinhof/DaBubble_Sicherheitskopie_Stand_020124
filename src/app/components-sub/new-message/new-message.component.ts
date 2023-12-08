@@ -26,7 +26,7 @@ export class NewMessageComponent {
 
   channel: Channel = new Channel();
 
-  constructor(private us: UserService, private ws: WorkspaceService, private cs: ChannelService) {
+  constructor(public us: UserService, private ws: WorkspaceService, private cs: ChannelService) {
     this.allUsers = this.getUsers();
     this.allChannels = this.getChannels();
   }
@@ -40,12 +40,30 @@ export class NewMessageComponent {
   }
 
   async filterMembers() {
+    this.openCloseAdd();
     const searchType = this.inputValue.slice(0, 1).toLowerCase();
-    // Suche nach User mit @
-    if (searchType == '@') {
+    const searchTerm = this.inputValue.slice(1).toLowerCase();
+
+    // Suche nach Email-Adresse
+    if (this.isValidEmailFormat(this.inputValue.toLowerCase())) {      
       this.allUsers = await this.getUsers();
-      this.showAddMember = true;
-      const searchTerm = this.inputValue.slice(1).toLowerCase();
+      this.showAddMember = true;      
+      this.filteredMembers = this.allUsers.filter((member) => {
+        const fullName = `${member.email}`.toLowerCase();
+        if (this.showAddMember) {
+          this.refreshMemberList();
+        }
+
+        return (fullName.includes(searchTerm) &&
+          !this.alreadySelected(member.email, this.member.email)
+        );
+
+      });
+    }
+    // Suche nach User mit @
+    else if (searchType == '@') {      
+      this.allUsers = await this.getUsers();
+      this.showAddMember = true;      
       this.filteredMembers = this.allUsers.filter((member) => {
         const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
         if (this.showAddMember) {
@@ -59,10 +77,9 @@ export class NewMessageComponent {
       });
     } 
     // Suche nach Channels mit #
-    else if(searchType == '#'){
+    else if(searchType == '#'){      
       this.allChannels = await this.getChannels();
       this.showAddChannel = true;
-      const searchTerm = this.inputValue.slice(1).toLowerCase();
       this.filteredChannels = this.allChannels.filter((member) => {
         const fullName = `${member.name}`.toLowerCase();
         if (this.showAddChannel) {
@@ -97,10 +114,12 @@ export class NewMessageComponent {
   }
 
   addMember(user: User) {
+    this.removeChannel(this.channel.name);
     this.member = user;
   }
 
   addChannel(channel: Channel) {
+    this.removeMember(this.member.email);
     this.channel = channel;
   }
 
@@ -117,16 +136,26 @@ export class NewMessageComponent {
     const member = this.member
     if (member) {
       if (member.email == email) {
-        this.member = {
-          firstName: '',
-          lastName: '',
-          customId: '',
-          email: '',
-          password: ''
-        }
+        this.member = new User('','','','@','');
       }
     }
   }
+
+  removeChannel(name: string) {
+    const channel = this.channel
+    if (channel) {
+      if (channel.name == name) {
+        this.channel = new Channel();
+      }
+    }
+  }
+
+  isValidEmailFormat(input: string): boolean {
+    const atIndex = input.indexOf('@');
+    const dotIndex = input.lastIndexOf('.');
+
+    return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < input.length - 1;
+}
 
 
 

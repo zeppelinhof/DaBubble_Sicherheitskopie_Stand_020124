@@ -10,7 +10,16 @@
                     <img class="close-purple" src="assets/icons/close_purple.png" />
                 </div>
             </div>
-            <input [(ngModel)]="this.inputValue" (input)="filterMembers();"
+
+            <div *ngIf="channel.name" class="complete-member">
+                <div class="complete-name">{{channel.name}}</div>
+                <div class="remove-member" (click)="removeChannel(channel.name)">
+                    <img class="close-normal" src="assets/icons/close.png" />
+                    <img class="close-purple" src="assets/icons/close_purple.png" />
+                </div>
+            </div>
+
+            <input autofocus [(ngModel)]="this.inputValue" (input)="filterMembers();"
                 class="channel-selected-member-input" placeholder="An: #channel oder @jemand oder E-Mail Adresse">
         </div>
 
@@ -43,9 +52,8 @@
             <div class="user-list-wrap">
                 <div class="user-list">
                     <div class="oneUser-line" *ngFor="let channel of filteredChannels" (click)="addChannel(channel); clearSearchInput()">
-                        <img class="profile-image" src="assets/imgs/userMale3.png">
                         <div class="name-text">
-                            {{ channel.name}}
+                            # {{ channel.name}}
                         </div>
                     </div>
                 </div>
@@ -60,9 +68,9 @@
             <div class="message-inner-name"></div>
         </div>
 
-        <div class="this-conversation-text-container">
+        <div *ngIf="member.firstName" class="this-conversation-text-container">
             <div>Diese Unterhaltung findet nur zwischen</div>
-            <div class="name-of-chat-partner">@</div>
+            <div class="name-of-chat-partner">@{{member.firstName}} {{member.lastName}}</div>
             <div>und dir statt.</div>
         </div>
     </div>
