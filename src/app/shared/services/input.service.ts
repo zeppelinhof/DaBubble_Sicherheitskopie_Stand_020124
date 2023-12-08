@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class InputService {
+  
   isWritingChannel: boolean = false;
   isWritingThread: boolean = false;
   isWritingMessage: boolean = false;

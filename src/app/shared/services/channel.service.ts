@@ -14,6 +14,7 @@ import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
 import { User } from 'src/app/models/user';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -21,15 +22,13 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
 
-  myChannels: any = [];
+  myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
   unsubChannels;
 
   constructor(private us: UserService) {
     this.unsubChannels = this.subChannelList();
-    console.log(this.myChannels);
-
   }
 
   // Collection Channels beobachten
@@ -43,9 +42,10 @@ export class ChannelService {
         // ... Array myChannels füllen
         this.myChannels.push(this.setChannelObject(element.data(), element.id));
         // ausführen:
-        this.setCurrentChannel(element.id);
       });
     });
+    
+    
   }
 
   setCurrentChannel(elementId: string) {
@@ -59,8 +59,6 @@ export class ChannelService {
           // this.clickedChannel = channelList[index];
           // 
           this.clickedChannel.next(channelList[index]);
-          console.log('Der aktuelle Channel', this.clickedChannel);
-          console.log(channelList[index]['customId'].value);
         }
       }
     }

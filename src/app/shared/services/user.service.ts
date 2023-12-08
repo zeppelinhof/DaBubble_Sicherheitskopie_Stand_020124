@@ -43,8 +43,6 @@ export class UserService {
         // wenn es sich um den aktuell angezeigten Channel handelt...
         if (elementId == userList[index]['customId']) {
           this.clickedContact.next(userList[index]);
-          console.log('Der aktuelle Contact', this.clickedContact);
-          console.log(userList[index]['customId'].value);
         }
       }
     }

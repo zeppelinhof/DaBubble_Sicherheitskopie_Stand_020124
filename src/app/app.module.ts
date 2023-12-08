@@ -1,5 +1,3 @@
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,8 +22,8 @@ import { InputFieldChannelComponent } from './components-sub/input-field-channel
 import { InputFieldThreadComponent } from './components-sub/input-field-thread/input-field-thread.component';
 import { InputFieldMessageComponent } from './components-sub/input-field-message/input-field-message.component';
 import { NewMessageComponent } from './components-sub/new-message/new-message.component';
-
-
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -54,7 +52,6 @@ import { NewMessageComponent } from './components-sub/new-message/new-message.co
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    provideFirestore(() => getFirestore()),
     provideFirebaseApp(() =>
       initializeApp({
         projectId: 'dabubble-d4948',
@@ -63,8 +60,9 @@ import { NewMessageComponent } from './components-sub/new-message/new-message.co
         apiKey: 'AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs',
         authDomain: 'dabubble-d4948.firebaseapp.com',
         messagingSenderId: '567130022113',
-      }),
+      })
     ),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent],
