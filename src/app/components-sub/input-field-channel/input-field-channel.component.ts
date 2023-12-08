@@ -13,11 +13,16 @@ import { InputService } from 'src/app/shared/services/input.service';
 export class InputFieldChannelComponent {
   clickedChannel!: Channel;
   allMembers: any = [];
-  all: any = [];
   showUserList: boolean = false;
+
   constructor(public service: InputService, public cs: ChannelService) {}
 
   ngOnInit(): void {
+    this.getCurrentChannel();
+  }
+
+  // fills allMembers array with all users in the current channel
+  getCurrentChannel(){
     this.cs.clickedChannel.subscribe((ch: Channel) => {
       this.clickedChannel = ch;
       this.allMembers = [];
