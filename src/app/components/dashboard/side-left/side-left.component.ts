@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { Channel } from 'src/app/interfaces/channel';
+// import { Channel } from 'src/app/interfaces/channel';
+import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';

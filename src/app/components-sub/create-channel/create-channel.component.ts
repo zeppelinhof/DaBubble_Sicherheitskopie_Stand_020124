@@ -2,7 +2,8 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { User } from 'src/app/interfaces/user';
-import { Channel } from 'src/app/interfaces/channel';
+// import { Channel } from 'src/app/interfaces/channel';
+import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import {
   Firestore,
@@ -18,13 +19,7 @@ import {
 })
 export class CreateChannelComponent {
   filteredMembers: User[] = [];
-  channel: Channel = {
-    customId: '',
-    name: '',
-    description: '',
-    members: [],
-    createdDate: '',
-  };
+  channel: Channel = new Channel();
 
   
 
@@ -64,17 +59,10 @@ export class CreateChannelComponent {
 
   createChannel() {
     if (!this.ws.dialogGeneralData) {
-      debugger
       this.cs.sendDocToDB(this.channel);
       this.closeWindows();
       // this.cs.writeUserData(this.channel, '1234')
-      this.channel = {
-        customId: '',
-        name: '',
-        description: '',
-        members: [],
-        createdDate: '',
-      };
+      this.channel = new Channel();
     } else{
       this.ws.dialogGeneralData = false;
     }
@@ -140,13 +128,7 @@ export class CreateChannelComponent {
   }
 
   clearChannelJSON() {
-    this.channel = {
-      customId: '',
-      name: '',
-      description: '',
-      members: [],
-      createdDate: '',
-    };
+    this.channel = new Channel();
   }
 
   clearSearchInput() {

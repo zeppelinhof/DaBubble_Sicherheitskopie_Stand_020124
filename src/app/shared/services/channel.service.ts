@@ -9,7 +9,8 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { Channel } from 'src/app/interfaces/channel';
+// import { Channel } from 'src/app/interfaces/channel';
+import { Channel } from 'src/app/models/channel';
 
 @Injectable({
   providedIn: 'root',
@@ -20,13 +21,7 @@ export class ChannelService {
   
   myChannels: any = [];
   clickedChannelId = new BehaviorSubject<string>('');
-  clickedChannel = new BehaviorSubject<Channel>({
-    customId: '',
-    name: '',
-    description: '',
-    members: [],
-    createdDate: '',
-  });
+  clickedChannel = new BehaviorSubject<Channel>(new Channel());
   unsubChannels;
 
   constructor() {
@@ -76,18 +71,23 @@ export class ChannelService {
   }
 
   setChannelObject(obj: any, id: string): Channel {
+    return new Channel(id, obj.name, obj.description, obj.members,obj.createdDate, obj.createdBy);
+  }
+
+  getCleanJson(channel: Channel, id: string): {} {
     return {
-      customId: id,
-      createdDate: obj.createdDate,
-      name: obj.name,
-      description: obj.description,
-      createdBy: obj.createdBy,
-      members: obj.members,
-    };
+        customId: id,
+        name: channel.name,
+        description: channel.description,
+        members: channel.members,
+        createdDate: channel.createdDate,
+        createdBy: channel.createdBy,
+    }
   }
 
   async sendDocToDB(item: Channel) {
-    await addDoc(this.allChannelsCol, item);
+    debugger
+    await addDoc(this.allChannelsCol, this.getCleanJson(item, item.customId));
   }
 
   async writeUserData(channel: Channel, userId: string) {

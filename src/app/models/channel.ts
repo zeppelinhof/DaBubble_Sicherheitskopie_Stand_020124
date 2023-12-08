@@ -1,4 +1,4 @@
-import { User } from '../interfaces/user';
+import { User } from './user';
 
 export class Channel {
 
@@ -10,19 +10,23 @@ export class Channel {
     createdBy: User;
 
 
-constructor(){
-        this.customId = '';
-        this.name = '';
-        this.description = '';
-        this.members = [];
-        this.createdDate = '';
-        this.createdBy = {
+    constructor(customId?: string, name?: string, description?: string, members?: User[], createdDate?: string, createdBy?: User) {
+        this.customId = customId || '';
+        this.name = name || '';
+        this.description = description || '';
+        this.members = members || [];
+        this.createdDate = createdDate || '';
+        this.createdBy = createdBy || {
             custId: '',
             img: '',
             firstName: 'Frederick',
             lastName: 'Beck',
             email: '',
             password: '',
-          };
-    }
+        };
+    }    
+
+    //   setChannelObject(obj: any, id: string): Channel {
+    //     return new Channel(id, obj.name, obj.description, obj.members,obj.createdDate, obj.createdBy);
+    //   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Channel } from 'src/app/interfaces/channel';
+// import { Channel } from 'src/app/interfaces/channel';
+import { Channel } from 'src/app/models/channel';
 import { User } from 'src/app/interfaces/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -29,13 +30,7 @@ export class NewMessageComponent {
     password: ''
   };
 
-  channel: Channel = {
-    customId: '',
-    name: '',
-    description: '',
-    members: [],
-    createdDate: '',
-  };
+  channel: Channel = new Channel();
 
   constructor(private us: UserService, private ws: WorkspaceService, private cs: ChannelService) {
     this.allUsers = this.getUsers();
@@ -57,7 +52,6 @@ export class NewMessageComponent {
       this.allUsers = await this.getUsers();
       this.showAddMember = true;
       const searchTerm = this.inputValue.slice(1).toLowerCase();
-      debugger
       this.filteredMembers = this.allUsers.filter((member) => {
         const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
         if (this.showAddMember) {
