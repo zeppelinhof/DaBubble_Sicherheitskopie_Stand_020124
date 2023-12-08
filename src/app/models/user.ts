@@ -1,4 +1,5 @@
 export class User {
+    // Achtung: Bei Veränderungen der Member unbedingt alle betroffenen Stellen im Code anpassen und Programmfunktionalitäten prüfen
     customId: string;
     firstName: string;
     lastName: string;
