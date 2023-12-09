@@ -14,7 +14,8 @@ export class InputFieldChannelComponent {
   clickedChannel!: Channel;
   allMembers: any = [];
   showUserList: boolean = false;
-
+  input!: string;
+  isInputSelected: boolean = false;
   constructor(public service: InputService, public cs: ChannelService) {}
 
   ngOnInit(): void {
@@ -22,11 +23,18 @@ export class InputFieldChannelComponent {
   }
 
   // fills allMembers array with all users in the current channel
-  getCurrentChannel(){
+  getCurrentChannel() {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
       this.clickedChannel = ch;
       this.allMembers = [];
       this.allMembers.push(this.clickedChannel.members);
     });
+  }
+
+  // adds a new member to the current input field
+  // TODO: fix color of input field 
+  collectMemberFromList(item: any) {
+    this.isInputSelected = !this.isInputSelected;
+    this.input += item;
   }
 }

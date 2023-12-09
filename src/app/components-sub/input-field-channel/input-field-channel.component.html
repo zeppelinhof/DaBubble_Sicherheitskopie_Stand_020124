@@ -3,6 +3,8 @@
     type="text"
     (input)="this.service.onInputChannel($event)"
     placeholder="Nachricht an #Entwicklerteam"
+    [ngClass]="{'selected-input': isInputSelected}"
+    [(ngModel)]="input"
   />
 
   <div class="bottom-container-of-input">
@@ -13,7 +15,10 @@
       </div>
 
       <div class="att-and-smiley-container">
-        <div (click)="this.showUserList = !this.showUserList" class="att-icons-container">
+        <div
+          (click)="this.showUserList = !this.showUserList"
+          class="att-icons-container"
+        >
           <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />
           <img class="att-icon-purple" src="assets/icons/@-icon-purple.png" />
         </div>
@@ -47,12 +52,17 @@
   <div *ngIf="showUserList" class="members-of-channel">
     <div *ngFor="let member of allMembers">
       <div *ngFor="let item of member">
-        <div id="{{ item.customId }}" class="users-list">
-          <div><img class="user-list-img" src="assets/imgs/userMale1.png" alt=""></div>
+        <div
+          (click)="collectMemberFromList(item.firstName)"
+          id="{{ item.customId }}"
+          class="users-list"
+        >
+          <div>
+            <img class="user-list-img" src="assets/imgs/userMale1.png" alt="" />
+          </div>
           <div>{{ item.firstName }}</div>
         </div>
       </div>
     </div>
   </div>
-
 </div>
