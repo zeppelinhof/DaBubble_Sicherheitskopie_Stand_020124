@@ -14,7 +14,7 @@ export class InputFieldChannelComponent {
   clickedChannel!: Channel;
   allMembers: any = [];
   showUserList: boolean = false;
-  input!: string;
+  input: string = "";
   isInputSelected: boolean = false;
   constructor(public service: InputService, public cs: ChannelService) {}
 
@@ -35,6 +35,6 @@ export class InputFieldChannelComponent {
   // TODO: fix color of input field 
   collectMemberFromList(item: any) {
     this.isInputSelected = !this.isInputSelected;
-    this.input += item;
+    this.input += item;    
   }
 }

@@ -119,7 +119,7 @@
     position: absolute;
     right: 0;
     bottom: 101px;
-    padding: 20px 40px; 
+    padding: 5px 20px; 
     cursor: pointer;
     max-height: 200px;
     overflow-y: scroll;
@@ -137,9 +137,10 @@
   background-color: $purple2;
   display: flex;
   align-items: center;
-  margin-top: 20px;
+  margin: 10px 0px;
   gap: 5px
 }
+
 
 .users-list:hover{
   background-color: $purple;
