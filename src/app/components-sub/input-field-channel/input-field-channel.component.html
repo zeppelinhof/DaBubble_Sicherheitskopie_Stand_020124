@@ -51,16 +51,16 @@
 
   <div *ngIf="showUserList" class="members-of-channel">
     <div *ngFor="let member of allMembers">
-      <div *ngFor="let item of member">
+      <div *ngFor="let name of member">
         <div
-          (click)="collectMemberFromList(item.firstName)"
-          id="{{ item.customId }}"
+          (click)="collectMemberFromList(name.firstName)"
+          id="{{ name.customId }}"
           class="users-list"
         >
           <div>
             <img class="user-list-img" src="assets/imgs/userMale1.png" alt="" />
           </div>
-          <div>{{ item.firstName }}</div>
+          <div>{{ name.firstName }}</div>
         </div>
       </div>
     </div>

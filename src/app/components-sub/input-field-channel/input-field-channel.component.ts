@@ -16,6 +16,8 @@ export class InputFieldChannelComponent {
   showUserList: boolean = false;
   input: string = "";
   isInputSelected: boolean = false;
+
+
   constructor(public service: InputService, public cs: ChannelService) {}
 
   ngOnInit(): void {
@@ -31,10 +33,15 @@ export class InputFieldChannelComponent {
     });
   }
 
-  // adds a new member to the current input field
+  // adds a new member from current channel to the current input field
   // TODO: fix color of input field 
   collectMemberFromList(item: any) {
     this.isInputSelected = !this.isInputSelected;
-    this.input += item;    
+    this.input += '@' + item;
+    this.closeShowUserList();
+  }
+
+  closeShowUserList() {
+    this.showUserList = false;
   }
 }
