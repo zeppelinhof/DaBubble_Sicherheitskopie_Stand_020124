@@ -84,7 +84,8 @@ export class ChannelService {
       // members: channel.members,
       members: this.getCleanMemberJson(channel.members),
       createdDate: channel.createdDate,
-      createdBy: this.us.getCleanUserJson(channel.createdBy)
+      createdBy: this.us.getCleanUserJson(channel.createdBy),
+      allMessages: channel.allMessages
     }
   }
 

@@ -14,9 +14,8 @@ export class InputFieldChannelComponent {
   clickedChannel!: Channel;
   allMembers: any = [];
   showUserList: boolean = false;
-  input: string = "";
+  input: string = '';
   isInputSelected: boolean = false;
-
 
   constructor(public service: InputService, public cs: ChannelService) {}
 
@@ -34,14 +33,23 @@ export class InputFieldChannelComponent {
   }
 
   // adds a new member from current channel to the current input field
-  // TODO: fix color of input field 
+  // TODO: fix color of input field
   collectMemberFromList(item: any) {
-    this.isInputSelected = !this.isInputSelected;
+    // this.isInputSelected = !this.isInputSelected;
     this.input += '@' + item;
     this.closeShowUserList();
   }
 
   closeShowUserList() {
     this.showUserList = false;
+  }
+
+  sendMessage() {
+    let newMessage = { // {}
+      user: 'ICH (USER)',
+      message: this.input,
+    };
+    // ! muss geändert werden ! 
+    this.cs.updateChannel({ allMessages: newMessage }, this.clickedChannel); 
   }
 }

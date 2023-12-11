@@ -8,8 +8,9 @@ export class Channel {
     members: User[];
     createdDate: string;
     createdBy: User;
+    allMessages: string[];
 
-    constructor(customId?: string, name?: string, description?: string, members?: User[], createdDate?: string, createdBy?: User) {
+    constructor(customId?: string, name?: string, description?: string, members?: User[], createdDate?: string, createdBy?: User, allMessages?: string[]) {
         this.customId = customId || '';
         this.name = name || '';
         this.description = description || '';
@@ -23,6 +24,7 @@ export class Channel {
             email: '',
             password: '',
         };
+        this.allMessages = allMessages || [];
     }
 
 }

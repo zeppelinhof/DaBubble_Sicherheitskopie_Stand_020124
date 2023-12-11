@@ -38,6 +38,8 @@ export class CreateChannelComponent {
       this.channel.description = this.ws.inputDescription;
     } else {              // diese Werte werden nur einmal für den Channel gesetzt
       this.channel = new Channel('abc', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User('', 'Frederik', 'Beck', '', '', []))
+      
+      
     }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
