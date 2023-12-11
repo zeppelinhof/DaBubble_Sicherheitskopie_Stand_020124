@@ -7,6 +7,7 @@ import {
   onSnapshot,
   query,
   setDoc,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 // import { Channel } from 'src/app/interfaces/channel';
@@ -25,6 +26,7 @@ export class ChannelService {
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
+  loadingUpdateData = false;
   unsubChannels;
 
   constructor(private us: UserService) {
@@ -104,6 +106,21 @@ export class ChannelService {
 
   async writeUserData(channel: Channel, userId: string) {
     await setDoc(doc(this.firestore, 'channels', userId), channel);
+  }
+
+  async updateData(id: string){
+    this.loadingUpdateData = true;
+    // let docRef = this.getSingleDocRef('allUsers', id);
+    // await updateDoc(docRef, this.user.toJSON()).catch(
+    //   (err) => { console.log(err); }
+    // ).then(()=>{
+    //   this.loadingUpdateData = false;
+    //   this.dialogRef.close();
+    // });
+  }
+
+  getSingleDocRef(colId: string, docId: string) {
+    return doc(collection(this.firestore, colId), docId)
   }
 
   todaysDate(): string {

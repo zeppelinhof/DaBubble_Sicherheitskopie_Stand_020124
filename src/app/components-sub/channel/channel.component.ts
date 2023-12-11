@@ -12,6 +12,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 export class ChannelComponent {
   clickedChannelId!: string;
   clickedChannel!: Channel;
+  infoVisible: boolean = false;
 
 
   constructor(public ws: WorkspaceService, public cs: ChannelService) { }
@@ -26,6 +27,10 @@ export class ChannelComponent {
       .subscribe((ch: Channel) => {
         this.clickedChannel = ch;
       });
+  }
+
+  showInfo() {
+    this.infoVisible = this.infoVisible ? false : true;
   }
 
 }

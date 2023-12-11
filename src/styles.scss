@@ -46,6 +46,21 @@ button {
   box-sizing: content-box;
 }
 
+.btn-wrap {
+  display: flex;
+  justify-content: flex-end;
+
+  .btn-create {
+      display: flex;
+      justify-content: center;
+      background-color: $purple3;
+      border-radius: 25px;
+      padding: 12px 25px;
+      color: white;
+      cursor: pointer;
+  }
+}
+
 .input-layout {
   width: 100%;
   padding: 18px 18px 18px 55px;

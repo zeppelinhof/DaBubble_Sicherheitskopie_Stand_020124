@@ -3,7 +3,44 @@
     <div class="channel-info-container">
       <img src="assets/icons/hasthTag.png" />
       <div class="channel-name">{{this.clickedChannel.name}}</div>
-      <img src="assets/icons/arrowDown.png" />
+      <img src="assets/icons/arrowDown.png" (click)="showInfo()" />
+
+      <!-- infoVisible -->
+      <div *ngIf="true" class="info-foldable">
+        <div class="headline">
+          <div class="hash_name">
+            <img src="assets/icons/hasthTag.png" />
+            <div class="channel-name">{{this.clickedChannel.name}}</div>
+          </div>
+          <div (click)="showInfo()" class="around-close">
+            <img src="assets/icons/close.png" alt="">
+          </div>
+        </div>
+        <div class="info-part">
+          <div class="first-line">
+            <div class="h-name">Channel-Name</div>
+            <div (click)="this.cs.updateData(this.clickedChannel.customId)" class="edit">Bearbeiten</div>
+          </div>
+          <div class="second-line">
+            <img src="assets/icons/hasthTag.png" />
+            <div class="info-text">{{this.clickedChannel.name}}</div>
+          </div>
+        </div>
+        <div class="info-part description-scroll">
+          <div class="first-line">
+            <div class="h-name">Beschreibung</div>
+            <div class="edit">Bearbeiten</div>
+          </div>
+          <div class="info-text">{{this.clickedChannel.description}}</div>
+          <div class="separator"></div>
+          <div class="h-name">Erstellt von</div>
+          <div class="created-by">{{this.clickedChannel.createdBy.firstName}} {{this.clickedChannel.createdBy.lastName}}</div>
+        </div>
+        <div class="btn-wrap">
+          <div class="btn-create">Channel verlassen</div>
+      </div>
+      </div>
+
     </div>
 
     <div class="channel-all-user-plus-add">
@@ -22,9 +59,10 @@
         <img class="add-user-purple" src="assets/icons/person_add_purple.png" />
       </div>
     </div>
+
   </div>
 
   <!-- container of input -->
   <app-input-field-channel></app-input-field-channel>
-  <!--  -->
+
 </div>

@@ -138,21 +138,6 @@ $btn-purple: #444DF2;
     }
 }
 
-.btn-wrap {
-    display: flex;
-    justify-content: flex-end;
-
-    .btn-create {
-        display: flex;
-        justify-content: center;
-        background-color: $btn-purple;
-        border-radius: 25px;
-        padding: 12px 25px;
-        color: white;
-        cursor: pointer;
-    }
-}
-
 .dialog-members {
     @extend .dialog-general-data;
 }
