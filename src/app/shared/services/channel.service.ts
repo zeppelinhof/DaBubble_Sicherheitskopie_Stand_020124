@@ -3,6 +3,8 @@ import {
   Firestore,
   addDoc,
   collection,
+  deleteDoc,
+  deleteField,
   doc,
   onSnapshot,
   query,
@@ -42,12 +44,11 @@ export class ChannelService {
       // Für jeden Channel in Channels (aus Firebase)...
       querySnapshot.forEach((element) => {
         // ... Array myChannels füllen
-        this.myChannels.push(this.setChannelObject(element.data(), element.id));
+        this.myChannels.push(this.setChannelObject(element.data(), element.id));console.log('Alle Kanäle', this.myChannels);
         // ausführen:
       });
     });
-
-
+    
   }
 
   setCurrentChannel(elementId: string) {
@@ -119,17 +120,25 @@ export class ChannelService {
     return doc(collection(this.firestore, colId), docId)
   }
 
-  leaveChannel() {
+  async leaveChannel() {
+    debugger
+    const allMembers: {}[] = [];
     for (let index = 0; index < this.myChannels.length; index++) {
       const ch = this.myChannels[index];
-      if (this.clickedChannelId == ch.customId) {
+      if (this.clickedChannelId.value == ch.customId) {
         for (let index = 0; index < ch.members.length; index++) {
           const member = ch.members[index];
-          if (member.email == 'ja@gmail.com') {  //tbd: eingelogten User auslesen
-            // this.updateChannel({ email: this.clickedChannel.name }, this.clickedChannel)
-          }
+          allMembers.push(member);          
         }
       }
+    }
+
+    for (let index = 0; index < allMembers.length; index++) {
+      const member = allMembers[index];
+      debugger
+      // if (member['customId'] == this.clickedChannelId.value) {
+        
+      // }
     }
   }
 
