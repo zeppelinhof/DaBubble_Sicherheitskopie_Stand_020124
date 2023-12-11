@@ -30,7 +30,7 @@
             <div class="second-line">
               <img src="assets/icons/hasthTag.png" />
               <div *ngIf="editNameButton" class="info-text">{{this.clickedChannel.name}}</div>
-              <div *ngIf="!editNameButton"><input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name">
+              <div *ngIf="!editNameButton" class="input-wrap"><input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name">
               </div>
             </div>
           </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="second-line">
               <div *ngIf="editDescriptionButton" class="info-text">{{this.clickedChannel.description}}</div>
-              <div *ngIf="!editDescriptionButton"><input class="inputfield" type="text"
+              <div *ngIf="!editDescriptionButton" class="input-wrap"><input class="inputfield" type="text"
                   [(ngModel)]="this.clickedChannel.description"></div>
             </div>
 

@@ -71,12 +71,18 @@ button {
   font-size: 16px;
 }
 
+.input-wrap {
+  display: flex;
+  width: 100%;
+}
+
 .inputfield {
   border: none;
   outline: none;
   flex: 1;
   width: -webkit-fill-available;
   padding: 20px 0px;
+  background-color: $light-violet;
 }
 
 // Grauer Hintergrund für Dialogfelder
