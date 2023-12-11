@@ -164,4 +164,8 @@ export class ChannelService {
 
     return todayAsString;
   }
+
+  sendMessageToChannel(id:any, message:{}) {
+    // code für senden des messages mithilfer der id des channels implementieren! 
+  }
 }

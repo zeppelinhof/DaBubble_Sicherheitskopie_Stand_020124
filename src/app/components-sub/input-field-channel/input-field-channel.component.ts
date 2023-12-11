@@ -45,11 +45,16 @@ export class InputFieldChannelComponent {
   }
 
   sendMessage() {
-    let newMessage = { // {}
+    let newMessage = {
       user: 'ICH (USER)',
       message: this.input,
     };
-    // ! muss geändert werden ! 
-    this.cs.updateChannel({ allMessages: newMessage }, this.clickedChannel); 
+    this.cs.sendMessageToChannel(this.getChannelId, newMessage);
+    // this.cs.updateChannel({ allMessages: newMessage }, this.clickedChannel);
+  }
+
+  // returns the id of the clicked channel
+  getChannelId(): any {
+    return this.clickedChannel.customId;
   }
 }
