@@ -46,8 +46,8 @@ export class ChannelService {
         // ausführen:
       });
     });
-    
-    
+
+
   }
 
   setCurrentChannel(elementId: string) {
@@ -105,18 +105,32 @@ export class ChannelService {
     await setDoc(doc(this.firestore, 'channels', userId), channel);
   }
 
-  async updateChannel(newValue: any, channel: Channel){
+  async updateChannel(newValue: any, channel: Channel) {
     this.loadingUpdateData = true;
     let docRef = this.getSingleDocRef('channels', channel.customId);
     await updateDoc(docRef, newValue).catch(
       (err) => { console.log(err); }
-    ).then(()=>{
+    ).then(() => {
       this.loadingUpdateData = false;
     });
   }
 
   getSingleDocRef(colId: string, docId: string) {
     return doc(collection(this.firestore, colId), docId)
+  }
+
+  leaveChannel() {
+    for (let index = 0; index < this.myChannels.length; index++) {
+      const ch = this.myChannels[index];
+      if (this.clickedChannelId == ch.customId) {
+        for (let index = 0; index < ch.members.length; index++) {
+          const member = ch.members[index];
+          if (member.email == 'ja@gmail.com') {  //tbd: eingelogten User auslesen
+            // this.updateChannel({ email: this.clickedChannel.name }, this.clickedChannel)
+          }
+        }
+      }
+    }
   }
 
   todaysDate(): string {

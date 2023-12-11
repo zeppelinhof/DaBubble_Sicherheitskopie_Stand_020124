@@ -1,4 +1,3 @@
-<!-- this.ws.showCreateChannel -->
 <div class="wrap" *ngIf="this.ws.showCreateChannel">
     <div class="dialog">
         <!-- this.ws.dialogGeneralData  -->
@@ -69,7 +68,7 @@
                 </div>
                 <!-- !this.ws.radioButtonFirst -->
                 <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
-                    (input)="allFieldsFilled(); filterMembers()" class="channel-selected-member-input"
+                    (input)="allFieldsFilled(); filterMembers()" class="inputfield"
                     placeholder="Name eingeben">
             </div>
 
@@ -103,7 +102,7 @@
             </div>
         </div>
         <div *ngIf="allFieldsFilled()" class="btn-wrap">
-            <div (click)="createChannel()" class="btn-create">Erstellen</div>
+            <div (click)="createChannel()" class="btn-purple">Erstellen</div>
         </div>
     </div>
 

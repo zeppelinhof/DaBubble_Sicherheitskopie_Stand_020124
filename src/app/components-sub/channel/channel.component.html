@@ -1,55 +1,64 @@
 <div [class.grow]="!this.ws.showSideLeft" class="channel-div-container">
   <div class="channel-header-container">
     <div class="channel-info-container">
-      <img src="assets/icons/hasthTag.png" />
-      <div class="channel-name">{{this.clickedChannel.name}}</div>
-      <img src="assets/icons/arrowDown.png" (click)="showInfo()" />
+      <div class="channel-info-unfold" (click)="showInfo()">
+        <img src="assets/icons/hasthTag.png" />
+        <div class="channel-name">{{this.clickedChannel.name}}</div>
+        <img src="assets/icons/arrowDown.png" />
+      </div>      
 
       <!-- infoVisible -->
-      <div *ngIf="infoVisible" class="info-foldable">
-        <div class="headline">
-          <div class="hash_name">
-            <img src="assets/icons/hasthTag.png" />
-            <div class="channel-name">{{this.clickedChannel.name}}</div>
+      <div class="wrap" *ngIf="infoVisible">
+        <div class="dialog info-foldable">
+          <div class="headline">
+            <div class="hash_name">
+              <img src="assets/icons/hasthTag.png" />
+              <div class="channel-name">{{this.clickedChannel.name}}</div>
+            </div>
+            <div (click)="showInfo()" class="around-close">
+              <img src="assets/icons/close.png" alt="">
+            </div>
           </div>
-          <div (click)="showInfo()" class="around-close">
-            <img src="assets/icons/close.png" alt="">
+          <div class="info-part">
+            <div class="first-line">
+              <div class="h-name">Channel-Name</div>
+              <div *ngIf="editNameButton" (click)="changeNameToInput()" class="edit">Bearbeiten</div>
+              <div *ngIf="!editNameButton"
+                (click)="this.cs.updateChannel({name: this.clickedChannel.name}, clickedChannel); changeNameToInput()"
+                class="edit">Speichern</div>
+            </div>
+            <div class="second-line">
+              <img src="assets/icons/hasthTag.png" />
+              <div *ngIf="editNameButton" class="info-text">{{this.clickedChannel.name}}</div>
+              <div *ngIf="!editNameButton"><input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="info-part">
-          <div class="first-line">
-            <div class="h-name">Channel-Name</div>
-            <div *ngIf="editNameButton" (click)="changeNameToInput()" class="edit">Bearbeiten</div>
-            <div *ngIf="!editNameButton" (click)="this.cs.updateChannel({name: this.clickedChannel.name}, clickedChannel); changeNameToInput()"
-              class="edit">Speichern</div>
-          </div>
-          <div class="second-line">
-            <img src="assets/icons/hasthTag.png" />
-            <div *ngIf="editNameButton" class="info-text">{{this.clickedChannel.name}}</div>
-            <div *ngIf="!editNameButton"><input type="text" [(ngModel)]="this.clickedChannel.name"></div>
-          </div>
-        </div>
-        <div class="info-part description-scroll">
-          <div class="first-line">
-            <div class="h-name">Beschreibung</div>
-            <div *ngIf="editDescriptionButton" (click)="changeDescriptionToInput()"  class="edit">Bearbeiten</div>
-            <div *ngIf="!editDescriptionButton" (click)="this.cs.updateChannel({description: this.clickedChannel.description}, clickedChannel); changeDescriptionToInput()" class="edit">Speichern</div>
-          </div>
-          <div class="second-line">
-            <div *ngIf="editDescriptionButton"  class="info-text">{{this.clickedChannel.description}}</div>
-            <div *ngIf="!editDescriptionButton"><input type="text" [(ngModel)]="this.clickedChannel.description"></div>
-          </div>
+          <div class="info-part description-scroll">
+            <div class="first-line">
+              <div class="h-name">Beschreibung</div>
+              <div *ngIf="editDescriptionButton" (click)="changeDescriptionToInput()" class="edit">Bearbeiten</div>
+              <div *ngIf="!editDescriptionButton"
+                (click)="this.cs.updateChannel({description: this.clickedChannel.description}, clickedChannel); changeDescriptionToInput()"
+                class="edit">Speichern</div>
+            </div>
+            <div class="second-line">
+              <div *ngIf="editDescriptionButton" class="info-text">{{this.clickedChannel.description}}</div>
+              <div *ngIf="!editDescriptionButton"><input class="inputfield" type="text"
+                  [(ngModel)]="this.clickedChannel.description"></div>
+            </div>
 
-          <div class="separator"></div>
-          <div class="h-name">Erstellt von</div>
-          <div class="created-by">{{this.clickedChannel.createdBy.firstName}} {{this.clickedChannel.createdBy.lastName}}
+            <div class="separator"></div>
+            <div class="h-name">Erstellt von</div>
+            <div class="created-by">{{this.clickedChannel.createdBy.firstName}}
+              {{this.clickedChannel.createdBy.lastName}}
+            </div>
           </div>
-        </div>
-        <div class="btn-wrap">
-          <div class="btn-create">Channel verlassen</div>
+          <div class="btn-wrap">
+            <div class="btn-purple" (click)="this.cs.leaveChannel()">Channel verlassen</div>
+          </div>
         </div>
       </div>
-
     </div>
 
     <div class="channel-all-user-plus-add">

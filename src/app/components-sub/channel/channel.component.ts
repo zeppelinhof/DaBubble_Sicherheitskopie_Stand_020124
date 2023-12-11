@@ -33,6 +33,8 @@ export class ChannelComponent {
 
   showInfo() {
     this.infoVisible = this.infoVisible ? false : true;    
+    this.editNameButton = true;
+    this.editDescriptionButton = true;
   }
 
   changeNameToInput(){
@@ -41,6 +43,6 @@ export class ChannelComponent {
 
   changeDescriptionToInput(){
     this.editDescriptionButton = this.editDescriptionButton ?  false : true;
-  }
+  }  
 
 }
