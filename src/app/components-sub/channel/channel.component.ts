@@ -13,6 +13,8 @@ export class ChannelComponent {
   clickedChannelId!: string;
   clickedChannel!: Channel;
   infoVisible: boolean = false;
+  editNameButton: boolean = true;
+  editDescriptionButton: boolean = true;
 
 
   constructor(public ws: WorkspaceService, public cs: ChannelService) { }
@@ -30,7 +32,15 @@ export class ChannelComponent {
   }
 
   showInfo() {
-    this.infoVisible = this.infoVisible ? false : true;
+    this.infoVisible = this.infoVisible ? false : true;    
+  }
+
+  changeNameToInput(){
+    this.editNameButton = this.editNameButton ?  false : true;
+  }  
+
+  changeDescriptionToInput(){
+    this.editDescriptionButton = this.editDescriptionButton ?  false : true;
   }
 
 }

@@ -58,8 +58,6 @@ export class ChannelService {
         // wenn es sich um den aktuell angezeigten Channel handelt...
         if (elementId == channelList[index]['customId']) {
           // setze den aktuellen Channel (Objekt) gemäß angeklickter Channel Id
-          // this.clickedChannel = channelList[index];
-          // 
           this.clickedChannel.next(channelList[index]);
         }
       }
@@ -100,7 +98,6 @@ export class ChannelService {
   }
 
   async sendDocToDB(item: Channel) {
-    debugger
     await addDoc(this.allChannelsCol, this.getCleanChannelJson(item));
   }
 
@@ -108,15 +105,14 @@ export class ChannelService {
     await setDoc(doc(this.firestore, 'channels', userId), channel);
   }
 
-  async updateData(id: string){
+  async updateChannel(newValue: any, channel: Channel){
     this.loadingUpdateData = true;
-    // let docRef = this.getSingleDocRef('allUsers', id);
-    // await updateDoc(docRef, this.user.toJSON()).catch(
-    //   (err) => { console.log(err); }
-    // ).then(()=>{
-    //   this.loadingUpdateData = false;
-    //   this.dialogRef.close();
-    // });
+    let docRef = this.getSingleDocRef('channels', channel.customId);
+    await updateDoc(docRef, newValue).catch(
+      (err) => { console.log(err); }
+    ).then(()=>{
+      this.loadingUpdateData = false;
+    });
   }
 
   getSingleDocRef(colId: string, docId: string) {
