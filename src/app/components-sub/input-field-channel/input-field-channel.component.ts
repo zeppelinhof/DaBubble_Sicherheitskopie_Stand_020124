@@ -33,9 +33,7 @@ export class InputFieldChannelComponent {
   }
 
   // adds a new member from current channel to the current input field
-  // TODO: fix color of input field
   collectMemberFromList(item: any) {
-    // this.isInputSelected = !this.isInputSelected;
     this.input += '@' + item;
     this.closeShowUserList();
   }
@@ -44,17 +42,14 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
+  // sends a new message to the current channel into allMessages array[]
   sendMessage() {
     let newMessage = {
       user: 'ICH (USER)',
       message: this.input,
     };
-    this.cs.sendMessageToChannel(this.getChannelId, newMessage);
-    // this.cs.updateChannel({ allMessages: newMessage }, this.clickedChannel);
+    this.cs.sendMessageToChannel(this.clickedChannel.customId, newMessage);
   }
 
-  // returns the id of the clicked channel
-  getChannelId(): any {
-    return this.clickedChannel.customId;
-  }
+ 
 }

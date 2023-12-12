@@ -17,14 +17,13 @@ import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
 import { User } from 'src/app/models/user';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-
+  
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -44,11 +43,11 @@ export class ChannelService {
       // Für jeden Channel in Channels (aus Firebase)...
       querySnapshot.forEach((element) => {
         // ... Array myChannels füllen
-        this.myChannels.push(this.setChannelObject(element.data(), element.id));console.log('Alle Kanäle', this.myChannels);
+        this.myChannels.push(this.setChannelObject(element.data(), element.id));
+        console.log('Alle Kanäle', this.myChannels);
         // ausführen:
       });
     });
-    
   }
 
   setCurrentChannel(elementId: string) {
@@ -68,11 +67,17 @@ export class ChannelService {
   setChannelView(id: string) {
     this.clickedChannelId.next(id);
     this.setCurrentChannel(this.clickedChannelId.value);
-
   }
 
   setChannelObject(obj: any, id: string): Channel {
-    return new Channel(id, obj.name, obj.description, obj.members, obj.createdDate, obj.createdBy);
+    return new Channel(
+      id,
+      obj.name,
+      obj.description,
+      obj.members,
+      obj.createdDate,
+      obj.createdBy
+    );
   }
 
   // dies ist notwendig, da in Firebase (nur) Json gespeichert wird
@@ -85,15 +90,15 @@ export class ChannelService {
       members: this.getCleanMemberJson(channel.members),
       createdDate: channel.createdDate,
       createdBy: this.us.getCleanUserJson(channel.createdBy),
-      allMessages: channel.allMessages
-    }
+      allMessages: channel.allMessages,
+    };
   }
 
   getCleanMemberJson(members: User[]): {} {
     const memberArray = [];
     for (let index = 0; index < members.length; index++) {
       const member = members[index];
-      const memberAsJson = this.us.getCleanUserJson(member)
+      const memberAsJson = this.us.getCleanUserJson(member);
       memberArray.push(memberAsJson);
     }
     return memberArray;
@@ -110,35 +115,37 @@ export class ChannelService {
   async updateChannel(newValue: any, channel: Channel) {
     this.loadingUpdateData = true;
     let docRef = this.getSingleDocRef('channels', channel.customId);
-    await updateDoc(docRef, newValue).catch(
-      (err) => { console.log(err); }
-    ).then(() => {
-      this.loadingUpdateData = false;
-    });
+    await updateDoc(docRef, newValue)
+      .catch((err) => {
+        console.log(err);
+      })
+      .then(() => {
+        this.loadingUpdateData = false;
+      });
   }
 
   getSingleDocRef(colId: string, docId: string) {
-    return doc(collection(this.firestore, colId), docId)
+    return doc(collection(this.firestore, colId), docId);
   }
 
   async leaveChannel() {
-    debugger
+    debugger;
     const allMembers: {}[] = [];
     for (let index = 0; index < this.myChannels.length; index++) {
       const ch = this.myChannels[index];
       if (this.clickedChannelId.value == ch.customId) {
         for (let index = 0; index < ch.members.length; index++) {
           const member = ch.members[index];
-          allMembers.push(member);          
+          allMembers.push(member);
         }
       }
     }
 
     for (let index = 0; index < allMembers.length; index++) {
       const member = allMembers[index];
-      debugger
+      debugger;
       // if (member['customId'] == this.clickedChannelId.value) {
-        
+
       // }
     }
   }
@@ -165,7 +172,8 @@ export class ChannelService {
     return todayAsString;
   }
 
-  sendMessageToChannel(id:any, message:{}) {
-    // code für senden des messages mithilfer der id des channels implementieren! 
+  // sending message to firebase allMessages array[] with help of customId of current channel
+  sendMessageToChannel(id: any, message: {}) {
+    
   }
 }
