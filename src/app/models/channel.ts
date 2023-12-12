@@ -1,3 +1,4 @@
+import { Message } from './message';
 import { User } from './user';
 
 export class Channel {
@@ -8,9 +9,9 @@ export class Channel {
     members: User[];
     createdDate: string;
     createdBy: User;
-    allMessages: string[];
+    allMessages: Message[];
 
-    constructor(customId?: string, name?: string, description?: string, members?: User[], createdDate?: string, createdBy?: User, allMessages?: string[]) {
+    constructor(customId?: string, name?: string, description?: string, members?: User[], createdDate?: string, createdBy?: User, allMessages?: Message[]) {
         this.customId = customId || '';
         this.name = name || '';
         this.description = description || '';

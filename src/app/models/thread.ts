@@ -1,21 +1,12 @@
-import { User } from './user';
+import { Message } from './message';
 
 export class Thread {
-    question: string;
-    createdBy: User;
-    createdTime:  any;
-    answers: any[];
+    question: Message;
+    answers: Message[];
 
 
-    constructor(question?: string, createdBy?: User, createdTime?: any, answers?: any[]) {
-        this.question = question || '';
-        this.createdBy = createdBy || new User();
-        this.createdTime = createdTime || '';
-        this.answers = answers || [{
-            user: new User(),
-            answer: '',
-            createdTime: '',
-            emoji: '',
-        }];
+    constructor(question?: Message, answers?: Message[]) {
+        this.question = question || new Message();
+        this.answers = answers || [];
     }    
 }

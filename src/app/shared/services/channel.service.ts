@@ -16,6 +16,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
 import { User } from 'src/app/models/user';
+import { Message } from 'src/app/models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -105,6 +106,15 @@ export class ChannelService {
     return memberArray;
   }
 
+  getCleanMessageJson(message: Message): {} {
+    return {
+      userCustomId: message.userCustomId || '',
+      message: message.message || '',
+      createdTime: message.createdTime || '',
+      emojis: message.emojis,
+    }
+  }
+
   async sendDocToDB(item: Channel) {
     await addDoc(this.allChannelsCol, this.getCleanChannelJson(item));
   }
@@ -164,8 +174,9 @@ export class ChannelService {
   }
 
   // sending message to firebase allMessages array[] with help of customId of current channel
-  sendMessageToChannel(id: any, message: {}) {
-    const allChannelsRef = collection(this.firestore, `channels/${id}/allMessages`);
-    addDoc(allChannelsRef, message);
+  sendMessageToChannel(id: any, message: Message) {
+    // const allChannelsRef = collection(this.firestore, `channels/${id}/allMessages`);
+    // addDoc(allChannelsRef, message);
+    console.log('Message und Id', message, id);
   }
 }

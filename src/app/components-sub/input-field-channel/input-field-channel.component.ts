@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
+import { Message } from 'src/app/models/message';
 
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
@@ -18,7 +19,7 @@ export class InputFieldChannelComponent {
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public cs: ChannelService) {}
+  constructor(public service: InputService, public cs: ChannelService) { }
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -45,11 +46,9 @@ export class InputFieldChannelComponent {
 
   // sends a new message to the current channel into allMessages array[]
   sendMessage() {
-    let newMessage = {
-      user: 'ICH (USER)',
-      message: this.input,
-    };
-    this.cs.sendMessageToChannel(this.clickedChannel.customId, newMessage);
+    let newMessage = new Message('', this.input);
+    // this.cs.sendMessageToChannel(this.clickedChannel.customId, newMessage);
+    this.cs.updateChannel({ allMessages: JSON.stringify(newMessage) }, this.clickedChannel);
   }
 
   addEmoji($event: any) {
