@@ -76,7 +76,8 @@ export class ChannelService {
       obj.description,
       obj.members,
       obj.createdDate,
-      obj.createdBy
+      obj.createdBy,
+      obj.allMessages
     );
   }
 
@@ -133,11 +134,9 @@ export class ChannelService {
     const channel = this.myChannels.find((ch: Channel) => ch.customId === channelId);
   
     if (channel) {
-      // user logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
+      // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
       const userIdToRemove = '5oDYsPkUGMb9FPqmqNGB';
-  
       const updatedMembers = channel.members.filter((member: User)=> member.customId !== userIdToRemove);
-  
       this.updateChannel({ members: updatedMembers }, this.clickedChannel.value);
     }
   }
