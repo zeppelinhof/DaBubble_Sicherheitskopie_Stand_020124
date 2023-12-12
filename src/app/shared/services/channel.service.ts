@@ -6,6 +6,7 @@ import {
   deleteDoc,
   deleteField,
   doc,
+  getDoc,
   onSnapshot,
   query,
   setDoc,
@@ -24,7 +25,7 @@ import { Message } from 'src/app/models/message';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-  
+
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -112,7 +113,14 @@ export class ChannelService {
       message: message.message || '',
       createdTime: message.createdTime || '',
       emojis: message.emojis,
-    }
+    };
+  }
+
+  async getAllMessagesFromChannel(id:string) {
+    const docRef = doc(this.firestore, 'channels', id);
+    const docSnap = await getDoc(docRef);
+    console.log(docSnap.data());
+   
   }
 
   async sendDocToDB(item: Channel) {
@@ -141,13 +149,20 @@ export class ChannelService {
 
   async leaveChannel() {
     const channelId = this.clickedChannelId.value;
-    const channel = this.myChannels.find((ch: Channel) => ch.customId === channelId);
-  
+    const channel = this.myChannels.find(
+      (ch: Channel) => ch.customId === channelId
+    );
+
     if (channel) {
       // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
       const userIdToRemove = '5oDYsPkUGMb9FPqmqNGB';
-      const updatedMembers = channel.members.filter((member: User)=> member.customId !== userIdToRemove);
-      this.updateChannel({ members: updatedMembers }, this.clickedChannel.value);
+      const updatedMembers = channel.members.filter(
+        (member: User) => member.customId !== userIdToRemove
+      );
+      this.updateChannel(
+        { members: updatedMembers },
+        this.clickedChannel.value
+      );
     }
   }
 
