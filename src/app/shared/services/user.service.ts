@@ -71,7 +71,6 @@ export class UserService {
   }
 
   async sendDocToDB(item: User) {
-    debugger
     await addDoc(this.allUserCol, this.getCleanUserJson(item));
   }
 }
