@@ -24,6 +24,8 @@ import { InputFieldMessageComponent } from './components-sub/input-field-message
 import { NewMessageComponent } from './components-sub/new-message/new-message.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { PickerComponent, PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker.component';
 
 @NgModule({
   declarations: [
@@ -47,11 +49,16 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
     InputFieldThreadComponent,
     InputFieldMessageComponent,
     NewMessageComponent,
+    EmojiPickerComponent,
+    // PickerComponent,
+    
+    
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
+    PickerModule,
     provideFirebaseApp(() =>
       initializeApp({
         projectId: 'dabubble-d4948',

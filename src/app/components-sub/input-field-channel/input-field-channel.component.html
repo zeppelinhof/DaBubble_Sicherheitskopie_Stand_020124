@@ -22,7 +22,7 @@
           <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />
           <img class="att-icon-purple" src="assets/icons/@-icon-purple.png" />
         </div>
-        <div class="smiley-icons-container">
+        <div (click)="this.showEmojis = !this.showEmojis" class="smiley-icons-container">
           <img
             class="smiley-icon-grey"
             src="assets/icons/smiley-icon-grey.png"
@@ -65,4 +65,9 @@
       </div>
     </div>
   </div>
+
+  <div id="emoji-container" *ngIf="showEmojis">
+    <emoji-mart  (emojiClick)="addEmoji($event)"></emoji-mart>
+  </div>
+  
 </div>

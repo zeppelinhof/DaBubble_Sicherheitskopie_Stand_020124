@@ -11,6 +11,7 @@ import { InputService } from 'src/app/shared/services/input.service';
   styleUrls: ['./input-field-channel.component.scss'],
 })
 export class InputFieldChannelComponent {
+  showEmojis: boolean = false;
   clickedChannel!: Channel;
   allMembers: any = [];
   showUserList: boolean = false;
@@ -51,5 +52,8 @@ export class InputFieldChannelComponent {
     this.cs.sendMessageToChannel(this.clickedChannel.customId, newMessage);
   }
 
- 
+  addEmoji($event: any) {
+    this.input += $event.emoji.native;
+    this.showEmojis = !this.showEmojis;
+  }
 }
