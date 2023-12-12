@@ -122,24 +122,16 @@ export class ChannelService {
   }
 
   async leaveChannel() {
-    debugger
-    const allMembers: {}[] = [];
-    for (let index = 0; index < this.myChannels.length; index++) {
-      const ch = this.myChannels[index];
-      if (this.clickedChannelId.value == ch.customId) {
-        for (let index = 0; index < ch.members.length; index++) {
-          const member = ch.members[index];
-          allMembers.push(member);          
-        }
-      }
-    }
-
-    for (let index = 0; index < allMembers.length; index++) {
-      const member = allMembers[index];
-      debugger
-      // if (member['customId'] == this.clickedChannelId.value) {
-        
-      // }
+    const channelId = this.clickedChannelId.value;
+    const channel = this.myChannels.find((ch: Channel) => ch.customId === channelId);
+  
+    if (channel) {
+      // user logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
+      const userIdToRemove = '5oDYsPkUGMb9FPqmqNGB';
+  
+      const updatedMembers = channel.members.filter((member: User)=> member.customId !== userIdToRemove);
+  
+      this.updateChannel({ members: updatedMembers }, this.clickedChannel.value);
     }
   }
 
