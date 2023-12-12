@@ -174,6 +174,7 @@ export class ChannelService {
 
   // sending message to firebase allMessages array[] with help of customId of current channel
   sendMessageToChannel(id: any, message: {}) {
-    
+    const allChannelsRef = collection(this.firestore, `channels/${id}/allMessages`);
+    addDoc(allChannelsRef, message);
   }
 }
