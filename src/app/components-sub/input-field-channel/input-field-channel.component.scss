@@ -109,65 +109,14 @@
     }
   }
 
-  .members-of-channel{
-    box-shadow: rgba(0, 0, 0, 0.11) 0px 1px 4px;
-    transition: 325ms ease;
-    background-color: rgb(255, 255, 255);
-    border-radius: 20px;
-    border-bottom-left-radius: 0px !important;
-    transition: padding 225ms ease-in-out;
-    position: absolute;
-    right: 0;
-    bottom: 101px;
-    padding: 5px 20px; 
-    cursor: pointer;
-    max-height: 200px;
-    overflow-y: scroll;
-  }
+ 
 
   
     
     
 
 
-.users-list{
-  color: white;
-  border-radius: 20px;
-  padding: 10px 20px;
-  background-color: $purple2;
-  display: flex;
-  align-items: center;
-  margin: 10px 0px;
-  gap: 5px
-}
 
 
-.users-list:hover{
-  background-color: $purple;
-}
 
 
-.user-list-img{
-  border-radius: 50px;
-  height: 40px;
-  width: 40px;
-}
-
-.members-of-channel::-webkit-scrollbar {
-  width: 4px;
-}
-
-.members-of-channel::-webkit-scrollbar-track {
-  background-color: white;
-}
-
-.members-of-channel::-webkit-scrollbar-thumb {
-  background-color: $purple;
-  border-radius: 25px;
-}
-
-#emoji-container{
-  position: absolute;
-  bottom: 100px;
-  left: 0;
-}
