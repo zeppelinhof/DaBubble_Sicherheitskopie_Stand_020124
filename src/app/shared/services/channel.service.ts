@@ -25,7 +25,8 @@ import { Message } from 'src/app/models/message';
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
-
+  allUsersCol = collection(this.firestore, 'users');
+  allMessagesChannel: any = [];
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -117,9 +118,10 @@ export class ChannelService {
   }
 
   async getAllMessagesFromChannel(id:string) {
+    this.allMessagesChannel = [];
     const docRef = doc(this.firestore, 'channels', id);
     const docSnap = await getDoc(docRef);
-    console.log(docSnap.data());
+    this.allMessagesChannel.push(docSnap.data());
    
   }
 

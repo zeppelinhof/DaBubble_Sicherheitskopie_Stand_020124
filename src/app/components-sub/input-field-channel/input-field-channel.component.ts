@@ -45,26 +45,25 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-  // sends a new message to the current channel into allMessages array[]
+
   sendMessage() {
     let newMessage = new Message('', this.input, new Date(), ['']);
     this.allMessages.push(newMessage);
-    console.log(this.allMessages);
-
-    // this.cs.sendMessageToChannel(this.clickedChannel.customId, newMessage);
-    this.cs.updateChannel(
-      { allMessages: JSON.stringify(this.allMessages) },this.clickedChannel);
     
-    // ! diese funktion muss am anfang aufgerufen werden.
-    // ! stand jetzt ist am anfang kein channel zu sehen und deshalb, funktioniert
-    // ! die abfrage mit der id des aktuellen channel's noch nicht.
-    // * muss warscheinlich noch mit JSON.Parse um gewandelt werden und dann in array gepusht werden.
-    setTimeout(() => {
-      this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
-    }, 5000);
+    this.cs.updateChannel({ allMessages: JSON.stringify(this.allMessages) },this.clickedChannel);
+    this.getMessagesFromDB();
   }
+
+
   addEmoji($event: any) {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
+  }
+
+
+  getMessagesFromDB() {
+    this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
+    console.log("in all message:" ,this.cs.allMessagesChannel);
+    
   }
 }
