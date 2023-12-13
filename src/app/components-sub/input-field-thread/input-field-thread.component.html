@@ -4,6 +4,7 @@
       type="text"
       (input)="this.service.onInputThread($event)"
       placeholder="Nachricht an #Entwicklerteam"
+      [(ngModel)]="input"
     />
   
     <div class="bottom-container-of-input">
@@ -14,11 +15,11 @@
         </div>
   
         <div class="att-and-smiley-container">
-          <div class="att-icons-container">
+          <div (click)="this.showUserList = !this.showUserList" class="att-icons-container">
             <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />
             <img class="att-icon-purple" src="assets/icons/@-icon-purple.png" />
           </div>
-          <div class="smiley-icons-container">
+          <div (click)="this.showEmojis = !this.showEmojis" class="smiley-icons-container">
             <img
               class="smiley-icon-grey"
               src="assets/icons/smiley-icon-grey.png"
@@ -43,6 +44,28 @@
           src="assets/icons/send.png"
         />
       </div>
+    </div>
+
+
+    <div *ngIf="showUserList" class="members-of-channel">
+      <div *ngFor="let member of allMembers">
+        <div *ngFor="let name of member">
+          <div
+            (click)="collectMemberFromList(name.firstName)"
+            id="{{ name.customId }}"
+            class="users-list"
+          >
+            <div>
+              <img class="user-list-img" src="assets/imgs/userMale1.png" alt="" />
+            </div>
+            <div>{{ name.firstName }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="emoji-container" *ngIf="showEmojis">
+      <emoji-mart  (emojiClick)="addEmoji($event)"></emoji-mart>
     </div>
   </div>
   

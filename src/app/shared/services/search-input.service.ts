@@ -29,7 +29,7 @@ export class SearchInputService {
       this.cs.newChannel.name = this.ws.inputName;
       this.cs.newChannel.description = this.ws.inputDescription;
     } else {              // diese Werte werden nur einmal für den Channel gesetzt
-      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User('', 'Frederik', 'Beck', '', '', []))
+      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User())
       
       
     }

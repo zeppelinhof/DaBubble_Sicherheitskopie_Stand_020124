@@ -20,7 +20,6 @@ export class CreateChannelComponent {
     public sis: SearchInputService
   ) {}  
 
-
   changeRadioButton() {
     return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);
   }

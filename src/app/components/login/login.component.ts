@@ -28,8 +28,7 @@ export class LoginComponent /* implements OnChanges, OnInit*/ {
       console.log('Aktuelle Route:', this.currentRoute);
     });
   }
-  */
-
+ 
   // *TODO: change values with real login info
   createdUser2: User = new User('', 'neu', 'jaaa', 'test@gmail.com', '12345');
 
@@ -39,4 +38,6 @@ export class LoginComponent /* implements OnChanges, OnInit*/ {
     // push user to createdUser:{}
     this.service.sendDocToDB(this.createdUser); // send user object to DB
   }
+
+   */
 }

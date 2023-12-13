@@ -15,11 +15,12 @@ export class InputFieldChannelComponent {
   showEmojis: boolean = false;
   clickedChannel!: Channel;
   allMembers: any = [];
+  allMessages: any = [];
   showUserList: boolean = false;
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public cs: ChannelService) { }
+  constructor(public service: InputService, public cs: ChannelService) {}
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -44,15 +45,25 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-  // sends a new message to the current channel into allMessages array[]
+
   sendMessage() {
-    let newMessage = new Message('', this.input);
-    // this.cs.sendMessageToChannel(this.clickedChannel.customId, newMessage);
-    this.cs.updateChannel({ allMessages: JSON.stringify(newMessage) }, this.clickedChannel);
+    let newMessage = new Message('', this.input, new Date(), ['']);
+    this.allMessages.push(newMessage);
+    
+    this.cs.updateChannel({ allMessages: JSON.stringify(this.allMessages) },this.clickedChannel);
+    this.getMessagesFromDB();
   }
+
 
   addEmoji($event: any) {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
+  }
+
+
+  getMessagesFromDB() {
+    this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
+    console.log("in all message:" ,this.cs.allMessagesChannel);
+    
   }
 }
