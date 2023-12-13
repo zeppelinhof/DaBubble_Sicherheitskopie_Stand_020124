@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
@@ -15,9 +16,10 @@ export class ChannelComponent {
   infoVisible: boolean = false;
   editNameButton: boolean = true;
   editDescriptionButton: boolean = true;
+  addMembersInExistingChannel: boolean = false;
 
 
-  constructor(public ws: WorkspaceService, public cs: ChannelService) { }
+  constructor(public ws: WorkspaceService, public cs: ChannelService, public sis: SearchInputService) { }
 
   ngOnInit(): void {
     this.cs.clickedChannelId
@@ -32,17 +34,21 @@ export class ChannelComponent {
   }
 
   showInfo() {
-    this.infoVisible = this.infoVisible ? false : true;    
+    this.infoVisible = this.infoVisible ? false : true;
     this.editNameButton = true;
     this.editDescriptionButton = true;
   }
 
-  changeNameToInput(){
-    this.editNameButton = this.editNameButton ?  false : true;
-  }  
+  switchAddMembersInExistingChannel() {
+    this.addMembersInExistingChannel = !this.addMembersInExistingChannel;
+  }
 
-  changeDescriptionToInput(){
-    this.editDescriptionButton = this.editDescriptionButton ?  false : true;
-  }  
+  changeNameToInput() {
+    this.editNameButton = this.editNameButton ? false : true;
+  }
+
+  changeDescriptionToInput() {
+    this.editDescriptionButton = !this.editDescriptionButton;
+  }
 
 }

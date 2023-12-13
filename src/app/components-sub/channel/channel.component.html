@@ -5,7 +5,7 @@
         <img src="assets/icons/hasthTag.png" />
         <div class="channel-name">{{this.clickedChannel.name}}</div>
         <img src="assets/icons/arrowDown.png" />
-      </div>      
+      </div>
 
       <!-- infoVisible -->
       <div class="wrap" *ngIf="infoVisible">
@@ -30,7 +30,8 @@
             <div class="second-line">
               <img src="assets/icons/hasthTag.png" />
               <div *ngIf="editNameButton" class="info-text">{{this.clickedChannel.name}}</div>
-              <div *ngIf="!editNameButton" class="input-wrap"><input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name">
+              <div *ngIf="!editNameButton" class="input-wrap"><input class="inputfield" type="text"
+                  [(ngModel)]="this.clickedChannel.name">
               </div>
             </div>
           </div>
@@ -63,21 +64,75 @@
 
     <div class="channel-all-user-plus-add">
       <div class="channel-user-img-container">
-        <img src="assets/imgs/userFemale1.png" />
-        <img src="assets/imgs/userMale1.png" />
-        <img src="assets/imgs/userFemale2.png" />
+        <img *ngFor="let item of clickedChannel.members" src="assets/imgs/userMale1.png" />
       </div>
 
       <div class="channel-user-counter">
-        <div>3</div>
+        <div>{{clickedChannel.members.length}}</div>
       </div>
 
-      <div class="channel-add-user-container">
+      <div class="channel-add-user-container" (click)="switchAddMembersInExistingChannel()">
         <img class="add-user-normal" src="assets/icons/person_add.png" />
         <img class="add-user-purple" src="assets/icons/person_add_purple.png" />
       </div>
     </div>
+  </div>
 
+  <!-- von create channel übertragen -->
+  <div class="wrap">
+    <div class="dialog">
+
+      <div class="first-line">
+        <div class="headline-white-box ">Leute hinzufügen</div>
+        <div (click)="this.ws.openCloseCreateChannel();" class="around-close">
+          <img src="assets/icons/close.png">
+        </div>
+      </div>
+
+      <!-- Inputfield -->
+      <div class="selected-members">
+        <div *ngFor="let item of cs.newChannel.members" class="complete-member">
+          <img class="profile-image" src="assets/imgs/userMale3.png">
+          <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
+          <div class="remove-member" (click)="sis.removeMember(item.email)">
+            <img class="close-normal" src="assets/icons/close.png" />
+            <img class="close-purple" src="assets/icons/close_purple.png" />
+          </div>
+        </div>
+        <!-- !this.ws.radioButtonFirst -->
+        <input [(ngModel)]="this.ws.inputMember" (input)="sis.allFieldsFilled(); sis.filterMembers()" class="inputfield"
+          placeholder="Name eingeben">
+      </div>
+
+      <div class="choose-members-wrap">
+        <div class="first-line">
+          <div class="headline-white-box">Mitglieder</div>
+          <div class="around-close" (click)="this.ws.openCloseAddMembers()">
+            <img src="assets/icons/close.png">
+          </div>
+        </div>
+        <div class="user-list-wrap">
+          <div class="user-list">
+            <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
+              (click)="sis.addMember(user); sis.clearSearchInput()">
+              <img class="profile-image" src="assets/imgs/userMale3.png">
+              <div class="name-text">
+                {{ user.firstName }} {{ user.lastName}}
+              </div>
+            </div>
+          </div>
+          <div class="add-object-wrap">
+            <div class="add-object" (click)="sis.clearSearchInput()">
+              <div class="add-img-wrap">
+                <img class="add-standard" src="assets/icons/add_members_button.png">
+              </div>
+              <div class="text-add-object">Mitglieder hinzufügen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- container of input -->

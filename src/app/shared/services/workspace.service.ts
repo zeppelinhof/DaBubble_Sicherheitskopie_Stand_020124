@@ -18,7 +18,6 @@ export class WorkspaceService {
 
   allCurrentChannels: Channel[] = [];
 
-
   closeSideLeft() {
     this.showSideLeft = this.showSideLeft ? false : true;
   }
@@ -30,6 +29,7 @@ export class WorkspaceService {
 
   openCloseAddMembers() {
     this.showAddMembers = false;
+    this.clearValues();
   }
 
   clearValues(){
@@ -41,6 +41,7 @@ export class WorkspaceService {
       this.inputMember = '';
       this.inputDescription= '';
       this.inputCertainMembers = [];
+      this.showAddMembers = false;
     }
   }
 }

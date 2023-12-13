@@ -61,6 +61,11 @@ button {
     color: white;
     cursor: pointer;
   }
+
+  .btn-grey {
+    @extend .btn-purple;
+    background-color: $grey;
+  }
 }
 
 .input-layout {

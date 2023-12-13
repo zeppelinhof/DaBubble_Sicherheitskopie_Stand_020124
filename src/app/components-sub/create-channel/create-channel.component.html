@@ -16,7 +16,7 @@
                 <div class="channel-property-title">
                     Channel name
                 </div>
-                <input [(ngModel)]="this.ws.inputName" (input)="allFieldsFilled()" class="channel-property-input"
+                <input [(ngModel)]="this.ws.inputName" (input)="sis.allFieldsFilled()" class="channel-property-input"
                     placeholder="# z.B. Kooperationsprojekte">
             </div>
 
@@ -24,7 +24,7 @@
                 <div class="channel-property-title">
                     Beschreibung (optional)
                 </div>
-                <input [(ngModel)]="this.ws.inputDescription" (input)="allFieldsFilled()" class="channel-property-input"
+                <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled()" class="channel-property-input"
                     placeholder="Dein Text hier">
             </div>
 
@@ -34,7 +34,7 @@
         <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
             <div class="first-line">
                 <div class="headline-white-box ">Leute hinzufügen</div>
-                <div (click)="this.ws.openCloseCreateChannel(); clearChannelJSON()" class="around-close">
+                <div (click)="this.ws.openCloseCreateChannel(); sis.clearChannelJSON()" class="around-close">
                     <img src="assets/icons/close.png">
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <div class="radio-wrap">
                         <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
                         <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div style="display: flex;">Alle Mitglieder von <div (click)="addMembersFromFirstChannel()" class="first-channel-name">{{getChannels()[0].name}}</div> hinzufügen</div>
+                        <div style="display: flex;">Alle Mitglieder von <div (click)="sis.addMembersFromFirstChannel()" class="first-channel-name">{{sis.getChannels()[0].name}}</div> hinzufügen</div>
                     </div>
                 </div>
                 <div class="option" (click)="changeRadioButton()">
@@ -58,17 +58,17 @@
 
 
             <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
-                <div *ngFor="let item of channel.members" class="complete-member">
+                <div *ngFor="let item of cs.newChannel.members" class="complete-member">
                     <img class="profile-image" src="assets/imgs/userMale3.png">
                     <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
-                    <div class="remove-member" (click)="removeMember(item.email)">
+                    <div class="remove-member" (click)="sis.removeMember(item.email)">
                         <img class="close-normal" src="assets/icons/close.png" />
                         <img class="close-purple" src="assets/icons/close_purple.png" />
                     </div>
                 </div>
                 <!-- !this.ws.radioButtonFirst -->
                 <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
-                    (input)="allFieldsFilled(); filterMembers()" class="inputfield"
+                    (input)="this.sis.allFieldsFilled(); this.sis.filterMembers()" class="inputfield"
                     placeholder="Name eingeben">
             </div>
 
@@ -78,12 +78,12 @@
                 <div class="first-line">
                     <div class="headline-white-box">Mitglieder</div>
                     <div class="around-close" (click)="this.ws.openCloseAddMembers()">
-                        <img src="assets/icons/close.png" alt="">
+                        <img src="assets/icons/close.png">
                     </div>
                 </div>
                 <div class="user-list-wrap">
                     <div class="user-list">
-                        <div class="oneUser-line" *ngFor="let user of filteredMembers" (click)="addMember(user); clearSearchInput()">
+                        <div class="oneUser-line" *ngFor="let user of sis.filteredMembers" (click)="sis.addMember(user); sis.clearSearchInput()">
                             <img class="profile-image" src="assets/imgs/userMale3.png">
                             <div class="name-text">
                                 {{ user.firstName }} {{ user.lastName}}
@@ -91,7 +91,7 @@
                         </div>
                     </div>
                     <div class="add-object-wrap">
-                        <div class="add-object" (click)="clearSearchInput()">
+                        <div class="add-object" (click)="sis.clearSearchInput()">
                             <div class="add-img-wrap">
                                 <img class="add-standard" src="assets/icons/add_members_button.png">
                             </div>
@@ -101,8 +101,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="allFieldsFilled()" class="btn-wrap">
-            <div (click)="createChannel()" class="btn-purple">Erstellen</div>
+        <div *ngIf="sis.allFieldsFilled()" class="btn-wrap">
+            <div (click)="sis.createChannel()" class="btn-purple">Erstellen</div>
         </div>
     </div>
 

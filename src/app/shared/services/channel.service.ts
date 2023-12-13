@@ -3,8 +3,6 @@ import {
   Firestore,
   addDoc,
   collection,
-  deleteDoc,
-  deleteField,
   doc,
   onSnapshot,
   query,
@@ -28,6 +26,7 @@ export class ChannelService {
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
+  newChannel!: Channel;
   loadingUpdateData = false;
   unsubChannels;
 

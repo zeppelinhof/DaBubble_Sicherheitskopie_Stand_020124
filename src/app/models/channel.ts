@@ -15,7 +15,7 @@ export class Channel {
         this.customId = customId || '';
         this.name = name || '';
         this.description = description || '';
-        this.members = members || [];
+        this.members = members || [new User()];
         this.createdDate = createdDate || '';
         this.createdBy = createdBy || {
             customId: '',
