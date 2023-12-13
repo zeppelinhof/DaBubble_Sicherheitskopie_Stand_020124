@@ -33,13 +33,20 @@ export class CreateChannelComponent {
   }
 
   allFieldsFilled(): Boolean {
-    if (this.channel) {   // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
+    if (this.channel) {
+      // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
       this.channel.name = this.ws.inputName;
       this.channel.description = this.ws.inputDescription;
-    } else {              // diese Werte werden nur einmal für den Channel gesetzt
-      this.channel = new Channel('abc', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User('', 'Frederik', 'Beck', '', '', []))
-      
-      
+    } else {
+      // diese Werte werden nur einmal für den Channel gesetzt
+      this.channel = new Channel(
+        'abc',
+        this.ws.inputName,
+        this.ws.inputDescription,
+        [],
+        this.cs.todaysDate(),
+        new User('', 'Frederik Beck', 'Frederik', 'Beck', '', '', [])
+      );
     }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
@@ -54,7 +61,6 @@ export class CreateChannelComponent {
       this.ws.dialogGeneralData = false;
     }
   }
-
 
   changeRadioButton() {
     return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);
@@ -129,7 +135,11 @@ export class CreateChannelComponent {
 
   addMembersFromFirstChannel() {
     if (this.getChannels()[0].members) {
-      for (let index = 0; index < this.getChannels()[0].members.length; index++) {
+      for (
+        let index = 0;
+        index < this.getChannels()[0].members.length;
+        index++
+      ) {
         this.channel.members?.push(this.getChannels()[0].members[index]);
       }
       this.createChannel();

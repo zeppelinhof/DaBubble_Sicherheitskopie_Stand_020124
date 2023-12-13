@@ -1,5 +1,7 @@
+import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { UserSessionCheckService } from './../../../shared/services/user-session-check.service';
 import { Component } from '@angular/core';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-display-login',
@@ -7,8 +9,26 @@ import { Component } from '@angular/core';
   styleUrls: ['./display-login.component.scss'],
 })
 export class DisplayLoginComponent {
-  emailIsInvalid: boolean = false;
-  passwordIsWrong: boolean = false;
+  formIsSubmitted = false;
 
-  constructor(public userSessionService: UserSessionCheckService) {}
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+  });
+
+  constructor(
+    public userSessionService: UserSessionCheckService,
+    private Auth: AuthenticationService
+  ) {}
+
+  submit() {
+    this.formIsSubmitted = true;
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      this.Auth.login(email, password);
+    }
+  }
 }

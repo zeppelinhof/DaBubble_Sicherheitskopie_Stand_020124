@@ -1,5 +1,6 @@
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { NgModule } from '@angular/core';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,7 @@ import { DisplayResetPwEnterEmailComponent } from './components/login/display-re
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { CreateChannelComponent } from './components-sub/create-channel/create-channel.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { InputFieldChannelComponent } from './components-sub/input-field-channel/input-field-channel.component';
 import { InputFieldThreadComponent } from './components-sub/input-field-thread/input-field-thread.component';
@@ -50,15 +51,16 @@ import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker
     InputFieldMessageComponent,
     NewMessageComponent,
     EmojiPickerComponent,
+
     // PickerComponent,
-    
-    
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     PickerModule,
+    FormsModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() =>
       initializeApp({
         projectId: 'dabubble-d4948',
@@ -69,6 +71,7 @@ import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker
         messagingSenderId: '567130022113',
       })
     ),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
   ],
   providers: [],

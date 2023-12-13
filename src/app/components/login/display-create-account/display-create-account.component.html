@@ -21,39 +21,56 @@
     Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
     DABubble-Konto.
   </span>
-  <form action="">
+  <form [formGroup]="signUpForm" (ngSubmit)="submit()">
     <div class="container-input-field">
       <img src="assets/icons/person.png" alt="icon of person" />
       <input
+        required
+        formControlName="name"
         class="input-layout"
-        type="email"
+        type="text"
         placeholder="Name und Nachname"
       />
-      <span class="error">Bitte schreiben Sie einen Namen.</span>
+      <span *ngIf="signUpForm.get('name')?.hasError('required')" class="error"
+        >Bitte schreiben Sie einen Namen.</span
+      >
     </div>
     <div class="container-input-field">
       <img src="assets/icons/mail.png" alt="icon of mail" />
       <input
+        required
+        formControlName="email"
         class="input-layout"
         type="email"
         placeholder="beispielname@email.com"
       />
-      <span class="error">Diese E-Mail-Adresse ist leider ungültig.</span>
+      <span *ngIf="signUpForm.get('email')?.hasError('required')" class="error"
+        >Diese E-Mail-Adresse ist leider ungültig.</span
+      >
     </div>
     <div class="container-input-field">
       <img src="assets/icons/lock.png" alt="icon of lock" />
-      <input class="input-layout" type="password" placeholder="Passwort" />
-      <span class="error">Bitte geben Sie ein Passwort ein.</span>
+      <input
+        required
+        formControlName="password"
+        class="input-layout"
+        type="password"
+        placeholder="Passwort"
+      />
+      <span
+        *ngIf="signUpForm.get('password')?.hasError('required')"
+        class="error"
+        >Bitte geben Sie ein Passwort ein.</span
+      >
+    </div>
+
+    <label class="checkbox-privacy-policy">
+      <input required formControlName="agreement" type="checkbox" /> Ich stimme
+      der <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
+    </label>
+
+    <div class="continue-container">
+      <button type="submit" class="button-layout">Weiter</button>
     </div>
   </form>
-
-  <label class="checkbox-privacy-policy">
-    <input type="checkbox" />
-    Ich stimme der
-    <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
-  </label>
-
-  <div class="continue-container">
-    <a routerLink="/choose-avatar" class="button-layout">Weiter</a>
-  </div>
 </section>
