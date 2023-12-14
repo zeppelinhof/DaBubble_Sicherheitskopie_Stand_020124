@@ -1,4 +1,5 @@
 @import "src/styles.scss";
+@import "src/app/components-sub/create-channel/create-channel.component.scss";
 
 $width-channel: 989px;
 
@@ -130,38 +131,6 @@ $width-channel: 989px;
   border: 1px solid $light-grey;
   gap: 20px;
 
-  .first-line {
-    display: flex;
-    justify-content: space-between;
-
-    .edit {
-      color: $purple;
-      font-size: 18px;
-      cursor: pointer;
-    }
-  }
-
-  .h-name {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .second-line {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    .info-text {
-      font-size: 18px;
-      font-weight: 400;
-    }
-
-    img {
-      height: 16px;
-      width: 16px;
-    }
-  }
-
   .separator {
     background-color: $light-grey;
     width: 100%;
@@ -172,6 +141,38 @@ $width-channel: 989px;
     font-size: 24px;
     font-weight: 400;
     color: $purple;
+  }
+}
+
+.first-line {
+  display: flex;
+  justify-content: space-between;
+
+  .edit {
+    color: $purple;
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
+
+.h-name {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.second-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .info-text {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  img {
+    height: 16px;
+    width: 16px;
   }
 }
 

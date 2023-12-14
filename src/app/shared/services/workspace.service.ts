@@ -9,6 +9,7 @@ export class WorkspaceService {
   showSideLeft: boolean = true;
   showCreateChannel: boolean = false;
   showAddMembers: boolean = false;
+  showAddMembersInExistingChannel: boolean = false;
   dialogGeneralData: boolean = true;
   radioButtonFirst: boolean = true;
   inputName: string = '';
@@ -17,7 +18,6 @@ export class WorkspaceService {
   inputCertainMembers: User[] = [];
 
   allCurrentChannels: Channel[] = [];
-
 
   closeSideLeft() {
     this.showSideLeft = this.showSideLeft ? false : true;
@@ -28,8 +28,9 @@ export class WorkspaceService {
     this.clearValues();
   }
 
-  openCloseAddMembers() {
+  closeAddMembers() {
     this.showAddMembers = false;
+    this.clearValues();
   }
 
   clearValues(){
@@ -41,6 +42,7 @@ export class WorkspaceService {
       this.inputMember = '';
       this.inputDescription= '';
       this.inputCertainMembers = [];
+      this.showAddMembers = false;
     }
   }
 }
