@@ -47,10 +47,14 @@ export class InputFieldChannelComponent {
 
 
   sendMessage() {
-    let newMessage = new Message('', this.input, new Date(), ['']);
+    let newMessage: Message = {
+      userCustomId: '',
+      message: this.input,
+      createdTime: new Date(),
+      emojis: [''],
+    }
     this.allMessages.push(newMessage);
-    
-    this.cs.updateChannel({ allMessages: JSON.stringify(this.allMessages) },this.clickedChannel);
+    this.cs.updateChannel({ allMessages: this.allMessages },this.clickedChannel);
     this.getMessagesFromDB();
   }
 
