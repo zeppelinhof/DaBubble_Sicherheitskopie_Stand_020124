@@ -4,6 +4,7 @@ import { ChannelService } from './channel.service';
 import { User } from 'src/app/models/user';
 import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
+import { Message } from 'src/app/models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ import { UserService } from './user.service';
 export class SearchInputService {
   filteredMembers: User[] = [];
 
-  constructor(private ws: WorkspaceService, private cs: ChannelService, private us: UserService,) { 
+  constructor(private ws: WorkspaceService, private cs: ChannelService, private us: UserService,) {
     this.getUsers();
     this.getChannels();
-   }
+  }
 
   getUsers(): User[] {
     return this.us.myUsers;
@@ -30,8 +31,8 @@ export class SearchInputService {
       this.cs.newChannel.description = this.ws.inputDescription;
     } else {              // diese Werte werden nur einmal für den Channel gesetzt
       this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User())
-      
-      
+
+
     }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
@@ -111,6 +112,8 @@ export class SearchInputService {
   createChannel() {
     if (!this.ws.dialogGeneralData || this.ws.showAddMembersInExistingChannel) {
       this.cs.sendDocToDB(this.cs.newChannel);
+      debugger
+      this.us.sendDocToDB(new User('', '', 'Alice', 'Wunder', '', '', '', [new Message('5oDYsPkUGMb9FPqmqNGB', 'Hey')]));     // create new User just for testing
       this.closeWindows();
       this.cs.newChannel = new Channel();
     } else {

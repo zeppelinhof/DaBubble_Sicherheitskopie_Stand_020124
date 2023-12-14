@@ -28,6 +28,7 @@ export class ChannelService {
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
+  clickedUser = new BehaviorSubject<User>(new User());
   newChannel!: Channel;
   loadingUpdateData = false;
   unsubChannels;
@@ -46,7 +47,6 @@ export class ChannelService {
       querySnapshot.forEach((element) => {
         // ... Array myChannels füllen
         this.myChannels.push(this.setChannelObject(element.data(), element.id));
-        console.log('Alle Kanäle', this.myChannels);
         // ausführen:
       });
     });
@@ -90,14 +90,14 @@ export class ChannelService {
       name: channel.name,
       description: channel.description,
       // members: channel.members,
-      members: this.getCleanMemberJson(channel.members),
+      members: this.getCleanMemberArrayJson(channel.members),
       createdDate: channel.createdDate,
       createdBy: this.us.getCleanUserJson(channel.createdBy),
       allMessages: channel.allMessages,
     };
   }
 
-  getCleanMemberJson(members: User[]): {} {
+  getCleanMemberArrayJson(members: User[]): {} {
     const memberArray = [];
     for (let index = 0; index < members.length; index++) {
       const member = members[index];
@@ -105,16 +105,7 @@ export class ChannelService {
       memberArray.push(memberAsJson);
     }
     return memberArray;
-  }
-
-  getCleanMessageJson(message: Message): {} {
-    return {
-      userCustomId: message.userCustomId || '',
-      message: message.message || '',
-      createdTime: message.createdTime || '',
-      emojis: message.emojis,
-    };
-  }
+  }  
 
   async getAllMessagesFromChannel(id:string) {
     this.allMessagesChannel = [];

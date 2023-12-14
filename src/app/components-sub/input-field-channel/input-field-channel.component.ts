@@ -67,7 +67,6 @@ export class InputFieldChannelComponent {
 
   getMessagesFromDB() {
     this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
-    console.log("in all message:" ,this.cs.allMessagesChannel);
-    
+    console.log("in all message:" ,this.cs.allMessagesChannel);    
   }
 }

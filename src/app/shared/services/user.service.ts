@@ -8,6 +8,8 @@ import {
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { ChannelService } from './channel.service';
+import { Message } from 'src/app/models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -55,10 +57,12 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    return new User(id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
+    debugger
+    return new User(id, id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
   getCleanUserJson(user: User): {} {
+    debugger
     return {
       customId: user.customId,
       firstName: user.firstName,
@@ -66,8 +70,28 @@ export class UserService {
       email: user.email,
       password: user.password,
       img: user.img || '',
-      chats: user.chats || [{}],
+      chats:  this.getCleanMessageArrayJson(user.chats || [new Message()]) || [{}],
+      // chats:  user.chats || [{}],
     }
+  }
+
+  getCleanMessageArrayJson(messages: Message[]): {} {
+    const messageArray = [];
+    for (let index = 0; index < messages.length; index++) {
+      const member = messages[index];
+      const messageAsJson = this.getCleanMessageJson(member);
+      messageArray.push(messageAsJson);
+    }
+    return messageArray;
+  }
+
+  getCleanMessageJson(message: Message): {} {
+    return {
+      userCustomId: message.userCustomId || '',
+      message: message.message || '',
+      createdTime: message.createdTime || '',
+      emojis: message.emojis,
+    };
   }
 
   async sendDocToDB(item: User) {

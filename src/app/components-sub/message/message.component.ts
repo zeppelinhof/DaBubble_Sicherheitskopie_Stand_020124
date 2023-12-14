@@ -24,13 +24,11 @@ export class MessageComponent {
     this.us.clickedContactId
       .subscribe((chId: string) => {
         this.clickedContactId = chId;
-        console.log('Komponente Channel hat folgende Id erhalten:', chId)
       });
 
     this.us.clickedContact
       .subscribe((user: User) => {
         this.clickedContact = user;
-        console.log('Komponente Message hat folgenden User erhalten:', user)
       });
   }
 
