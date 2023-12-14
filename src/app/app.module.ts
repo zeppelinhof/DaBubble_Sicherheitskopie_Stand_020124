@@ -27,6 +27,8 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { PickerComponent, PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker.component';
+import { MessagesChannelComponent } from './components-sub/messages-channel/messages-channel.component';
+import { MessageOfUserComponent } from './components-sub/message-of-user/message-of-user.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker
     InputFieldMessageComponent,
     NewMessageComponent,
     EmojiPickerComponent,
+    MessagesChannelComponent,
+    MessageOfUserComponent,
 
     // PickerComponent,
   ],

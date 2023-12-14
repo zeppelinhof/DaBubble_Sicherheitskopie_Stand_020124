@@ -20,7 +20,7 @@ export class InputFieldChannelComponent {
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public cs: ChannelService) {}
+  constructor(public service: InputService, public cs: ChannelService) { }
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -54,19 +54,13 @@ export class InputFieldChannelComponent {
       emojis: [''],
     }
     this.allMessages.push(newMessage);
-    this.cs.updateChannel({ allMessages: this.allMessages },this.clickedChannel);
-    this.getMessagesFromDB();
+    this.cs.updateChannel({ allMessages: this.allMessages }, this.clickedChannel);
+
   }
 
 
   addEmoji($event: any) {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
-  }
-
-
-  getMessagesFromDB() {
-    this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
-    console.log("in all message:" ,this.cs.allMessagesChannel);    
   }
 }

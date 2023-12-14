@@ -24,7 +24,7 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
   allUsersCol = collection(this.firestore, 'users');
-  allMessagesChannel: any = [];
+  allMessagesChannel: any = []; 
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -97,6 +97,16 @@ export class ChannelService {
     };
   }
 
+  getCleanMemberJson(members: User[]): {} {
+    const memberArray = [];
+    for (let index = 0; index < members.length; index++) {
+      const member = members[index];
+      const memberAsJson = this.us.getCleanUserJson(member);
+      memberArray.push(memberAsJson);
+    }
+    return memberArray;
+  }
+
   getCleanMemberArrayJson(members: User[]): {} {
     const memberArray = [];
     for (let index = 0; index < members.length; index++) {
@@ -107,12 +117,11 @@ export class ChannelService {
     return memberArray;
   }  
 
-  async getAllMessagesFromChannel(id:string) {
+  async getAllMessagesFromChannel(id: string) {
     this.allMessagesChannel = [];
     const docRef = doc(this.firestore, 'channels', id);
     const docSnap = await getDoc(docRef);
     this.allMessagesChannel.push(docSnap.data());
-   
   }
 
   async sendDocToDB(item: Channel) {
