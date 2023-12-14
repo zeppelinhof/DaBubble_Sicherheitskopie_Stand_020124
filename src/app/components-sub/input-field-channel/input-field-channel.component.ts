@@ -20,7 +20,7 @@ export class InputFieldChannelComponent {
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public cs: ChannelService) {}
+  constructor(public service: InputService, public cs: ChannelService) { }
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -63,7 +63,4 @@ export class InputFieldChannelComponent {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
   }
-
-
-  
 }

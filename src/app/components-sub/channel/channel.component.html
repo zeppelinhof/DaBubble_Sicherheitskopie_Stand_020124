@@ -206,16 +206,7 @@
       </div>
 
       <div class="btn-wrap">
-        <div
-          (click)="
-            cs.updateChannel(
-              { members: cs.getCleanMemberJson(additionalMembers) },
-              clickedChannel
-            );
-            switchShowAddMembersInExistingChannel()
-          "
-          class="btn-grey"
-        >
+        <div (click)="cs.updateChannel({ members: cs.getCleanMemberJson(additionalMembers) },clickedChannel); switchShowAddMembersInExistingChannel()" class="btn-grey">
           Hinzufügen
         </div>
       </div>

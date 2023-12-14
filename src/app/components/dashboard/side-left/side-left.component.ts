@@ -11,6 +11,7 @@ import {
   onSnapshot,
 } from '@angular/fire/firestore';
 import { User } from 'src/app/models/user';
+import { Message } from 'src/app/models/message';
 
 @Component({
   selector: 'app-side-left',
@@ -33,15 +34,19 @@ export class SideLeftComponent {
   ) { }
 
   getUsers() {
-    // später: um nur die Kontakte anzuzeigen
-    // for (let index = 0; index < userLoggedIn.chats.length; index++) {
-    //   const contactName = userLoggedIn.chats[index].firstName;
-    //   return contactName;
-    // }
-    return this.us.myUsers;
+    // Es werden nur die User angezeigt, welche in ihren Chats die User Id vom logged In User enthalten
+    const filteredUsers = this.us.myUsers.filter((user: User) => {
+      if (user.chats) {
+        return user.chats.some((chat: Message) => chat.userCustomId === '5oDYsPkUGMb9FPqmqNGB');
+      } else {
+        return false;
+      }
+    });
+
+    return filteredUsers;
   }
 
-  getChannels() {  
+  getChannels() {
     // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
     // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
     // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)
