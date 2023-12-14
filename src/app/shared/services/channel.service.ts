@@ -24,7 +24,7 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
   allUsersCol = collection(this.firestore, 'users');
-  allMessagesChannel: any = [];
+  allMessagesChannel: any = []; 
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -116,12 +116,11 @@ export class ChannelService {
     };
   }
 
-  async getAllMessagesFromChannel(id:string) {
+  async getAllMessagesFromChannel(id: string) {
     this.allMessagesChannel = [];
     const docRef = doc(this.firestore, 'channels', id);
     const docSnap = await getDoc(docRef);
     this.allMessagesChannel.push(docSnap.data());
-   
   }
 
   async sendDocToDB(item: Channel) {

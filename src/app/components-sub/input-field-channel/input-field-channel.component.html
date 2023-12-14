@@ -6,7 +6,7 @@
     [ngClass]="{'selected-input': isInputSelected}"
     [(ngModel)]="input"
   />
-
+  
   <div class="bottom-container-of-input">
     <div class="add-data-to-input-box-container">
       <div class="add-icon-container">
@@ -48,7 +48,7 @@
       />
     </div>
   </div>
-
+  
   <div *ngIf="showUserList" class="members-of-channel">
     <div *ngFor="let member of allMembers">
       <div *ngFor="let name of member">
@@ -70,4 +70,5 @@
     <emoji-mart  (emojiClick)="addEmoji($event)"></emoji-mart>
   </div>
   
+
 </div>

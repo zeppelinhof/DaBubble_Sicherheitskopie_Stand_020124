@@ -181,3 +181,40 @@ button {
   bottom: 100px;
   left: 0;
 }
+
+.thread-user-container {
+  display: flex;
+  align-items: center;
+  padding: 32px 40px;
+  gap: 20px;
+}
+
+.thread-user-img-container {
+  img {
+    border-radius: 40px;
+    height: 70px;
+    width: 70px;
+  }
+}
+
+.thread-info-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  .thread-user-name {
+    font-size: 18px;
+  }
+  .thread-message-time {
+    font-size: 14px;
+    font-weight: 400;
+    color: #686868;
+  }
+}
+
+.thread-message-container {
+  background-color: #eceefe;
+  border-radius: 0px 20px 20px 20px;
+  padding: 15px;
+  font-weight: 400;
+}
