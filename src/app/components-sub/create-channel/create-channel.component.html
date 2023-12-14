@@ -68,7 +68,7 @@
                 </div>
                 <!-- !this.ws.radioButtonFirst -->
                 <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
-                    (input)="this.sis.allFieldsFilled(); this.sis.filterMembers()" class="inputfield"
+                    (input)="this.sis.allFieldsFilled(); this.sis.filterMembers(this.cs.newChannel.members)" class="inputfield"
                     placeholder="Name eingeben">
             </div>
 
@@ -77,7 +77,7 @@
             <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap">
                 <div class="first-line">
                     <div class="headline-white-box">Mitglieder</div>
-                    <div class="around-close" (click)="this.ws.openCloseAddMembers()">
+                    <div class="around-close" (click)="this.ws.closeAddMembers()">
                         <img src="assets/icons/close.png">
                     </div>
                 </div>

@@ -71,50 +71,51 @@
         <div>{{clickedChannel.members.length}}</div>
       </div>
 
-      <div class="channel-add-user-container" (click)="switchAddMembersInExistingChannel()">
+      <div class="channel-add-user-container" (click)="switchShowAddMembersInExistingChannel()">
         <img class="add-user-normal" src="assets/icons/person_add.png" />
         <img class="add-user-purple" src="assets/icons/person_add_purple.png" />
       </div>
     </div>
   </div>
 
-  <!-- von create channel übertragen -->
-  <div class="wrap" *ngIf="false">
+  <!-- Leute hinzufügen Feld -->
+  <div class="wrap" *ngIf="ws.showAddMembersInExistingChannel">
     <div class="dialog">
 
       <div class="first-line">
         <div class="headline-white-box ">Leute hinzufügen</div>
-        <div (click)="this.ws.openCloseCreateChannel();" class="around-close">
+        <div (click)="switchShowAddMembersInExistingChannel()" class="around-close">
           <img src="assets/icons/close.png">
         </div>
       </div>
 
       <!-- Inputfield -->
       <div class="selected-members">
-        <div *ngFor="let item of cs.newChannel.members" class="complete-member">
+        <div *ngFor="let item of additionalMembers" class="complete-member">
           <img class="profile-image" src="assets/imgs/userMale3.png">
           <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
-          <div class="remove-member" (click)="sis.removeMember(item.email)">
+          <div class="remove-member" (click)="removeMember(item.email)">
             <img class="close-normal" src="assets/icons/close.png" />
             <img class="close-purple" src="assets/icons/close_purple.png" />
           </div>
         </div>
         <!-- !this.ws.radioButtonFirst -->
-        <input [(ngModel)]="this.ws.inputMember" (input)="sis.allFieldsFilled(); sis.filterMembers()" class="inputfield"
+        <input [(ngModel)]="this.ws.inputMember" (input)="sis.allFieldsFilled(); addPreviousMembers(); sis.filterMembers(additionalMembers)" class="inputfield"
           placeholder="Name eingeben">
       </div>
 
-      <div class="choose-members-wrap">
+      <!-- Dropdown-Liste -->
+      <div class="choose-members-wrap" *ngIf="this.ws.showAddMembers">
         <div class="first-line">
           <div class="headline-white-box">Mitglieder</div>
-          <div class="around-close" (click)="this.ws.openCloseAddMembers()">
+          <div class="around-close" (click)="this.ws.closeAddMembers()">
             <img src="assets/icons/close.png">
           </div>
         </div>
         <div class="user-list-wrap">
           <div class="user-list">
             <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
-              (click)="sis.addMember(user); sis.clearSearchInput()">
+              (click)="additionalMembers.push(user); sis.clearSearchInput()">
               <img class="profile-image" src="assets/imgs/userMale3.png">
               <div class="name-text">
                 {{ user.firstName }} {{ user.lastName}}
@@ -130,6 +131,10 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="btn-wrap">
+        <div (click)="cs.updateChannel({members: cs.getCleanMemberJson(additionalMembers)}, clickedChannel); switchShowAddMembersInExistingChannel()" class="btn-grey">Hinzufügen</div>
       </div>
 
     </div>

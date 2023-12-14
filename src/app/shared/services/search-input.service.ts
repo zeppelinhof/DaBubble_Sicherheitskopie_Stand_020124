@@ -36,24 +36,25 @@ export class SearchInputService {
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
-  filterMembers() {
+  filterMembers(existingMembers: User[]) {
     this.ws.showAddMembers = true;
     const searchTerm = this.ws.inputMember.toLowerCase();
 
     this.filteredMembers = this.getUsers().filter((member) => {
       const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
       if (this.ws.showAddMembers) {
-        this.refreshMemberList();
+        this.refreshMemberList(existingMembers);
       }
       return (
         fullName.includes(searchTerm) &&
-        !this.memberAlreadySelected(member.email)
+        !this.memberAlreadySelected(member.email, existingMembers)
       );
     });
   }
 
-  memberAlreadySelected(email: string): boolean {
-    const members = this.cs.newChannel.members;
+  memberAlreadySelected(email: string, existingMembers: User[]): boolean {
+    // const members = this.cs.newChannel.members;
+    const members = existingMembers;
     if (members) {
       for (let index = 0; index < members.length; index++) {
         const ele = members[index].email;
@@ -82,10 +83,10 @@ export class SearchInputService {
     }
   }
 
-  refreshMemberList() {
+  refreshMemberList(existingMembers: User[]) {
     setTimeout(() => {
       if (this.ws.showAddMembers) {
-        this.filterMembers();
+        this.filterMembers(existingMembers);
       }
     }, 1000);
   }
@@ -108,7 +109,7 @@ export class SearchInputService {
   }
 
   createChannel() {
-    if (!this.ws.dialogGeneralData) {
+    if (!this.ws.dialogGeneralData || this.ws.showAddMembersInExistingChannel) {
       this.cs.sendDocToDB(this.cs.newChannel);
       this.closeWindows();
       this.cs.newChannel = new Channel();
@@ -119,7 +120,7 @@ export class SearchInputService {
 
   closeWindows() {
     this.ws.openCloseCreateChannel();
-    this.ws.openCloseAddMembers();
+    this.ws.closeAddMembers();
   }
 
 }

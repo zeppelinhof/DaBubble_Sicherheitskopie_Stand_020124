@@ -9,6 +9,7 @@ export class WorkspaceService {
   showSideLeft: boolean = true;
   showCreateChannel: boolean = false;
   showAddMembers: boolean = false;
+  showAddMembersInExistingChannel: boolean = false;
   dialogGeneralData: boolean = true;
   radioButtonFirst: boolean = true;
   inputName: string = '';
@@ -27,7 +28,7 @@ export class WorkspaceService {
     this.clearValues();
   }
 
-  openCloseAddMembers() {
+  closeAddMembers() {
     this.showAddMembers = false;
     this.clearValues();
   }

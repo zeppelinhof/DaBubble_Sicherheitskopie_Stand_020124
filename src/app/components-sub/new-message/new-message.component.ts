@@ -53,7 +53,6 @@ export class NewMessageComponent {
         if (this.showAddMember) {
           this.refreshMemberList();
         }
-
         return (fullName.includes(searchTerm) &&
           !this.alreadySelected(member.email, this.member.email)
         );

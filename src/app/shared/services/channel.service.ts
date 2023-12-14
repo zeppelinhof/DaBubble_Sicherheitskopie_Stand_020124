@@ -98,6 +98,7 @@ export class ChannelService {
   }
 
   getCleanMemberJson(members: User[]): {} {
+    debugger
     const memberArray = [];
     for (let index = 0; index < members.length; index++) {
       const member = members[index];
@@ -133,6 +134,7 @@ export class ChannelService {
   }
 
   async updateChannel(newValue: any, channel: Channel) {
+    debugger
     this.loadingUpdateData = true;
     let docRef = this.getSingleDocRef('channels', channel.customId);
     await updateDoc(docRef, newValue)
