@@ -59,7 +59,6 @@ export class ChannelComponent {
   }
 
   removeMember(email: string) {
-    debugger
     const members = this.additionalMembers;
     if (members) {
       for (let index = 0; index < members.length; index++) {
@@ -73,7 +72,6 @@ export class ChannelComponent {
 
   addPreviousMembers() {
     // additionalMembers nimmt die zusätzlichen Members auf und fügt die bisherigen Members (einmal) hinzu
-    debugger
     if (!this.previousAdded) {
       this.previousAdded = true;
       this.clickedChannel.members.forEach((member) => { this.additionalMembers.push(member) });
