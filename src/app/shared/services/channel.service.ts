@@ -34,6 +34,10 @@ export class ChannelService {
 
   constructor(private us: UserService) {
     this.unsubChannels = this.subChannelList();
+    setInterval(()=>{
+      console.log("mein channel" ,this.allMessagesChannel);
+      
+    }, 2000)
   }
 
   // Collection Channels beobachten

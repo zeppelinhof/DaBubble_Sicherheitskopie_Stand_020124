@@ -8,13 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages-channel.component.scss'],
 })
 export class MessagesChannelComponent {
-  array: any[] = [
-    { text: 'Messages' },
-    { text: 'Messages' },
-    { text: 'Messages' },
-  ];
+  
   constructor(public cs: ChannelService) {
-    console.log(this.array);
+    console.log("this:" , this.cs.allMessagesChannel);
     
   }
 }
