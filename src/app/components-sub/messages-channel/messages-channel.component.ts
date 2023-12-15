@@ -8,9 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages-channel.component.scss'],
 })
 export class MessagesChannelComponent {
+
   
   constructor(public cs: ChannelService) {
-    console.log("this:" , this.cs.allMessagesChannel);
+   
     
   }
 }

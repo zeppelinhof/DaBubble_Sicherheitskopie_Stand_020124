@@ -57,7 +57,6 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    debugger
     return new User(id, id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
