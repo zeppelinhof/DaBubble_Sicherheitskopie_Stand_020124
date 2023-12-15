@@ -13,6 +13,7 @@ export class User {
   chats?: Message[];
 
   constructor(
+    id?: string,
     customId?: string,
     name?: string,
     firstName?: string,
@@ -22,6 +23,7 @@ export class User {
     img?: any,
     chats?: Message[]
   ) {
+    this.id = id || '';
     this.customId = customId || '';
     this.name = name || '';
     this.firstName = firstName || '';

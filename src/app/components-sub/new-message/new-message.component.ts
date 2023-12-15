@@ -25,10 +25,21 @@ export class NewMessageComponent {
   member: User = new User('','','','@','');
 
   channel: Channel = new Channel();
+  clickedContact!: User;
 
   constructor(public us: UserService, private ws: WorkspaceService, private cs: ChannelService) {
     this.allUsers = this.getUsers();
     this.allChannels = this.getChannels();
+  }
+
+  ngOnInit(): void {
+    this.getCurrentUser();
+  }
+
+  getCurrentUser() {
+    this.us.clickedContact.subscribe((user: User) => {
+      this.clickedContact = user;
+    });
   }
 
   getUsers(): User[] {
@@ -115,6 +126,7 @@ export class NewMessageComponent {
   addMember(user: User) {
     this.removeChannel(this.channel.name);
     this.member = user;
+    this.us.setContactView(this.member.customId)
   }
 
   addChannel(channel: Channel) {

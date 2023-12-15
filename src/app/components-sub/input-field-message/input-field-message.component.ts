@@ -12,7 +12,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class InputFieldMessageComponent {
   clickedContact!: User;
-  allContacts: User[] = [];
+  // allContacts: User[] = [];
   input: string = '';
   isInputSelected: boolean = false;
 
@@ -25,30 +25,40 @@ export class InputFieldMessageComponent {
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
       this.clickedContact = user;
-      this.allContacts = [];
-      this.allContacts.push(this.clickedContact);
+      // this.allContacts = [];
+      // this.allContacts.push(this.clickedContact);
     });
   }
 
-  sendDirectMessage(userChats: Message[]) {
-    if (userChats) {
-      this.us.updateUser({ chats: this.getAllChatsOfUser(userChats) }, this.clickedContact);
-    }
+  sendDirectMessage() {
 
-    // alle bisherigen Chats dieses Users in tempArray speichern vgl. Channel Messages
-    // tempArray um {userCustomId: string; message: string; createdTime: any; emojis: any[]} ergänzen
-    // für chats-Array des eingeloggten Users und des anderen Users updateUser in userService --> updateUser({tempArray}, clickedContact)
+    // Nachricht bei Empfänger hinterlegen
+    this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
+    // Nachricht bei Sender hinterlegen
+    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
   }
 
-  getAllChatsOfUser(userChats: Message[]) {
+  getAllChatsOfUser(forUser: User) {
     let allChats = [];
 
-    for (let index = 0; index < userChats.length; index++) {
-      const chat = userChats[index];
-      allChats.push(chat)
-    }
-    allChats.push(this.us.getCleanMessageJson(new Message(this.clickedContact.customId, this.input, this.cs.todaysDate())));
+    for (let index = 0; index < forUser.chats!.length; index++) {
+      const chat = forUser.chats![index];
+      allChats.push(chat);      
+    }debugger
+    allChats.push(this.addNewMessage(forUser));
+    
     return allChats;
+  }
+
+  addNewMessage(user: User) {
+    // der eingeloggte User erhält für den Chat die Id des clicked contact
+    if (user.customId === this.us.userLoggedIn().customId) {
+      return this.us.getCleanMessageJson(new Message(this.clickedContact.customId, this.input, this.cs.todaysDate()));
+    } 
+    // der clicked contact erhält für den Chat die Id des eingeloggten Users
+    else{
+      return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.todaysDate()));
+    }    
   }
 
 }

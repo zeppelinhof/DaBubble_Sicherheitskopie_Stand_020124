@@ -10,7 +10,6 @@ import {
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { ChannelService } from './channel.service';
 import { Message } from 'src/app/models/message';
 
 @Injectable({
@@ -19,7 +18,7 @@ import { Message } from 'src/app/models/message';
 export class UserService {
   firestore: Firestore = inject(Firestore);
   allUserCol = collection(this.firestore, 'allUsers');
-  myUsers: any = [];
+  myUsers: User[] = [];
   clickedContactId = new BehaviorSubject<string>('');
   clickedContact = new BehaviorSubject<User>(new User());
 
@@ -27,6 +26,13 @@ export class UserService {
 
   constructor() {
     this.unsubUsers = this.subUserList();
+  }
+
+  // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
+  userLoggedIn(){
+    const loggedInUser = this.myUsers.filter((user: User) => user.customId === "5oDYsPkUGMb9FPqmqNGB");
+    return loggedInUser[0];
+    // return new User('', '5oDYsPkUGMb9FPqmqNGB','','Markus', 'Test', 'markus@gmail.com', '12344565')
   }
 
   subUserList() {
@@ -76,12 +82,13 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    return new User(id, id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
+    return new User(id, id, obj.name, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
   getCleanUserJson(user: User): {} {
     return {
       customId: user.customId,
+      name: user.name,
       firstName: user.firstName,
       lastName: user.lastName || '',
       email: user.email,
@@ -99,6 +106,7 @@ export class UserService {
       const messageAsJson = this.getCleanMessageJson(member);
       messageArray.push(messageAsJson);
     }
+    
     return messageArray;
   }
 

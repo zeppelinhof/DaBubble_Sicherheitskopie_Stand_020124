@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="send-btn-container" (click)="sendDirectMessage(this.clickedContact.chats!)">
+    <div class="send-btn-container" (click)="sendDirectMessage()">
       <img  *ngIf="!this.service.isWritingMessage" class="send-btn-false"
         src="assets/icons/disabeld_send-icon.png" />
       <img *ngIf="this.service.isWritingMessage" class="send-btn-true" src="assets/icons/send.png" />
