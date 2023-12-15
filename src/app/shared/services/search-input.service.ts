@@ -112,8 +112,7 @@ export class SearchInputService {
   createChannel() {
     if (!this.ws.dialogGeneralData || this.ws.showAddMembersInExistingChannel) {
       this.cs.sendDocToDB(this.cs.newChannel);
-      debugger
-      // this.us.sendDocToDB(new User('', '', 'Alice', 'Wunder', '', '', '', [new Message('5oDYsPkUGMb9FPqmqNGB', 'Hey')]));     // create new User just for testing
+      // this.us.sendDocToDB(new User('', '', '', 'Alice', 'Wunder', '', '', '', [new Message(this.us.userLoggedIn().customId, 'Hey')]));     // create new User just for testing
       this.closeWindows();
       this.cs.newChannel = new Channel();
     } else {

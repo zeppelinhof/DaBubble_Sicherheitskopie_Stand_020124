@@ -1,12 +1,7 @@
 <div class="input-box-container">
-  <input
-    type="text"
-    (input)="this.service.onInputChannel($event)"
-    placeholder="Nachricht an #Entwicklerteam"
-    [ngClass]="{'selected-input': isInputSelected}"
-    [(ngModel)]="input"
-  />
-  
+  <input type="text" (input)="this.service.onInputChannel($event)" placeholder="Nachricht an #Entwicklerteam"
+    [ngClass]="{'selected-input': isInputSelected}" [(ngModel)]="input" />
+
   <div class="bottom-container-of-input">
     <div class="add-data-to-input-box-container">
       <div class="add-icon-container">
@@ -15,48 +10,27 @@
       </div>
 
       <div class="att-and-smiley-container">
-        <div
-          (click)="this.showUserList = !this.showUserList"
-          class="att-icons-container"
-        >
+        <div (click)="this.showUserList = !this.showUserList" class="att-icons-container">
           <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />
           <img class="att-icon-purple" src="assets/icons/@-icon-purple.png" />
         </div>
         <div (click)="this.showEmojis = !this.showEmojis" class="smiley-icons-container">
-          <img
-            class="smiley-icon-grey"
-            src="assets/icons/smiley-icon-grey.png"
-          />
-          <img
-            class="smiley-icon-purple"
-            src="assets/icons/smiley-icon-purple.png"
-          />
+          <img class="smiley-icon-grey" src="assets/icons/smiley-icon-grey.png" />
+          <img class="smiley-icon-purple" src="assets/icons/smiley-icon-purple.png" />
         </div>
       </div>
     </div>
 
     <div (click)="sendMessage()" class="send-btn-container">
-      <img
-        *ngIf="!this.service.isWritingChannel"
-        class="send-btn-false"
-        src="assets/icons/disabeld_send-icon.png"
-      />
-      <img
-        *ngIf="this.service.isWritingChannel"
-        class="send-btn-true"
-        src="assets/icons/send.png"
-      />
+      <img *ngIf="!this.service.isWritingChannel" class="send-btn-false" src="assets/icons/disabeld_send-icon.png" />
+      <img *ngIf="this.service.isWritingChannel" class="send-btn-true" src="assets/icons/send.png" />
     </div>
   </div>
-  
+
   <div *ngIf="showUserList" class="members-of-channel">
     <div *ngFor="let member of allMembers">
       <div *ngFor="let name of member">
-        <div
-          (click)="collectMemberFromList(name.firstName)"
-          id="{{ name.customId }}"
-          class="users-list"
-        >
+        <div (click)="collectMemberFromList(name.firstName)" id="{{ name.customId }}" class="users-list">
           <div>
             <img class="user-list-img" src="assets/imgs/userMale1.png" alt="" />
           </div>
@@ -67,8 +41,8 @@
   </div>
 
   <div id="emoji-container" *ngIf="showEmojis">
-    <emoji-mart  (emojiClick)="addEmoji($event)"></emoji-mart>
+    <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
   </div>
-  
+
 
 </div>

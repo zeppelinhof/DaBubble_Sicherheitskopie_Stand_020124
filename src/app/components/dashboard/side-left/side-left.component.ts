@@ -34,12 +34,13 @@ export class SideLeftComponent {
   ) { }
 
   getUsers() {
-    // Es werden nur die User angezeigt, welche in ihren Chats die User Id vom logged In User enthalten
+    // Es werden nur die User angezeigt, welche im Chat von logged In User enthalten sind
+
     const filteredUsers = this.us.myUsers.filter((user: User) => {
-      if (user.chats) {
-        return user.chats.some((chat: Message) => chat.userCustomId === '5oDYsPkUGMb9FPqmqNGB');
+      if (this.us.userLoggedIn().chats) {
+        return this.us.userLoggedIn().chats!.some((chat: Message) => chat.userCustomId === user.customId);
       } else {
-        return false;
+        return [];
       }
     });
 
@@ -51,7 +52,7 @@ export class SideLeftComponent {
     // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
     // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)
     const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
-      channel.members.some((member: User) => member.customId === '5oDYsPkUGMb9FPqmqNGB')
+      channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
     );
     return onlyMyChannels;
   }
