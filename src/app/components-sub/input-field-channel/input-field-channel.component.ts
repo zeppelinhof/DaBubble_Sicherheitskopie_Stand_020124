@@ -1,3 +1,4 @@
+import { getLocaleTimeFormat } from '@angular/common';
 import { Component } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
@@ -20,7 +21,7 @@ export class InputFieldChannelComponent {
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public cs: ChannelService) { }
+  constructor(public service: InputService, public cs: ChannelService) {}
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -45,22 +46,38 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-
   sendMessage() {
     let newMessage: Message = {
       userCustomId: '',
       message: this.input,
-      createdTime: new Date(),
+      createdTime: this.getTime(),
       emojis: [''],
-    }
+    };
     this.allMessages.push(newMessage);
-    this.cs.updateChannel({ allMessages: this.allMessages },this.clickedChannel);
+    this.cs.updateChannel(
+      { allMessages: this.allMessages },
+      this.clickedChannel
+    );
     this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
   }
-
 
   addEmoji($event: any) {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
+  }
+
+  getTime() {
+    const jetzt: Date = new Date();
+    const stunden: number = jetzt.getHours();
+    const minuten: number = jetzt.getMinutes();
+
+    const stundenString: string =
+      stunden < 10 ? '0' + stunden : stunden.toString();
+    const minutenString: string =
+      minuten < 10 ? '0' + minuten : minuten.toString();
+
+    const uhrzeitString: string = `${stundenString}:${minutenString}`;
+    console.log(uhrzeitString);
+    return uhrzeitString;
   }
 }
