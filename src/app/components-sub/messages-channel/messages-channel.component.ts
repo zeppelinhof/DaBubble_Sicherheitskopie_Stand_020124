@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages-channel.component.scss'],
 })
 export class MessagesChannelComponent {
-
-  
-  constructor(public cs: ChannelService) {
-   
-    
-  }
+  array = [
+    {"ehhelo": "helo"},
+    {"ehhelo": "helo"},
+    {"ehhelo": "helo"},
+  ];
+  constructor(public cs: ChannelService) {}
 }
