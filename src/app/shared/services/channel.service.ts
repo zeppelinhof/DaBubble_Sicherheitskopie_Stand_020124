@@ -89,7 +89,6 @@ export class ChannelService {
       customId: channel.customId,
       name: channel.name,
       description: channel.description,
-      // members: channel.members,
       members: this.getCleanMemberArrayJson(channel.members),
       createdDate: channel.createdDate,
       createdBy: this.us.getCleanUserJson(channel.createdBy),

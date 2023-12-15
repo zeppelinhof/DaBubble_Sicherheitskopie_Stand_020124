@@ -81,11 +81,12 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    return new User(id, id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
+    return new User(id, id, obj.name, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
   getCleanUserJson(user: User): {} {
     return {
+      id: user.customId,
       customId: user.customId,
       name: user.name,
       firstName: user.firstName,
@@ -107,6 +108,18 @@ export class UserService {
     }
     
     return messageArray;
+  }
+
+  findNameOfSender(id: string) {
+    const nameOfSender = this.myUsers.filter((user: User) => {
+      user.customId === id;
+    }
+    );
+    if (nameOfSender[0]) {
+      return nameOfSender[0].firstName;
+    } else{
+      return '';
+    }
   }
 
   getCleanMessageJson(message: Message): {} {

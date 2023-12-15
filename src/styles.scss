@@ -1,4 +1,4 @@
-@import '@ctrl/ngx-emoji-mart/picker';
+@import "@ctrl/ngx-emoji-mart/picker";
 
 /* You can add global styles to this file, and also import other style files */
 $light-violet: #eceefe;
@@ -102,7 +102,7 @@ button {
   left: 0;
   height: 100vh;
   width: 100vw;
-  background-color: rgba($color: #00000048, $alpha: .2);
+  background-color: rgba($color: #00000048, $alpha: 0.2);
   z-index: 1;
 }
 
@@ -123,21 +123,23 @@ button {
 }
 
 
-// input style 
-.members-of-channel{
+
+
+// input style
+.members-of-channel {
   box-shadow: rgba(0, 0, 0, 0.11) 0px 1px 4px;
   transition: 325ms ease;
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
-  border-bottom-left-radius: 0px !important;
   transition: padding 225ms ease-in-out;
   position: absolute;
-  right: 0;
-  bottom: 101px;
-  padding: 5px 20px; 
+  left: 20px;
+  bottom: 50px;
+  padding: 5px 20px;
   cursor: pointer;
   max-height: 200px;
   overflow-y: scroll;
+  border: 1px solid rgba(0, 0, 0, 0.029);
 }
 
 .members-of-channel::-webkit-scrollbar {
@@ -153,7 +155,7 @@ button {
   border-radius: 25px;
 }
 
-.users-list{
+.users-list {
   color: white;
   border-radius: 20px;
   padding: 10px 20px;
@@ -161,22 +163,20 @@ button {
   display: flex;
   align-items: center;
   margin: 10px 0px;
-  gap: 5px
+  gap: 5px;
 }
 
-
-.users-list:hover{
+.users-list:hover {
   background-color: $purple;
 }
 
-
-.user-list-img{
+.user-list-img {
   border-radius: 50px;
   height: 40px;
   width: 40px;
 }
 
-#emoji-container{
+#emoji-container {
   position: absolute;
   bottom: 100px;
   left: 0;

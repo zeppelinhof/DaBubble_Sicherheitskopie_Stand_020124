@@ -10,23 +10,15 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();
+  @Input() data: any = {};
   nameOfSender: string = '';
-  allUsers!: User[];
 
-  constructor(private us: UserService) {
-    this.getUsers();
+  constructor(private us: UserService) {  
   }
 
-  getUsers(): User[] {
-    return this.us.myUsers;
-  }
-
-  findNameOfSender() {
-    const nameOfSender = this.getUsers().filter((user: User) => {
-      user.customId === this.messageData.userCustomId
-    }
-    );
-    return nameOfSender[0];
+  ngOnInit(): void {
+    // this.messageData.userCustomId
+    this.nameOfSender = this.us.findNameOfSender('rjslEQbi0TCTVMuAPcw0');
   }
 
 }
