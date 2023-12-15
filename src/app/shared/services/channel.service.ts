@@ -36,7 +36,6 @@ export class ChannelService {
   constructor(private us: UserService) {
     this.unsubChannels = this.subChannelList();
     setInterval(()=>{
-      console.log("mein channel nur 0" ,this.allMessagesChannel[0]);
       console.log("mein channel all messages" ,this.allMessagesChannel[0].allMessages);
     }, 2000)
   }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-message-of-user',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./message-of-user.component.scss']
 })
 export class MessageOfUserComponent {
-  
+  // receives data from item 
+  @Input() data: any = {};
+
+  constructor(){
+    
+  }
+
 }
