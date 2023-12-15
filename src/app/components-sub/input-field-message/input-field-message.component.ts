@@ -44,7 +44,7 @@ export class InputFieldMessageComponent {
     for (let index = 0; index < forUser.chats!.length; index++) {
       const chat = forUser.chats![index];
       allChats.push(chat);      
-    }debugger
+    }
     allChats.push(this.addNewMessage(forUser));
     
     return allChats;

@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { Message } from 'src/app/models/message';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-message-of-user',
@@ -6,11 +9,16 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./message-of-user.component.scss']
 })
 export class MessageOfUserComponent {
-  // receives data from item 
+  @Input() messageData: Message = new Message();
   @Input() data: any = {};
+  nameOfSender: string = '';
 
-  constructor(){
-    
+  constructor(private us: UserService) {  
+  }
+
+  ngOnInit(): void {
+    // this.messageData.userCustomId
+    this.nameOfSender = this.us.findNameOfSender('rjslEQbi0TCTVMuAPcw0');
   }
 
 }

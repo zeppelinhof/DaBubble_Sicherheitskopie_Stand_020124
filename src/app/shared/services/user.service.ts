@@ -29,13 +29,12 @@ export class UserService {
   }
 
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
-  userLoggedIn(){
+  userLoggedIn(){    
     const loggedInUser = this.myUsers.filter((user: User) => user.customId === "5oDYsPkUGMb9FPqmqNGB");
     return loggedInUser[0];
-    // return new User('', '5oDYsPkUGMb9FPqmqNGB','','Markus', 'Test', 'markus@gmail.com', '12344565')
   }
 
-  subUserList() {
+  subUserList() {   
     const qu = query(collection(this.firestore, 'allUsers'));
     onSnapshot(qu, (querySnapshot) => {
       this.myUsers = [];
@@ -82,12 +81,12 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    debugger
-    return new User(id, id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
+    return new User(id, id, obj.name, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
   getCleanUserJson(user: User): {} {
     return {
+      id: user.customId,
       customId: user.customId,
       name: user.name,
       firstName: user.firstName,
@@ -109,6 +108,18 @@ export class UserService {
     }
     
     return messageArray;
+  }
+
+  findNameOfSender(id: string) {
+    const nameOfSender = this.myUsers.filter((user: User) => {
+      user.customId === id;
+    }
+    );
+    if (nameOfSender[0]) {
+      return nameOfSender[0].firstName;
+    } else{
+      return '';
+    }
   }
 
   getCleanMessageJson(message: Message): {} {

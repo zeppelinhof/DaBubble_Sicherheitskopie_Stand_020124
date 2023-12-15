@@ -35,9 +35,6 @@ export class ChannelService {
 
   constructor(private us: UserService) {
     this.unsubChannels = this.subChannelList();
-    setInterval(()=>{
-      console.log("mein channel all messages" ,this.allMessagesChannel[0].allMessages);
-    }, 2000)
   }
 
   // Collection Channels beobachten
@@ -92,7 +89,6 @@ export class ChannelService {
       customId: channel.customId,
       name: channel.name,
       description: channel.description,
-      // members: channel.members,
       members: this.getCleanMemberArrayJson(channel.members),
       createdDate: channel.createdDate,
       createdBy: this.us.getCleanUserJson(channel.createdBy),

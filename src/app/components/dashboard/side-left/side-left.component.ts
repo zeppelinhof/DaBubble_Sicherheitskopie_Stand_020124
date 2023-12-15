@@ -35,7 +35,6 @@ export class SideLeftComponent {
 
   getUsers() {
     // Es werden nur die User angezeigt, welche im Chat von logged In User enthalten sind
-
     const filteredUsers = this.us.myUsers.filter((user: User) => {
       if (this.us.userLoggedIn().chats) {
         return this.us.userLoggedIn().chats!.some((chat: Message) => chat.userCustomId === user.customId);
@@ -43,7 +42,6 @@ export class SideLeftComponent {
         return [];
       }
     });
-
     return filteredUsers;
   }
 
