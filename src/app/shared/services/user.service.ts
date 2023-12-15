@@ -2,9 +2,11 @@ import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
+  doc,
   Firestore,
   onSnapshot,
   query,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -38,6 +40,23 @@ export class UserService {
     });
   }
 
+  async updateUser(newValue: any, user: User) {
+    // this.loadingUpdateData = true;
+    let docRef = this.getSingleDocRef('allUsers', user.customId);
+    await updateDoc(docRef, newValue)
+      .catch((err) => {
+        console.log(err);
+      })
+      .then(() => {
+        console.log('user updated');
+      });
+  }
+
+  getSingleDocRef(colId: string, docId: string) {
+    return doc(collection(this.firestore, colId), docId);
+  }
+
+
   setCurrentContact(elementId: string) {
     const userList = this.myUsers;
     if (this.myUsers) {
@@ -57,12 +76,10 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    debugger
     return new User(id, id, obj.firstName, obj.lastName, obj.email, obj.password, obj.img, obj.chats)
   }
 
   getCleanUserJson(user: User): {} {
-    debugger
     return {
       customId: user.customId,
       firstName: user.firstName,
