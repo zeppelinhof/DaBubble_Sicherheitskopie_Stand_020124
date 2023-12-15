@@ -5,10 +5,10 @@
 
   <div class="info-and-message-box">
     <div class="thread-info-container">
-      <div class="thread-user-name">Frederik</div>
-      <div class="thread-message-time">14:00 uhr</div>
+      <div class="thread-user-name">{{this.nameOfSender}}</div>
+      <div class="thread-message-time">{{this.messageData.createdTime}}</div>
     </div>
 
-    <div class="thread-message-container">Habt das schon gelöst?</div>
+    <div class="thread-message-container">{{this.messageData.message}}</div>
   </div>
 </div>

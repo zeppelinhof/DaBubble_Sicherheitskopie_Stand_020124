@@ -29,13 +29,12 @@ export class UserService {
   }
 
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
-  userLoggedIn(){
+  userLoggedIn(){    
     const loggedInUser = this.myUsers.filter((user: User) => user.customId === "5oDYsPkUGMb9FPqmqNGB");
     return loggedInUser[0];
-    // return new User('', '5oDYsPkUGMb9FPqmqNGB','','Markus', 'Test', 'markus@gmail.com', '12344565')
   }
 
-  subUserList() {
+  subUserList() {   
     const qu = query(collection(this.firestore, 'allUsers'));
     onSnapshot(qu, (querySnapshot) => {
       this.myUsers = [];
