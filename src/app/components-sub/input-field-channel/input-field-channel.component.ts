@@ -53,12 +53,16 @@ export class InputFieldChannelComponent {
       createdTime: this.getTime(),
       emojis: [''],
     };
-    this.allMessages.push(newMessage);
+    this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
+    
+    this.cs.allMessagesChannel.push(newMessage);
     this.cs.updateChannel(
-      { allMessages: this.allMessages },
+      { allMessages: this.cs.allMessagesChannel },
       this.clickedChannel
     );
-    this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
+    console.log('Hier die all messages channel:',this.cs.allMessagesChannel);
+    
+    
   }
 
   addEmoji($event: any) {

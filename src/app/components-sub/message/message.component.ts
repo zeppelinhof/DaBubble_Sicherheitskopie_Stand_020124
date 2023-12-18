@@ -11,11 +11,12 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent {
-  isWriting:boolean = true;
 
-  constructor(public service: InputService, public ws: WorkspaceService, public us: UserService, public cs: ChannelService){
 
-  }
+
+  isWriting: boolean = true;
+
+  constructor(public service: InputService, public ws: WorkspaceService, public us: UserService, public cs: ChannelService) {}
 
   clickedContactId!: string;
   clickedContact!: User;
@@ -24,18 +25,17 @@ export class MessageComponent {
   ngOnInit(): void {
     this.us.clickedContactId
       .subscribe((chId: string) => {
-        this.clickedContactId = chId;        
+        this.clickedContactId = chId;
       });
 
     this.us.clickedContact
-      .subscribe((user: User) => {        
+      .subscribe((user: User) => {
         this.clickedContact = user;
       });
   }
 
-  noChatsAvailable(){
+  noChatsAvailable() {
     this.us.clickedContact.value.chats?.length == 0
   }
 
-  
 }

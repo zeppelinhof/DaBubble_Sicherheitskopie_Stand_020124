@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-input-field-message',
@@ -16,7 +17,7 @@ export class InputFieldMessageComponent {
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public us: UserService, private cs: ChannelService) { }
+  constructor(public service: InputService, public us: UserService, private cs: ChannelService, public ws: WorkspaceService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -43,22 +44,16 @@ export class InputFieldMessageComponent {
 
     for (let index = 0; index < forUser.chats!.length; index++) {
       const chat = forUser.chats![index];
-      allChats.push(chat);      
+      allChats.push(chat);
     }
     allChats.push(this.addNewMessage(forUser));
-    
+
     return allChats;
   }
 
   addNewMessage(user: User) {
-    // der eingeloggte User erhält für den Chat die Id des clicked contact
-    if (user.customId === this.us.userLoggedIn().customId) {
-      return this.us.getCleanMessageJson(new Message(this.clickedContact.customId, this.input, this.cs.todaysDate()));
-    } 
-    // der clicked contact erhält für den Chat die Id des eingeloggten Users
-    else{
-      return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.todaysDate()));
-    }    
+    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.todaysDate()));
+
   }
 
 }

@@ -14,4 +14,5 @@ export class SideRightComponent {
   toggleVisibility() {
     this.containerIsVisible = !this.containerIsVisible;
   }
+
 }

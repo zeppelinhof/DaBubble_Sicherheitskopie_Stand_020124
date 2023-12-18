@@ -121,6 +121,8 @@ export class ChannelService {
     const docRef = doc(this.firestore, 'channels', id);
     const docSnap = await getDoc(docRef);
     this.allMessagesChannel.push(docSnap.data());
+    console.log('All Messages Channel in CS', this.allMessagesChannel);
+    
   }
 
   async sendDocToDB(item: Channel) {

@@ -29,12 +29,12 @@ export class UserService {
   }
 
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
-  userLoggedIn(){    
+  userLoggedIn() {
     const loggedInUser = this.myUsers.filter((user: User) => user.customId === "5oDYsPkUGMb9FPqmqNGB");
     return loggedInUser[0];
   }
 
-  subUserList() {   
+  async subUserList() {
     const qu = query(collection(this.firestore, 'allUsers'));
     onSnapshot(qu, (querySnapshot) => {
       this.myUsers = [];
@@ -43,7 +43,8 @@ export class UserService {
         this.setCurrentContact(this.clickedContactId.value);
       });
     });
-  }
+  }  
+  
 
   async updateUser(newValue: any, user: User) {
     // this.loadingUpdateData = true;
@@ -68,7 +69,6 @@ export class UserService {
       for (let index = 0; index < userList.length; index++) {
         // wenn es sich um den aktuell angezeigten Channel handelt...
         if (elementId == userList[index]['customId']) {
-          debugger
           this.clickedContact.next(userList[index]);
         }
       }
@@ -76,7 +76,6 @@ export class UserService {
   }
 
   setContactView(id: string) {
-    debugger
     this.clickedContactId.next(id);
     this.setCurrentContact(this.clickedContactId.value);
 
@@ -96,7 +95,7 @@ export class UserService {
       email: user.email,
       password: user.password,
       img: user.img || '',
-      chats:  this.getCleanMessageArrayJson(user.chats || [new Message()]) || [{}],
+      chats: this.getCleanMessageArrayJson(user.chats || [new Message()]) || [{}],
       // chats:  user.chats || [{}],
     }
   }
@@ -108,21 +107,11 @@ export class UserService {
       const messageAsJson = this.getCleanMessageJson(member);
       messageArray.push(messageAsJson);
     }
-    
+
     return messageArray;
   }
 
-  findNameOfSender(id: string) {
-    const nameOfSender = this.myUsers.filter((user: User) => {
-      user.customId === id;
-    }
-    );
-    if (nameOfSender[0]) {
-      return nameOfSender[0].firstName;
-    } else{
-      return '';
-    }
-  }
+
 
   getCleanMessageJson(message: Message): {} {
     return {
