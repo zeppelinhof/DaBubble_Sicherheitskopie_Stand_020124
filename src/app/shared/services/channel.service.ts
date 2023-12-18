@@ -24,7 +24,7 @@ export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
   allUsersCol = collection(this.firestore, 'users');
-  allMessagesChannel: any = []; 
+  allMessagesChannel: any = [];
   myChannels: any = {};
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -114,15 +114,39 @@ export class ChannelService {
       memberArray.push(memberAsJson);
     }
     return memberArray;
-  }  
+  }
 
   async getAllMessagesFromChannel(id: string) {
-    this.allMessagesChannel = [];
-    const docRef = doc(this.firestore, 'channels', id);
-    const docSnap = await getDoc(docRef);
-    this.allMessagesChannel.push(docSnap.data());
-    console.log('All Messages Channel in CS', this.allMessagesChannel);
-    
+    const allMsgRef = doc(this.firestore, `channels/${id}`);
+    const docSnapshot = await getDoc(allMsgRef);
+
+    if (docSnapshot.exists()) {
+      const allMessagesArray = docSnapshot.get('allMessages') || [];
+      this.allMessagesChannel = [];
+      this.allMessagesChannel.push(allMessagesArray);
+      console.log('das ist allMessagesChannel', this.allMessagesChannel);
+    } else {
+      console.error('Dokument existiert nicht für die ID:', id);
+    }
+  }
+
+  async sendMessageToDB(obj: {}, id: string) {
+    const allMsgRef = doc(this.firestore, `channels/${id}`);
+    const docSnapshot = await getDoc(allMsgRef);
+
+    if (docSnapshot.exists()) {
+      this.updateMessage(obj, docSnapshot, allMsgRef);
+      this.getAllMessagesFromChannel(id);
+    } else {
+      console.error('Dokument existiert nicht für die ID:', id);
+    }
+  }
+
+  async updateMessage(obj: {}, docSnapshot: any, allMsgRef: any) {
+    const allMessagesFromDB = docSnapshot.get('allMessages') || [];
+    this.allMessagesChannel.push(allMessagesFromDB);
+    allMessagesFromDB.push(obj);
+    await updateDoc(allMsgRef, { allMessages: allMessagesFromDB });
   }
 
   async sendDocToDB(item: Channel) {

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 
-import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
 
@@ -47,22 +46,17 @@ export class InputFieldChannelComponent {
   }
 
   sendMessage() {
+
     let newMessage: Message = {
       userCustomId: '',
       message: this.input,
       createdTime: this.getTime(),
       emojis: [''],
     };
-    this.cs.getAllMessagesFromChannel(this.clickedChannel.customId);
-    
-    this.cs.allMessagesChannel.push(newMessage);
-    this.cs.updateChannel(
-      { allMessages: this.cs.allMessagesChannel },
-      this.clickedChannel
-    );
-    console.log('Hier die all messages channel:',this.cs.allMessagesChannel);
-    
-    
+
+    this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
+  
+    this.input = '';
   }
 
   addEmoji($event: any) {
