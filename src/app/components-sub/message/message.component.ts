@@ -24,13 +24,17 @@ export class MessageComponent {
   ngOnInit(): void {
     this.us.clickedContactId
       .subscribe((chId: string) => {
-        this.clickedContactId = chId;
+        this.clickedContactId = chId;        
       });
 
     this.us.clickedContact
-      .subscribe((user: User) => {
+      .subscribe((user: User) => {        
         this.clickedContact = user;
       });
+  }
+
+  noChatsAvailable(){
+    this.us.clickedContact.value.chats?.length == 0
   }
 
   

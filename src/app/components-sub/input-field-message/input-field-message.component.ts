@@ -31,11 +31,11 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage() {
-
     // Nachricht bei Empfänger hinterlegen
     this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
     // Nachricht bei Sender hinterlegen
     this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
+    this.input = '';
   }
 
   getAllChatsOfUser(forUser: User) {

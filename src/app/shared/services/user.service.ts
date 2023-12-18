@@ -40,7 +40,7 @@ export class UserService {
       this.myUsers = [];
       querySnapshot.forEach((element) => {
         this.myUsers.push(this.setUserObject(element.data(), element.id));
-        this.setCurrentContact(element.id);
+        this.setCurrentContact(this.clickedContactId.value);
       });
     });
   }
@@ -68,6 +68,7 @@ export class UserService {
       for (let index = 0; index < userList.length; index++) {
         // wenn es sich um den aktuell angezeigten Channel handelt...
         if (elementId == userList[index]['customId']) {
+          debugger
           this.clickedContact.next(userList[index]);
         }
       }
@@ -75,6 +76,7 @@ export class UserService {
   }
 
   setContactView(id: string) {
+    debugger
     this.clickedContactId.next(id);
     this.setCurrentContact(this.clickedContactId.value);
 

@@ -1,4 +1,9 @@
+@import 'src/styles.scss';
+
 .message-div-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     height: 85vh;
     position: relative;
     background-color: white;
@@ -66,3 +71,22 @@
 .name-of-chat-partner{
     color: #535AF1 !important;
 }
+
+.messages-channel-container{
+    overflow-y: auto;
+    flex: 1;
+}
+
+
+.messages-channel-container::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .messages-channel-container::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  
+  .messages-channel-container::-webkit-scrollbar-thumb {
+    background-color: $purple;
+    border-radius: 25px;
+  }

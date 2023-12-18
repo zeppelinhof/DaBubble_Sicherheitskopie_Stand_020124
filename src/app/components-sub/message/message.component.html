@@ -3,8 +3,15 @@
     <img src="assets/imgs/userMale2.png" />
     <div class="message-user-name">{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
   </div>
+
+  <div class="messages-channel-container">
+    <div *ngFor="let chat of this.us.clickedContact.value.chats">
+      <app-message-of-user [messageData]="chat"></app-message-of-user>
+    </div>
+  </div>
+
   <!-- inner info card -->
-  <div *ngIf="!this.service.isWritingMessage" class="inner-info-card-container">
+  <div *ngIf="!this.service.isWritingMessage && noChatsAvailable()" class="inner-info-card-container">
     <div class="message-inner-container">
       <img src="assets/imgs/userMale2.png" />
       <div class="message-inner-name">{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
@@ -15,14 +22,7 @@
       <div class="name-of-chat-partner">@{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
       <div>und dir statt.</div>
     </div>
-  </div>
-  <!--  -->
-
-  <div class="messages-channel-container">
-    <div *ngFor="let chat of this.us.clickedContact.value.chats">
-      <app-message-of-user [messageData]="chat"></app-message-of-user>
-    </div>
-  </div>
+  </div>  
 
 
   <app-input-field-message></app-input-field-message>
