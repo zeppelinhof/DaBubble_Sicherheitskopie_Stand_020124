@@ -1,5 +1,5 @@
 <div *ngIf="this.cs.allMessagesChannel[0]" class="messages-channel-container">
-  <div  *ngFor="let item of this.cs.allMessagesChannel[0].allMessages">
+  <div  *ngFor="let item of this.cs.allMessagesChannel[0]">
    
     <app-message-of-user [data]="item" ></app-message-of-user>
 
