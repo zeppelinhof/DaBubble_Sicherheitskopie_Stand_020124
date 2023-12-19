@@ -45,4 +45,8 @@ export class InputFieldThreadComponent {
   closeShowUserList() {
     this.showUserList = false;
   }
+  toggleBtn(target: string) {
+    this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
+    this.showUserList = target === 'userList' ? !this.showUserList : false;
+  }
 }
