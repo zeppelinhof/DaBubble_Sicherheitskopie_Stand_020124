@@ -7,5 +7,11 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+
+
   constructor(public us: UserService){}
+
+  reloadPage(){
+    window.location.reload();
+  }
 }
