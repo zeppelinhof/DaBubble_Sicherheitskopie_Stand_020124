@@ -13,19 +13,12 @@ export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();
   @Input() data: any = {};
   allUsers: User[] = [];
-  unsubTrash: any;
+  unsubAllUsers: any;
 
+  constructor(public us: UserService, private firestore: Firestore) { }
 
-
-
-
-  constructor(public us: UserService, private firestore: Firestore) {
-    
-  }
-
-  ngAfterViewInit(): void {
-    this.unsubTrash = this.subAllUsersList();
-    
+  ngAfterViewInit() {
+    this.unsubAllUsers = this.subAllUsersList();
   }
 
   subAllUsersList() {
@@ -33,15 +26,13 @@ export class MessageOfUserComponent {
     return onSnapshot(q, (list) => {
       this.allUsers = [];
       list.forEach((element) => {
-        this.allUsers.push(this.us.setUserObject(element.data(), element.id)); // element.data= Inhalt der Note
+        this.allUsers.push(this.us.setUserObject(element.data(), element.id));
       });
-    }); 
+    });
   }
 
-  getUserFirstName(){
+  getUserFirstName() {
     let user = this.allUsers.find(user => user.id === this.messageData.userCustomId);
     return user ? user.firstName : 'Unknown';
   }
-
-
 }
