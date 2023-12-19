@@ -32,7 +32,10 @@
       border-right: 1px solid #adb0d9;
       padding-right: 5px;
     }
-  
+    
+    input {
+      display: none;
+    }
     &:hover {
       .add-icon-normal {
         display: none;

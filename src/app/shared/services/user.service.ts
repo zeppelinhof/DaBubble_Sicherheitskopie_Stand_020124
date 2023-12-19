@@ -87,6 +87,8 @@ export class UserService {
     return new User(id, id, obj.name, obj.email, obj.img, obj.chats);
   }
 
+  
+
   getCleanUserJson(user: User): {} {
     return {
       id: user.customId,

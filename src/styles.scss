@@ -139,8 +139,8 @@ button {
   padding: 5px 20px;
   cursor: pointer;
   max-height: 200px;
-  overflow-y: scroll;
-  border: 1px solid rgba(0, 0, 0, 0.029);
+  overflow-y: auto;
+  border: 1px solid $purple2;
   z-index: 5;
 }
 
@@ -224,7 +224,7 @@ button {
 }
 
 .messages-channel-container {
-  height: 450px;
+  height: 350px;
   overflow-y: scroll;
 }
 
