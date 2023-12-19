@@ -1,4 +1,4 @@
-<div class="message-div-container">
+<div class="message-div-container" (mouseenter)="scrollToBottom()">
   <div class="message-header-container">
     <img src="assets/imgs/userMale2.png" />
     <div class="message-user-name">{{this.clickedContact.name}}</div>
@@ -25,5 +25,5 @@
   </div>  
 
 
-  <app-input-field-message></app-input-field-message>
+  <app-input-field-message (mouseenter)="scrollToBottomConstantly()" (mouseleave)="scrollToBottom()"></app-input-field-message>
 </div>
