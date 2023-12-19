@@ -20,7 +20,7 @@ export class InputFieldChannelComponent {
   allMessages: any = [];
   input: string = '';
   isInputSelected: boolean = false;
-
+  
   constructor(public service: InputService, public cs: ChannelService, private us: UserService) {}
 
   ngOnInit(): void {
@@ -78,5 +78,9 @@ export class InputFieldChannelComponent {
   toggleBtn(target: string) {
     this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
     this.showUserList = target === 'userList' ? !this.showUserList : false;
+  }
+
+  openFileExplorer(){
+    console.log('openFileExplorer');
   }
 }
