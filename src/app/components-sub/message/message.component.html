@@ -1,13 +1,12 @@
-<div class="message-div-container"
->
+<div class="message-div-container">
   <div class="message-header-container">
     <img src="assets/imgs/userMale2.png" />
     <div class="message-user-name">{{this.clickedContact.name}}</div>
   </div>
 
-  <div class="messages-channel-container" >
+  <div class="messages-channel-container" #scroll>
     <div *ngFor="let chat of this.us.clickedContact.value.chats">
-      <app-message-of-user [messageData]="chat"></app-message-of-user>
+      <app-message-of-user [messageData]="chat" [messageType]="'directMessage'"></app-message-of-user>
     </div>
   </div>
 

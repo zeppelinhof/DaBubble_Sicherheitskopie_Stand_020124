@@ -6,9 +6,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import {
   Firestore,
-  collection,
-  query,
-  onSnapshot,
 } from '@angular/fire/firestore';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
@@ -37,7 +34,6 @@ export class SideLeftComponent {
     // Es werden nur die User angezeigt, welche im Chat von logged In User enthalten sind
     const filteredUsers = this.us.myUsers.filter((user: User) => {
       if (this.us.userLoggedIn().chats) {
-        console.log("Eingeloggter User:",this.us.userLoggedIn());
         return this.us.userLoggedIn().chats!.some((chat: Message) => chat.userCustomId === user.customId);
       } else {
         return [];
@@ -63,4 +59,5 @@ export class SideLeftComponent {
   clickDownArrowContacts() {
     this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts ? true : false;
   }
+
 }

@@ -11,11 +11,12 @@ export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();
   @Input() data: any = {};
   unsubAllUsers: any;
+  @Input() messageType: string = 'channel'
 
   constructor(public us: UserService) { }
 
   ngOnInit(): void {
-    this.unsubAllUsers = this.us.subAllUsersListFindUserName();
+    this.unsubAllUsers = this.us.subAllUsersListFindUserName();    
   }
 
 }
