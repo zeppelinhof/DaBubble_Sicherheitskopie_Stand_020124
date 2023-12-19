@@ -86,16 +86,16 @@ export class UserService {
   setUserObject(obj: any, id: string): User {
     return new User(
       id,
-      id,
       obj.name,
-      obj.firstName,
-      obj.lastName,
+      obj.customId,
       obj.email,
       obj.password,
       obj.img,
       obj.chats
     );
   }
+
+  
 
   getCleanUserJson(user: User): {} {
     return {
