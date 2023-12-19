@@ -28,7 +28,7 @@ export class DisplayCreateAccountComponent {
   constructor(
     private router: Router,
     private Auth: AuthenticationService,
-    private us: UserService
+    private userService: UserService
   ) {}
 
   /**
@@ -41,11 +41,22 @@ export class DisplayCreateAccountComponent {
       this.checkEmailContainsDot() &&
       !this.userIsAlreadyExisting()
     ) {
-      const { name, email, password } = this.signUpForm.value;
-
-      // const signedUser = this.fillUserObject(name, email);
-      //this.Auth.signUp(name, email, password, this.user);
+      this.saveDataAndShowAvatarRoute();
     }
+  }
+
+  /**
+   * Saves user data to the local storage and navigates to the 'choose-avatar' route.
+   */
+  saveDataAndShowAvatarRoute(): void {
+    const { name, email, password } = this.signUpForm.value;
+    localStorage.setItem('signUpName', this.signUpForm.get('name').value);
+    localStorage.setItem('signUpEmail', this.signUpForm.get('email').value);
+    localStorage.setItem(
+      'signUpPassword',
+      this.signUpForm.get('password').value
+    );
+    this.router.navigate(['login/choose-avatar']);
   }
 
   /**
@@ -74,19 +85,9 @@ export class DisplayCreateAccountComponent {
    */
   userIsAlreadyExisting(): boolean {
     const emailInputField = this.signUpForm.get('email').value;
-    const emailExists = this.us.myUsers.some(
+    const emailExists = this.userService.myUsers.some(
       (user) => user.email === emailInputField
     );
     return emailExists;
-  }
-
-  /**
-   * Fills the user object with the provided name and email.
-   * @param {string} name - The name of the input to fill in the user object.
-   * @param {string} email - The email of the input to fill in the user object.
-   */
-  fillUserObject(name: string, email: string) {
-    this.user.email = email;
-    this.user.name = name;
   }
 }

@@ -19,7 +19,15 @@
   </div>
 
   <div class="container-profile-image">
-    <img src="assets/imgs/person.png" alt="profile image" />
+    <img
+      [src]="
+        choosenAvatar === null
+          ? 'assets/imgs/person.png'
+          : 'assets/imgs/' + choosenAvatar
+      "
+      alt="profile image"
+      [class.image-is-selected]="choosenAvatar !== null"
+    />
   </div>
 
   <span class="name">Frederik Beck </span>
@@ -31,6 +39,7 @@
       *ngFor="let imagePath of avatarImages"
       src="assets/imgs/{{ imagePath }}"
       alt="avatar iamge"
+      (click)="setAvatarImage(imagePath)"
     />
   </div>
 
@@ -40,6 +49,13 @@
   </div>
 
   <div class="continue-container">
-    <a class="button-layout">Weiter</a>
+    <button
+      [disabled]="choosenAvatar === null"
+      [class.btn-no-image-selected]="choosenAvatar === null"
+      class="button-layout"
+      (click)="createNewUser()"
+    >
+      Weiter
+    </button>
   </div>
 </section>

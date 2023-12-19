@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -13,37 +14,34 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  signedUser: any = {};
   loggedUser: any;
+  constructor(private userService: UserService) {}
 
-  constructor() {}
-
-  test() {
-    console.log(this.signedUser);
-  }
-
-  signUp(name: string, email: string, password: string, newUser: User) {
+  signUp(newUser: User, password: string) {
     const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, newUser.email, password)
       .then((userCredential) => {
-        // Signed up
+        this.userService.sendDocToDB(newUser);
+
+        /*
         const user = userCredential.user;
         const uid = user.uid;
         this.addUidToUser(newUser, uid);
         console.log('new signed User', newUser);
-        // ...
+        */
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   }
 
+  /*
   addUidToUser(newUser: User, uid: string) {
     newUser.id = uid;
     return newUser;
   }
+  */
 
   login(email: any, password: any) {
     const auth = getAuth();

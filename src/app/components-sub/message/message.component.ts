@@ -15,32 +15,13 @@ export class MessageComponent {
   @ViewChild('scroll') scroll!: ElementRef;
   @ViewChild(MessageOfUserComponent, { static: false }) messageOfUser!: MessageOfUserComponent;
   scrolled: boolean = false;
+  intervalIdConstantly?: any;
 
   clickedContactId!: string;
   clickedContact!: User;
   isWriting: boolean = true;
 
-  constructor(public service: InputService, public ws: WorkspaceService, public us: UserService, public cs: ChannelService) { }
-
-  ngAfterViewInit(): void {
-    this.checkChildLoaded();
-  }
-
-  checkChildLoaded() {
-    setInterval(() => {
-      if (this.messageOfUser && !this.scrolled) {
-        this.scrollToBottom();
-        this.scrolled = true;
-      }
-    }, 1000);
-  }
-
-  scrollToBottom() {
-    this.scroll.nativeElement.scrollTo({
-      top: this.scroll.nativeElement.scrollHeight,
-      behavior: 'smooth'
-    });
-  }
+  constructor(public service: InputService, public us: UserService, public cs: ChannelService) { }
 
 
   ngOnInit(): void {
@@ -57,6 +38,27 @@ export class MessageComponent {
 
   noChatsAvailable() {
     this.us.clickedContact.value.chats?.length == 0
+  }
+
+  scrollToBottom() {
+    clearInterval(this.intervalIdConstantly);
+    this.scrolled = true;
+    this.scroll.nativeElement.scrollTo({
+      top: this.scroll.nativeElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  }
+
+  scrollToBottomConstantly() {
+    this.intervalIdConstantly = setInterval(() => {
+      console.log('scrollToBottoConstantly');
+      this.scroll.nativeElement.scrollTo({
+        top: this.scroll.nativeElement.scrollHeight,
+        behavior: 'smooth'
+      });
+
+    }, 300);
+
   }
 
 }
