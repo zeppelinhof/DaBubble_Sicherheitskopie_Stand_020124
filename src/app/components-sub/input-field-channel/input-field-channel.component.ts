@@ -13,10 +13,10 @@ import { InputService } from 'src/app/shared/services/input.service';
 })
 export class InputFieldChannelComponent {
   showEmojis: boolean = false;
-  clickedChannel!: Channel;
-  allMembers: any = [];
-  allMessages: any = [];
   showUserList: boolean = false;
+  allMembers: any = [];
+  clickedChannel!: Channel;
+  allMessages: any = [];
   input: string = '';
   isInputSelected: boolean = false;
 
@@ -56,8 +56,6 @@ export class InputFieldChannelComponent {
 
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
-    } else{
-      console.log("You can't send an empty message");
     }
   }
 
@@ -66,18 +64,18 @@ export class InputFieldChannelComponent {
     this.showEmojis = !this.showEmojis;
   }
 
-  getTime() {
-    const jetzt: Date = new Date();
-    const stunden: number = jetzt.getHours();
-    const minuten: number = jetzt.getMinutes();
+  getTime(): string {
+    const now: Date = new Date();
+    const hours: string = ('0' + now.getHours()).slice(-2);
+    const minutes: string = ('0' + now.getMinutes()).slice(-2);
+    const timeString: string = `${hours}:${minutes}`;
+    console.log(timeString);
+    return timeString;
+  }
+  
 
-    const stundenString: string =
-      stunden < 10 ? '0' + stunden : stunden.toString();
-    const minutenString: string =
-      minuten < 10 ? '0' + minuten : minuten.toString();
-
-    const uhrzeitString: string = `${stundenString}:${minutenString}`;
-    console.log(uhrzeitString);
-    return uhrzeitString;
+  toggleBtn(target: string) {
+    this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
+    this.showUserList = target === 'userList' ? !this.showUserList : false;
   }
 }
