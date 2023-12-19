@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
@@ -5,7 +6,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserSessionCheckService {
-  userIsLogged: boolean = true;
+  userIsLogged: boolean = false;
+  currentUser: User = new User();
 
   constructor(private router: Router) {}
 

@@ -84,17 +84,7 @@ export class UserService {
   }
 
   setUserObject(obj: any, id: string): User {
-    return new User(
-      id,
-      id,
-      obj.name,
-      obj.firstName,
-      obj.lastName,
-      obj.email,
-      obj.password,
-      obj.img,
-      obj.chats
-    );
+    return new User(id, id, obj.name, obj.email, obj.img, obj.chats);
   }
 
   getCleanUserJson(user: User): {} {
@@ -103,7 +93,6 @@ export class UserService {
       customId: user.customId,
       name: user.name,
       email: user.email,
-      password: user.password,
       img: user.img || '',
       chats: this.getCleanMessageArrayJson(user.chats || [new Message()]) || [
         {},

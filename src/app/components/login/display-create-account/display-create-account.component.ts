@@ -41,11 +41,22 @@ export class DisplayCreateAccountComponent {
       this.checkEmailContainsDot() &&
       !this.userIsAlreadyExisting()
     ) {
-      const { name, email, password } = this.signUpForm.value;
-
-      // const signedUser = this.fillUserObject(name, email);
-      //this.Auth.signUp(name, email, password, this.user);
+      this.saveDataAndShowAvatarRoute();
     }
+  }
+
+  /**
+   * Saves user data to the local storage and navigates to the 'choose-avatar' route.
+   */
+  saveDataAndShowAvatarRoute(): void {
+    const { name, email, password } = this.signUpForm.value;
+    localStorage.setItem('signUpName', this.signUpForm.get('name').value);
+    localStorage.setItem('signUpEmail', this.signUpForm.get('email').value);
+    localStorage.setItem(
+      'signUpPassword',
+      this.signUpForm.get('password').value
+    );
+    this.router.navigate(['login/choose-avatar']);
   }
 
   /**
