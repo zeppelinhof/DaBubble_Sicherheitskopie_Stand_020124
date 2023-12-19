@@ -1,3 +1,4 @@
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { ImprintComponent } from './components/imprint/imprint.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
@@ -13,26 +14,39 @@ import { MessageComponent } from './components-sub/message/message.component';
 import { NewMessageComponent } from './components-sub/new-message/new-message.component';
 
 const routes: Routes = [
-  /*login*/
+  /*kein Pfad*/
 
-  { path: 'login-display', component: DisplayLoginComponent },
-  { path: 'choose-avatar', component: DisplayChooseAvatarComponent },
-  { path: 'create-account', component: DisplayCreateAccountComponent },
+  /*login*/
   {
-    path: 'reset-pw-enter-email',
-    component: DisplayResetPwEnterEmailComponent,
+    path: 'login',
+    component: LoginComponent,
+    children: [
+      { path: '', redirectTo: 'display-login', pathMatch: 'full' },
+      { path: 'display-login', component: DisplayLoginComponent },
+      { path: 'choose-avatar', component: DisplayChooseAvatarComponent },
+      { path: 'create-account', component: DisplayCreateAccountComponent },
+      {
+        path: 'reset-pw-enter-email',
+        component: DisplayResetPwEnterEmailComponent,
+      },
+      {
+        path: 'reset-pw-enter-pw',
+        component: DisplayResetPwEnterPwComponent,
+      },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      { path: 'imprint', component: ImprintComponent },
+    ],
   },
   {
-    path: 'reset-pw-enter-pw',
-    component: DisplayResetPwEnterPwComponent,
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: '', redirectTo: 'channel', pathMatch: 'full' },
+      { path: 'channel', component: ChannelComponent },
+      { path: 'message', component: MessageComponent },
+      { path: 'new-message', component: NewMessageComponent },
+    ],
   },
-  /*dashboard*/
-  { path: 'channel', component: ChannelComponent },
-  { path: 'message', component: MessageComponent },
-  { path: 'new-message', component: NewMessageComponent },
-  /*privacy policy + imprint*/
-  { path: 'privacy-policy', component: PrivacyPolicyComponent },
-  { path: 'imprint', component: ImprintComponent },
 ];
 
 @NgModule({

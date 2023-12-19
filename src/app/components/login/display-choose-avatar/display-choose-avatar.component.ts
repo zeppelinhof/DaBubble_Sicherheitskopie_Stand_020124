@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -16,4 +17,8 @@ export class DisplayChooseAvatarComponent {
     'userMale4.png',
     'userFemale2.png',
   ];
+
+  constructor(private Auth: AuthenticationService) {
+    console.log(this.Auth.signedUser);
+  }
 }

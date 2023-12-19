@@ -13,11 +13,15 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
+  signedUser: any = {};
   loggedUser: any;
 
   constructor() {}
 
-  /*funktioniert aktuell nur bei richtiger email und gutem password!*/
+  test() {
+    console.log(this.signedUser);
+  }
+
   signUp(name: string, email: string, password: string, newUser: User) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)

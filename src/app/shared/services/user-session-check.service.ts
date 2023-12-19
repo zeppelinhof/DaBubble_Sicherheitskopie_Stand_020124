@@ -5,23 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UserSessionCheckService {
-  /*
-  private _userIsLoggedKey = 'userIsLogged';
   userIsLogged: boolean = true;
 
   constructor(private router: Router) {}
 
-  setUserIsLogged() {
-    localStorage.setItem(this._userIsLoggedKey, 'true');
-    console.log(this.userIsLogged);
-    this.router.navigate(['/start']);
+  chckIfUserIsLogged() {
+    /*Todo: Überprüfung Anmeldestatus */
+    if (this.userIsLogged) {
+      this.router.navigate(['/dashboard/channel']);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
-
-  getUserIsLogged() {
-    const storedValue = localStorage.getItem(this._userIsLoggedKey);
-    this.userIsLogged = storedValue ? JSON.parse(storedValue) : false;
-    this.router.navigate(['/channel']);
-  }
-
-  */
 }

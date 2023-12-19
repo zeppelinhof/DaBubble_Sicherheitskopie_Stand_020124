@@ -21,7 +21,7 @@
     Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
     DABubble-Konto.
   </span>
-  <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+  <form ngNativeValidate [formGroup]="signUpForm" (ngSubmit)="submit()">
     <div class="container-input-field">
       <img src="assets/icons/person.png" alt="icon of person" />
       <input
@@ -31,8 +31,9 @@
         type="text"
         placeholder="Name und Nachname"
       />
-      <span *ngIf="signUpForm.get('name')?.hasError('required')" class="error"
-        >Bitte schreiben Sie einen Namen.</span
+
+      <span *ngIf="signUpForm.get('name')?.hasError('minlength')" class="error"
+        >Der Name sollte mind. 3 Zeichen enthalten</span
       >
     </div>
     <div class="container-input-field">
@@ -44,9 +45,25 @@
         type="email"
         placeholder="beispielname@email.com"
       />
-      <span *ngIf="signUpForm.get('email')?.hasError('required')" class="error"
-        >Diese E-Mail-Adresse ist leider ungültig.</span
+      <span
+        *ngIf="
+          signUpForm.get('email')?.value.length > 0 &&
+          (signUpForm.get('email')?.hasError('email') ||
+            !this.checkEmailContainsDot())
+        "
+        class="error"
       >
+        Diese E-Mail-Adresse ist leider ungültig.
+      </span>
+      <span
+        *ngIf="
+          signUpForm.get('email')?.value.length > 0 &&
+          this.userIsAlreadyExisting()
+        "
+        class="error"
+      >
+        Diese E-Mail-Adresse existiert bereits.
+      </span>
     </div>
     <div class="container-input-field">
       <img src="assets/icons/lock.png" alt="icon of lock" />
@@ -58,9 +75,9 @@
         placeholder="Passwort"
       />
       <span
-        *ngIf="signUpForm.get('password')?.hasError('required')"
+        *ngIf="signUpForm.get('password')?.hasError('minlength')"
         class="error"
-        >Bitte geben Sie ein Passwort ein.</span
+        >Der Name sollte mind. 8 Zeichen enthalten</span
       >
     </div>
 
@@ -70,7 +87,15 @@
     </label>
 
     <div class="continue-container">
-      <button type="submit" class="button-layout">Weiter</button>
+      <button
+        type="submit"
+        class="button-layout"
+        [disabled]="!signUpForm.valid"
+        [class.btn-form-not-valid]="!signUpForm.valid"
+        [class.btn-continue-valid]="signUpForm.valid"
+      >
+        Weiter
+      </button>
     </div>
   </form>
 </section>

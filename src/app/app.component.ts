@@ -9,5 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'DaBubble';
 
-  constructor(public userSessionService: UserSessionCheckService) {}
+  constructor(public userSessionService: UserSessionCheckService) {
+    this.userSessionService.chckIfUserIsLogged();
+  }
 }
