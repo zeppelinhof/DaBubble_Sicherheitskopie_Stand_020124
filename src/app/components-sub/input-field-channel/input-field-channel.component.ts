@@ -49,7 +49,7 @@ export class InputFieldChannelComponent {
   sendMessage() {
     if (this.input !== '') {
       let newMessage: Message = {
-        userCustomId: 'Frederik',
+        userCustomId: 'pdvIa9XQgQtyB1pIqrwT', //'Frederik',
         message: this.input,
         createdTime: this.getTime(),
         emojis: [''],

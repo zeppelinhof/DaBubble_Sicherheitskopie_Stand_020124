@@ -22,6 +22,8 @@ export class UserService {
   clickedContactId = new BehaviorSubject<string>('');
   clickedContact = new BehaviorSubject<User>(new User());
 
+  allUsersForUserName: User[] = [];
+
   unsubUsers;
 
   constructor() {
@@ -122,5 +124,21 @@ export class UserService {
 
   async sendDocToDB(item: User) {
     await addDoc(this.allUserCol, this.getCleanUserJson(item));
+  }
+
+  subAllUsersListFindUserName() {
+    const q = collection(this.firestore, 'allUsers');
+    return onSnapshot(q, (list) => {
+      this.allUsersForUserName = [];
+      list.forEach((element) => {
+        this.allUsersForUserName.push(this.setUserObject(element.data(), element.id));
+      });
+    });
+  }
+
+  getUserName(userCustomId: string) {
+    debugger
+    let user = this.allUsersForUserName.find(user => user.id === userCustomId);
+    return user ? user.name : 'Unknown';
   }
 }
