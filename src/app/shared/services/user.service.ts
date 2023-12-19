@@ -32,7 +32,9 @@ export class UserService {
 
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
   userLoggedIn() {
-    const loggedInUser = this.myUsers.filter((user: User) => user.customId === "5oDYsPkUGMb9FPqmqNGB");
+    const loggedInUser = this.myUsers.filter(
+      (user: User) => user.customId === '5oDYsPkUGMb9FPqmqNGB'
+    );
     return loggedInUser[0];
   }
 
@@ -44,9 +46,9 @@ export class UserService {
         this.myUsers.push(this.setUserObject(element.data(), element.id));
         this.setCurrentContact(this.clickedContactId.value);
       });
+      console.log(this.myUsers);
     });
-  }  
-  
+  }
 
   async updateUser(newValue: any, user: User) {
     // this.loadingUpdateData = true;
@@ -64,7 +66,6 @@ export class UserService {
     return doc(collection(this.firestore, colId), docId);
   }
 
-
   setCurrentContact(elementId: string) {
     const userList = this.myUsers;
     if (this.myUsers) {
@@ -80,11 +81,10 @@ export class UserService {
   setContactView(id: string) {
     this.clickedContactId.next(id);
     this.setCurrentContact(this.clickedContactId.value);
-
   }
 
   setUserObject(obj: any, id: string): User {
-    return new User(id, id, obj.name, obj.email, obj.password, obj.img, obj.chats)
+    return new User(id, id, obj.name, obj.email, obj.img, obj.chats);
   }
 
   getCleanUserJson(user: User): {} {
@@ -93,11 +93,12 @@ export class UserService {
       customId: user.customId,
       name: user.name,
       email: user.email,
-      password: user.password,
       img: user.img || '',
-      chats: this.getCleanMessageArrayJson(user.chats || [new Message()]) || [{}],
+      chats: this.getCleanMessageArrayJson(user.chats || [new Message()]) || [
+        {},
+      ],
       // chats:  user.chats || [{}],
-    }
+    };
   }
 
   getCleanMessageArrayJson(messages: Message[]): {} {
@@ -110,8 +111,6 @@ export class UserService {
 
     return messageArray;
   }
-
-
 
   getCleanMessageJson(message: Message): {} {
     return {
@@ -131,13 +130,17 @@ export class UserService {
     return onSnapshot(q, (list) => {
       this.allUsersForUserName = [];
       list.forEach((element) => {
-        this.allUsersForUserName.push(this.setUserObject(element.data(), element.id));
+        this.allUsersForUserName.push(
+          this.setUserObject(element.data(), element.id)
+        );
       });
     });
   }
 
   getUserName(userCustomId: string) {
-    let user = this.allUsersForUserName.find(user => user.id === userCustomId);
+    let user = this.allUsersForUserName.find(
+      (user) => user.id === userCustomId
+    );
     return user ? user.name : 'Unknown';
   }
 }

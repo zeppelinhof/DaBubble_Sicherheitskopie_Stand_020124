@@ -33,6 +33,8 @@ section {
 
 .container-profile-image {
   img {
+    width: 136px;
+    height: 136px;
     background-color: $purple2;
     border-radius: 100px;
     padding: 16px;
@@ -59,7 +61,16 @@ section {
     width: 64px;
     height: 64px;
     border-radius: 100px;
+    border: 2px solid transparent;
+    &:hover {
+      cursor: pointer;
+      border: 2px solid $grey;
+    }
   }
+}
+
+.image-is-selected {
+  background-color: transparent !important;
 }
 
 .upload-own-image {
@@ -86,7 +97,7 @@ section {
 .continue-container {
   display: flex;
   justify-content: flex-end;
-  a {
+  button {
     background-color: $purple3;
     border-color: $purple3;
     color: #fff;
@@ -95,5 +106,13 @@ section {
       background-color: $purple2;
       border-color: $purple2;
     }
+  }
+}
+
+.btn-no-image-selected {
+  &:hover {
+    cursor: not-allowed;
+    background-color: $purple3 !important;
+    border-color: $purple3 !important;
   }
 }
