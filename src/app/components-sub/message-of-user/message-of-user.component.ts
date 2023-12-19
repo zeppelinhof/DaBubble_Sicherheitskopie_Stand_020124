@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Firestore, collection, doc, getDoc, onSnapshot, query, where } from '@angular/fire/firestore';
 import { Message } from 'src/app/models/message';
-import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -12,36 +10,13 @@ import { UserService } from 'src/app/shared/services/user.service';
 export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();
   @Input() data: any = {};
-  allUsers: User[] = [];
-  unsubTrash: any;
+  unsubAllUsers: any;
+  @Input() messageType: string = 'channel'
 
+  constructor(public us: UserService) { }
 
-
-
-
-  constructor(public us: UserService, private firestore: Firestore) {
-    
+  ngOnInit(): void {
+    this.unsubAllUsers = this.us.subAllUsersListFindUserName();    
   }
-
-  ngAfterViewInit(): void {
-    this.unsubTrash = this.subAllUsersList();
-    
-  }
-
-  subAllUsersList() {
-    const q = collection(this.firestore, 'allUsers');
-    return onSnapshot(q, (list) => {
-      this.allUsers = [];
-      list.forEach((element) => {
-        this.allUsers.push(this.us.setUserObject(element.data(), element.id)); // element.data= Inhalt der Note
-      });
-    }); 
-  }
-
-  getUserFirstName(){
-    let user = this.allUsers.find(user => user.id === this.messageData.userCustomId);
-    return user ? user.firstName : 'Unknown';
-  }
-
 
 }

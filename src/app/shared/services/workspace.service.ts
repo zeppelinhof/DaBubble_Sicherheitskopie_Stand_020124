@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ElementRef, Injectable } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { User } from 'src/app/models/user';
 

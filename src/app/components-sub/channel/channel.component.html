@@ -97,8 +97,7 @@
             <div class="separator"></div>
             <div class="h-name">Erstellt von</div>
             <div class="created-by">
-              {{ this.clickedChannel.createdBy.firstName }}
-              {{ this.clickedChannel.createdBy.lastName }}
+              {{ this.clickedChannel.createdBy.name }}
             </div>
           </div>
           <div class="btn-wrap">
@@ -150,7 +149,7 @@
         <div *ngFor="let item of additionalMembers" class="complete-member">
           <img class="profile-image" src="assets/imgs/userMale3.png" />
           <div class="complete-name">
-            {{ item.firstName }} {{ item.lastName }}
+            {{ item.name }}
           </div>
           <div class="remove-member" (click)="removeMember(item.email)">
             <img class="close-normal" src="assets/icons/close.png" />
@@ -187,7 +186,7 @@
             >
               <img class="profile-image" src="assets/imgs/userMale3.png" />
               <div class="name-text">
-                {{ user.firstName }} {{ user.lastName }}
+                {{ user.name }}
               </div>
             </div>
           </div>
@@ -213,10 +212,10 @@
     </div>
   </div>
 
-  <!-- container of input -->
+  <app-messages-channel></app-messages-channel>
+  
   <app-input-field-channel></app-input-field-channel>
 
-  <!-- container of messages -->
-  <app-messages-channel></app-messages-channel>
+  
   
 </div>

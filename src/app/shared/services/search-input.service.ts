@@ -30,7 +30,7 @@ export class SearchInputService {
       this.cs.newChannel.name = this.ws.inputName;
       this.cs.newChannel.description = this.ws.inputDescription;
     } else {              // diese Werte werden nur einmal für den Channel gesetzt
-      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), new User())
+      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), this.us.userLoggedIn())
 
 
     }
@@ -42,7 +42,7 @@ export class SearchInputService {
     const searchTerm = this.ws.inputMember.toLowerCase();
 
     this.filteredMembers = this.getUsers().filter((member) => {
-      const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
+      const fullName = `${member.name}`.toLowerCase();
       if (this.ws.showAddMembers) {
         this.refreshMemberList(existingMembers);
       }
@@ -112,7 +112,6 @@ export class SearchInputService {
   createChannel() {
     if (!this.ws.dialogGeneralData || this.ws.showAddMembersInExistingChannel) {
       this.cs.sendDocToDB(this.cs.newChannel);
-      // this.us.sendDocToDB(new User('', '', '', 'Alice', 'Wunder', '', '', '', [new Message(this.us.userLoggedIn().customId, 'Hey')]));     // create new User just for testing
       this.closeWindows();
       this.cs.newChannel = new Channel();
     } else {

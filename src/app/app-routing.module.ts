@@ -14,8 +14,6 @@ import { MessageComponent } from './components-sub/message/message.component';
 import { NewMessageComponent } from './components-sub/new-message/new-message.component';
 
 const routes: Routes = [
-  /*kein Pfad*/
-
   /*login*/
   {
     path: 'login',

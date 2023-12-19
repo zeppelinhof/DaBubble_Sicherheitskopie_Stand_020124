@@ -15,11 +15,11 @@
         </div>
   
         <div class="att-and-smiley-container">
-          <div (click)="this.showUserList = !this.showUserList" class="att-icons-container">
+          <div (click)="toggleBtn('userList')" class="att-icons-container">
             <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />
             <img class="att-icon-purple" src="assets/icons/@-icon-purple.png" />
           </div>
-          <div (click)="this.showEmojis = !this.showEmojis" class="smiley-icons-container">
+          <div (click)="toggleBtn('emojis')" class="smiley-icons-container">
             <img
               class="smiley-icon-grey"
               src="assets/icons/smiley-icon-grey.png"
@@ -51,14 +51,14 @@
       <div *ngFor="let member of allMembers">
         <div *ngFor="let name of member">
           <div
-            (click)="collectMemberFromList(name.firstName)"
+            (click)="collectMemberFromList(name.name)"
             id="{{ name.customId }}"
             class="users-list"
           >
             <div>
               <img class="user-list-img" src="assets/imgs/userMale1.png" alt="" />
             </div>
-            <div>{{ name.firstName }}</div>
+            <div>{{ name.name }}</div>
           </div>
         </div>
       </div>

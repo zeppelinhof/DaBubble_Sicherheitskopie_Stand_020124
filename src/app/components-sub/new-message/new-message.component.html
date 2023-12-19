@@ -3,8 +3,8 @@
         <div class="message-user-name">Neue Nachricht</div>
 
         <div class="selected-members">
-            <div *ngIf="member.firstName" class="complete-member">
-                <div class="complete-name">{{member.firstName}} {{member.lastName}}</div>
+            <div *ngIf="member.name" class="complete-member">
+                <div class="complete-name">{{member.name}}</div>
                 <div class="remove-member" (click)="removeMember(member.email)">
                     <img class="close-normal" src="assets/icons/close.png" />
                     <img class="close-purple" src="assets/icons/close_purple.png" />
@@ -35,7 +35,7 @@
                     <div class="oneUser-line" *ngFor="let user of filteredMembers" (click)="addMember(user); clearSearchInput()">
                         <img class="profile-image" src="assets/imgs/userMale3.png">
                         <div class="name-text">
-                            {{ user.firstName }} {{ user.lastName}}
+                            {{ user.name }}
                         </div>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
             <div class="message-inner-name"></div>
         </div>
 
-        <div *ngIf="member.firstName" class="this-conversation-text-container">
+        <div *ngIf="member.name" class="this-conversation-text-container">
             <div>Diese Unterhaltung findet nur zwischen</div>
-            <div class="name-of-chat-partner">@{{member.firstName}} {{member.lastName}}</div>
+            <div class="name-of-chat-partner">@{{member.name}}</div>
             <div>und dir statt.</div>
         </div>
     </div>

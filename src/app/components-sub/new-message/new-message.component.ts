@@ -75,7 +75,7 @@ export class NewMessageComponent {
       this.allUsers = await this.getUsers();
       this.showAddMember = true;      
       this.filteredMembers = this.allUsers.filter((member) => {
-        const fullName = `${member.firstName} ${member.lastName}`.toLowerCase();
+        const fullName = `${member.name}`.toLowerCase();
         if (this.showAddMember) {
           this.refreshMemberList();
         }

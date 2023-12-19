@@ -5,10 +5,13 @@
 
   <div class="info-and-message-box">
     <div class="thread-info-container">
-      <div class="thread-user-name">{{getUserFirstName()}}</div>
+      <div *ngIf="messageType=='channelMessage'" class="thread-user-name">{{us.getUserName(this.data.userCustomId )}}</div>
+      <div *ngIf="messageType=='directMessage'" class="thread-user-name">{{us.getUserName(this.messageData.userCustomId)}}</div>
       <div class="thread-message-time">{{this.data.createdTime || this.messageData.createdTime}}</div>
     </div>
 
     <div class="thread-message-container">{{ this.data.message || this.messageData.message }}</div>
   </div>
 </div>
+
+

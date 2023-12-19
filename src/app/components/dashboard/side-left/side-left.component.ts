@@ -6,9 +6,6 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import {
   Firestore,
-  collection,
-  query,
-  onSnapshot,
 } from '@angular/fire/firestore';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
@@ -48,7 +45,7 @@ export class SideLeftComponent {
   getChannels() {
     // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
     // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
-    // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)
+    // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
     const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
       channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
     );
@@ -62,4 +59,5 @@ export class SideLeftComponent {
   clickDownArrowContacts() {
     this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts ? true : false;
   }
+
 }
