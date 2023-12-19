@@ -5,8 +5,6 @@ export class User {
   id?: string; //Test ID Authentication
   customId: string;
   name: string; //Test Authentication
-  firstName: string;
-  lastName: string;
   email: string;
   password: string; // kann gelöscht werden
   img?: any;
@@ -16,8 +14,6 @@ export class User {
     id?: string,
     customId?: string,
     name?: string,
-    firstName?: string,
-    lastName?: string,
     email?: string,
     password?: string, // kann gelöscht werden
     img?: any,
@@ -26,8 +22,6 @@ export class User {
     this.id = id || '';
     this.customId = customId || '';
     this.name = name || '';
-    this.firstName = firstName || '';
-    this.lastName = lastName || '';
     this.email = email || '';
     this.password = password || ''; // kann gelöscht werden
     this.img = img || '';

@@ -5,6 +5,7 @@ import { Message } from 'src/app/models/message';
 
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-input-field-channel',
@@ -20,7 +21,7 @@ export class InputFieldChannelComponent {
   input: string = '';
   isInputSelected: boolean = false;
 
-  constructor(public service: InputService, public cs: ChannelService) {}
+  constructor(public service: InputService, public cs: ChannelService, private us: UserService) {}
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -48,7 +49,7 @@ export class InputFieldChannelComponent {
   sendMessage() {
     if (this.input !== '') {
       let newMessage: Message = {
-        userCustomId: '',
+        userCustomId: 'Frederik',
         message: this.input,
         createdTime: this.getTime(),
         emojis: [''],

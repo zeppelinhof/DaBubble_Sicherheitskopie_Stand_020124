@@ -60,7 +60,7 @@
             <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
                 <div *ngFor="let item of cs.newChannel.members" class="complete-member">
                     <img class="profile-image" src="assets/imgs/userMale3.png">
-                    <div class="complete-name">{{item.firstName}} {{item.lastName}}</div>
+                    <div class="complete-name">{{item.name}}</div>
                     <div class="remove-member" (click)="sis.removeMember(item.email)">
                         <img class="close-normal" src="assets/icons/close.png" />
                         <img class="close-purple" src="assets/icons/close_purple.png" />
@@ -86,7 +86,7 @@
                         <div class="oneUser-line" *ngFor="let user of sis.filteredMembers" (click)="sis.addMember(user); sis.clearSearchInput()">
                             <img class="profile-image" src="assets/imgs/userMale3.png">
                             <div class="name-text">
-                                {{ user.firstName }} {{ user.lastName}}
+                                {{ user.name }}
                             </div>                            
                         </div>
                     </div>

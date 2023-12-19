@@ -31,8 +31,8 @@ export class MessageOfUserComponent {
     });
   }
 
-  getUserFirstName() {
+  getUserName() {
     let user = this.allUsers.find(user => user.id === this.messageData.userCustomId);
-    return user ? user.firstName : 'Unknown';
+    return user ? user.name : 'Unknown';
   }
 }

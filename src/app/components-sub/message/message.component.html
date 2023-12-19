@@ -2,7 +2,7 @@
 >
   <div class="message-header-container">
     <img src="assets/imgs/userMale2.png" />
-    <div class="message-user-name">{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
+    <div class="message-user-name">{{this.clickedContact.name}}</div>
   </div>
 
   <div class="messages-channel-container" >
@@ -15,12 +15,12 @@
   <div *ngIf="!this.service.isWritingMessage && noChatsAvailable()" class="inner-info-card-container">
     <div class="message-inner-container">
       <img src="assets/imgs/userMale2.png" />
-      <div class="message-inner-name">{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
+      <div class="message-inner-name">{{this.clickedContact.name}}</div>
     </div>
 
     <div class="this-conversation-text-container">
       <div>Diese Unterhaltung findet nur zwischen</div>
-      <div class="name-of-chat-partner">@{{this.clickedContact.firstName}} {{this.clickedContact.lastName}}</div>
+      <div class="name-of-chat-partner">@{{this.clickedContact.name}}</div>
       <div>und dir statt.</div>
     </div>
   </div>  
