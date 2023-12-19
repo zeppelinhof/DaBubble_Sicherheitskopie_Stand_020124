@@ -28,7 +28,7 @@ export class DisplayCreateAccountComponent {
   constructor(
     private router: Router,
     private Auth: AuthenticationService,
-    private us: UserService
+    private userService: UserService
   ) {}
 
   /**
@@ -85,19 +85,9 @@ export class DisplayCreateAccountComponent {
    */
   userIsAlreadyExisting(): boolean {
     const emailInputField = this.signUpForm.get('email').value;
-    const emailExists = this.us.myUsers.some(
+    const emailExists = this.userService.myUsers.some(
       (user) => user.email === emailInputField
     );
     return emailExists;
-  }
-
-  /**
-   * Fills the user object with the provided name and email.
-   * @param {string} name - The name of the input to fill in the user object.
-   * @param {string} email - The email of the input to fill in the user object.
-   */
-  fillUserObject(name: string, email: string) {
-    this.user.email = email;
-    this.user.name = name;
   }
 }
