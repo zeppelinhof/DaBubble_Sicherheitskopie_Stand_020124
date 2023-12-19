@@ -46,17 +46,19 @@ export class InputFieldChannelComponent {
   }
 
   sendMessage() {
+    if (this.input !== '') {
+      let newMessage: Message = {
+        userCustomId: '',
+        message: this.input,
+        createdTime: this.getTime(),
+        emojis: [''],
+      };
 
-    let newMessage: Message = {
-      userCustomId: '',
-      message: this.input,
-      createdTime: this.getTime(),
-      emojis: [''],
-    };
-
-    this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
-  
-    this.input = '';
+      this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
+      this.input = '';
+    } else{
+      console.log("You can't send an empty message");
+    }
   }
 
   addEmoji($event: any) {
