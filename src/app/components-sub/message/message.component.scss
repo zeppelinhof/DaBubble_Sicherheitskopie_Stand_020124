@@ -90,3 +90,15 @@
     background-color: $purple;
     border-radius: 25px;
   }
+
+  .new-day-date{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .separator{
+    flex: 1;
+    height: 1px;
+    background-color: gray;
+  }

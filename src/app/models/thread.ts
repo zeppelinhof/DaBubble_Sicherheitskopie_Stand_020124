@@ -1,12 +1,12 @@
 import { Message } from './message';
 
 export class Thread {
-    question: Message;
-    answers: Message[];
+    customId: string;
+    answers: any[];
 
 
-    constructor(question?: Message, answers?: Message[]) {
-        this.question = question || new Message();
-        this.answers = answers || [];
+    constructor(customId?: string, answers?: any[]) {
+        this.customId = customId || '';
+        this.answers = answers || [''];
     }    
 }

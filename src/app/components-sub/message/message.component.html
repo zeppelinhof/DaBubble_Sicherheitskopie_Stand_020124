@@ -6,7 +6,11 @@
 
   <div class="messages-channel-container" #scroll>
     <div *ngFor="let chat of this.us.clickedContact.value.chats; let i = index">
-      <div *ngIf="this.cs.checkIfNewDay(this.cs.getChats(), i)">{{chat.createdTime['fullDay']}}</div>
+      <div *ngIf="this.cs.checkIfNewDay(this.cs.getChats(), i)" class="new-day-date">
+        <div class="separator"></div>
+        <div>{{chat.createdTime['fullDay']}}</div>
+        <div class="separator"></div>
+      </div>
       <app-message-of-user [messageData]="chat" [messageType]="'directMessage'"></app-message-of-user>
     </div>
   </div>
@@ -23,7 +27,8 @@
       <div class="name-of-chat-partner">@{{this.clickedContact.name}}</div>
       <div>und dir statt.</div>
     </div>
-  </div>  
+  </div>
 
-  <app-input-field-message (mouseenter)="scrollToBottomConstantly()" (mouseleave)="scrollToBottom()"></app-input-field-message>
+  <app-input-field-message (mouseenter)="scrollToBottomConstantly()"
+    (mouseleave)="scrollToBottom()"></app-input-field-message>
 </div>
