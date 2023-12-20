@@ -1,6 +1,6 @@
 @import 'src/styles.scss';
 
-.message-div-container{
+.message-div-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -11,54 +11,57 @@
     margin-right: 15px;
 }
 
-.message-header-container{
+.message-header-container {
     display: flex;
     align-items: center;
     gap: 15px;
     padding: 25px 45px;
     box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
 
-    img{
+    img {
         height: 50px;
         width: 50px;
-        border-radius:30px ;
+        border-radius: 30px;
     }
-    .message-user-name{
+
+    .message-user-name {
         font-size: 24px;
         font-weight: 700;
     }
 }
 
-.message-inner-container{
+.message-inner-container {
     display: flex;
     align-items: center;
-    
+
     gap: 25px;
 
-    img{
+    img {
         height: 100px;
         width: 100px;
         border-radius: 100px;
-    
+
     }
-    .message-inner-name{
+
+    .message-inner-name {
         font-weight: 700;
         font-size: 24px;
-        
+
     }
 }
 
-.this-conversation-text-container{
+.this-conversation-text-container {
     display: flex;
     align-items: center;
     gap: 5px;
 
-    div{
+    div {
         color: #686868;
     }
 }
+
 // 
-.inner-info-card-container{
+.inner-info-card-container {
     position: absolute;
     bottom: 150px;
     left: 0px;
@@ -68,11 +71,12 @@
     padding: 25px;
     gap: 10px;
 }
-.name-of-chat-partner{
+
+.name-of-chat-partner {
     color: #535AF1 !important;
 }
 
-.messages-channel-container{
+.messages-channel-container {
     overflow-y: auto;
     flex: 1;
 }
@@ -80,25 +84,43 @@
 
 .messages-channel-container::-webkit-scrollbar {
     width: 4px;
-  }
-  
-  .messages-channel-container::-webkit-scrollbar-track {
+}
+
+.messages-channel-container::-webkit-scrollbar-track {
     background-color: white;
-  }
-  
-  .messages-channel-container::-webkit-scrollbar-thumb {
+}
+
+.messages-channel-container::-webkit-scrollbar-thumb {
     background-color: $purple;
     border-radius: 25px;
-  }
+}
 
-  .new-day-date{
+.new-day-date {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
 
-  .separator{
+.separatorAreaLeft {
+    display: flex;
+    justify-content: flex-end;
     flex: 1;
     height: 1px;
-    background-color: gray;
-  }
+}
+
+.separatorAreaRight {
+    @extend .separatorAreaLeft;
+    justify-content: flex-start;
+}
+
+.separator {
+    width: 90%;
+    background-color: $light-grey;
+}
+
+.date-text {
+    border: 1px solid $light-grey;
+    border-radius: 30px;
+    padding: 5px 15px;
+    font-size: 18px;
+}

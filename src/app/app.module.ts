@@ -29,6 +29,7 @@ import { PickerComponent, PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker.component';
 import { MessagesChannelComponent } from './components-sub/messages-channel/messages-channel.component';
 import { MessageOfUserComponent } from './components-sub/message-of-user/message-of-user.component';
+import { MessageReactionComponent } from './components-sub/message-reaction/message-reaction.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MessageOfUserComponent } from './components-sub/message-of-user/message
     EmojiPickerComponent,
     MessagesChannelComponent,
     MessageOfUserComponent,
+    MessageReactionComponent,
 
     // PickerComponent,
   ],

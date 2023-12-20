@@ -46,7 +46,6 @@ export class UserService {
         this.myUsers.push(this.setUserObject(element.data(), element.id));
         this.setCurrentContact(this.clickedContactId.value);
       });
-      console.log(this.myUsers);
     });
   }
 
