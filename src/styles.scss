@@ -224,8 +224,9 @@ button {
 }
 
 .messages-channel-container {
-  height: 350px;
+  height: 60svh;
   overflow-y: scroll;
+  transition: 525ms ease-in-out;
 }
 
 .messages-channel-container::-webkit-scrollbar {

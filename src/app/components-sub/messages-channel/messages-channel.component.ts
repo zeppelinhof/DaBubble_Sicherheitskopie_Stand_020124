@@ -1,6 +1,6 @@
 import { ChannelService } from 'src/app/shared/services/channel.service';
 
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-messages-channel',
@@ -8,10 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./messages-channel.component.scss'],
 })
 export class MessagesChannelComponent {
-  array = [
-    {"ehhelo": "helo"},
-    {"ehhelo": "helo"},
-    {"ehhelo": "helo"},
-  ];
+
   constructor(public cs: ChannelService) {}
+
+  
 }
