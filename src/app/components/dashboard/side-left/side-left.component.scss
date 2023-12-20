@@ -335,6 +335,7 @@ $add-img-width: 20px;
     box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transition: 100ms;
+    z-index: 10;
 
     .close-workspace-text {
         font-size: 20px;
