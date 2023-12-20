@@ -99,7 +99,6 @@ export class UserService {
       chats: this.getCleanMessageArrayJson(user.chats || [new Message()]) || [
         {},
       ],
-      // chats:  user.chats || [{}],
     };
   }
 

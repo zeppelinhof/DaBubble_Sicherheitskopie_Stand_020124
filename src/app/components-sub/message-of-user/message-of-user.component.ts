@@ -9,7 +9,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 })
 export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();
-  @Input() data: any = {};
+  @Input() data: Message = new Message();
   unsubAllUsers: any;
   @Input() messageType: string = 'channel'
 

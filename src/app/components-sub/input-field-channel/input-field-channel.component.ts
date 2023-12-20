@@ -2,6 +2,7 @@ import { getLocaleTimeFormat } from '@angular/common';
 import { Component } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
+import { MessageTime } from 'src/app/models/message-time';
 
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -51,7 +52,7 @@ export class InputFieldChannelComponent {
       let newMessage: Message = {
         userCustomId: 'pdvIa9XQgQtyB1pIqrwT', //'Frederik',
         message: this.input,
-        createdTime: this.cs.getTime(),
+        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
       };
 

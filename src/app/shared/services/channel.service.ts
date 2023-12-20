@@ -16,6 +16,7 @@ import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
+import { MessageTime } from 'src/app/models/message-time';
 
 @Injectable({
   providedIn: 'root',
@@ -94,6 +95,14 @@ export class ChannelService {
       createdBy: this.us.getCleanUserJson(channel.createdBy),
       allMessages: channel.allMessages,
     };
+  }
+
+  getCleanMessageTimeJson(messageTime: MessageTime) {
+    return {
+      day: messageTime.day,
+      fullDay: messageTime.fullDay,
+      time: messageTime.time
+    }
   }
 
   getCleanMemberJson(members: User[]): {} {
@@ -221,6 +230,30 @@ export class ChannelService {
     const todayAsString = `${weekday}, ${day}. ${month}`;
 
     return todayAsString;
+  }
+
+  // Ausgabe, ob das Datum einer neu erstellte Message höher ist als das der letzten Nachricht
+  checkIfNewDay(chatsofUser: Message[] | undefined, index: number): boolean {
+    if (chatsofUser !== undefined && index > 0) {
+      if (new Date().getDate() > chatsofUser![index - 1]['createdTime']['day']) {
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  // Chats des eingeloggten Users ausgeben
+  getChats(): Message[] | undefined {
+    const chatsOfUser = this.us.myUsers.filter((user: User) => {
+      if (this.us.userLoggedIn().chats) {
+        return this.us.userLoggedIn().chats!.some((chat: Message) => chat.userCustomId === user.customId);
+      } else {
+        return [];
+      }
+    });
+
+    return chatsOfUser[0].chats;
   }
 
   // sending message to firebase allMessages array[] with help of customId of current channel

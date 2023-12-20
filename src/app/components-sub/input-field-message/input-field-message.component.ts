@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Message } from 'src/app/models/message';
+import { MessageTime } from 'src/app/models/message-time';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -46,14 +47,16 @@ export class InputFieldMessageComponent {
       const chat = forUser.chats![index];
       allChats.push(chat);
     }
-    allChats.push(this.addNewMessage(forUser));
+    allChats.push(this.addNewMessage());
 
     return allChats;
   }
 
-  addNewMessage(user: User) {
-    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getTime()));
-
+  addNewMessage() {
+    // this.cs.checkIfNewDay(this.getChats());
+    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(),  this.cs.getTime()))));
   }
+
+  
 
 }

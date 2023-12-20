@@ -7,7 +7,8 @@
     <div class="thread-info-container">
       <div *ngIf="messageType=='channelMessage'" class="thread-user-name">{{us.getUserName(this.data.userCustomId )}}</div>
       <div *ngIf="messageType=='directMessage'" class="thread-user-name">{{us.getUserName(this.messageData.userCustomId)}}</div>
-      <div class="thread-message-time">{{this.data.createdTime || this.messageData.createdTime}}</div>
+      <!-- chatsofUser![index]['createdTime']['day'] -->
+      <div class="thread-message-time">{{this.data.createdTime['time'] || this.messageData.createdTime['time']}}</div>
     </div>
 
     <div class="thread-message-container">{{ this.data.message || this.messageData.message }}</div>
