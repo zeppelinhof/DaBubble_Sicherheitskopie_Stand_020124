@@ -6,13 +6,13 @@ export class Message {
     message: string;
     createdTime: MessageTime | any;
     emojis: any[];
-    thread: Thread[]; // antworten 
+    threads: Thread[]; // antworten 
 
-    constructor(userCustomId?: string, message?: string, createdTime?: MessageTime | any, emojis?: any[], thread?: Thread | any){
+    constructor(userCustomId?: string, message?: string, createdTime?: MessageTime | any, emojis?: any[], threads?: Thread | any){
         this.userCustomId = userCustomId || '';
         this.message = message || '';
         this.createdTime = createdTime || '';
         this.emojis = emojis || [''];
-        this.thread = thread || [];
+        this.threads = threads || [];
     }
 }

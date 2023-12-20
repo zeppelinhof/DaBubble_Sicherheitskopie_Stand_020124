@@ -1,4 +1,4 @@
-<div *ngIf="this.cs.allMessagesChannel[0]" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-channel-container">
+<div *ngIf="this.cs.allMessagesChannel[0]"  class="messages-channel-container">
   <div  *ngFor="let item of this.cs.allMessagesChannel[0]">
    
     <app-message-of-user [data]="item" [messageType]="'channelMessage'" ></app-message-of-user>
