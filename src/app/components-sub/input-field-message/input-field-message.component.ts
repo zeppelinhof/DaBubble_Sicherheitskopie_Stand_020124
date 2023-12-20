@@ -52,7 +52,7 @@ export class InputFieldMessageComponent {
   }
 
   addNewMessage(user: User) {
-    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.todaysDate()));
+    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getTime()));
 
   }
 

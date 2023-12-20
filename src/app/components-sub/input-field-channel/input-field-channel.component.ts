@@ -51,7 +51,7 @@ export class InputFieldChannelComponent {
       let newMessage: Message = {
         userCustomId: 'pdvIa9XQgQtyB1pIqrwT', //'Frederik',
         message: this.input,
-        createdTime: this.getTime(),
+        createdTime: this.cs.getTime(),
         emojis: [''],
       };
 
@@ -63,15 +63,6 @@ export class InputFieldChannelComponent {
   addEmoji($event: any) {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
-  }
-
-  getTime(): string {
-    const now: Date = new Date();
-    const hours: string = ('0' + now.getHours()).slice(-2);
-    const minutes: string = ('0' + now.getMinutes()).slice(-2);
-    const timeString: string = `${hours}:${minutes}`;
-    console.log(timeString);
-    return timeString;
   }
   
 

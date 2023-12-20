@@ -192,6 +192,15 @@ export class ChannelService {
     }
   }
 
+  getTime(): string {
+    const now: Date = new Date();
+    const hours: string = ('0' + now.getHours()).slice(-2);
+    const minutes: string = ('0' + now.getMinutes()).slice(-2);
+    const timeString: string = `${hours}:${minutes}`;
+    console.log(timeString);
+    return timeString + ' Uhr';
+  }
+
   todaysDate(): string {
     const today = new Date();
     const weekdays = [
