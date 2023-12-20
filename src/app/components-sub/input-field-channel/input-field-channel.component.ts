@@ -22,8 +22,12 @@ export class InputFieldChannelComponent {
   allMessages: any = [];
   input: string = '';
   isInputSelected: boolean = false;
-  
-  constructor(public service: InputService, public cs: ChannelService, private us: UserService) {}
+
+  constructor(
+    public service: InputService,
+    public cs: ChannelService,
+    private us: UserService
+  ) {}
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -53,12 +57,18 @@ export class InputFieldChannelComponent {
       let newMessage: Message = {
         userCustomId: 'pdvIa9XQgQtyB1pIqrwT', //'Frederik',
         message: this.input,
-        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
+        createdTime: this.cs.getCleanMessageTimeJson(
+          new MessageTime(
+            new Date().getDate(),
+            this.cs.todaysDate(),
+            this.cs.getTime()
+          )
+        ),
         emojis: [''],
-        threads: []
+        threads: [],
       };
-      console.log("this is newmessage", newMessage);
-      
+      console.log('this is newmessage', newMessage);
+
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
     }
@@ -68,14 +78,13 @@ export class InputFieldChannelComponent {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
   }
-  
 
   toggleBtn(target: string) {
     this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
     this.showUserList = target === 'userList' ? !this.showUserList : false;
   }
 
-  openFileExplorer(){
+  openFileExplorer() {
     console.log('openFileExplorer');
   }
 }

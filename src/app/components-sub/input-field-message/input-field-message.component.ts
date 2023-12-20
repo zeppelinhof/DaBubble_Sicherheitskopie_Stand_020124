@@ -17,7 +17,8 @@ export class InputFieldMessageComponent {
   // allContacts: User[] = [];
   input: string = '';
   isInputSelected: boolean = false;
-
+  showEmojis: boolean = false;
+  showUserList: boolean = false;
   constructor(public service: InputService, public us: UserService, private cs: ChannelService, public ws: WorkspaceService) { }
 
   ngOnInit(): void {
@@ -57,6 +58,20 @@ export class InputFieldMessageComponent {
     return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(),  this.cs.getTime()))));
   }
 
+  // Für emojis und @
+  addEmoji($event: any) {
+    this.input += $event.emoji.native;
+    this.showEmojis = !this.showEmojis;
+  }
   
+
+  toggleBtn(target: string) {
+    this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
+    this.showUserList = target === 'userList' ? !this.showUserList : false;
+  }
+
+  openFileExplorer(){
+    console.log('openFileExplorer');
+  }
 
 }
