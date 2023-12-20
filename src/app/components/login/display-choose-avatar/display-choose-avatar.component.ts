@@ -22,7 +22,7 @@ export class DisplayChooseAvatarComponent {
     'userFemale2.png',
   ];
 
-  constructor(private Auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService) {}
 
   /**
    * Sets the chosen avatar image path.
@@ -39,7 +39,7 @@ export class DisplayChooseAvatarComponent {
    */
   createNewUser(): void {
     this.setNewUserData();
-    this.Auth.signUp(this.newUser, this.password);
+    this.auth.signUp(this.newUser, this.password);
     this.deleteLocalStorage();
   }
 

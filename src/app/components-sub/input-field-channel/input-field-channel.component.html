@@ -4,7 +4,8 @@
 
   <div class="bottom-container-of-input">
     <div class="add-data-to-input-box-container">
-      <div class="add-icon-container">
+      <div (click)="openFileExplorer()" class="add-icon-container">
+        <input id="file" type="file">
         <img class="add-icon-normal" src="assets/icons/add-grey.png" />
         <img class="add-icon-purple" src="assets/icons/add_purple.png" />
       </div>

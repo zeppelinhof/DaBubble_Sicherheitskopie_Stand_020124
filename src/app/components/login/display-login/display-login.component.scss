@@ -120,9 +120,12 @@ form {
     border-color: $purple3;
     color: #fff;
     padding: 12px 25px;
+  }
+
+  .btn-login-valid {
     &:hover {
-      background-color: $purple2;
-      border-color: $purple2;
+      background-color: $purple2 !important;
+      border-color: $purple2 !important;
     }
   }
 

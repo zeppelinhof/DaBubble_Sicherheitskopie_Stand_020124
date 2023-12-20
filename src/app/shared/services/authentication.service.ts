@@ -1,8 +1,10 @@
+import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
 
@@ -15,20 +17,31 @@ import { Injectable } from '@angular/core';
 })
 export class AuthenticationService {
   loggedUser: any;
-  constructor(private userService: UserService) {}
+  loggedUserId: string = '';
+  passwordLoginIsWrong: boolean = false;
 
+  constructor(private userService: UserService, private router: Router) {}
+
+  /**
+   * Signs up a new user with the provided user information and password.
+   * Sends user information to the database after successful sign-up.
+   * Logs in the user after sign-up.
+   * @param {User} newUser - The user information for the new user.
+   * @param {string} password - The password for the new user.
+   */
   signUp(newUser: User, password: string) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, newUser.email, password)
       .then((userCredential) => {
         this.userService.sendDocToDB(newUser);
-
         /*
         const user = userCredential.user;
         const uid = user.uid;
-        this.addUidToUser(newUser, uid);
-        console.log('new signed User', newUser);
+        log('userId', uid)
         */
+      })
+      .then(() => {
+        this.login(newUser.email, password);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -36,37 +49,71 @@ export class AuthenticationService {
       });
   }
 
-  /*
-  addUidToUser(newUser: User, uid: string) {
-    newUser.id = uid;
-    return newUser;
-  }
-  */
-
-  login(email: any, password: any) {
+  /**
+   * Logs in a user with the provided email and password.
+   * Navigates to the '/dashboard' route after successful login.
+   *
+   * @param {string} email - The email of the user.
+   * @param {string} password - The password of the user.
+   */
+  login(email: string, password: string) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        this.loggedUser = user;
-        console.log('loggedUser', this.loggedUser);
-        // ...
+        this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        this.passwordLoginIsWrong = true;
       });
   }
 
+  /**
+   * Checks if a user is logged in. If logged in, navigates to path.
+   */
+  checkIfUserIslogged() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.loggedUser = user;
+        this.loggedUserId = this.loggedUser.uid;
+        console.log('loggedUser', this.loggedUser);
+        console.log('loggedUserID', this.loggedUserId);
+        this.setPathWhenLogged();
+      } else {
+        this.setPathWhenNotLogged();
+      }
+    });
+  }
+
+  /**
+   * Sets the path when the user is logged in.
+   * Navigates to '/dashboard/channel' if the current path does not contain 'dashboard'.
+   */
+  setPathWhenLogged() {
+    if (!this.router.url.includes('dashboard')) {
+      this.router.navigate(['/dashboard/channel']);
+    }
+  }
+
+  /**
+   * Sets the path when the user is not logged in.
+   * Navigates to '/login' if the current path does not contain 'login'.
+   */
+  setPathWhenNotLogged() {
+    if (!this.router.url.includes('login')) {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  /**
+   * Logs out the currently authenticated user.
+   */
   logout() {
     const auth = getAuth();
     signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-      })
-      .catch((error) => {
-        // An error happened.
-      });
+      .then(() => {})
+      .catch((error) => {});
   }
 }

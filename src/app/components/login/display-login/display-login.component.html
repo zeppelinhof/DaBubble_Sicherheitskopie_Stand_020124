@@ -4,7 +4,7 @@
     Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
     verwendest.
   </span>
-  <form [formGroup]="loginForm" (ngSubmit)="submit()">
+  <form ngNativeValidate [formGroup]="loginForm" (ngSubmit)="submit()">
     <div class="container-input-field">
       <img src="assets/icons/mail.png" alt="icon of mail" />
       <input
@@ -12,19 +12,17 @@
         formControlName="email"
         class="input-layout"
         type="email"
-        placeholder="Beispiel@email.com"
+        placeholder="beispiel@email.com"
       />
       <span
+        *ngIf="
+          loginForm.get('email')?.value.length > 0 &&
+          !this.checkUserIsExisting()
+        "
         class="error"
-        *ngIf="loginForm.get('email')?.hasError('required') && formIsSubmitted"
-        >Bitte Email eingeben</span
       >
-      <span class="error" *ngIf="loginForm.get('email')?.hasError('email')"
-        >Diese E-Mail-Adresse ist leider ungültig.</span
-      >
-      <span class="d-none" *ngIf="loginForm.get('email')?.hasError('email')"
-        >Diese E-Mail-Adresse ist leider nicht registriert.</span
-      >
+        Diese E-Mail-Adresse ist nicht registriert.
+      </span>
     </div>
     <div class="container-input-field">
       <img src="assets/icons/lock.png" alt="icon of lock" />
@@ -33,20 +31,15 @@
         formControlName="password"
         class="input-layout"
         type="password"
-        placeholder="********"
+        placeholder="Passwort"
       />
       <span
         class="error"
-        *ngIf="
-          loginForm.get('password')?.hasError('required') && formIsSubmitted
-        "
-      >
-        Bitte Password eingeben</span
-      >
-      <span
-        class="error"
         *ngIf="loginForm.get('password')?.hasError('minlength')"
-        >Mindestens 8 Zeichen eingeben</span
+        >Das Passwort hat mind. 8 Zeichen</span
+      >
+      <span class="error" *ngIf="this.auth.passwordLoginIsWrong"
+        >Das Passwort ist leider falsch</span
       >
     </div>
     <div class="forgot-password-container">
@@ -64,8 +57,20 @@
     </button>
 
     <div class="register-container">
-      <button type="submit" class="button-layout btn-login">Anmelden</button>
-      <button class="button-layout btn-login-guest" routerLink="/channel">
+      <button
+        type="submit"
+        [disabled]="!loginForm.valid"
+        [class.btn-form-not-valid]="!loginForm.valid"
+        [class.btn-login-valid]="loginForm.valid"
+        class="button-layout btn-login"
+      >
+        Anmelden
+      </button>
+      <button
+        (click)="setGuestData()"
+        type="button"
+        class="button-layout btn-login-guest"
+      >
         Gäste-Login
       </button>
     </div>
