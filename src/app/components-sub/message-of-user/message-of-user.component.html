@@ -3,7 +3,7 @@
     <img src="assets/imgs/userMale1.png" />
   </div>
 
-  <div class="info-and-message-box">
+  <div class="info-and-message-box" (mouseover)="reactionChoice()" (mouseleave)="reactionChoice()">
     <div class="thread-info-container">
       <div *ngIf="messageType=='channelMessage'" class="thread-user-name">{{us.getUserName(this.data.userCustomId )}}</div>
       <div *ngIf="messageType=='directMessage'" class="thread-user-name">{{us.getUserName(this.messageData.userCustomId)}}</div>
@@ -12,6 +12,7 @@
     </div>
 
     <div class="thread-message-container">{{ this.data.message || this.messageData.message }}</div>
+    <app-message-reaction *ngIf="showReactionChoice"></app-message-reaction>
   </div>
 </div>
 

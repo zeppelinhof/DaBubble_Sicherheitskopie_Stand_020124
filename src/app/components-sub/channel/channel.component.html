@@ -22,24 +22,16 @@
           <div class="info-part">
             <div class="first-line">
               <div class="h-name">Channel-Name</div>
-              <div
-                *ngIf="editNameButton"
-                (click)="changeNameToInput()"
-                class="edit"
-              >
+              <div *ngIf="editNameButton" (click)="changeNameToInput()" class="edit">
                 Bearbeiten
               </div>
-              <div
-                *ngIf="!editNameButton"
-                (click)="
+              <div *ngIf="!editNameButton" (click)="
                   this.cs.updateChannel(
                     { name: this.clickedChannel.name },
                     clickedChannel
                   );
                   changeNameToInput()
-                "
-                class="edit"
-              >
+                " class="edit">
                 Speichern
               </div>
             </div>
@@ -49,35 +41,23 @@
                 {{ this.clickedChannel.name }}
               </div>
               <div *ngIf="!editNameButton" class="input-wrap">
-                <input
-                  class="inputfield"
-                  type="text"
-                  [(ngModel)]="this.clickedChannel.name"
-                />
+                <input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name" />
               </div>
             </div>
           </div>
           <div class="info-part description-scroll">
             <div class="first-line">
               <div class="h-name">Beschreibung</div>
-              <div
-                *ngIf="editDescriptionButton"
-                (click)="changeDescriptionToInput()"
-                class="edit"
-              >
+              <div *ngIf="editDescriptionButton" (click)="changeDescriptionToInput()" class="edit">
                 Bearbeiten
               </div>
-              <div
-                *ngIf="!editDescriptionButton"
-                (click)="
+              <div *ngIf="!editDescriptionButton" (click)="
                   this.cs.updateChannel(
                     { description: this.clickedChannel.description },
                     clickedChannel
                   );
                   changeDescriptionToInput()
-                "
-                class="edit"
-              >
+                " class="edit">
                 Speichern
               </div>
             </div>
@@ -86,11 +66,7 @@
                 {{ this.clickedChannel.description }}
               </div>
               <div *ngIf="!editDescriptionButton" class="input-wrap">
-                <input
-                  class="inputfield"
-                  type="text"
-                  [(ngModel)]="this.clickedChannel.description"
-                />
+                <input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.description" />
               </div>
             </div>
 
@@ -111,20 +87,14 @@
 
     <div class="channel-all-user-plus-add">
       <div class="channel-user-img-container">
-        <img
-          *ngFor="let item of clickedChannel.members"
-          src="assets/imgs/userMale1.png"
-        />
+        <img *ngFor="let item of clickedChannel.members" src="assets/imgs/userMale1.png" />
       </div>
 
       <div class="channel-user-counter">
         <div>{{ clickedChannel.members.length }}</div>
       </div>
 
-      <div
-        class="channel-add-user-container"
-        (click)="switchShowAddMembersInExistingChannel()"
-      >
+      <div class="channel-add-user-container" (click)="switchShowAddMembersInExistingChannel()">
         <img class="add-user-normal" src="assets/icons/person_add.png" />
         <img class="add-user-purple" src="assets/icons/person_add_purple.png" />
       </div>
@@ -136,10 +106,7 @@
     <div class="dialog">
       <div class="first-line">
         <div class="headline-white-box">Leute hinzufügen</div>
-        <div
-          (click)="switchShowAddMembersInExistingChannel()"
-          class="around-close"
-        >
+        <div (click)="switchShowAddMembersInExistingChannel()" class="around-close">
           <img src="assets/icons/close.png" />
         </div>
       </div>
@@ -157,16 +124,11 @@
           </div>
         </div>
         <!-- !this.ws.radioButtonFirst -->
-        <input
-          [(ngModel)]="this.ws.inputMember"
-          (input)="
+        <input [(ngModel)]="this.ws.inputMember" (input)="
             sis.allFieldsFilled();
             addPreviousMembers();
             sis.filterMembers(additionalMembers)
-          "
-          class="inputfield"
-          placeholder="Name eingeben"
-        />
+          " class="inputfield" placeholder="Name eingeben" />
       </div>
 
       <!-- Dropdown-Liste -->
@@ -179,11 +141,8 @@
         </div>
         <div class="user-list-wrap">
           <div class="user-list">
-            <div
-              class="oneUser-line"
-              *ngFor="let user of sis.filteredMembers"
-              (click)="additionalMembers.push(user); sis.clearSearchInput()"
-            >
+            <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
+              (click)="additionalMembers.push(user); sis.clearSearchInput()">
               <img class="profile-image" src="assets/imgs/userMale3.png" />
               <div class="name-text">
                 {{ user.name }}
@@ -193,10 +152,7 @@
           <div class="add-object-wrap">
             <div class="add-object" (click)="sis.clearSearchInput()">
               <div class="add-img-wrap">
-                <img
-                  class="add-standard"
-                  src="assets/icons/add_members_button.png"
-                />
+                <img class="add-standard" src="assets/icons/add_members_button.png" />
               </div>
               <div class="text-add-object">Mitglieder hinzufügen</div>
             </div>
@@ -205,16 +161,13 @@
       </div>
 
       <div class="btn-wrap">
-        <div
-          (click)="
+        <div (click)="
             cs.updateChannel(
               { members: cs.getCleanMemberJson(additionalMembers) },
               clickedChannel
             );
             switchShowAddMembersInExistingChannel()
-          "
-          class="btn-grey"
-        >
+          " class="btn-grey">
           Hinzufügen
         </div>
       </div>

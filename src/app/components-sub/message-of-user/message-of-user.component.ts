@@ -11,12 +11,18 @@ export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();
   @Input() data: Message = new Message();
   unsubAllUsers: any;
-  @Input() messageType: string = 'channel'
+  @Input() messageType: string = 'channel';
+  showReactionChoice: boolean = false;
 
   constructor(public us: UserService) { }
 
   ngOnInit(): void {
-    this.unsubAllUsers = this.us.subAllUsersListFindUserName();    
+    this.unsubAllUsers = this.us.subAllUsersListFindUserName();
+  }
+
+
+  reactionChoice() {
+    this.showReactionChoice = !this.showReactionChoice;
   }
 
 }
