@@ -1,12 +1,16 @@
-import { Message } from './message';
+
+import { MessageTime } from './message-time';
 
 export class Thread {
-    customId: string;
-    answers: any[];
+    userCustomId: string;
+    answer: string;
+    emojis: any[];
+    createdTime: MessageTime | any;
 
-
-    constructor(customId?: string, answers?: any[]) {
-        this.customId = customId || '';
-        this.answers = answers || [''];
-    }    
+    constructor(userCustomId?: string, answer?: string, emojis?: any[], createdTime?: MessageTime | any) {
+        this.userCustomId = userCustomId || '';
+        this.answer = answer || '';
+        this.emojis = emojis || [''];
+        this.createdTime = createdTime || ''
+    }  
 }

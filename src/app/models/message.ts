@@ -6,7 +6,7 @@ export class Message {
     message: string;
     createdTime: MessageTime | any;
     emojis: any[];
-    thread: Thread;
+    thread: Thread[]; // antworten 
 
     constructor(userCustomId?: string, message?: string, createdTime?: MessageTime | any, emojis?: any[], thread?: Thread | any){
         this.userCustomId = userCustomId || '';
