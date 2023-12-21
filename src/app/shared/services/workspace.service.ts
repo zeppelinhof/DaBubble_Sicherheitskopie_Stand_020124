@@ -15,8 +15,7 @@ export class WorkspaceService {
   inputName: string = '';
   inputDescription: string = '';
   inputMember: string = '';
-  inputCertainMembers: User[] = [];  
-
+  inputCertainMembers: User[] = [];
   allCurrentChannels: Channel[] = [];
 
   closeSideLeft() {

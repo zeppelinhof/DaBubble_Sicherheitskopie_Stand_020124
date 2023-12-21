@@ -50,7 +50,6 @@ export class MessageComponent {
   }
 
   scrollToBottomConstantly() {
-    debugger
     this.intervalIdConstantly = setInterval(() => {
       this.scroll.nativeElement.scrollTo({
         top: this.scroll.nativeElement.scrollHeight,

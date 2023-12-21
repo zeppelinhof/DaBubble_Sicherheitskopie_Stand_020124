@@ -1,0 +1,23 @@
+@import 'src/app/components-sub/message-reaction/message-reaction.component.scss';
+
+.info-and-message-box{
+    position: relative;    
+}
+
+
+.inputfield{
+    background-color: white;
+
+    
+}
+
+.panel-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttons{
+    display: flex;
+    gap: 32px;
+}

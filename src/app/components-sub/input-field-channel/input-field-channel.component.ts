@@ -61,7 +61,8 @@ export class InputFieldChannelComponent {
           new MessageTime(
             new Date().getDate(),
             this.cs.todaysDate(),
-            this.cs.getTime()
+            this.cs.getTime(),
+            Date.now()
           )
         ),
         emojis: [''],

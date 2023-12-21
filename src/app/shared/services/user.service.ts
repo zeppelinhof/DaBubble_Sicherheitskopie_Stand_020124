@@ -33,7 +33,7 @@ export class UserService {
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
   userLoggedIn() {
     const loggedInUser = this.myUsers.filter(
-      (user: User) => user.customId === '5oDYsPkUGMb9FPqmqNGB'
+      (user: User) => user.customId === '5oDYsPkUGMb9FPqmqNGB' // 
     );
     return loggedInUser[0];
   }
@@ -50,7 +50,6 @@ export class UserService {
   }
 
   async updateUser(newValue: any, user: User) {
-    // this.loadingUpdateData = true;
     let docRef = this.getSingleDocRef('allUsers', user.customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {

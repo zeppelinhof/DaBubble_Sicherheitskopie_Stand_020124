@@ -1,7 +1,7 @@
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
-import { ImprintComponent } from './components/imprint/imprint.component';
-import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { ImprintComponent } from './components/login/imprint/imprint.component';
+import { PrivacyPolicyComponent } from './components/login/privacy-policy/privacy-policy.component';
 import { DisplayResetPwEnterPwComponent } from './components/login/display-reset-pw-enter-pw/display-reset-pw-enter-pw.component';
 import { DisplayResetPwEnterEmailComponent } from './components/login/display-reset-pw-enter-email/display-reset-pw-enter-email.component';
 import { DisplayChooseAvatarComponent } from './components/login/display-choose-avatar/display-choose-avatar.component';
