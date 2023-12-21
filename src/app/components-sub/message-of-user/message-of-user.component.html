@@ -3,17 +3,41 @@
     <img src="assets/imgs/userMale1.png" />
   </div>
 
-  <div class="info-and-message-box" (mouseover)="reactionChoice()" (mouseleave)="reactionChoice()">
+  <div class="info-and-message-box" [ngStyle]="{'width': getEditMode ? '100%' : 'auto'}" (mouseover)="reactionChoice(true)" (mouseleave)="reactionChoice(false)">
     <div class="thread-info-container">
-      <div *ngIf="messageType=='channelMessage'" class="thread-user-name">{{us.getUserName(this.data.userCustomId )}}</div>
-      <div *ngIf="messageType=='directMessage'" class="thread-user-name">{{us.getUserName(this.messageData.userCustomId)}}</div>
-      <!-- chatsofUser![index]['createdTime']['day'] -->
+      <div *ngIf="messageType=='channelMessage'" class="thread-user-name">{{us.getUserName(this.data.userCustomId )}}
+      </div>
+      <div *ngIf="messageType=='directMessage'" class="thread-user-name">
+        {{us.getUserName(this.messageData.userCustomId)}}</div>
       <div class="thread-message-time">{{this.data.createdTime['time'] || this.messageData.createdTime['time']}}</div>
     </div>
 
-    <div class="thread-message-container">{{ this.data.message || this.messageData.message }}</div>
-    <app-message-reaction *ngIf="showReactionChoice"></app-message-reaction>
+    <div class="thread-message-container">
+      <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}</div>
+      <div *ngIf="getEditMode"><input class="inputfield" type="text"
+          [(ngModel)]="this.data.message || this.messageData.message"></div>
+      <div class="panel-wrap">
+        <div *ngIf="getEditMode" class="hover-area">
+          <img class="icon" src="assets/reactions/add_reaction.png">
+          <img class="icon_purple" src="assets/reactions/add_reaction_purple.png">
+        </div>
+        <div class="buttons">
+          <div *ngIf="getEditMode" class="btn-wrap">
+            <div class="btn-purple" (click)="takePreviousMessage(); closeEditWindow()">
+              Abbrechen
+            </div>
+          </div>
+          <div *ngIf="getEditMode" class="btn-wrap">
+            <div class="btn-purple" style="background-color: white; color: #444DF2" (click)="saveEditedMessage(this.clickedContact)">
+              Speichern
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- showReactionChoice -->
+    <app-message-reaction *ngIf="showReactionChoice"
+      [withEditMessageOption]="checkIfOwnMessage()"
+      (editMode)="receiveValueFromChild($event)"></app-message-reaction>
   </div>
 </div>
-
-

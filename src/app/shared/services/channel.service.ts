@@ -101,7 +101,8 @@ export class ChannelService {
     return {
       day: messageTime.day,
       fullDay: messageTime.fullDay,
-      time: messageTime.time
+      time: messageTime.time,
+      unixId: messageTime.unixId
     }
   }
 
@@ -238,7 +239,7 @@ export class ChannelService {
 
   // Ausgabe, ob das Datum einer neu erstellte Message höher ist als das der letzten Nachricht
   checkIfNewDay(chatsofUser: Message[] | undefined, index: number): boolean {
-    if (chatsofUser !== undefined && index > 0) {
+    if (chatsofUser !== undefined && index > 0 && chatsofUser![index - 1]) {
       if (new Date().getDate() > chatsofUser![index - 1]['createdTime']['day']) {
         return true;
       }

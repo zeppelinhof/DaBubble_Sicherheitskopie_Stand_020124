@@ -1,8 +1,58 @@
 <div class="reaction-wrap">
-    <img src="assets/reactions/check_mark.png">
-    <img src="assets/reactions/hands_up.png">
-    <img src="assets/reactions/add_reaction.png">
-    <img src="assets/reactions/answer.png">
-    <img src="assets/reactions/more_vert.png" style="height: 24px; width: 24px;">
-</div>
 
+    <div class="hover-area">
+        <img class="icon" src="assets/reactions/check_mark.png" (click)="editMessageButton1()">
+        <img class="icon_purple" src="assets/reactions/check_mark.png" (click)="editMessageButton1()">
+    </div>
+
+    <div class="hover-area">
+        <img class="icon" src="assets/reactions/hands_up.png" (click)="editMessageButton2()">
+        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="editMessageButton2()">
+    </div>
+
+    <div class="hover-area">
+        <img class="icon" src="assets/reactions/add_reaction.png" (click)="editMessageButton3()">
+        <img class="icon_purple" src="assets/reactions/add_reaction_purple.png" (click)="editMessageButton3()">
+    </div>
+
+    <div class="hover-area">
+        <img class="icon" src="assets/reactions/answer.png" (click)="editMessageButton4()">
+        <img class="icon_purple" src="assets/reactions/answer_purple.png" (click)="editMessageButton4()">
+    </div>
+
+    <div class="hover-area">
+        <img class="icon" *ngIf="withEditMessageOption" src="assets/reactions/more_vert.png"
+            (click)="editMessageButton()">
+        <img class="icon_purple" *ngIf="withEditMessageOption" src="assets/reactions/more_vert_purple.png"
+            (click)="editMessageButton()">
+    </div>
+
+    <div *ngIf="showEditMessageButton" class="edit-message" (click)="prepareToeditMessage()">Nachricht bearbeiten</div>
+
+    <!-- <div class="info-part">
+        <div class="first-line">
+          <div class="h-name">Channel-Name</div>
+          <div *ngIf="editNameButton" (click)="changeNameToInput()" class="edit">
+            Bearbeiten
+          </div>
+          <div *ngIf="!editNameButton" (click)="
+              this.cs.updateChannel(
+                { name: this.clickedChannel.name },
+                clickedChannel
+              );
+              changeNameToInput()
+            " class="edit">
+            Speichern
+          </div>
+        </div>
+        <div class="second-line">
+          <img src="assets/icons/hasthTag.png" />
+          <div *ngIf="editNameButton" class="info-text">
+            {{ this.clickedChannel.name }}
+          </div>
+          <div *ngIf="!editNameButton" class="input-wrap">
+            <input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name" />
+          </div>
+        </div>
+      </div> -->
+</div>

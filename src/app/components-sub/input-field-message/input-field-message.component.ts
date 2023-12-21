@@ -28,34 +28,32 @@ export class InputFieldMessageComponent {
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
       this.clickedContact = user;
-      // this.allContacts = [];
-      // this.allContacts.push(this.clickedContact);
     });
   }
 
-  sendDirectMessage() {
+  sendDirectMessage(clickedContact: User) {
+    let unixId = Date.now(); // id einer Nachricht im Zeitstempel createdTime
     // Nachricht bei Empfänger hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
+    this.us.updateUser({ chats: this.getAllChatsOfUser(clickedContact, unixId) }, clickedContact);
     // Nachricht bei Sender hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
+    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn(), unixId) }, this.us.userLoggedIn());
     this.input = '';
   }
 
-  getAllChatsOfUser(forUser: User) {
+  getAllChatsOfUser(forUser: User, unixId: number) {
     let allChats = [];
 
     for (let index = 0; index < forUser.chats!.length; index++) {
       const chat = forUser.chats![index];
       allChats.push(chat);
     }
-    allChats.push(this.addNewMessage());
+    allChats.push(this.addNewMessage(unixId));
 
     return allChats;
   }
 
-  addNewMessage() {
-    // this.cs.checkIfNewDay(this.getChats());
-    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(),  this.cs.getTime()))));
+  addNewMessage(unixId: number) {
+    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime(), unixId))));
   }
 
   // Für emojis und @
@@ -63,14 +61,14 @@ export class InputFieldMessageComponent {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
   }
-  
+
 
   toggleBtn(target: string) {
     this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
     this.showUserList = target === 'userList' ? !this.showUserList : false;
   }
 
-  openFileExplorer(){
+  openFileExplorer() {
     console.log('openFileExplorer');
   }
 
