@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -7,6 +7,9 @@ import { InputService } from 'src/app/shared/services/input.service';
   selector: 'app-input-field-thread',
   templateUrl: './input-field-thread.component.html',
   styleUrls: ['./input-field-thread.component.scss'],
+  host: {
+    '(document:click)': 'onClick($event)',
+  },
 })
 export class InputFieldThreadComponent {
   showEmojis: boolean = false;
@@ -14,7 +17,7 @@ export class InputFieldThreadComponent {
   showUserList: boolean = false;
   allMembers: any = [];
   clickedChannel!: Channel;
-  constructor(public service: InputService, public cs: ChannelService) {}
+  constructor(public service: InputService, public cs: ChannelService, private _eref: ElementRef) {}
 
 
   ngOnInit(): void {
@@ -48,5 +51,14 @@ export class InputFieldThreadComponent {
   toggleBtn(target: string) {
     this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
     this.showUserList = target === 'userList' ? !this.showUserList : false;
+  }
+
+  onClick(event: { target: any }) {
+    if (!this._eref.nativeElement.contains(event.target)) this.closeAllDivs();
+  }
+
+  closeAllDivs() {
+    this.showEmojis = false;
+    this.showUserList = false;
   }
 }

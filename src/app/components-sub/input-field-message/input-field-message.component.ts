@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
 import { User } from 'src/app/models/user';
@@ -10,7 +10,10 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 @Component({
   selector: 'app-input-field-message',
   templateUrl: './input-field-message.component.html',
-  styleUrls: ['./input-field-message.component.scss']
+  styleUrls: ['./input-field-message.component.scss'],
+  host: {
+    '(document:click)': 'onClick($event)',
+  },
 })
 export class InputFieldMessageComponent {
   clickedContact!: User;
@@ -19,7 +22,14 @@ export class InputFieldMessageComponent {
   isInputSelected: boolean = false;
   showEmojis: boolean = false;
   showUserList: boolean = false;
-  constructor(public service: InputService, public us: UserService, private cs: ChannelService, public ws: WorkspaceService) { }
+
+  constructor(
+    public service: InputService,
+    public us: UserService,
+    private cs: ChannelService,
+    public ws: WorkspaceService,
+    private _eref: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -34,9 +44,15 @@ export class InputFieldMessageComponent {
   sendDirectMessage(clickedContact: User) {
     let unixId = Date.now(); // id einer Nachricht im Zeitstempel createdTime
     // Nachricht bei Empfänger hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(clickedContact, unixId) }, clickedContact);
+    this.us.updateUser(
+      { chats: this.getAllChatsOfUser(clickedContact, unixId) },
+      clickedContact
+    );
     // Nachricht bei Sender hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn(), unixId) }, this.us.userLoggedIn());
+    this.us.updateUser(
+      { chats: this.getAllChatsOfUser(this.us.userLoggedIn(), unixId) },
+      this.us.userLoggedIn()
+    );
     this.input = '';
   }
 
@@ -53,7 +69,20 @@ export class InputFieldMessageComponent {
   }
 
   addNewMessage(unixId: number) {
-    return this.us.getCleanMessageJson(new Message(this.us.userLoggedIn().customId, this.input, this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime(), unixId))));
+    return this.us.getCleanMessageJson(
+      new Message(
+        this.us.userLoggedIn().customId,
+        this.input,
+        this.cs.getCleanMessageTimeJson(
+          new MessageTime(
+            new Date().getDate(),
+            this.cs.todaysDate(),
+            this.cs.getTime(),
+            unixId
+          )
+        )
+      )
+    );
   }
 
   // Für emojis und @
@@ -61,7 +90,6 @@ export class InputFieldMessageComponent {
     this.input += $event.emoji.native;
     this.showEmojis = !this.showEmojis;
   }
-
 
   toggleBtn(target: string) {
     this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
@@ -72,4 +100,12 @@ export class InputFieldMessageComponent {
     console.log('openFileExplorer');
   }
 
+  closeAllDivs() {
+    this.showEmojis = false;
+    this.showUserList = false;
+  }
+
+  onClick(event: { target: any }) {
+    if (!this._eref.nativeElement.contains(event.target)) this.closeAllDivs();
+  }
 }

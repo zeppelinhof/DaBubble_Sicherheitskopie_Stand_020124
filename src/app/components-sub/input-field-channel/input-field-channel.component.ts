@@ -1,9 +1,8 @@
 import { getLocaleTimeFormat } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
-
 
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -13,6 +12,9 @@ import { UserService } from 'src/app/shared/services/user.service';
   selector: 'app-input-field-channel',
   templateUrl: './input-field-channel.component.html',
   styleUrls: ['./input-field-channel.component.scss'],
+  host: {
+    '(document:click)': 'onClick($event)',
+  },
 })
 export class InputFieldChannelComponent {
   showEmojis: boolean = false;
@@ -26,7 +28,8 @@ export class InputFieldChannelComponent {
   constructor(
     public service: InputService,
     public cs: ChannelService,
-    private us: UserService
+    private us: UserService,
+    private _eref: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -87,5 +90,14 @@ export class InputFieldChannelComponent {
 
   openFileExplorer() {
     console.log('openFileExplorer');
+  }
+
+  onClick(event: { target: any }) {
+    if (!this._eref.nativeElement.contains(event.target)) this.closeAllDivs();
+  }
+
+  closeAllDivs() {
+    this.showEmojis = false;
+    this.showUserList = false;
   }
 }
