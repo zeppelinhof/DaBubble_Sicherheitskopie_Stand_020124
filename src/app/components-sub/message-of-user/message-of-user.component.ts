@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
@@ -18,6 +19,7 @@ export class MessageOfUserComponent {
   showReactionChoice: boolean = false;
   previousMessage: string = '';
   clickedContact!: User;
+  clickedChannel!: Channel;
   unsubAllUsers: any;
 
   constructor(public us: UserService, private cs: ChannelService, public ws: WorkspaceService) { }
@@ -25,11 +27,12 @@ export class MessageOfUserComponent {
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();
     this.getCurrentUser();
+    this.getCurrentChannel();
     this.savePreviousMessage();
   }
 
   savePreviousMessage() {
-    this.previousMessage = this.data.message || this.messageData.message
+    this.previousMessage = this.data.message || this.messageData.message;
   }
 
   reactionChoice(show: boolean) {
@@ -47,25 +50,41 @@ export class MessageOfUserComponent {
     });
   }
 
-  saveEditedMessage(clickedContact: User) {
-    let unixId = Date.now(); // id einer Nachricht im Zeitstempel createdTime
-    // Nachricht bei Empfänger hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(clickedContact, unixId) }, clickedContact);
-    // Nachricht bei Sender hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn(), unixId) }, this.us.userLoggedIn());
+  // fills allMembers array with all users in the current channel
+  getCurrentChannel() {
+    this.cs.clickedChannel.subscribe((ch: Channel) => {
+      this.clickedChannel = ch;
+    });
+  }
 
+  // Die editierte Direkt-Nachricht oder Channel-Nachricht speichern
+  saveEditedMessage() {
+    // Handle Direct Message
+    if (this.clickedContact.customId !== '') {
+      // Nachricht bei Empfänger hinterlegen
+      this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
+      // Nachricht bei Sender hinterlegen
+      this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
+    } 
+    // Handle Channel Message
+    else if (this.clickedChannel.customId !== '') {
+      this.cs.updateChannel({ allMessages: this.getAllMessagesOfChannel(this.clickedChannel) }, this.clickedChannel);
+    } else {
+      console.log('Speichern nicht erfolgreich');
+
+    }
     this.closeEditWindow();
   }
 
-  takePreviousMessage(){
+  takePreviousMessage() {
     this.data.message = this.previousMessage;
   }
 
   closeEditWindow() {
-      this.getEditMode = false; //close edit window
+    this.getEditMode = false; //close edit window
   }
 
-  getAllChatsOfUser(forUser: User, unixId: number) {
+  getAllChatsOfUser(forUser: User) {
     let allChats = [];
 
     for (let index = 0; index < forUser.chats!.length; index++) {
@@ -73,11 +92,32 @@ export class MessageOfUserComponent {
       // wenn die unixId der alten Nachticht gleich der unixId der bearbeiteten Nachricht ist
       // so soll die neue Nachricht eingetragen werden.
       const messageDataUnixId = this.messageData.createdTime['unixId'];
+      const chatUnixId = chat.createdTime['unixId'];
+
+      if (chatUnixId === messageDataUnixId) {
+        chat.message = this.messageData.message; // neu eingegebener Wert für Message
+        allChats.push(chat);
+        // für alle anderen Nachrichten die alte Nachricht übernehmen
+      } else {
+        allChats.push(chat);
+      }
+    }
+
+    return allChats;
+  }
+
+  getAllMessagesOfChannel(forChannel: Channel) {
+    let allChats = [];
+
+    for (let index = 0; index < forChannel.allMessages!.length; index++) {
+      const chat = forChannel.allMessages![index];
+      // wenn die unixId der alten Nachticht gleich der unixId der bearbeiteten Nachricht ist
+      // so soll die neue Nachricht eingetragen werden.
       const dataUnixId = this.data.createdTime['unixId'];
       const chatUnixId = chat.createdTime['unixId'];
 
-      if (chatUnixId === messageDataUnixId || chatUnixId === dataUnixId) {
-        chat.message = this.messageData.message; // neu eingegebener Wert für Message
+      if (chatUnixId === dataUnixId) {
+        chat.message = this.data.message; // neu eingegebener Wert für Message
         allChats.push(chat);
         // für alle anderen Nachrichten die alte Nachricht übernehmen
       } else {
@@ -91,6 +131,8 @@ export class MessageOfUserComponent {
   checkIfOwnMessage(): boolean {
     if (this.messageData.userCustomId) {
       return this.messageData.userCustomId == this.us.userLoggedIn().customId;
+    } else if (this.data.userCustomId) {
+      return this.data.userCustomId == this.us.userLoggedIn().customId;
     }
     return false;
   }

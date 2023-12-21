@@ -257,7 +257,6 @@ export class ChannelService {
         return [];
       }
     });
-
     return chatsOfUser[0].chats;
   }
 
