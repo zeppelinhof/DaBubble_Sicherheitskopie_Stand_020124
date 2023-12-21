@@ -4,12 +4,12 @@
 
   <div class="bottom-container-of-input">
     <div class="add-data-to-input-box-container">
-      <div (click)="openFileExplorer()" class="add-icon-container">
-        <input id="file" type="file">
+      <div class="add-icon-container">
+        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
         <img class="add-icon-normal" src="assets/icons/add-grey.png" />
         <img class="add-icon-purple" src="assets/icons/add_purple.png" />
       </div>
-
+      
       <div class="att-and-smiley-container">
         <div (click)="toggleBtn('userList')" class="att-icons-container">
           <img class="att-icon-grey" src="assets/icons/@-icon-grey.png" />

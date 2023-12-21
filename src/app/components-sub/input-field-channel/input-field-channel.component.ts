@@ -1,4 +1,3 @@
-import { getLocaleTimeFormat } from '@angular/common';
 import { Component, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
@@ -100,4 +99,6 @@ export class InputFieldChannelComponent {
     this.showEmojis = false;
     this.showUserList = false;
   }
+
+  
 }
