@@ -13,6 +13,8 @@ export class InputService {
 
   onInputChannel(event: any): void {
     this.isWritingChannel = event.target.value.length > 0;
+    console.log(event.currentTarget.value);
+    
   }
   onInputThread(event: any): void {
     this.isWritingThread = event.target.value.length > 0;

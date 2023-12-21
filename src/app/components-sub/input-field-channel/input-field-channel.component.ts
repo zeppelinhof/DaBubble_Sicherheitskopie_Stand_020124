@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
-import { Thread } from 'src/app/models/thread';
+
 
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -20,7 +20,7 @@ export class InputFieldChannelComponent {
   allMembers: any = [];
   clickedChannel!: Channel;
   allMessages: any = [];
-  input: string = '';
+  input: any = '';
   isInputSelected: boolean = false;
 
   constructor(
