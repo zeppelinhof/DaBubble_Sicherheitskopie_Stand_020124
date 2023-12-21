@@ -14,7 +14,6 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 })
 export class InputFieldMessageComponent {
   clickedContact!: User;
-  // allContacts: User[] = [];
   input: string = '';
   isInputSelected: boolean = false;
   showEmojis: boolean = false;

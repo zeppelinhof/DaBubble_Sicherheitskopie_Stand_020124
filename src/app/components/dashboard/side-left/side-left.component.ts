@@ -31,14 +31,36 @@ export class SideLeftComponent {
   ) { }
 
   getUsers() {
-    // Es werden nur die User angezeigt, welche im Chat von logged In User enthalten sind
+    // Es werden nur die User angezeigt, welche in ihrem Chat die customId von Logged In User haben 
+    // Also: Diejenigen, welche von Logged In User angeschrieben wurden
     const filteredUsers = this.us.myUsers.filter((user: User) => {
       if (this.us.userLoggedIn().chats) {
-        return this.us.userLoggedIn().chats!.some((chat: Message) => chat.userCustomId === user.customId);
+        return user.chats!.some((chat: Message) => chat.userCustomId === this.us.userLoggedIn().customId);
       } else {
         return [];
       }
     });
+
+    // diejenigen, welche Logged In User angeschrieben haben, ohne dass Logged User diese zuvor angeschrieben hat, werden nun auch hinzugefügt
+    for (let index = 0; index < this.us.userLoggedIn().chats!.length; index++) {
+      const userLoggedInChats = this.us.userLoggedIn().chats![index];
+      let alreadyIncluded: boolean = false;
+      for (let index = 0; index < filteredUsers.length; index++) {
+        const filteredUser = filteredUsers[index];
+        if (userLoggedInChats.userCustomId === filteredUser.customId) {
+          alreadyIncluded = true;
+        }
+      }
+      if (!alreadyIncluded) {
+        const userToAdd = this.us.myUsers.find((user: User) => user.customId === userLoggedInChats.userCustomId);
+        if (userToAdd) {
+          // falls noch
+          filteredUsers.push(userToAdd);
+        }
+      }
+
+    }
+
     return filteredUsers;
   }
 

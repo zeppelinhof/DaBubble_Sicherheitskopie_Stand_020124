@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Message } from 'src/app/models/message';
-import { MessageTime } from 'src/app/models/message-time';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -38,11 +37,9 @@ export class MessageOfUserComponent {
   }
 
   receiveValueFromChild(value: boolean) {
-    // Handle erhhaltenen Wert von Kindkomponente
+    // Handle erhaltenen Wert von Kindkomponente
     this.getEditMode = value;
   }
-
-  // UPDATE MESSAGE
 
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
@@ -65,7 +62,7 @@ export class MessageOfUserComponent {
   }
 
   closeEditWindow() {
-    this.getEditMode = false; //close edit window
+      this.getEditMode = false; //close edit window
   }
 
   getAllChatsOfUser(forUser: User, unixId: number) {

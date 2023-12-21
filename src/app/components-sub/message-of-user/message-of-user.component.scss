@@ -1,7 +1,8 @@
 @import 'src/app/components-sub/message-reaction/message-reaction.component.scss';
 
 .info-and-message-box{
-    position: relative;    
+    position: relative;
+    transition: width 1.5s ease-in-out;  
 }
 
 
