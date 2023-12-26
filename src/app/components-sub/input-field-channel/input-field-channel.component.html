@@ -19,6 +19,9 @@
           <img class="smiley-icon-grey" src="assets/icons/smiley-icon-grey.png" />
           <img class="smiley-icon-purple" src="assets/icons/smiley-icon-purple.png" />
         </div>
+        <div class="file-container" *ngIf="selectedFile">
+          {{ selectedFile.name }}
+        </div>
       </div>
     </div>
     <div (click)="sendMessage()" class="send-btn-container">

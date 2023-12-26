@@ -23,6 +23,8 @@ export class InputFieldChannelComponent {
   allMessages: any = [];
   input: any = '';
   isInputSelected: boolean = false;
+  selectedFile: File | null = null;
+  imageUrl: string | ArrayBuffer | null | undefined;
 
   constructor(
     public service: InputService,
@@ -104,7 +106,10 @@ export class InputFieldChannelComponent {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const selectedFile = inputElement.files[0];
-      this.input = selectedFile.name; // Setzen Sie den Dateinamen oder den gewünschten Wert hier
+      this.selectedFile = selectedFile;
     }
   }
+
+  
+ 
 }
