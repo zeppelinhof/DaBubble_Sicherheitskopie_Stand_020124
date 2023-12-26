@@ -29,7 +29,7 @@ export class InputFieldChannelComponent {
     public cs: ChannelService,
     private us: UserService,
     private _eref: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -100,5 +100,11 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-  
+  fileExplorer(event: any): void {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const selectedFile = inputElement.files[0];
+      this.input = selectedFile.name; // Setzen Sie den Dateinamen oder den gewünschten Wert hier
+    }
+  }
 }
