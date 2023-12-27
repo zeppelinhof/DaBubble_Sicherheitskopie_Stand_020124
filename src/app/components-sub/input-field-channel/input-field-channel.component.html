@@ -1,5 +1,5 @@
 <div class="input-box-container">
-  <input type="text" (change)="this.service.onInputChannel($event)" placeholder="Nachricht an #Entwicklerteam"
+  <input type="text" (input)="this.service.onInputChannel($event)" placeholder="Nachricht an #Entwicklerteam"
     [ngClass]="{'selected-input': isInputSelected}" [(ngModel)]="input" />
 
   <div class="bottom-container-of-input">

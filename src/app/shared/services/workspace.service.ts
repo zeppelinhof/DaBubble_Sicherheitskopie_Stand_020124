@@ -17,6 +17,7 @@ export class WorkspaceService {
   inputMember: string = '';
   inputCertainMembers: User[] = [];
   allCurrentChannels: Channel[] = [];
+  threadContainerIsVisible: boolean = true;
 
   closeSideLeft() {
     this.showSideLeft = this.showSideLeft ? false : true;

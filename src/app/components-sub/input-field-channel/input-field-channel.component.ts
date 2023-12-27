@@ -61,19 +61,10 @@ export class InputFieldChannelComponent {
       let newMessage: Message = {
         userCustomId: 'pdvIa9XQgQtyB1pIqrwT', //'Frederik',
         message: this.input,
-        createdTime: this.cs.getCleanMessageTimeJson(
-          new MessageTime(
-            new Date().getDate(),
-            this.cs.todaysDate(),
-            this.cs.getTime(),
-            Date.now()
-          )
-        ),
+        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime(), Date.now())),
         emojis: [''],
         threads: [],
       };
-      console.log('this is newmessage', newMessage);
-
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
     }
@@ -110,6 +101,6 @@ export class InputFieldChannelComponent {
     }
   }
 
-  
- 
+
+
 }

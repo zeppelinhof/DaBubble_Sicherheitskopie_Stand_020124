@@ -1,11 +1,11 @@
-<div [class.hidden]="!containerIsVisible" class="side-right-container">
+<div *ngIf="this.ws.threadContainerIsVisible" class="side-right-container">
 
   <div class="inner-padding-of-thread">
     <div class="thread-header-container">
       <div class="thread-header-title">Thread</div>
       <div class="thread-name"># Entwicklerteam</div>
     </div>
-    <div (click)="toggleVisibility()" class="close-icon-container">
+    <div (click)="this.ws.threadContainerIsVisible = !this.ws.threadContainerIsVisible" class="close-icon-container">
       <img class="close-icon-normal" src="assets/icons/close.png" />
       <img class="close-icon-purple" src="assets/icons/close_purple.png">
     </div>

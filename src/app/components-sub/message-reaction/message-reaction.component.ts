@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SideRightComponent } from 'src/app/components/dashboard/side-right/side-right.component';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
@@ -6,14 +7,14 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   templateUrl: './message-reaction.component.html',
   styleUrls: ['./message-reaction.component.scss']
 })
-export class MessageReactionComponent {  
-  @Input() withEditMessageOption:boolean = true; // edit message option only for own messages available
+export class MessageReactionComponent {
+  @Input() withEditMessageOption: boolean = true; // edit message option only for own messages available
   showEditMessageButton: boolean = false;
   @Output() editMode: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor(private ws: WorkspaceService){}
+  constructor(public ws: WorkspaceService) { }
 
-  editMessageButton() {    
+  editMessageButton() {
     this.showEditMessageButton = !this.showEditMessageButton;
   }
 
@@ -29,13 +30,11 @@ export class MessageReactionComponent {
     // Handle editMessageButton3
   }
 
-  editMessageButton4() {
-    // Handle editMessageButton4
-  }
-
-  prepareToeditMessage(){
+  prepareToeditMessage() {
     this.showEditMessageButton = false;
     this.editMode.emit(true);
   }
+
+  
 
 }

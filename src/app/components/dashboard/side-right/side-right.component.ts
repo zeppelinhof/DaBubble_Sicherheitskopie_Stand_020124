@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
+
 
 @Component({
   selector: 'app-side-right',
@@ -6,13 +9,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-right.component.scss']
 })
 export class SideRightComponent {
-  containerIsVisible: boolean = true;
   
 
-  constructor() { }
-  
-  toggleVisibility() {
-    this.containerIsVisible = !this.containerIsVisible;
+
+  constructor(public ws: WorkspaceService) {
+    setInterval(() => {
+      console.log("neu",this.ws.threadContainerIsVisible);
+    },500);
+   
   }
+
+  
 
 }
