@@ -34,8 +34,8 @@ export class SideLeftComponent {
     // Es werden nur die User angezeigt, welche in ihrem Chat die customId von Logged In User haben 
     // Also: Diejenigen, welche von Logged In User angeschrieben wurden
     const filteredUsers = this.us.myUsers.filter((user: User) => {
-      if (this.us.userLoggedIn().chats) {
-        return user.chats!.some((chat: Message) => chat.userCustomId === this.us.userLoggedIn().customId);
+      if (this.us.userLoggedIn().chats && user.chats) {
+        return user.chats.some((chat: Message) => chat.userCustomId === this.us.userLoggedIn().customId);
       } else {
         return [];
       }

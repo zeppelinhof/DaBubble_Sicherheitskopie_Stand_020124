@@ -3,13 +3,15 @@ import { Thread } from "./thread";
 
 export class Message {
     userCustomId: string;
+    messageId: number;
     message: string;
     createdTime: MessageTime | any;
     emojis: any[];
     threads: Thread[]; // antworten 
 
-    constructor(userCustomId?: string, message?: string, createdTime?: MessageTime | any, emojis?: any[], threads?: Thread | any){
+    constructor(userCustomId?: string, messageId?: number, message?: string, createdTime?: MessageTime | any, emojis?: any[], threads?: Thread | any){
         this.userCustomId = userCustomId || '';
+        this.messageId = messageId || 0;
         this.message = message || '';
         this.createdTime = createdTime || '';
         this.emojis = emojis || [''];

@@ -14,7 +14,7 @@ export class SideRightComponent {
 
   constructor(public ws: WorkspaceService) {
     setInterval(() => {
-      console.log("neu",this.ws.threadContainerIsVisible);
+      // console.log("neu",this.ws.threadContainerIsVisible);
     },500);
    
   }
