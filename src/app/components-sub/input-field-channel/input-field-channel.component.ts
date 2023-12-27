@@ -65,6 +65,7 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
         threads: [],
+        file: [],
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';

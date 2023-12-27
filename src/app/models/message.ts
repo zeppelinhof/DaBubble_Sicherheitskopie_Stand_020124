@@ -8,13 +8,15 @@ export class Message {
     createdTime: MessageTime | any;
     emojis: any[];
     threads: Thread[]; // antworten 
+    file:any;
 
-    constructor(userCustomId?: string, messageId?: number, message?: string, createdTime?: MessageTime | any, emojis?: any[], threads?: Thread | any){
+    constructor(userCustomId?: string, messageId?: number, message?: string, createdTime?: MessageTime | any, emojis?: any[], threads?: Thread | any, file?: any) { 
         this.userCustomId = userCustomId || '';
         this.messageId = messageId || 0;
         this.message = message || '';
         this.createdTime = createdTime || '';
         this.emojis = emojis || [''];
         this.threads = threads || [];
+        this.file = file || [];
     }
 }
