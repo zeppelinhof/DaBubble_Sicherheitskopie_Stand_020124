@@ -34,7 +34,7 @@ export class UserService {
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
   userLoggedIn() {
     const loggedInUser = this.myUsers.filter(
-      (user: User) => user.customId === '5oDYsPkUGMb9FPqmqNGB' // rAmnIQxMvCxpJYrZHESx (Gast-Infinity) 5oDYsPkUGMb9FPqmqNGB (Markus) pdvIa9XQgQtyB1pIqrwT (Muhammed)
+      (user: User) => user.customId === 'nzIgiEyi1mUqSkkyMMku' //(Alice Wunder)
     );
     return loggedInUser[0];
   }
@@ -113,6 +113,7 @@ export class UserService {
   getCleanMessageJson(message: Message): {} {
     return {
       userCustomId: message.userCustomId || '',
+      messageId: message.messageId || 0,
       message: message.message || '',
       createdTime: message.createdTime || '',
       emojis: message.emojis,
@@ -140,6 +141,7 @@ export class UserService {
   }
 
   getUserName(userCustomId: string) {
+    debugger
     let user = this.allUsersForUserName.find(
       (user) => user.id === userCustomId
     );

@@ -41,43 +41,45 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage(clickedContact: User) {
-    let unixId = Date.now(); // id einer Nachricht im Zeitstempel createdTime
+    debugger
+    let messageId = Date.now();
     // Nachricht bei Empfänger hinterlegen
     this.us.updateUser(
-      { chats: this.getAllChatsOfUser(clickedContact, unixId) },
+      { chats: this.getAllChatsOfUser(clickedContact, messageId) },
       clickedContact
     );
     // Nachricht bei Sender hinterlegen
     this.us.updateUser(
-      { chats: this.getAllChatsOfUser(this.us.userLoggedIn(), unixId) },
+      { chats: this.getAllChatsOfUser(this.us.userLoggedIn(), messageId) },
       this.us.userLoggedIn()
     );
     this.input = '';
   }
 
-  getAllChatsOfUser(forUser: User, unixId: number) {
+  getAllChatsOfUser(forUser: User, messageId: number) {
     let allChats = [];
 
     for (let index = 0; index < forUser.chats!.length; index++) {
+      debugger
       const chat = forUser.chats![index];
       allChats.push(chat);
     }
-    allChats.push(this.addNewMessage(unixId));
+    allChats.push(this.addNewMessage(messageId));
 
     return allChats;
   }
 
-  addNewMessage(unixId: number) {
+  addNewMessage(messageId: number) {
     return this.us.getCleanMessageJson(
       new Message(
         this.us.userLoggedIn().customId,
+        messageId,
         this.input,
         this.cs.getCleanMessageTimeJson(
           new MessageTime(
             new Date().getDate(),
             this.cs.todaysDate(),
             this.cs.getTime(),
-            unixId
           )
         )
       )

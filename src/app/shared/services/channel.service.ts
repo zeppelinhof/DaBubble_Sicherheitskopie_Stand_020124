@@ -101,8 +101,7 @@ export class ChannelService {
     return {
       day: messageTime.day,
       fullDay: messageTime.fullDay,
-      time: messageTime.time,
-      unixId: messageTime.unixId
+      time: messageTime.time
     }
   }
 

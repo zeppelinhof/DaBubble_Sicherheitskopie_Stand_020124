@@ -89,12 +89,11 @@ export class MessageOfUserComponent {
 
     for (let index = 0; index < forUser.chats!.length; index++) {
       const chat = forUser.chats![index];
-      // wenn die unixId der alten Nachticht gleich der unixId der bearbeiteten Nachricht ist
+      // wenn die messageId der alten Nachticht gleich der messageId der bearbeiteten Nachricht ist
       // so soll die neue Nachricht eingetragen werden.
-      const messageDataUnixId = this.messageData.createdTime['unixId'];
-      const chatUnixId = chat.createdTime['unixId'];
-
-      if (chatUnixId === messageDataUnixId) {
+      const messageDataMessageId = this.messageData.messageId;
+      const chatMessageId = chat.messageId;
+      if (chatMessageId === messageDataMessageId) {
         chat.message = this.messageData.message; // neu eingegebener Wert für Message
         allChats.push(chat);
         // für alle anderen Nachrichten die alte Nachricht übernehmen
@@ -111,12 +110,12 @@ export class MessageOfUserComponent {
 
     for (let index = 0; index < forChannel.allMessages!.length; index++) {
       const chat = forChannel.allMessages![index];
-      // wenn die unixId der alten Nachticht gleich der unixId der bearbeiteten Nachricht ist
+      // wenn die messageId der alten Nachticht gleich der messageId der bearbeiteten Nachricht ist
       // so soll die neue Nachricht eingetragen werden.
-      const dataUnixId = this.data.createdTime['unixId'];
-      const chatUnixId = chat.createdTime['unixId'];
+      const dataMessageId = this.data.messageId;
+      const chatMessageId = chat.messageId;
 
-      if (chatUnixId === dataUnixId) {
+      if (chatMessageId === dataMessageId) {
         chat.message = this.data.message; // neu eingegebener Wert für Message
         allChats.push(chat);
         // für alle anderen Nachrichten die alte Nachricht übernehmen

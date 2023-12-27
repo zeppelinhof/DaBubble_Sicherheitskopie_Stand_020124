@@ -59,11 +59,13 @@ export class InputFieldChannelComponent {
   sendMessage() {
     if (this.input !== '') {
       let newMessage: Message = {
-        userCustomId: 'pdvIa9XQgQtyB1pIqrwT', //'Frederik',
+        userCustomId: this.us.userLoggedIn().customId, //'Frederik',
+        messageId: Date.now(),
         message: this.input,
-        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime(), Date.now())),
+        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
         threads: [],
+        file: [],
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
