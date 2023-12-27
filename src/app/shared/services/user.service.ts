@@ -33,7 +33,7 @@ export class UserService {
   // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
   userLoggedIn() {
     const loggedInUser = this.myUsers.filter(
-      (user: User) => user.customId === '5oDYsPkUGMb9FPqmqNGB' // rAmnIQxMvCxpJYrZHESx (Gast-Infinity) 5oDYsPkUGMb9FPqmqNGB (Markus) pdvIa9XQgQtyB1pIqrwT (Muhammed)
+      (user: User) => user.customId === 'pdvIa9XQgQtyB1pIqrwT' // rAmnIQxMvCxpJYrZHESx (Gast-Infinity) 5oDYsPkUGMb9FPqmqNGB (Markus) pdvIa9XQgQtyB1pIqrwT (Muhammed)
     );
     return loggedInUser[0];
   }
