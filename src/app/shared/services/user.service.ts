@@ -12,6 +12,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,21 +23,18 @@ export class UserService {
   myUsers: User[] = [];
   clickedContactId = new BehaviorSubject<string>('');
   clickedContact = new BehaviorSubject<User>(new User());
+  loggedInUser!: User;
 
   allUsersForUserName: User[] = [];
 
   unsubUsers;
 
-  constructor() {
+  constructor() {    
     this.unsubUsers = this.subUserList();
   }
 
-  // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
-  userLoggedIn() {
-    const loggedInUser = this.myUsers.filter(
-      (user: User) => user.customId === 'nzIgiEyi1mUqSkkyMMku' //(Alice Wunder)
-    );
-    return loggedInUser[0];
+  userLoggedIn() {    
+    return this.loggedInUser;
   }
 
   async subUserList() {

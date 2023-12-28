@@ -85,6 +85,7 @@ export class AuthenticationService {
         this.loggedUser.name = user.displayName;
         this.loggedUser.email = user.email;
         this.loggedUser.img = user.photoURL;
+        this.userService.loggedInUser = this.loggedUser;
         console.log('loggedUser', this.loggedUser);
         this.setPathWhenLogged();
       } else {

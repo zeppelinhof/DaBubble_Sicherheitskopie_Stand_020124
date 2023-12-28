@@ -12,4 +12,8 @@ export class AppComponent {
   constructor(private auth: AuthenticationService) {
     this.auth.checkIfUserIslogged();
   }
+
+  getUser(){
+    this.auth.loggedUser;
+  }
 }
