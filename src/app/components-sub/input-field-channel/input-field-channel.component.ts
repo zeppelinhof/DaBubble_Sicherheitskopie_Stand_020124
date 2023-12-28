@@ -1,4 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
+import { initializeApp } from '@angular/fire/app';
+import { getStorage } from '@angular/fire/storage';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
@@ -31,7 +33,10 @@ export class InputFieldChannelComponent {
     public cs: ChannelService,
     private us: UserService,
     private _eref: ElementRef
-  ) { }
+  ) { 
+    const storage = getStorage(); // Du musst die App hier nicht erneut initialisieren
+    console.log("STORAGE" ,storage);
+  }
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -105,4 +110,5 @@ export class InputFieldChannelComponent {
 
 
 
+  
 }

@@ -25,11 +25,13 @@ import { InputFieldMessageComponent } from './components-sub/input-field-message
 import { NewMessageComponent } from './components-sub/new-message/new-message.component';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { PickerComponent, PickerModule } from '@ctrl/ngx-emoji-mart';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiPickerComponent } from './components-sub/emoji-picker/emoji-picker.component';
 import { MessagesChannelComponent } from './components-sub/messages-channel/messages-channel.component';
 import { MessageOfUserComponent } from './components-sub/message-of-user/message-of-user.component';
 import { MessageReactionComponent } from './components-sub/message-reaction/message-reaction.component';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+
 
 @NgModule({
   declarations: [
@@ -79,8 +81,10 @@ import { MessageReactionComponent } from './components-sub/message-reaction/mess
     ),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
+
