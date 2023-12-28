@@ -18,7 +18,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  loggedUserId: string = '';
   passwordLoginIsWrong: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
@@ -76,17 +75,12 @@ export class AuthenticationService {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.setLoggedUser(user);
+        this.userService.loggedInUserId = user.uid;
         this.setPathWhenLogged();
       } else {
         this.setPathWhenNotLogged();
       }
     });
-  }
-
-  setLoggedUser(user: any) {
-    this.loggedUserId = user.uid;
-    console.log('loggedUserId', this.loggedUserId);
   }
 
   /**

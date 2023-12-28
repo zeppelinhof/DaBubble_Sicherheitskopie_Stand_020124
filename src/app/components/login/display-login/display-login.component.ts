@@ -12,7 +12,9 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
   styleUrls: ['./display-login.component.scss'],
 })
 export class DisplayLoginComponent {
-  guestUser: User = new User();
+  newGuestUser: User = new User();
+  newGuestUserPassword: string = '';
+  guestNumbers: number[] = [];
   passwordIsWrong: boolean = false;
 
   loginForm: any = new FormGroup({
@@ -73,37 +75,48 @@ export class DisplayLoginComponent {
   setGuestData() {
     const maxGuestNumber = this.checkMaxGuestNumber();
     const numberForNewGuest = maxGuestNumber + 1;
-    this.guestUser.name = `Gast${numberForNewGuest}`;
-    this.guestUser.email = `guest${numberForNewGuest}@bubble.de`;
-    this.guestUser.img = 'userMale3.png';
-    const guestPassword = '#23ffgwßffpü"!!**';
-    this.guestGetsSignedUpandLoggedIn(guestPassword);
+    this.newGuestUser.name = `Gast${numberForNewGuest}`;
+    this.newGuestUser.email = `guest${numberForNewGuest}@bubble.de`;
+    this.newGuestUser.img = 'userMale3.png';
+    this.newGuestUserPassword = '#23ffgwßffpü"!!**';
+    this.guestGetsSignedUpandLoggedIn();
+    console.log(this.newGuestUser, this.newGuestUserPassword);
   }
 
   /**
    * Signs up the guest user and logs them in.
-   * @param {string} guestPassword - The password for the guest user.
    */
-  guestGetsSignedUpandLoggedIn(guestPassword: string) {
-    this.auth.signUp(this.guestUser, guestPassword);
+  guestGetsSignedUpandLoggedIn() {
+    this.auth.signUp(this.newGuestUser, this.newGuestUserPassword);
   }
 
   /**
-   * Checks the maximum guest number from existing users.
+   * Checks the maximum guest number from existing guest users.
    * @returns {number} - The maximum guest number.
    */
   checkMaxGuestNumber() {
-    const guestNumbers: number[] = [];
+    this.getRegisteredGuestNumbers();
+    if (this.noGuestUsersRegistered()) {
+      return 350;
+    } else {
+      const maxGuestNumber = Math.max(...this.guestNumbers);
+      return maxGuestNumber;
+    }
+  }
+
+  getRegisteredGuestNumbers() {
     this.userService.myUsers.forEach((user) => {
       if (user.name.includes('Gast')) {
         const numberMatch = user.name.match(/\d+/);
         if (numberMatch) {
           const guestNumber = parseInt(numberMatch[0], 10);
-          guestNumbers.push(guestNumber);
+          this.guestNumbers.push(guestNumber);
         }
       }
     });
-    const maxGuestNumber = Math.max(...guestNumbers);
-    return maxGuestNumber;
+  }
+
+  noGuestUsersRegistered() {
+    return this.guestNumbers.length === 0;
   }
 }
