@@ -41,7 +41,6 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage(clickedContact: User) {
-    debugger
     let messageId = Date.now();
     // Nachricht bei Empfänger hinterlegen
     this.us.updateUser(
@@ -60,7 +59,6 @@ export class InputFieldMessageComponent {
     let allChats = [];
 
     for (let index = 0; index < forUser.chats!.length; index++) {
-      debugger
       const chat = forUser.chats![index];
       allChats.push(chat);
     }

@@ -138,7 +138,6 @@ export class UserService {
   }
 
   getUserName(userCustomId: string) {
-    debugger
     let user = this.allUsersForUserName.find(
       (user) => user.id === userCustomId
     );
