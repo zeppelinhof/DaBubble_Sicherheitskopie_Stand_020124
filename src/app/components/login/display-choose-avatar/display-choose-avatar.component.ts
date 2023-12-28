@@ -1,6 +1,7 @@
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-choose-avatar',
@@ -22,8 +23,18 @@ export class DisplayChooseAvatarComponent {
     'userFemale2.png',
   ];
 
-  constructor(private auth: AuthenticationService) {
-    //anpassen, wenn local storage leer, dann weiterleitung display login - todo
+  constructor(private auth: AuthenticationService, private router: Router) {
+    this.checkDataLocalStorage();
+  }
+
+  checkDataLocalStorage() {
+    if (
+      !localStorage.getItem('signUpPassword') ||
+      !localStorage.getItem('signUpName') ||
+      !localStorage.getItem('signUpEmail')
+    ) {
+      this.router.navigate(['login/display-login']);
+    }
   }
 
   /**
