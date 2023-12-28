@@ -34,8 +34,7 @@ export class InputFieldChannelComponent {
     private us: UserService,
     private _eref: ElementRef
   ) { 
-    const storage = getStorage(); // Du musst die App hier nicht erneut initialisieren
-    console.log("STORAGE" ,storage);
+    const storage = getStorage(); 
   }
 
   ngOnInit(): void {
