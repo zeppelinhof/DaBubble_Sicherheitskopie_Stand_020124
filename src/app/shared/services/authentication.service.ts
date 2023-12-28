@@ -1,3 +1,4 @@
+import { getLocaleTimeFormat } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import {
@@ -6,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -16,9 +18,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  loggedUser: any;
-  loggedUserId: string = '';
   passwordLoginIsWrong: boolean = false;
+  loggedUser: User = new User();
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -33,12 +34,9 @@ export class AuthenticationService {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, newUser.email, password)
       .then((userCredential) => {
-        this.userService.sendDocToDB(newUser);
-        /*
         const user = userCredential.user;
-        const uid = user.uid;
-        log('userId', uid)
-        */
+        newUser.customId = user.uid;
+        this.userService.sendDocToDB(newUser);
       })
       .then(() => {
         this.login(newUser.email, password);
@@ -55,11 +53,13 @@ export class AuthenticationService {
    *
    * @param {string} email - The email of the user.
    * @param {string} password - The password of the user.
+   * @param {string | null} name - The name of the new signed user (can be a string or null).
    */
   login(email: string, password: string) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        const user = userCredential.user;
         this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
@@ -76,10 +76,9 @@ export class AuthenticationService {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.loggedUser = user;
-        this.loggedUserId = this.loggedUser.uid;
-        console.log('loggedUser', this.loggedUser);
-        console.log('loggedUserID', this.loggedUserId);
+        console.log('logged User ', user.email, 'id', user.uid);
+        this.loggedUser.customId = user.uid;
+        this.userService.loggedInUser = this.loggedUser;
         this.setPathWhenLogged();
       } else {
         this.setPathWhenNotLogged();

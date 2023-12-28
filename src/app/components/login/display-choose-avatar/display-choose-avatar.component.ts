@@ -1,6 +1,7 @@
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-display-choose-avatar',
@@ -22,7 +23,19 @@ export class DisplayChooseAvatarComponent {
     'userFemale2.png',
   ];
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService, private router: Router) {
+    this.checkDataLocalStorage();
+  }
+
+  checkDataLocalStorage() {
+    if (
+      !localStorage.getItem('signUpPassword') ||
+      !localStorage.getItem('signUpName') ||
+      !localStorage.getItem('signUpEmail')
+    ) {
+      this.router.navigate(['login/display-login']);
+    }
+  }
 
   /**
    * Sets the chosen avatar image path.

@@ -7,10 +7,12 @@ import {
   onSnapshot,
   query,
   updateDoc,
+  setDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +23,7 @@ export class UserService {
   myUsers: User[] = [];
   clickedContactId = new BehaviorSubject<string>('');
   clickedContact = new BehaviorSubject<User>(new User());
+  loggedInUser!: User;
 
   allUsersForUserName: User[] = [];
 
@@ -30,12 +33,8 @@ export class UserService {
     this.unsubUsers = this.subUserList();
   }
 
-  // diese Funktion dient als Übergangslösung für den eingeloggten Nutzer
   userLoggedIn() {
-    const loggedInUser = this.myUsers.filter(
-      (user: User) => user.customId === 'nzIgiEyi1mUqSkkyMMku' //(Alice Wunder)
-    );
-    return loggedInUser[0];
+    return this.loggedInUser;
   }
 
   async subUserList() {
@@ -43,7 +42,7 @@ export class UserService {
     onSnapshot(qu, (querySnapshot) => {
       this.myUsers = [];
       querySnapshot.forEach((element) => {
-        this.myUsers.push(this.setUserObject(element.data(), element.id));
+        this.myUsers.push(this.setUserObject(element.data()));
         this.setCurrentContact(this.clickedContactId.value);
       });
     });
@@ -81,15 +80,12 @@ export class UserService {
     this.setCurrentContact(this.clickedContactId.value);
   }
 
-  setUserObject(obj: any, id: string): User {
-    return new User(id, id, obj.name, obj.email, obj.img, obj.chats);
+  setUserObject(obj: any): User {
+    return new User(obj.customId, obj.name, obj.email, obj.img, obj.chats);
   }
-
-  
 
   getCleanUserJson(user: User): {} {
     return {
-      id: user.customId,
       customId: user.customId,
       name: user.name,
       email: user.email,
@@ -130,17 +126,14 @@ export class UserService {
     return onSnapshot(q, (list) => {
       this.allUsersForUserName = [];
       list.forEach((element) => {
-        this.allUsersForUserName.push(
-          this.setUserObject(element.data(), element.id)
-        );
+        this.allUsersForUserName.push(this.setUserObject(element.data()));
       });
     });
   }
 
   getUserName(userCustomId: string) {
-    debugger
     let user = this.allUsersForUserName.find(
-      (user) => user.id === userCustomId
+      (user) => user.customId === userCustomId
     );
     return user ? user.name : 'Unknown';
   }

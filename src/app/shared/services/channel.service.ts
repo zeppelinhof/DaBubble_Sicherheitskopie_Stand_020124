@@ -39,7 +39,7 @@ export class ChannelService {
   }
 
   // Collection Channels beobachten
-  subChannelList() {
+  async subChannelList() {
     const qu = query(collection(this.firestore, 'channels'));
     onSnapshot(qu, (querySnapshot) => {
       // bei jeder Änderung in der Collection folgendes tun:
@@ -48,6 +48,7 @@ export class ChannelService {
       querySnapshot.forEach((element) => {
         // ... Array myChannels füllen
         this.myChannels.push(this.setChannelObject(element.data(), element.id));
+        this.setCurrentChannel(this.clickedChannelId.value);
         // ausführen:
       });
     });
@@ -133,7 +134,7 @@ export class ChannelService {
       const allMessagesArray = docSnapshot.get('allMessages') || [];
       this.allMessagesChannel = [];
       this.allMessagesChannel.push(allMessagesArray);
-      console.log('das ist allMessagesChannel', this.allMessagesChannel);
+      // console.log('das ist allMessagesChannel', this.allMessagesChannel);
     } else {
       console.error('Dokument existiert nicht für die ID:', id);
     }
@@ -210,7 +211,7 @@ export class ChannelService {
     const hours: string = ('0' + now.getHours()).slice(-2);
     const minutes: string = ('0' + now.getMinutes()).slice(-2);
     const timeString: string = `${hours}:${minutes}`;
-    console.log(timeString);
+    // console.log(timeString);
     return timeString + ' Uhr';
   }
 
@@ -263,6 +264,6 @@ export class ChannelService {
   sendMessageToChannel(id: any, message: Message) {
     // const allChannelsRef = collection(this.firestore, `channels/${id}/allMessages`);
     // addDoc(allChannelsRef, message);
-    console.log('Message und Id', message, id);
+    // console.log('Message und Id', message, id);
   }
 }

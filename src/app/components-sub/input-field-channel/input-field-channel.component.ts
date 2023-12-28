@@ -75,6 +75,34 @@ export class InputFieldChannelComponent {
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
     }
+
+    this.addMemberToChannel(this.cs.clickedChannel.value);
+  }
+
+
+  addMemberToChannel(clickedChannel: Channel) {
+    this.cs.updateChannel(
+      { members: this.getAllMembersOfChannel(clickedChannel) },
+      clickedChannel
+    );
+  }
+
+  getAllMembersOfChannel(forChannel: Channel) {
+    let allMembers = [];
+    let alreadyMember = false;
+    for (let index = 0; index < forChannel.members!.length; index++) {
+      const member = forChannel.members![index];
+      allMembers.push(member);
+      if (member.customId === this.us.userLoggedIn().customId) {
+        alreadyMember = true;
+      }
+    }
+    // logged User nur als Member im Channel eintragen, wenn er noch nicht Member ist
+    if (!alreadyMember) {
+      allMembers.push(this.us.getCleanUserJson(this.us.userLoggedIn()));
+    }
+
+    return allMembers;
   }
 
   addEmoji($event: any) {

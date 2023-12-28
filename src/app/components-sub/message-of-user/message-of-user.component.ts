@@ -28,7 +28,7 @@ export class MessageOfUserComponent {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();
     this.getCurrentUser();
     this.getCurrentChannel();
-    this.savePreviousMessage();
+    this.savePreviousMessage();    
   }
 
   savePreviousMessage() {
@@ -49,7 +49,7 @@ export class MessageOfUserComponent {
       this.clickedContact = user;
     });
   }
-
+  
   // fills allMembers array with all users in the current channel
   getCurrentChannel() {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
@@ -60,14 +60,14 @@ export class MessageOfUserComponent {
   // Die editierte Direkt-Nachricht oder Channel-Nachricht speichern
   saveEditedMessage() {
     // Handle Direct Message
-    if (this.clickedContact.customId !== '') {
+    if (this.messageType === 'directMessage') {    
       // Nachricht bei Empfänger hinterlegen
       this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
       // Nachricht bei Sender hinterlegen
       this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
     } 
     // Handle Channel Message
-    else if (this.clickedChannel.customId !== '') {
+    else if (this.messageType === 'channelMessage') {
       this.cs.updateChannel({ allMessages: this.getAllMessagesOfChannel(this.clickedChannel) }, this.clickedChannel);
     } else {
       console.log('Speichern nicht erfolgreich');
