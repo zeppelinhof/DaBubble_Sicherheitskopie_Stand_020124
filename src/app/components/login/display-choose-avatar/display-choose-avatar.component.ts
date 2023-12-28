@@ -22,7 +22,9 @@ export class DisplayChooseAvatarComponent {
     'userFemale2.png',
   ];
 
-  constructor(private auth: AuthenticationService) {}
+  constructor(private auth: AuthenticationService) {
+    //anpassen, wenn local storage leer, dann weiterleitung display login - todo
+  }
 
   /**
    * Sets the chosen avatar image path.

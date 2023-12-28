@@ -1,3 +1,4 @@
+import { getLocaleTimeFormat } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import {
@@ -17,7 +18,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  loggedUser: any = new User();
+  loggedUserId: string = '';
   passwordLoginIsWrong: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
@@ -35,10 +36,10 @@ export class AuthenticationService {
       .then((userCredential) => {
         const user = userCredential.user;
         newUser.id = user.uid;
-        this.userService.sendDocToDBNew(newUser.id);
+        this.userService.sendDocToDB(newUser);
       })
       .then(() => {
-        this.login(newUser.email, password, newUser.name);
+        this.login(newUser.email, password);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -54,17 +55,11 @@ export class AuthenticationService {
    * @param {string} password - The password of the user.
    * @param {string | null} name - The name of the new signed user (can be a string or null).
    */
-  login(email: string, password: string, name?: string) {
+  login(email: string, password: string) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        const currentUser = auth.currentUser;
-        if (currentUser && name) {
-          updateProfile(currentUser, {
-            displayName: name,
-            photoURL: 'https://example.com/jane-q-user/profile.jpg',
-          });
-        }
+      .then((userCredential) => {
+        const user = userCredential.user;
         this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
@@ -81,16 +76,17 @@ export class AuthenticationService {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.loggedUser.id = user.uid;
-        this.loggedUser.name = user.displayName;
-        this.loggedUser.email = user.email;
-        this.loggedUser.img = user.photoURL;
-        console.log('loggedUser', this.loggedUser);
+        this.setLoggedUser(user);
         this.setPathWhenLogged();
       } else {
         this.setPathWhenNotLogged();
       }
     });
+  }
+
+  setLoggedUser(user: any) {
+    this.loggedUserId = user.uid;
+    console.log('loggedUserId', this.loggedUserId);
   }
 
   /**

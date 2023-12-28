@@ -1,3 +1,4 @@
+import { AuthenticationService } from './authentication.service';
 import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
@@ -124,10 +125,6 @@ export class UserService {
     await addDoc(this.allUserCol, this.getCleanUserJson(item));
   }
 
-  async sendDocToDBNew(docId: string) {
-    await setDoc(doc(this.firestore, 'allUsers', docId), { chats: [] });
-  }
-
   subAllUsersListFindUserName() {
     const q = collection(this.firestore, 'allUsers');
     return onSnapshot(q, (list) => {
@@ -141,7 +138,6 @@ export class UserService {
   }
 
   getUserName(userCustomId: string) {
-    debugger
     let user = this.allUsersForUserName.find(
       (user) => user.id === userCustomId
     );
