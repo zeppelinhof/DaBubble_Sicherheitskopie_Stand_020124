@@ -80,7 +80,6 @@ export class DisplayLoginComponent {
     this.newGuestUser.img = 'userMale3.png';
     this.newGuestUserPassword = '#23ffgwßffpü"!!**';
     this.guestGetsSignedUpandLoggedIn();
-    console.log(this.newGuestUser, this.newGuestUserPassword);
   }
 
   /**

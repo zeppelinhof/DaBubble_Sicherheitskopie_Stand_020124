@@ -23,7 +23,7 @@ export class UserService {
   myUsers: User[] = [];
   clickedContactId = new BehaviorSubject<string>('');
   clickedContact = new BehaviorSubject<User>(new User());
-  loggedInUserId!: any;
+  loggedInUser!: User;
 
   allUsersForUserName: User[] = [];
 
@@ -34,7 +34,7 @@ export class UserService {
   }
 
   userLoggedIn() {
-    return this.loggedInUserId;
+    return this.loggedInUser;
   }
 
   async subUserList() {
@@ -42,7 +42,7 @@ export class UserService {
     onSnapshot(qu, (querySnapshot) => {
       this.myUsers = [];
       querySnapshot.forEach((element) => {
-        this.myUsers.push(this.setUserObject(element.data(), element.id));
+        this.myUsers.push(this.setUserObject(element.data()));
         this.setCurrentContact(this.clickedContactId.value);
       });
     });
@@ -80,13 +80,12 @@ export class UserService {
     this.setCurrentContact(this.clickedContactId.value);
   }
 
-  setUserObject(obj: any, id: string): User {
-    return new User(id, id, obj.name, obj.email, obj.img, obj.chats);
+  setUserObject(obj: any): User {
+    return new User(obj.customId, obj.name, obj.email, obj.img, obj.chats);
   }
 
   getCleanUserJson(user: User): {} {
     return {
-      id: user.customId,
       customId: user.customId,
       name: user.name,
       email: user.email,
@@ -127,16 +126,14 @@ export class UserService {
     return onSnapshot(q, (list) => {
       this.allUsersForUserName = [];
       list.forEach((element) => {
-        this.allUsersForUserName.push(
-          this.setUserObject(element.data(), element.id)
-        );
+        this.allUsersForUserName.push(this.setUserObject(element.data()));
       });
     });
   }
 
   getUserName(userCustomId: string) {
     let user = this.allUsersForUserName.find(
-      (user) => user.id === userCustomId
+      (user) => user.customId === userCustomId
     );
     return user ? user.name : 'Unknown';
   }

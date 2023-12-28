@@ -9,7 +9,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 @Component({
   selector: 'app-new-message',
   templateUrl: './new-message.component.html',
-  styleUrls: ['./new-message.component.scss']
+  styleUrls: ['./new-message.component.scss'],
 })
 export class NewMessageComponent {
   allUsers: User[];
@@ -23,12 +23,16 @@ export class NewMessageComponent {
 
   filteredMembers: User[] = [];
   filteredChannels: Channel[] = [];
-  member: User = new User('', '', '', '@', '');
+  member: User = new User('', '', '@', '');
 
   channel: Channel = new Channel();
   clickedContact!: User;
 
-  constructor(public us: UserService, private ws: WorkspaceService, private cs: ChannelService) {
+  constructor(
+    public us: UserService,
+    private ws: WorkspaceService,
+    private cs: ChannelService
+  ) {
     this.allUsers = this.getUsers();
     this.allChannels = this.getChannels();
   }
@@ -65,10 +69,10 @@ export class NewMessageComponent {
         if (this.showAddMember) {
           this.refreshMemberList();
         }
-        return (fullName.includes(searchTerm) &&
+        return (
+          fullName.includes(searchTerm) &&
           !this.alreadySelected(member.email, this.member.email)
         );
-
       });
     }
     // Suche nach User mit @
@@ -82,10 +86,10 @@ export class NewMessageComponent {
           this.refreshMemberList();
         }
 
-        return (fullName.includes(searchTerm) &&
+        return (
+          fullName.includes(searchTerm) &&
           !this.alreadySelected(member.email, this.member.email)
         );
-
       });
     }
     // Suche nach Channels mit #
@@ -99,13 +103,12 @@ export class NewMessageComponent {
           this.refreshMemberList();
         }
 
-        return (fullName.includes(searchTerm) &&
+        return (
+          fullName.includes(searchTerm) &&
           !this.alreadySelected(member.name, this.channel.name)
         );
-
       });
     }
-
   }
 
   getSearchType(): string {
@@ -134,14 +137,13 @@ export class NewMessageComponent {
   addMember(user: User) {
     this.removeChannel(this.channel.name);
     this.member = user;
-    this.us.setContactView(this.member.customId)
+    this.us.setContactView(this.member.customId);
   }
 
   addChannel(channel: Channel) {
     this.removeMember(this.member.email);
     this.channel = channel;
     this.cs.setChannelView(this.channel.customId);
-    
   }
 
   clearSearchInput() {
@@ -154,16 +156,16 @@ export class NewMessageComponent {
   }
 
   removeMember(email: string) {
-    const member = this.member
+    const member = this.member;
     if (member) {
       if (member.email == email) {
-        this.member = new User('', '', '', '@', '');
+        this.member = new User('', '', '@', '');
       }
     }
   }
 
   removeChannel(name: string) {
-    const channel = this.channel
+    const channel = this.channel;
     if (channel) {
       if (channel.name == name) {
         this.channel = new Channel();
@@ -177,9 +179,4 @@ export class NewMessageComponent {
 
     return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < input.length - 1;
   }
-
-
-
-
-
 }
