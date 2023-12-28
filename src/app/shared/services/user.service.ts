@@ -31,6 +31,7 @@ export class UserService {
 
   constructor() {
     this.unsubUsers = this.subUserList();
+    
   }
 
   userLoggedIn() {

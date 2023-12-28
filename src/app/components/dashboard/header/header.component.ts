@@ -8,7 +8,9 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(public us: UserService, public auth: AuthenticationService) {}
+  constructor(public us: UserService, public auth: AuthenticationService) {
+    
+  }
 
   reloadPage() {
     window.location.reload();
