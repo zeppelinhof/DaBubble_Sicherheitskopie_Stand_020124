@@ -75,5 +75,6 @@
         </div>
     </div>
 
-    <app-input-field-message></app-input-field-message>
+    <app-input-field-message *ngIf="lastSearchType == '@'"></app-input-field-message>
+    <app-input-field-channel *ngIf="lastSearchType == '#'"></app-input-field-channel>
 </div>

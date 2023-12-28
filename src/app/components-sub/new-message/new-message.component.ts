@@ -16,13 +16,14 @@ export class NewMessageComponent {
   allChannels: Channel[];
 
   inputValue: string = '';
+  lastSearchType: string = '@';
 
   showAddMember: boolean = false;
   showAddChannel: boolean = false;
 
   filteredMembers: User[] = [];
   filteredChannels: Channel[] = [];
-  member: User = new User('','','','@','');
+  member: User = new User('', '', '', '@', '');
 
   channel: Channel = new Channel();
   clickedContact!: User;
@@ -52,13 +53,13 @@ export class NewMessageComponent {
 
   async filterMembers() {
     this.openCloseAdd();
-    const searchType = this.inputValue.slice(0, 1).toLowerCase();
+    const searchType = this.getSearchType();
     const searchTerm = this.inputValue.slice(1).toLowerCase();
 
     // Suche nach Email-Adresse
-    if (this.isValidEmailFormat(this.inputValue.toLowerCase())) {      
+    if (this.isValidEmailFormat(this.inputValue.toLowerCase())) {
       this.allUsers = await this.getUsers();
-      this.showAddMember = true;      
+      this.showAddMember = true;
       this.filteredMembers = this.allUsers.filter((member) => {
         const fullName = `${member.email}`.toLowerCase();
         if (this.showAddMember) {
@@ -71,9 +72,10 @@ export class NewMessageComponent {
       });
     }
     // Suche nach User mit @
-    else if (searchType == '@') {      
+    else if (searchType == '@') {
+      this.lastSearchType = '@';
       this.allUsers = await this.getUsers();
-      this.showAddMember = true;      
+      this.showAddMember = true;
       this.filteredMembers = this.allUsers.filter((member) => {
         const fullName = `${member.name}`.toLowerCase();
         if (this.showAddMember) {
@@ -85,9 +87,10 @@ export class NewMessageComponent {
         );
 
       });
-    } 
+    }
     // Suche nach Channels mit #
-    else if(searchType == '#'){      
+    else if (searchType == '#') {
+      this.lastSearchType = '#';
       this.allChannels = await this.getChannels();
       this.showAddChannel = true;
       this.filteredChannels = this.allChannels.filter((member) => {
@@ -103,6 +106,11 @@ export class NewMessageComponent {
       });
     }
 
+  }
+
+  getSearchType(): string {
+    const character = this.inputValue.slice(0, 1).toLowerCase();
+    return character;
   }
 
   alreadySelected(propertyList: string, propertyChosen: string): boolean {
@@ -132,6 +140,8 @@ export class NewMessageComponent {
   addChannel(channel: Channel) {
     this.removeMember(this.member.email);
     this.channel = channel;
+    this.cs.setChannelView(this.channel.customId);
+    
   }
 
   clearSearchInput() {
@@ -147,7 +157,7 @@ export class NewMessageComponent {
     const member = this.member
     if (member) {
       if (member.email == email) {
-        this.member = new User('','','','@','');
+        this.member = new User('', '', '', '@', '');
       }
     }
   }
@@ -166,7 +176,7 @@ export class NewMessageComponent {
     const dotIndex = input.lastIndexOf('.');
 
     return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < input.length - 1;
-}
+  }
 
 
 
