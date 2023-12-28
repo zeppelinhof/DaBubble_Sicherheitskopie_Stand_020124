@@ -75,11 +75,13 @@ export class SideLeftComponent {
   }
 
   clickDownArrowChannels() {
-    this.arrowClickedChannels = this.rightArrowChannels = !this.arrowClickedChannels ? true : false;
+    this.arrowClickedChannels = this.rightArrowChannels = !this.arrowClickedChannels;
+    this.arrowClickedContacts = !this.arrowClickedChannels; // Direktnachrichten-Ansicht schließen, wenn Channels-Ansicht geöffnet
   }
 
   clickDownArrowContacts() {
-    this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts ? true : false;
+    this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts;
+    this.arrowClickedChannels = !this.arrowClickedContacts; // Channels-Ansicht schließen, wenn Direktnachrichten-Ansicht geöffnet
   }
 
 }
