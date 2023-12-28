@@ -7,6 +7,7 @@ import {
   onSnapshot,
   query,
   updateDoc,
+  setDoc,
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
@@ -85,8 +86,6 @@ export class UserService {
     return new User(id, id, obj.name, obj.email, obj.img, obj.chats);
   }
 
-  
-
   getCleanUserJson(user: User): {} {
     return {
       id: user.customId,
@@ -123,6 +122,10 @@ export class UserService {
 
   async sendDocToDB(item: User) {
     await addDoc(this.allUserCol, this.getCleanUserJson(item));
+  }
+
+  async sendDocToDBNew(docId: string) {
+    await setDoc(doc(this.firestore, 'allUsers', docId), { chats: [] });
   }
 
   subAllUsersListFindUserName() {

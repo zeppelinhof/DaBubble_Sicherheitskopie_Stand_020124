@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
+  updateProfile,
 } from 'firebase/auth';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -16,8 +17,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  loggedUser: any;
-  loggedUserId: string = '';
+  loggedUser: any = new User();
   passwordLoginIsWrong: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {}
@@ -33,15 +33,12 @@ export class AuthenticationService {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, newUser.email, password)
       .then((userCredential) => {
-        this.userService.sendDocToDB(newUser);
-        /*
         const user = userCredential.user;
-        const uid = user.uid;
-        log('userId', uid)
-        */
+        newUser.id = user.uid;
+        this.userService.sendDocToDBNew(newUser.id);
       })
       .then(() => {
-        this.login(newUser.email, password);
+        this.login(newUser.email, password, newUser.name);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -55,11 +52,19 @@ export class AuthenticationService {
    *
    * @param {string} email - The email of the user.
    * @param {string} password - The password of the user.
+   * @param {string | null} name - The name of the new signed user (can be a string or null).
    */
-  login(email: string, password: string) {
+  login(email: string, password: string, name?: string) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(() => {
+        const currentUser = auth.currentUser;
+        if (currentUser && name) {
+          updateProfile(currentUser, {
+            displayName: name,
+            photoURL: 'https://example.com/jane-q-user/profile.jpg',
+          });
+        }
         this.router.navigate(['/dashboard']);
       })
       .catch((error) => {
@@ -76,10 +81,11 @@ export class AuthenticationService {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        this.loggedUser = user;
-        this.loggedUserId = this.loggedUser.uid;
+        this.loggedUser.id = user.uid;
+        this.loggedUser.name = user.displayName;
+        this.loggedUser.email = user.email;
+        this.loggedUser.img = user.photoURL;
         console.log('loggedUser', this.loggedUser);
-        console.log('loggedUserID', this.loggedUserId);
         this.setPathWhenLogged();
       } else {
         this.setPathWhenNotLogged();
