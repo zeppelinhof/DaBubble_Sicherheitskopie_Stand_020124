@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { getStorage } from '@angular/fire/storage';
+import { getStorage, ref, uploadBytes } from '@angular/fire/storage';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
@@ -25,7 +25,7 @@ export class InputFieldChannelComponent {
   allMessages: any = [];
   input: any = '';
   isInputSelected: boolean = false;
-  selectedFile: File | null = null;
+  selectedFile!: File;
   imageUrl: string | ArrayBuffer | null | undefined;
 
   constructor(
@@ -33,9 +33,23 @@ export class InputFieldChannelComponent {
     public cs: ChannelService,
     private us: UserService,
     private _eref: ElementRef
-  ) { 
-    const storage = getStorage(); 
+  ) {
+
   }
+
+
+  uploadToStorage(){
+    if (this.selectedFile) {
+      const storage = getStorage();
+      const storageRef = ref(storage, 'some-child'); 
+      uploadBytes(storageRef, this.selectedFile).then((snapshot) => {
+        console.log('file uploaded successfully');
+      });
+    } else {
+      console.error("no file selected from fileExplorer");
+    }
+  }
+
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -137,5 +151,5 @@ export class InputFieldChannelComponent {
 
 
 
-  
+
 }
