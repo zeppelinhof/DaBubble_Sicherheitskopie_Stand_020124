@@ -12,7 +12,6 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root',

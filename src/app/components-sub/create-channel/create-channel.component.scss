@@ -78,6 +78,7 @@ $btn-purple: #444DF2;
     border: 1px solid $purple2;
     overflow-x: auto;
     overflow-y: hidden;
+    background-color: #eceefe;
 }
 
 .selected-members::-webkit-scrollbar {
@@ -93,7 +94,7 @@ $btn-purple: #444DF2;
     display: flex;
     align-items: center;
     height: 40px;
-    background-color: $light-violet;
+    background-color: white;
     border-radius: 100px;
 
     .profile-image {
@@ -129,7 +130,7 @@ $btn-purple: #444DF2;
 
 .choose-members-wrap {
     position: absolute;
-    top: 60%;
+    top: 250px;
     left: 0;
     min-width: 300px;
     max-height: 300px;
