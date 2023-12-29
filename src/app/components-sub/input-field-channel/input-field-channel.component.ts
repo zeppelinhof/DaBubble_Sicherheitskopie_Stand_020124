@@ -45,8 +45,6 @@ export class InputFieldChannelComponent {
       uploadBytes(storageRef, this.selectedFile);
       this.clearSelectedFile();
       this.btnNotVisible();
-    } else {
-      console.warn("No file selected");
     }
   }
 
@@ -77,7 +75,7 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-  sendMessage() : void {
+  sendMessage(): void {
     if (this.input !== '') {
       let newMessage: Message = {
         userCustomId: this.us.userLoggedIn().customId,
@@ -86,13 +84,19 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
         threads: [],
-        file: [],
+        file: this.loadFile(),
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
     }
 
     this.addMemberToChannel(this.cs.clickedChannel.value);
+
+
+  }
+
+  loadFile() {
+    return "file is loaded";
   }
 
 

@@ -17,6 +17,6 @@ export class Message {
         this.createdTime = createdTime || '';
         this.emojis = emojis || [''];
         this.threads = threads || [];
-        this.file = file || [];
+        this.file = file || null;
     }
 }
