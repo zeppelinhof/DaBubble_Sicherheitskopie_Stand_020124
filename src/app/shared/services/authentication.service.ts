@@ -9,6 +9,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -48,28 +49,6 @@ export class AuthenticationService {
       });
   }
 
-  /**
-   * Logs in a user with the provided email and password.
-   * Navigates to the '/dashboard' route after successful login.
-   *
-   * @param {string} email - The email of the user.
-   * @param {string} password - The password of the user.
-   * @param {string | null} name - The name of the new signed user (can be a string or null).
-   */
-  login(email: string, password: string) {
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        this.router.navigate(['/dashboard']);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        this.passwordLoginIsWrong = true;
-      });
-  }
-
   signUpWithGoogle() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
@@ -89,6 +68,28 @@ export class AuthenticationService {
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.customData.email;
+      });
+  }
+
+  /**
+   * Logs in a user with the provided email and password.
+   * Navigates to the '/dashboard' route after successful login.
+   *
+   * @param {string} email - The email of the user.
+   * @param {string} password - The password of the user.
+   * @param {string | null} name - The name of the new signed user (can be a string or null).
+   */
+  login(email: string, password: string) {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        this.router.navigate(['/dashboard']);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        this.passwordLoginIsWrong = true;
       });
   }
 
@@ -148,4 +149,38 @@ export class AuthenticationService {
       .then(() => {})
       .catch((error) => {});
   }
+
+  sendEmailToResetPw(email: string) {
+    console.log('Email gesendet');
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {})
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  }
+
+  /*
+
+  sendMail(event: any) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+
+    fetch('https://formspree.io/f/mzbnbzek', {
+      method: 'POST',
+      body: new FormData(event.target),
+      headers: {
+        Accept: 'application/json',
+      },
+    })
+      .then(() => {
+        window.location.href = './send_mail.html';
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+    */
 }

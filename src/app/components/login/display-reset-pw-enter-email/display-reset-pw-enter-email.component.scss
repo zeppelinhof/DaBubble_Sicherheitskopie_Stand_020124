@@ -38,7 +38,7 @@ section {
 form {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 20px;
 }
 
 .container-input-field {
@@ -79,15 +79,20 @@ form {
 .send-me-email-container {
   display: flex;
   justify-content: flex-end;
-  a {
+  button {
     background-color: $grey;
     border: 1px solid transparent;
     color: #fff;
     padding: 12px 25px;
     text-decoration: none;
-    &:hover {
-      background-color: $purple2;
-      border-color: $purple2;
-    }
+    cursor: not-allowed;
+  }
+}
+
+.btn-login-valid {
+  &:hover {
+    cursor: pointer !important;
+    background-color: $purple3 !important;
+    border-color: $purple3 !important;
   }
 }
