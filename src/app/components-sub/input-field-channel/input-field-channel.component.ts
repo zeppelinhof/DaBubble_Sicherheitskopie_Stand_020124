@@ -38,20 +38,21 @@ export class InputFieldChannelComponent {
   }
 
 
-  uploadToStorage(){
+  uploadToStorage(): void {
     if (this.selectedFile) {
       const storage = getStorage();
-      const storageRef = ref(storage, 'some-child'); 
-      uploadBytes(storageRef, this.selectedFile).then((snapshot) => {
-        console.log('file uploaded successfully', snapshot);
-      });
-      // clear selected file value
-      this.selectedFile = null;
+      const storageRef = ref(storage, this.selectedFile.name);
+      uploadBytes(storageRef, this.selectedFile);
+      this.clearSelectedFile();
+      this.btnNotVisible();
     } else {
-      console.error("no file selected from fileExplorer");
+      console.warn("No file selected");
     }
   }
 
+  clearSelectedFile() {
+    this.selectedFile = null;
+  }
 
   ngOnInit(): void {
     this.getCurrentChannel();
@@ -85,6 +86,7 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
         threads: [],
+        // file data muss hier in file drinnen
         file: [],
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
@@ -148,7 +150,15 @@ export class InputFieldChannelComponent {
     if (inputElement.files && inputElement.files.length > 0) {
       const selectedFile = inputElement.files[0];
       this.selectedFile = selectedFile;
+      this.btnVisible();
     }
+  }
+
+  btnVisible(): void {
+    this.service.isWritingChannel = true;
+  }
+  btnNotVisible(): void {
+    this.service.isWritingChannel = false;
   }
 
 

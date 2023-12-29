@@ -1,4 +1,3 @@
-import { FormGroup } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class InputService {
 
   onInputChannel(event: any): void {
     this.isWritingChannel = event.target.value.length > 0;
-    // console.log(event.currentTarget.value);
+    
     
   }
   onInputThread(event: any): void {
