@@ -78,7 +78,7 @@ $btn-purple: #444DF2;
     border: 1px solid $purple2;
     overflow-x: auto;
     overflow-y: hidden;
-    background-color: #eceefe;
+    background-color: $light-violet;
 }
 
 .selected-members::-webkit-scrollbar {
