@@ -28,7 +28,6 @@ export class UserService {
   allUsersForUserName: User[] = [];
   docIdCustomIdMatching: any = [];
 
-
   unsubUsers;
 
   constructor() {
@@ -45,7 +44,10 @@ export class UserService {
       this.myUsers = [];
       querySnapshot.forEach((element) => {
         this.myUsers.push(this.setUserObject(element.data()));
-        this.docIdCustomIdMatching.push({ customId: element.data()['customId'], docId: element.id })
+        this.docIdCustomIdMatching.push({
+          customId: element.data()['customId'],
+          docId: element.id,
+        });
         this.setCurrentContact(this.clickedContactId.value);
       });
     });
@@ -79,10 +81,12 @@ export class UserService {
     return new User();
   }
 
-  // Anhand der customId (Parameter docId) des Users, welche ihm aus Authentification übergeben wurde 
+  // Anhand der customId (Parameter docId) des Users, welche ihm aus Authentification übergeben wurde
   // wird seine Id in der Collection allUsers über die Matching-Tabelle "docIdCustomIdMatching" ermittelt.
   getRealDocId(docId: string) {
-    const realDocId = this.docIdCustomIdMatching.find((val: any) => val['customId'] === docId);
+    const realDocId = this.docIdCustomIdMatching.find(
+      (val: any) => val['customId'] === docId
+    );
     return realDocId ? realDocId['docId'] : '';
   }
 

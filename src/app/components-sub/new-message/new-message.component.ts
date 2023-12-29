@@ -176,7 +176,6 @@ export class NewMessageComponent {
   isValidEmailFormat(input: string): boolean {
     const atIndex = input.indexOf('@');
     const dotIndex = input.lastIndexOf('.');
-
     return atIndex > 0 && dotIndex > atIndex + 1 && dotIndex < input.length - 1;
   }
 }

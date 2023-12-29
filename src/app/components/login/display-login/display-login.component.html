@@ -51,7 +51,11 @@
       <span>ODER</span>
     </div>
 
-    <button class="button-layout btn-google">
+    <button
+      type="button"
+      (click)="auth.signUpWithGoogle()"
+      class="button-layout btn-google"
+    >
       <img src="assets/icons/google.png" alt="image of google icon" />
       <span>Anmelden mit Google</span>
     </button>
