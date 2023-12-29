@@ -77,7 +77,7 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-  sendMessage() {
+  sendMessage() : void {
     if (this.input !== '') {
       let newMessage: Message = {
         userCustomId: this.us.userLoggedIn().customId,
@@ -86,7 +86,6 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
         threads: [],
-        // file data muss hier in file drinnen
         file: [],
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
@@ -130,10 +129,6 @@ export class InputFieldChannelComponent {
   toggleBtn(target: string) {
     this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
     this.showUserList = target === 'userList' ? !this.showUserList : false;
-  }
-
-  openFileExplorer() {
-    console.log('openFileExplorer');
   }
 
   onClick(event: { target: any }) {
