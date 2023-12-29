@@ -7,7 +7,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -67,6 +68,38 @@ export class AuthenticationService {
         const errorMessage = error.message;
         this.passwordLoginIsWrong = true;
       });
+  }
+
+  signUpWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        if (!this.userIsAlreadyExisting(user.email)) {
+          let newUser = new User();
+          newUser.customId = user.uid || '';
+          newUser.name = user.displayName || '';
+          newUser.email = user.email || '';
+          newUser.img = 'userMale3.png';
+          this.userService.sendDocToDB(newUser);
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+      });
+  }
+
+  /**
+   * Checks if the user with the provided signup email already exists.
+   */
+  userIsAlreadyExisting(emailToCheck: string | null): boolean {
+    const emailExists = this.userService.myUsers.some(
+      (user) => user.email === emailToCheck
+    );
+    return emailExists;
   }
 
   /**
