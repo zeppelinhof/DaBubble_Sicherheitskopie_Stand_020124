@@ -141,7 +141,7 @@ export class ChannelService {
   }
 
 
-  
+
   async sendMessageToDB(obj: {}, id: string) {
     const allMsgRef = doc(this.firestore, `channels/${id}`);
     const docSnapshot = await getDoc(allMsgRef);
@@ -257,7 +257,11 @@ export class ChannelService {
         return [];
       }
     });
-    return chatsOfUser[0].chats;
+    if (chatsOfUser.length > 0) {
+      return chatsOfUser[0].chats;
+    } else{
+      return undefined;
+    }
   }
 
   // sending message to firebase allMessages array[] with help of customId of current channel

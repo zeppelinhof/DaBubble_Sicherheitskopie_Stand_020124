@@ -12,6 +12,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
+import { reload } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -25,16 +26,17 @@ export class UserService {
   loggedInUser!: User;
 
   allUsersForUserName: User[] = [];
+  docIdCustomIdMatching: any = [];
+
 
   unsubUsers;
 
   constructor() {
     this.unsubUsers = this.subUserList();
-    
   }
 
-  userLoggedIn() {
-    return this.loggedInUser;
+  userLoggedIn(): User {
+    return this.getUserFromCollection(this.loggedInUser);
   }
 
   async subUserList() {
@@ -43,6 +45,7 @@ export class UserService {
       this.myUsers = [];
       querySnapshot.forEach((element) => {
         this.myUsers.push(this.setUserObject(element.data()));
+        this.docIdCustomIdMatching.push({ customId: element.data()['customId'], docId: element.id })
         this.setCurrentContact(this.clickedContactId.value);
       });
     });
@@ -60,7 +63,27 @@ export class UserService {
   }
 
   getSingleDocRef(colId: string, docId: string) {
-    return doc(collection(this.firestore, colId), docId);
+    let realDocId = this.getRealDocId(docId);
+    return doc(collection(this.firestore, colId), realDocId);
+  }
+
+  // Anhand customId aus Authentification den User in Collection allUsers finden
+  getUserFromCollection(loggedInUser: User): User {
+    for (let index = 0; index < this.myUsers.length; index++) {
+      const user = this.myUsers[index];
+      if (user.customId == loggedInUser.customId) {
+        return user;
+      }
+    }
+    console.error('Achtung neuer User wird erstellt!');
+    return new User();
+  }
+
+  // Anhand der customId (Parameter docId) des Users, welche ihm aus Authentification übergeben wurde 
+  // wird seine Id in der Collection allUsers über die Matching-Tabelle "docIdCustomIdMatching" ermittelt.
+  getRealDocId(docId: string) {
+    const realDocId = this.docIdCustomIdMatching.find((val: any) => val['customId'] === docId);
+    return realDocId ? realDocId['docId'] : '';
   }
 
   setCurrentContact(elementId: string) {

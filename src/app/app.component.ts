@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'DaBubble';
+  title = 'DABubble';
 
   constructor(private auth: AuthenticationService) {
     this.auth.checkIfUserIslogged();
