@@ -25,7 +25,7 @@ export class InputFieldChannelComponent {
   allMessages: any = [];
   input: any = '';
   isInputSelected: boolean = false;
-  selectedFile!: File;
+  selectedFile: File | null = null;
   imageUrl: string | ArrayBuffer | null | undefined;
 
   constructor(
@@ -43,8 +43,10 @@ export class InputFieldChannelComponent {
       const storage = getStorage();
       const storageRef = ref(storage, 'some-child'); 
       uploadBytes(storageRef, this.selectedFile).then((snapshot) => {
-        console.log('file uploaded successfully');
+        console.log('file uploaded successfully', snapshot);
       });
+      // clear selected file value
+      this.selectedFile = null;
     } else {
       console.error("no file selected from fileExplorer");
     }
