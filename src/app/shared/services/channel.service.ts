@@ -134,7 +134,7 @@ export class ChannelService {
       const allMessagesArray = docSnapshot.get('allMessages') || [];
       this.allMessagesChannel = [];
       this.allMessagesChannel.push(allMessagesArray);
-      // console.log('das ist allMessagesChannel', this.allMessagesChannel);
+      
     } else {
       console.error('Dokument existiert nicht für die ID:', id);
     }
@@ -145,7 +145,6 @@ export class ChannelService {
   async sendMessageToDB(obj: {}, id: string) {
     const allMsgRef = doc(this.firestore, `channels/${id}`);
     const docSnapshot = await getDoc(allMsgRef);
-
     if (docSnapshot.exists()) {
       this.updateMessage(obj, docSnapshot, allMsgRef);
       this.getAllMessagesFromChannel(id);
