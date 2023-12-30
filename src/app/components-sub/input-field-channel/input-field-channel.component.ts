@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { initializeApp } from '@angular/fire/app';
-import { getStorage, ref, uploadBytes } from '@angular/fire/storage';
+import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from '@angular/fire/storage';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
@@ -34,7 +34,7 @@ export class InputFieldChannelComponent {
     private us: UserService,
     private _eref: ElementRef
   ) {
-
+    this.downloadFromStorage();
   }
 
 
@@ -47,6 +47,26 @@ export class InputFieldChannelComponent {
       this.btnNotVisible();
     }
   }
+  downloadFromStorage(): void {
+    const storage = getStorage();
+    const storageRef = ref(storage);
+
+    listAll(storageRef)
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          // Hier wird jede Datei heruntergeladen
+          getDownloadURL(itemRef).then((url) => {
+            // Verarbeite die URL der heruntergeladenen Datei hier, z.B. füge sie zu einer Liste hinzu
+            console.log('Heruntergeladene Datei URL:', url);
+          });
+        });
+      })
+      .catch((error) => {
+        // Handle Fehler beim Abrufen der Dateien
+        console.error('Fehler beim Abrufen der Dateien:', error);
+      });
+  }
+
 
   clearSelectedFile() {
     this.selectedFile = null;
@@ -84,20 +104,17 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [''],
         threads: [],
-        file: this.loadFile(),
+        file: this.selectedFile?.name,
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.input = '';
+      console.log(newMessage);
+
     }
-
     this.addMemberToChannel(this.cs.clickedChannel.value);
-
-
   }
 
-  loadFile() {
-    return "file is loaded";
-  }
+
 
 
   addMemberToChannel(clickedChannel: Channel) {
