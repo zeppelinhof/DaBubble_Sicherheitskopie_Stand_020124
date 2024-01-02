@@ -192,8 +192,8 @@ button {
   gap: 20px;
 }
 
-.flex-end{
-  justify-content: flex-end;
+.row-reverse{
+    flex-direction: row-reverse;
 }
 
 .thread-user-img-container {

@@ -1,11 +1,11 @@
-<div class="thread-user-container" [ngClass]="{'flex-end': checkIfOwnMessage()}">
+<div class="thread-user-container" [ngClass]="{'row-reverse': checkIfOwnMessage()}">
   <div class="thread-user-img-container">
     <img src="assets/imgs/userMale1.png" />
   </div>
 
   <div class="info-and-message-box" [ngStyle]="{'width': getEditMode ? '100%' : 'auto'}"
     (mouseover)="reactionChoice(true)" (mouseleave)="reactionChoice(false)">
-    <div class="thread-info-container">
+    <div class="thread-info-container" [ngClass]="{'row-reverse': checkIfOwnMessage()}">
       <div *ngIf="messageType=='channelMessage'" class="thread-user-name">
         {{us.getUserName(this.data.userCustomId )}}
       </div>
