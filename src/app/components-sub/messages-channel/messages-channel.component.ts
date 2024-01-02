@@ -1,6 +1,7 @@
 import { ChannelService } from 'src/app/shared/services/channel.service';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-messages-channel',
@@ -9,5 +10,5 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 })
 export class MessagesChannelComponent {
 
-  constructor(public cs: ChannelService) {}
+  constructor(public cs: ChannelService, public storService: StorageService) {}
 }
