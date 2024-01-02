@@ -8,9 +8,9 @@
   <div class="messages-channel-container" #scroll>
     <div *ngFor="let chat of this.us.clickedContact.value.chats; let i = index">
       <div *ngIf="this.cs.checkIfNewDay(this.us.clickedContact.value.chats, i)" class="new-day-date">
-        <div class="separatorAreaLeft"><div class="separator"></div></div>
+        <div class="dateSeparatorAreaLeft"><div class="dateSeparator"></div></div>
         <div class="date-text">{{ this.cs.isToday(chat.createdTime['day']) ? 'Heute' : chat.createdTime['fullDay'] }}</div>
-        <div class="separatorAreaRight"><div class="separator"></div></div>
+        <div class="dateSeparatorAreaRight"><div class="dateSeparator"></div></div>
       </div>
       <app-message-of-user [messageData]="chat" [messageType]="'directMessage'"></app-message-of-user>
     </div>
