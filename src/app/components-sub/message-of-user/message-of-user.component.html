@@ -1,4 +1,4 @@
-<div class="thread-user-container">
+<div class="thread-user-container" [ngClass]="{'flex-end': checkIfOwnMessage()}">
   <div class="thread-user-img-container">
     <img src="assets/imgs/userMale1.png" />
   </div>
@@ -15,7 +15,7 @@
       <div class="thread-message-time">{{this.data.createdTime['time'] || this.messageData.createdTime['time']}}</div>
     </div>
 
-    <div class="thread-message-container">
+    <div class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
       <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}</div>
       <div *ngIf="getEditMode && messageType=='channelMessage'"><input class="inputfield" type="text"
           [(ngModel)]="this.data.message">
@@ -42,8 +42,8 @@
         </div>
       </div>
     </div>
-    <!-- showReactionChoice -->
+    <!-- showReactionChoice" -->
     <app-message-reaction *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
-      (editMode)="receiveValueFromChild($event)"></app-message-reaction>
+      (editMode)="receiveValueFromChild($event)" [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
 </div>

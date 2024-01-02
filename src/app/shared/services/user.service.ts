@@ -77,7 +77,6 @@ export class UserService {
         return user;
       }
     }
-    console.error('Achtung neuer User wird erstellt!');
     return new User();
   }
 

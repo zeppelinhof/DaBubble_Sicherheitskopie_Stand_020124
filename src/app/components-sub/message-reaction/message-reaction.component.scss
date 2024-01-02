@@ -3,7 +3,6 @@
 .reaction-wrap{
     position: absolute;
     bottom: 100%;
-    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,10 +17,14 @@
     }
 }
 
+.right-0{
+    right: 0;
+  }
+
 .edit-message{
     position: absolute;
-    top: 50%;
-    left: 90%;
+    top: 90%;
+    right: 0;
     background-color: white;
     box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.2);
     border-radius: 0 30px 30px 30px;

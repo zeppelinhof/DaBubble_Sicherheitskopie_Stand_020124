@@ -190,7 +190,10 @@ button {
   align-items: center;
   padding: 32px 40px;
   gap: 20px;
-  
+}
+
+.flex-end{
+  justify-content: flex-end;
 }
 
 .thread-user-img-container {
@@ -218,7 +221,7 @@ button {
 
 .thread-message-container {
   position: relative;
-  background-color: #eceefe;
+  background-color: $light-violet;
   border-radius: 0px 20px 20px 20px;
   padding: 15px;
   font-weight: 400;
@@ -227,8 +230,13 @@ button {
   gap: 16px;
 }
 
+.purple2{
+  color: white;
+  background-color: $purple2;
+}
+
 .messages-channel-container {
-  height: 60svh;
+  height: 60vh;
   overflow-y: scroll;
   transition: 525ms ease-in-out;
 }
