@@ -236,31 +236,27 @@ export class ChannelService {
     return todayAsString;
   }
 
+  isToday(dayTocheck: number){
+    const today = new Date();
+    const todaysDay = today.getDate();
+    return todaysDay == dayTocheck;
+  }
+
   // Ausgabe, ob das Datum einer neu erstellte Message höher ist als das der letzten Nachricht
   checkIfNewDay(chatsofUser: Message[] | undefined, index: number): boolean {
+    // erster Eintrag immer mit Datum
+    if(index == 0){
+      return true
+    }
     if (chatsofUser !== undefined && index > 0 && chatsofUser![index - 1]) {
-      if (new Date().getDate() > chatsofUser![index - 1]['createdTime']['day']) {
+      // prüfe, ob Tag von vorherigem chat kleiner || (Tag von vorherigem chat größer && Nr. Date.now() von gestern kleiner)
+      if (chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
+      chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser![index - 1]['messageId'] < chatsofUser![index]['messageId']) {
         return true;
       }
       return false;
     }
     return false;
-  }
-
-  // Chats des eingeloggten Users ausgeben
-  getChats(): Message[] | undefined {
-    const chatsOfUser = this.us.myUsers.filter((user: User) => {
-      if (this.us.userLoggedIn().chats) {
-        return this.us.userLoggedIn().chats!.some((chat: Message) => chat.userCustomId === user.customId);
-      } else {
-        return [];
-      }
-    });
-    if (chatsOfUser.length > 0) {
-      return chatsOfUser[0].chats;
-    } else{
-      return undefined;
-    }
   }
 
   // sending message to firebase allMessages array[] with help of customId of current channel
