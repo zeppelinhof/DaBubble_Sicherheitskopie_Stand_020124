@@ -15,7 +15,7 @@ export class Message {
         this.messageId = messageId || 0;
         this.message = message || '';
         this.createdTime = createdTime || '';
-        this.emojis = emojis || [''];
+        this.emojis = emojis || [];
         this.threads = threads || [];
         this.file = file || null;
     }

@@ -105,6 +105,27 @@ export class MessageOfUserComponent {
     return allChats;
   }
 
+  addNewEmoji(forUser: User, emoji: any) {
+    let allChats = [];
+
+    for (let index = 0; index < forUser.chats!.length; index++) {
+      const chat = forUser.chats![index];
+      // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
+      // so soll die neue Nachricht eingetragen werden.
+      const messageDataMessageId = this.messageData.messageId;
+      const chatMessageId = chat.messageId;
+      if (chatMessageId === messageDataMessageId) {
+        chat.emojis += emoji; // neu eingegebenes Emoji für Message
+        allChats.push(chat);
+        // für alle anderen Nachrichten die alte Nachricht übernehmen
+      } else {
+        allChats.push(chat);
+      }
+    }
+
+    return allChats;
+  }
+
   getAllMessagesOfChannel(forChannel: Channel) {
     let allChats = [];
 

@@ -1,4 +1,4 @@
-<div class="reaction-wrap"  [ngClass]="{'right-0': messageOfLoggedInUser}">
+<div class="reaction-wrap" [ngClass]="{'right-0': messageOfLoggedInUser}">
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/check_mark.png">
@@ -7,17 +7,18 @@
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/hands_up.png">
-        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="editMessageButton2()">
+        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="handUpReaction()">
     </div>
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/add_reaction.png">
-        <img class="icon_purple" src="assets/reactions/add_reaction_purple.png" (click)="editMessageButton3()">
+        <img class="icon_purple" src="assets/reactions/add_reaction_purple.png" (click)="toggleBtn('emojis')">
     </div>
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/answer.png">
-        <img class="icon_purple" src="assets/reactions/answer_purple.png" (click)="this.ws.threadContainerIsVisible = true">
+        <img class="icon_purple" src="assets/reactions/answer_purple.png"
+            (click)="this.ws.threadContainerIsVisible = true">
     </div>
 
     <div class="hover-area">
@@ -28,5 +29,9 @@
     </div>
 
     <div *ngIf="showEditMessageButton" class="edit-message" (click)="prepareToeditMessage()">Nachricht bearbeiten</div>
+
+    <div id="emoji-container" *ngIf="showEmojis">
+        <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
+    </div>
 
 </div>

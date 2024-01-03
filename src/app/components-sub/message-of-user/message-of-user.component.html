@@ -41,9 +41,17 @@
           </div>
         </div>
       </div>
+      <!-- messageData.emojis" -->
+      <div class="message-reactions-wrap">
+        <div *ngFor="let emoji of messageData.emojis" class="reaction-type-wrap">
+          <!-- <img src="assets/reactions/hands_up.png"> -->
+          <div>{{emoji}}</div>
+          <div class="amount-reaction-type">2</div>
+        </div>
+      </div>
     </div>
     <!-- showReactionChoice" -->
-    <app-message-reaction *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
+    <app-message-reaction [messageData]="messageData" [clickedContact]="clickedContact" *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
       (editMode)="receiveValueFromChild($event)" [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
 </div>
