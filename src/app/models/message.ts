@@ -6,17 +6,17 @@ export class Message {
     messageId: number;
     message: string;
     createdTime: MessageTime | any;
-    emojis: any[];
+    emojis: {path: string, amount: number}[];
     threads: Thread[]; // antworten 
     file:any;
 
-    constructor(userCustomId?: string, messageId?: number, message?: string, createdTime?: MessageTime | any, emojis?: any[], threads?: Thread | any, file?: any) { 
+    constructor(userCustomId?: string, messageId?: number, message?: string, createdTime?: MessageTime | any, emojis?: {path: string, amount: number}[], threads?: Thread | any, file?: any) { 
         this.userCustomId = userCustomId || '';
         this.messageId = messageId || 0;
         this.message = message || '';
         this.createdTime = createdTime || '';
-        this.emojis = emojis || [];
-        this.threads = threads || [];
+        this.emojis = emojis || [{path: '', amount: 0}];
+        this.threads = threads || [{path: '', amount: 0}];
         this.file = file || null;
     }
 }

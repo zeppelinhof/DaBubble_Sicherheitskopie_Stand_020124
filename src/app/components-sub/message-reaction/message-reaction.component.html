@@ -2,36 +2,43 @@
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/check_mark.png">
-        <img class="icon_purple" src="assets/reactions/check_mark.png" (click)="editMessageButton1()">
+        <img class="icon_purple" src="assets/reactions/check_mark.png" (click)="addEmoji('assets/reactions/check_mark.png')">
     </div>
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/hands_up.png">
-        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="handUpReaction()">
+        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="addEmoji('assets/reactions/hands_up.png')">
     </div>
 
     <div class="hover-area">
-        <img class="icon" src="assets/reactions/add_reaction.png">
-        <img class="icon_purple" src="assets/reactions/add_reaction_purple.png" (click)="toggleBtn('emojis')">
+        <img *ngIf="!moreReactions" class="icon" src="assets/reactions/add_reaction.png">
+        <img *ngIf="!moreReactions" class="icon_purple" src="assets/reactions/add_reaction_purple.png" (click)="showMoreReactions()">
     </div>
 
     <div class="hover-area">
-        <img class="icon" src="assets/reactions/answer.png">
-        <img class="icon_purple" src="assets/reactions/answer_purple.png"
+        <img *ngIf="!moreReactions" class="icon" src="assets/reactions/answer.png">
+        <img *ngIf="!moreReactions" class="icon_purple" src="assets/reactions/answer_purple.png"
             (click)="this.ws.threadContainerIsVisible = true">
+
+        <img *ngIf="moreReactions" class="icon" src="assets/reactions/nerd.png">
+        <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/nerd.png" (click)="addEmoji('assets/reactions/nerd.png')">
     </div>
 
     <div class="hover-area">
-        <img class="icon" *ngIf="withEditMessageOption" src="assets/reactions/more_vert.png"
+        <img *ngIf="withEditMessageOption && !moreReactions" class="icon" src="assets/reactions/more_vert.png"
             (click)="editMessageButton()">
-        <img class="icon_purple" *ngIf="withEditMessageOption" src="assets/reactions/more_vert_purple.png"
-            (click)="editMessageButton()">
+        <img *ngIf="withEditMessageOption && !moreReactions" class="icon_purple"
+            src="assets/reactions/more_vert_purple.png" (click)="editMessageButton()">
+
+        <img *ngIf="moreReactions" class="icon" src="assets/reactions/rocket.png">
+        <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/rocket.png" (click)="addEmoji('assets/reactions/rocket.png')">
     </div>
+
+    <!-- <div class="close-area">
+        <img *ngIf="moreReactions" class="icon" src="assets/icons/close-purple.png">
+        <img *ngIf="moreReactions" class="icon_purple" src="assets/icons/close-purple.png" (click)="showMoreReactions()">
+    </div> -->
 
     <div *ngIf="showEditMessageButton" class="edit-message" (click)="prepareToeditMessage()">Nachricht bearbeiten</div>
-
-    <div id="emoji-container" *ngIf="showEmojis">
-        <emoji-mart (emojiClick)="addEmoji($event)"></emoji-mart>
-    </div>
 
 </div>

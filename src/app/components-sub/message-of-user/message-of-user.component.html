@@ -44,9 +44,8 @@
       <!-- messageData.emojis" -->
       <div class="message-reactions-wrap">
         <div *ngFor="let emoji of messageData.emojis" class="reaction-type-wrap">
-          <!-- <img src="assets/reactions/hands_up.png"> -->
-          <div>{{emoji}}</div>
-          <div class="amount-reaction-type">2</div>
+          <div class="img-wrap"><img src="{{emoji.path}}"></div>
+          <div class="amount-reaction-type">{{emoji.amount}}</div>
         </div>
       </div>
     </div>

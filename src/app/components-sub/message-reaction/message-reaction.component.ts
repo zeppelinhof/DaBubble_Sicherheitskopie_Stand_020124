@@ -18,6 +18,7 @@ export class MessageReactionComponent {
   showEmojis: boolean = false;
   @Input() messageData: Message = new Message();
   @Input() clickedContact!: User;
+  moreReactions: boolean = false;
 
   constructor(public ws: WorkspaceService, public us: UserService) { }
 
@@ -38,21 +39,13 @@ export class MessageReactionComponent {
     this.editMode.emit(true);
   }
 
-  addEmoji($event: any) {
-    debugger
-    this.us.updateUser({ chats: this.addNewEmoji(this.clickedContact, $event.emoji.native) }, this.clickedContact);
+  addEmoji(emojiPath: string) {
+    this.us.updateUser({ chats: this.addNewEmoji(this.clickedContact, emojiPath) }, this.clickedContact);
     this.showEmojis = !this.showEmojis;
   }
 
-  toggleBtn(target: string) {
-    // debugger
-    // this.showEmojis = target === 'emojis' ? !this.showEmojis : false;
-    this.showEmojis = true;
-  }
-
-  addNewEmoji(forUser: User, emoji: any) {
+  addNewEmoji(forUser: User, newEmojiPath: string) {
     let allChats = [];
-
     for (let index = 0; index < forUser.chats!.length; index++) {
       const chat = forUser.chats![index];
       // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
@@ -60,7 +53,13 @@ export class MessageReactionComponent {
       const messageDataMessageId = this.messageData.messageId;
       const chatMessageId = chat.messageId;
       if (chatMessageId === messageDataMessageId) {
-        chat.emojis.push(emoji); // neu eingegebenes Emoji für Message
+        debugger
+        let emojiPathIndex = this.emojiAlreadyExits(chat.emojis, newEmojiPath);
+        if (emojiPathIndex == -1) {
+          chat.emojis.push({ path: newEmojiPath, amount: 1 }); // neu eingegebener Emojipfad für Message
+        } else { // wenn das Emoji bereits existiert, dann Anzahl erhöhen
+          chat.emojis[emojiPathIndex].amount = chat.emojis[emojiPathIndex]['amount'] + 1;
+        }
         allChats.push(chat);
         // für alle anderen Nachrichten die alte Nachricht übernehmen
       } else {
@@ -71,6 +70,22 @@ export class MessageReactionComponent {
     return allChats;
   }
 
-  
+  emojiAlreadyExits(emojis: { path: string, amount: number }[], newEmojiPath: string): number {
+    // let identicalEmojiPathes = emojis.filter((emojiPath) => emojiPath.path === newEmojiPath )
+    // return identicalEmojiPathes.length > 0;
+
+    for (let emojiPathIndex = 0; emojiPathIndex < emojis.length; emojiPathIndex++) {
+      const emoji = emojis[emojiPathIndex];
+      if (emoji.path == newEmojiPath) {
+        return emojiPathIndex;
+      }
+    }
+    return -1;
+  }
+  showMoreReactions() {
+    this.moreReactions = !this.moreReactions;
+  }
+
+
 
 }

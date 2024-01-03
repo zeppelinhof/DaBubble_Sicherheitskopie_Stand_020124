@@ -102,7 +102,7 @@ export class InputFieldChannelComponent {
         messageId: Date.now(),
         message: this.input,
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
-        emojis: [''],
+        emojis: [{path: '', amount: 0}],
         threads: [],
         file: '',
       };
