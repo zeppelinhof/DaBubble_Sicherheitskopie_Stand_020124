@@ -157,6 +157,20 @@ export class UserService {
     });
   }
 
+   // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an verschickt hat und
+  // (c) deren messageId bei mir existiert (damit nicht Nachrichten bei mir von clickedContact angezeigt werden, die er an andere User verschickt hat)
+  chatsWithClickedUser() {
+    let chats = this.clickedContact.value.chats?.filter((chat) =>
+      chat.userCustomId == this.userLoggedIn().customId || 
+      (chat.userCustomId == this.clickedContact.value.customId && this.messageExitsInOwnChats(chat.messageId)!)
+    );
+    return chats;
+  }
+
+  messageExitsInOwnChats(messageIdToCheck: number){
+    return this.userLoggedIn().chats?.find((chat) => chat.messageId == messageIdToCheck)
+  }
+
   getUserName(userCustomId: string) {
     let user = this.allUsersForUserName.find(
       (user) => user.customId === userCustomId

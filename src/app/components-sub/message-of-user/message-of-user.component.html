@@ -41,16 +41,21 @@
           </div>
         </div>
       </div>
-      
+
       <div class="message-reactions-wrap">
-        <div *ngFor="let emoji of messageData.emojis" class="reaction-type-wrap">
-          <div class="img-wrap"><img src="{{emoji.path}}"></div>
-          <div class="amount-reaction-type">{{emoji.amount}}</div>
-        </div>
+        <ng-container *ngFor="let emoji of messageData.emojis">
+          <div class="reaction-type-wrap" *ngIf="emoji.amount > 0">
+            <div class="img-wrap"><img src="{{emoji.path}}"></div>
+            <div class="amount-reaction-type">{{emoji.amount}}</div>
+          </div>
+        </ng-container>
+
+
       </div>
     </div>
     <!-- showReactionChoice" -->
-    <app-message-reaction [messageData]="messageData" [clickedContact]="clickedContact" *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
-      (editMode)="receiveValueFromChild($event)" [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
+    <app-message-reaction [messageData]="messageData" [clickedContact]="clickedContact" *ngIf="showReactionChoice"
+      [withEditMessageOption]="checkIfOwnMessage()" (editMode)="receiveValueFromChild($event)"
+      [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
 </div>

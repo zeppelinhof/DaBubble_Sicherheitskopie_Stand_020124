@@ -186,11 +186,6 @@ export class ChannelService {
     return doc(collection(this.firestore, colId), docId);
   }
 
-  chatsWithClickedUser() {
-    let chats = this.us.clickedContact.value.chats?.filter((chat) => chat.userCustomId == this.us.userLoggedIn().customId);
-    return chats;
-  }
-
   async leaveChannel() {
     const channelId = this.clickedChannelId.value;
     const channel = this.myChannels.find(
