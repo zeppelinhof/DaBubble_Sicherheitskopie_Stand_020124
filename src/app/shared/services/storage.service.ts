@@ -6,9 +6,9 @@ import { getDownloadURL, getStorage, listAll, ref } from '@angular/fire/storage'
 })
 export class StorageService {
   imageUrls: string[] = [];
-
-  constructor() { 
-    this.downloadFromStorage();
+  channelCurrentUrl!: string;
+  constructor() {
+    // this.downloadFromStorage();
   }
 
   downloadFromStorage(): void {
@@ -21,11 +21,11 @@ export class StorageService {
           // Hier wird jede Datei heruntergeladen
           getDownloadURL(itemRef).then((url) => {
             // Verarbeite die URL der heruntergeladenen Datei hier, z.B. füge sie zu einer Liste hinzu
-            
+
             this.imageUrls.push(url);
             console.log(url);
-            
-            
+
+
 
           });
         });
@@ -36,12 +36,21 @@ export class StorageService {
       });
   }
 
-  getFileUrl(fileName: string): string {
+  async getFileUrl(fileName: string): Promise<string | null> {
     const storage = getStorage();
     const storageRef = ref(storage);
+    const files = await listAll(storageRef);
 
+    for (const file of files.items) {
+      if (file.name === fileName) {
+        const url = await getDownloadURL(file);
+       
+        let url_to_string= url.toString();
+        this.channelCurrentUrl = url_to_string;
+        console.log(this.channelCurrentUrl);
+      }
+    }
+    return null;
 
-    
-    return fileName;
   }
 }

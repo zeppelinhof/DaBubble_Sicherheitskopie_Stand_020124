@@ -3,6 +3,7 @@ import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
@@ -22,7 +23,7 @@ export class MessageOfUserComponent {
   clickedChannel!: Channel;
   unsubAllUsers: any;
 
-  constructor(public us: UserService, private cs: ChannelService, public ws: WorkspaceService) { }
+  constructor(public us: UserService, private cs: ChannelService, public ws: WorkspaceService, public storService:StorageService) { }
 
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();

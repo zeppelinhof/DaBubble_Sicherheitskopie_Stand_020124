@@ -41,21 +41,17 @@ export class InputFieldChannelComponent {
   }
 
 
-  uploadToStorage(): string | null {
+  uploadToStorage(): Promise<string | null> | null {
     if (this.selectedFile) {
       const storage = getStorage();
       const storageRef = ref(storage, this.selectedFile.name);
       uploadBytes(storageRef, this.selectedFile);
-      this.clearSelectedFile();
-      this.btnNotVisible();
 
+      this.storService.getFileUrl(this.selectedFile.name);
 
-      return this.storService.getFileUrl(this.selectedFile.name);
-
-
-    } else {
-      return null;
     }
+    return null;
+
 
   }
 
@@ -104,27 +100,24 @@ export class InputFieldChannelComponent {
         emojis: [''],
         threads: [],
         // uploads the seleted file before sending message, then returns the file-url inside here <- 
-        file: this.uploadToStorage(),
+        file: this.getFileName(),
       };
       console.log(newMessage);
-
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
-      this.clearInput();
-
-
-
-
-
     }
     this.addMemberToChannel(this.cs.clickedChannel.value);
+    this.uploadToStorage();
+    this.clearSelectedFile();
+    this.btnNotVisible();
+    this.clearInput();
   }
 
-  getFileName(): string | null {
-    if (this.selectedFile) {
-      return this.selectedFile.name;
-    }
-    return null;
+getFileName(): string | null{
+  if(this.selectedFile){
+    return this.selectedFile.name;
   }
+  return null;
+}
 
 
 
