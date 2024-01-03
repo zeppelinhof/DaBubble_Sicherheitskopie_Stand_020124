@@ -41,16 +41,15 @@ export class InputFieldChannelComponent {
   }
 
   fileExplorer(event: any): void {
-    
+
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const selectedFile = inputElement.files[0];
       this.selectedFile = selectedFile;
       this.btnVisible();
-      debugger;
       this.uploadToStorage();
     }
-    
+
   }
 
   uploadToStorage(): Promise<string | null> | null {
@@ -72,11 +71,11 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [{ path: '', amount: 0, setByUser: '' }],
         threads: [],
-        file: this.storService.channelCurrentUrl,
+        file: this.getUrlFromStorage(),
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       console.log("das ist newMessage: ", newMessage);
-      
+
     }
 
     this.addMemberToChannel(this.cs.clickedChannel.value);
@@ -85,7 +84,13 @@ export class InputFieldChannelComponent {
 
 
 
-
+  getUrlFromStorage(): string | null {
+    if (this.storService.channelCurrentUrl) {
+      return this.storService.channelCurrentUrl
+    } else{
+      return null;
+    }
+  }
 
 
 
