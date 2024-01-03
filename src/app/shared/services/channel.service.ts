@@ -134,7 +134,7 @@ export class ChannelService {
       const allMessagesArray = docSnapshot.get('allMessages') || [];
       this.allMessagesChannel = [];
       this.allMessagesChannel.push(allMessagesArray);
-      
+
     } else {
       console.error('Dokument existiert nicht für die ID:', id);
     }
@@ -236,7 +236,7 @@ export class ChannelService {
     return todayAsString;
   }
 
-  isToday(dayTocheck: number){
+  isToday(dayTocheck: number) {
     const today = new Date();
     const todaysDay = today.getDate();
     return todaysDay == dayTocheck;
@@ -245,19 +245,22 @@ export class ChannelService {
   // Ausgabe, ob das Datum einer neu erstellte Message höher ist als das der letzten Nachricht
   checkIfNewDay(chatsofUser: Message[] | undefined, index: number): boolean {
     // erster Eintrag immer mit Datum
-    if(index == 0){
+    if (index == 0) {
       return true
     }
+
     if (chatsofUser !== undefined && index > 0 && chatsofUser![index - 1]) {
       // prüfe, ob Tag von vorherigem chat kleiner || (Tag von vorherigem chat größer && Nr. Date.now() von gestern kleiner)
       if (chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
-      chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser![index - 1]['messageId'] < chatsofUser![index]['messageId']) {
+        chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser![index - 1]['messageId'] < chatsofUser![index]['messageId']) {
         return true;
       }
       return false;
     }
     return false;
   }
+
+
 
   // sending message to firebase allMessages array[] with help of customId of current channel
   sendMessageToChannel(id: any, message: Message) {

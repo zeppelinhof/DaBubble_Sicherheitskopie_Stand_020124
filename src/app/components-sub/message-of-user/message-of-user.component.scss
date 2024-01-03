@@ -1,28 +1,69 @@
 @import 'src/app/components-sub/message-reaction/message-reaction.component.scss';
 
-.info-and-message-box{
+.info-and-message-box {
     position: relative;
-    transition: width 1.5s ease-in-out;  
+    transition: width 1.5s ease-in-out;
 }
 
 
-.inputfield{
+.inputfield {
     background-color: white;
 
-    
+
 }
 
-.panel-wrap{
+.panel-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.buttons{
+.buttons {
     display: flex;
     gap: 32px;
 }
 
-.image-of-storage{
-    height: 100px;
+.message-reactions-wrap {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: calc(100% + 5px);
+    display: flex;
+    gap: 10px;
+    box-sizing: border-box;
+    background-color: white;
+    // overflow-x: hidden;
+}
+
+// .message-reactions-wrap:hover {
+//     overflow-x: auto; /* Scrollbar bei Hover einblenden */
+// }
+
+// .message-reactions-wrap::-webkit-scrollbar {
+//     height: 6px;
+// }
+
+// .message-reactions-wrap::-webkit-scrollbar-track {
+//     background-color: white;
+// }
+
+// .message-reactions-wrap::-webkit-scrollbar-thumb {
+//     background-color: $light-grey;
+//     border-radius: 25px;
+// }
+
+.reaction-type-wrap {
+    display: flex;
+    height: 35px;
+    border: 1px solid $light-grey;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    gap: 5px;
+
+    .amount-reaction-type {
+        display: flex;
+        align-items: center;
+        color: black;
+    }
 }

@@ -97,7 +97,7 @@ export class InputFieldChannelComponent {
         messageId: Date.now(),
         message: this.input,
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
-        emojis: [''],
+        emojis: [{path: '', amount: 0, setByUser: ''}],
         threads: [],
         // uploads the seleted file before sending message, then returns the file-url inside here <- 
         file: this.getFileName(),

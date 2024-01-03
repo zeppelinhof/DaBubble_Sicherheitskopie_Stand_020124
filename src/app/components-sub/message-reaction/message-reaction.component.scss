@@ -1,6 +1,6 @@
 @import 'src/styles.scss';
 
-.reaction-wrap{
+.reaction-wrap {
     position: absolute;
     bottom: 100%;
     display: flex;
@@ -12,16 +12,21 @@
     gap: 5px;
     background-color: white;
 
-    img{
+    img {
         cursor: pointer;
     }
 }
 
-.right-0{
-    right: 0;
-  }
+.img-wrap img{
+    height: 100%;
+    width: auto;
+}
 
-.edit-message{
+.right-0 {
+    right: 0;
+}
+
+.edit-message {
     position: absolute;
     top: 90%;
     right: 0;
@@ -51,6 +56,7 @@
             display: flex;
             background-color: $light-violet;
             border-radius: 20px;
+            box-sizing: border-box;
         }
     }
 }
