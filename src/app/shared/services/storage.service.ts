@@ -36,7 +36,12 @@ export class StorageService {
       });
   }
 
-  getFileUrl(){
-    return "hello.png";
+  getFileUrl(fileName: string): string {
+    const storage = getStorage();
+    const storageRef = ref(storage);
+
+
+    
+    return fileName;
   }
 }

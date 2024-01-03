@@ -49,8 +49,8 @@ export class InputFieldChannelComponent {
       this.clearSelectedFile();
       this.btnNotVisible();
 
-      
-      return this.storService.getFileUrl();
+
+      return this.storService.getFileUrl(this.selectedFile.name);
 
 
     } else {
@@ -107,7 +107,7 @@ export class InputFieldChannelComponent {
         file: this.uploadToStorage(),
       };
       console.log(newMessage);
-      
+
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       this.clearInput();
 
