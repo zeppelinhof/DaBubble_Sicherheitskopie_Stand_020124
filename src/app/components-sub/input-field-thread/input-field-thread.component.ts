@@ -1,5 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
+import { Thread } from 'src/app/models/thread';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
 
@@ -23,6 +24,8 @@ export class InputFieldThreadComponent {
   ngOnInit(): void {
     this.getCurrentChannel();
   }
+  
+  
 
   // fills allMembers array with all users in the current channel
   getCurrentChannel() {

@@ -7,6 +7,7 @@ import { MessageTime } from 'src/app/models/message-time';
 
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
@@ -26,46 +27,40 @@ export class InputFieldChannelComponent {
   input: any = '';
   isInputSelected: boolean = false;
   selectedFile: File | null = null;
-  imageUrl: string | ArrayBuffer | null | undefined;
+  imageUrls: string[] = [];
+  url: any;
 
   constructor(
     public service: InputService,
     public cs: ChannelService,
     private us: UserService,
-    private _eref: ElementRef
+    private _eref: ElementRef,
+    public storService: StorageService
   ) {
-    this.downloadFromStorage();
+
   }
 
 
-  uploadToStorage(): void {
+  uploadToStorage(): string | null {
     if (this.selectedFile) {
       const storage = getStorage();
       const storageRef = ref(storage, this.selectedFile.name);
       uploadBytes(storageRef, this.selectedFile);
       this.clearSelectedFile();
       this.btnNotVisible();
-    }
-  }
-  downloadFromStorage(): void {
-    const storage = getStorage();
-    const storageRef = ref(storage);
 
-    listAll(storageRef)
-      .then((res) => {
-        res.items.forEach((itemRef) => {
-          // Hier wird jede Datei heruntergeladen
-          getDownloadURL(itemRef).then((url) => {
-            // Verarbeite die URL der heruntergeladenen Datei hier, z.B. füge sie zu einer Liste hinzu
-            console.log('Heruntergeladene Datei URL:', url);
-          });
-        });
-      })
-      .catch((error) => {
-        // Handle Fehler beim Abrufen der Dateien
-        console.error('Fehler beim Abrufen der Dateien:', error);
-      });
+
+      return this.storService.getFileUrl(this.selectedFile.name);
+
+
+    } else {
+      return null;
+    }
+
   }
+
+
+
 
 
   clearSelectedFile() {
@@ -95,6 +90,10 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
+  clearInput() {
+    this.input = '';
+  }
+
   sendMessage(): void {
     if (this.input !== '') {
       let newMessage: Message = {
@@ -104,16 +103,28 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [{path: '', amount: 0, setByUser: ''}],
         threads: [],
-        file: '',
+        // uploads the seleted file before sending message, then returns the file-url inside here <- 
+        file: this.uploadToStorage(),
       };
-      this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
-      this.input = '';
       console.log(newMessage);
+
+      this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
+      this.clearInput();
+
+
+
+
 
     }
     this.addMemberToChannel(this.cs.clickedChannel.value);
   }
 
+  getFileName(): string | null {
+    if (this.selectedFile) {
+      return this.selectedFile.name;
+    }
+    return null;
+  }
 
 
 
