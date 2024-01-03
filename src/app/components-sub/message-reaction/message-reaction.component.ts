@@ -53,11 +53,11 @@ export class MessageReactionComponent {
       const messageDataMessageId = this.messageData.messageId;
       const chatMessageId = chat.messageId;
       if (chatMessageId === messageDataMessageId) {
-        debugger
         let emojiPathIndex = this.emojiAlreadyExits(chat.emojis, newEmojiPath);
         if (emojiPathIndex == -1) {
-          chat.emojis.push({ path: newEmojiPath, amount: 1 }); // neu eingegebener Emojipfad für Message
-        } else { // wenn das Emoji bereits existiert, dann Anzahl erhöhen
+          chat.emojis.push({ path: newEmojiPath, amount: 1, setByUser: this.us.userLoggedIn().customId }); // neu eingegebener Emojipfad für Message
+         // wenn das Emoji bereits existiert und eingeloggter User noch nicht dieses Emoji vergeben hat, dann Anzahl erhöhen
+        } else if(chat.emojis[emojiPathIndex]['setByUser'] !== this.us.userLoggedIn().customId) {
           chat.emojis[emojiPathIndex].amount = chat.emojis[emojiPathIndex]['amount'] + 1;
         }
         allChats.push(chat);
@@ -70,9 +70,7 @@ export class MessageReactionComponent {
     return allChats;
   }
 
-  emojiAlreadyExits(emojis: { path: string, amount: number }[], newEmojiPath: string): number {
-    // let identicalEmojiPathes = emojis.filter((emojiPath) => emojiPath.path === newEmojiPath )
-    // return identicalEmojiPathes.length > 0;
+  emojiAlreadyExits(emojis: { path: string, amount: number, setByUser: string }[], newEmojiPath: string): number {
 
     for (let emojiPathIndex = 0; emojiPathIndex < emojis.length; emojiPathIndex++) {
       const emoji = emojis[emojiPathIndex];
