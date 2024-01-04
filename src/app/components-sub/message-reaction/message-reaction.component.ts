@@ -15,6 +15,8 @@ export class MessageReactionComponent {
   @Input() withEditMessageOption: boolean = true; // edit message option only for own messages available
   showEditMessageButton: boolean = false;
   @Output() editMode: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() newThread: EventEmitter<boolean> = new EventEmitter<boolean>();
+
   @Input() messageOfLoggedInUser: boolean = false;
   
   @Input() messageData: Message = new Message();
@@ -41,6 +43,10 @@ export class MessageReactionComponent {
   prepareToeditMessage() {
     this.showEditMessageButton = false;
     this.editMode.emit(true);
+  }
+
+  threadToSend(){
+    this.newThread.emit(true);
   }
 
   

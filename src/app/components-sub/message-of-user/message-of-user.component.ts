@@ -4,6 +4,7 @@ import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { ThreadService } from 'src/app/shared/services/thread.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
@@ -23,7 +24,11 @@ export class MessageOfUserComponent {
   clickedChannel!: Channel;
   unsubAllUsers: any;
 
-  constructor(public us: UserService, private cs: ChannelService, public ws: WorkspaceService, public storService:StorageService) { }
+  constructor(public us: UserService, 
+    private cs: ChannelService, 
+    public ws: WorkspaceService, 
+    public storService:StorageService,
+    private ts: ThreadService) { }
 
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();
@@ -43,6 +48,15 @@ export class MessageOfUserComponent {
   receiveValueFromChild(value: boolean) {
     // Handle erhaltenen Wert von Kindkomponente
     this.getEditMode = value;
+  }
+
+  createThread(){
+    if (this.messageType == 'directMessage') {
+      this.ts.clickedMessage = this.messageData;
+      
+      console.log('Die Message', this.messageData);
+      
+    }
   }
 
   getCurrentUser() {

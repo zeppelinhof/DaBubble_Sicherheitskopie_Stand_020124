@@ -48,7 +48,7 @@
 
       <div class="message-reactions-wrap">
         <ng-container *ngFor="let emoji of (messageType === 'directMessage' ? messageData.emojis : data.emojis) || []">
-          <div class="reaction-type-wrap" *ngIf="emoji.amount > 0">
+          <div class="reaction-type-wrap" *ngIf="emoji.amount > 0" (click)="ws.addReaction(emoji.path, this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
             <div class="img-wrap"><img [src]="emoji.path"></div>
             <div class="amount-reaction-type">{{emoji.amount}}</div>
           </div>
@@ -58,7 +58,7 @@
     </div>
     <!-- showReactionChoice" -->
     <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel" *ngIf="showReactionChoice"
-      [withEditMessageOption]="checkIfOwnMessage()" (editMode)="receiveValueFromChild($event)"
+      [withEditMessageOption]="checkIfOwnMessage()" (editMode)="receiveValueFromChild($event)" (newThread)="createThread()"
       [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
 </div>
