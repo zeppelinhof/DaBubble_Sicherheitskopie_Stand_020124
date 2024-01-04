@@ -28,7 +28,7 @@ export class InputFieldMessageComponent {
     private cs: ChannelService,
     public ws: WorkspaceService,
     private _eref: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -41,18 +41,20 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage(clickedContact: User) {
-    let messageId = Date.now();
-    // Nachricht bei Empfänger hinterlegen
-    this.us.updateUser(
-      { chats: this.getAllChatsOfUser(clickedContact, messageId) },
-      clickedContact
-    );
-    // Nachricht bei Sender hinterlegen
-    this.us.updateUser(
-      { chats: this.getAllChatsOfUser(this.us.userLoggedIn(), messageId) },
-      this.us.userLoggedIn()
-    );
-    this.input = '';
+    if (this.input !== '') {
+      let messageId = Date.now();
+      // Nachricht bei Empfänger hinterlegen
+      this.us.updateUser(
+        { chats: this.getAllChatsOfUser(clickedContact, messageId) },
+        clickedContact
+      );
+      // Nachricht bei Sender hinterlegen
+      this.us.updateUser(
+        { chats: this.getAllChatsOfUser(this.us.userLoggedIn(), messageId) },
+        this.us.userLoggedIn()
+      );
+      this.input = '';
+    }
   }
 
   getAllChatsOfUser(forUser: User, messageId: number) {
