@@ -53,9 +53,9 @@ export class MessageOfUserComponent {
   createThread(){
     if (this.messageType == 'directMessage') {
       this.ts.clickedMessage = this.messageData;
+      this.ts.setTopicMessage('directMessage', this.clickedContact, this.clickedChannel);
       
-      console.log('Die Message', this.messageData);
-      
+      console.log('Die Message', this.messageData);      
     }
   }
 

@@ -13,6 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
 import { reload } from '@angular/fire/auth';
+import { Thread } from 'src/app/models/thread';
 
 @Injectable({
   providedIn: 'root',
@@ -139,9 +140,33 @@ export class UserService {
       messageId: message.messageId || 0,
       message: message.message || '',
       createdTime: message.createdTime || '',
-      emojis: message.emojis,
+      emojis: message.emojis || {},
+      threads: this.getCleanThreadsArrayJson(message.threads) || []
     };
   }
+
+  getCleanThreadsArrayJson(threads: Thread[]): {} {
+    const threadsArray = [];
+    for (let index = 0; index < threads.length; index++) {
+      const thread = threads[index];
+      const threadAsJson = this.getCleanThreadJson(thread);
+      threadsArray.push(threadAsJson);
+    }
+
+    return threadsArray;
+  }
+
+  getCleanThreadJson(thread: Thread): {} {
+    return {
+      userCustomId: thread.userCustomId || 0,
+      answer: thread.answer || '',
+      emojis: thread.emojis || {},
+      createdTime: thread.createdTime || ''
+    };
+
+  }
+
+
 
   async sendDocToDB(item: User) {
     await addDoc(this.allUserCol, this.getCleanUserJson(item));
@@ -157,17 +182,17 @@ export class UserService {
     });
   }
 
-   // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an verschickt hat und
+  // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an verschickt hat und
   // (c) deren messageId bei mir existiert (damit nicht Nachrichten bei mir von clickedContact angezeigt werden, die er an andere User verschickt hat)
   chatsWithClickedUser() {
     let chats = this.clickedContact.value.chats?.filter((chat) =>
-      chat.userCustomId == this.userLoggedIn().customId || 
+      chat.userCustomId == this.userLoggedIn().customId ||
       (chat.userCustomId == this.clickedContact.value.customId && this.messageExitsInOwnChats(chat.messageId)!)
     );
     return chats;
   }
 
-  messageExitsInOwnChats(messageIdToCheck: number){
+  messageExitsInOwnChats(messageIdToCheck: number) {
     return this.userLoggedIn().chats?.find((chat) => chat.messageId == messageIdToCheck)
   }
 
