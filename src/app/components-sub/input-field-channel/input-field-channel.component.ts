@@ -1,5 +1,5 @@
-import { Component, ElementRef } from '@angular/core';
-import {  getStorage, ref, uploadBytes } from '@angular/fire/storage';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { getStorage, ref, uploadBytes } from '@angular/fire/storage';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
@@ -18,6 +18,8 @@ import { UserService } from 'src/app/shared/services/user.service';
   },
 })
 export class InputFieldChannelComponent {
+  @ViewChild('fileInput') fileInput!: any;
+  private fileInputRef: HTMLInputElement | undefined;
   showEmojis: boolean = false;
   showUserList: boolean = false;
   allMembers: any = [];
@@ -40,13 +42,15 @@ export class InputFieldChannelComponent {
   }
 
   fileExplorer(event: any): void {
-
+    this.fileInputRef = event.target as HTMLInputElement;
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       const selectedFile = inputElement.files[0];
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.uploadToStorage();
+
+
     }
 
   }
@@ -86,7 +90,7 @@ export class InputFieldChannelComponent {
   getUrlFromStorage(): string | null {
     if (this.storService.channelCurrentUrl) {
       return this.storService.channelCurrentUrl
-    } else{
+    } else {
       return null;
     }
   }
@@ -98,9 +102,21 @@ export class InputFieldChannelComponent {
   }
 
   clearAll() {
+    this.clearFileInput();
     this.clearSelectedFile();
     this.btnNotVisible();
     this.clearInput();
+    this.clearUrl();
+
+  }
+  clearFileInput() {
+    if (this.fileInputRef) {
+      this.fileInputRef.value = '';
+    }
+  }
+
+  clearUrl() {
+    this.storService.channelCurrentUrl = "";
   }
 
   ngOnInit(): void {
