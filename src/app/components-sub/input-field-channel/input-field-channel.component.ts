@@ -1,6 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
-import { initializeApp } from '@angular/fire/app';
-import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from '@angular/fire/storage';
+import {  getStorage, ref, uploadBytes } from '@angular/fire/storage';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
