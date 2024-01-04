@@ -2,12 +2,12 @@
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/check_mark.png">
-        <img class="icon_purple" src="assets/reactions/check_mark.png" (click)="addEmoji('assets/reactions/check_mark.png')">
+        <img class="icon_purple" src="assets/reactions/check_mark.png" (click)="ws.addReaction('assets/reactions/check_mark.png', this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
     </div>
 
     <div class="hover-area">
         <img class="icon" src="assets/reactions/hands_up.png">
-        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="addEmoji('assets/reactions/hands_up.png')">
+        <img class="icon_purple" src="assets/reactions/hands_up.png" (click)="ws.addReaction('assets/reactions/hands_up.png', this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
     </div>
 
     <div class="hover-area">
@@ -18,10 +18,10 @@
     <div class="hover-area">
         <img *ngIf="!moreReactions" class="icon" src="assets/reactions/answer.png">
         <img *ngIf="!moreReactions" class="icon_purple" src="assets/reactions/answer_purple.png"
-            (click)="this.ws.threadContainerIsVisible = true">
+            (click)="this.ws.threadContainerIsVisible = true; threadToSend()">
 
         <img *ngIf="moreReactions" class="icon" src="assets/reactions/nerd.png">
-        <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/nerd.png" (click)="addEmoji('assets/reactions/nerd.png')">
+        <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/nerd.png" (click)="ws.addReaction('assets/reactions/nerd.png', this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
     </div>
 
     <div class="hover-area">
@@ -31,7 +31,7 @@
             src="assets/reactions/more_vert_purple.png" (click)="editMessageButton()">
 
         <img *ngIf="moreReactions" class="icon" src="assets/reactions/rocket.png">
-        <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/rocket.png" (click)="addEmoji('assets/reactions/rocket.png')">
+        <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/rocket.png" (click)="ws.addReaction('assets/reactions/rocket.png', this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
     </div>
 
     <!-- <div class="close-area">
