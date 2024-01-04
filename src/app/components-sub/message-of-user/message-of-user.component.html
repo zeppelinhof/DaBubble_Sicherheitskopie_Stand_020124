@@ -15,6 +15,10 @@
       <div class="thread-message-time">{{this.data.createdTime['time'] || this.messageData.createdTime['time']}}</div>
     </div>
 
+    <!-- <div *ngIf="this.storService.channelCurrentUrl">
+      <img class="image-of-storage" [src]="this.storService.channelCurrentUrl"  alt="">
+    </div> -->
+
     <div class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
       <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}</div>
       <div *ngIf="getEditMode && messageType=='channelMessage'"><input class="inputfield" type="text"

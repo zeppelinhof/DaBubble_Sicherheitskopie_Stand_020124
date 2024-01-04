@@ -40,31 +40,68 @@ export class InputFieldChannelComponent {
 
   }
 
+  fileExplorer(event: any): void {
 
-  uploadToStorage(): string | null {
-    if (this.selectedFile) {
-      const storage = getStorage();
-      const storageRef = ref(storage, this.selectedFile.name);
-      uploadBytes(storageRef, this.selectedFile);
-      this.clearSelectedFile();
-      this.btnNotVisible();
-
-
-      return this.storService.getFileUrl(this.selectedFile.name);
-
-
-    } else {
-      return null;
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const selectedFile = inputElement.files[0];
+      this.selectedFile = selectedFile;
+      this.btnVisible();
+      this.uploadToStorage();
     }
 
   }
 
+  uploadToStorage(): Promise<string | null> | null {
+    if (this.selectedFile) {
+      const storage = getStorage();
+      const storageRef = ref(storage, this.selectedFile.name);
+      uploadBytes(storageRef, this.selectedFile);
+      this.storService.getFileUrl(this.selectedFile.name);
+    }
+    return null;
+  }
 
+  sendMessage(): void {
+    if (this.input !== '') {
+      let newMessage: Message = {
+        userCustomId: this.us.userLoggedIn().customId,
+        messageId: Date.now(),
+        message: this.input,
+        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
+        emojis: [{ path: '', amount: 0, setByUser: '' }],
+        threads: [],
+        file: this.getUrlFromStorage(),
+      };
+      this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
+      console.log("das ist newMessage: ", newMessage);
+
+    }
+
+    this.addMemberToChannel(this.cs.clickedChannel.value);
+    this.clearAll();
+  }
+
+
+
+  getUrlFromStorage(): string | null {
+    if (this.storService.channelCurrentUrl) {
+      return this.storService.channelCurrentUrl
+    } else{
+      return null;
+    }
+  }
 
 
 
   clearSelectedFile() {
     this.selectedFile = null;
+  }
+
+  clearAll() {
+    this.clearSelectedFile();
+    this.btnNotVisible();
+    this.clearInput();
   }
 
   ngOnInit(): void {
@@ -94,30 +131,7 @@ export class InputFieldChannelComponent {
     this.input = '';
   }
 
-  sendMessage(): void {
-    if (this.input !== '') {
-      let newMessage: Message = {
-        userCustomId: this.us.userLoggedIn().customId,
-        messageId: Date.now(),
-        message: this.input,
-        createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
-        emojis: [{path: '', amount: 0, setByUser: ''}],
-        threads: [],
-        // uploads the seleted file before sending message, then returns the file-url inside here <- 
-        file: this.uploadToStorage(),
-      };
-      console.log(newMessage);
 
-      this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
-      this.clearInput();
-
-
-
-
-
-    }
-    this.addMemberToChannel(this.cs.clickedChannel.value);
-  }
 
   getFileName(): string | null {
     if (this.selectedFile) {
@@ -172,14 +186,7 @@ export class InputFieldChannelComponent {
     this.showUserList = false;
   }
 
-  fileExplorer(event: any): void {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      const selectedFile = inputElement.files[0];
-      this.selectedFile = selectedFile;
-      this.btnVisible();
-    }
-  }
+
 
   btnVisible(): void {
     this.service.isWritingChannel = true;
