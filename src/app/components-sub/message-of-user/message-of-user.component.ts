@@ -89,7 +89,7 @@ export class MessageOfUserComponent {
 
     for (let index = 0; index < forUser.chats!.length; index++) {
       const chat = forUser.chats![index];
-      // wenn die messageId der alten Nachticht gleich der messageId der bearbeiteten Nachricht ist
+      // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
       // so soll die neue Nachricht eingetragen werden.
       const messageDataMessageId = this.messageData.messageId;
       const chatMessageId = chat.messageId;

@@ -23,8 +23,8 @@
       <div *ngIf="getEditMode && messageType=='directMessage'"><input class="inputfield" type="text"
           [(ngModel)]="this.messageData.message">
       </div>
-      <div class="panel-wrap">
-        <div *ngIf="getEditMode" class="hover-area">
+      <div *ngIf="getEditMode" class="panel-wrap">
+        <div class="hover-area">
           <img class="icon" src="assets/reactions/add_reaction.png">
           <img class="icon_purple" src="assets/reactions/add_reaction_purple.png">
         </div>
@@ -43,18 +43,17 @@
       </div>
 
       <div class="message-reactions-wrap">
-        <ng-container *ngFor="let emoji of messageData.emojis">
+        <ng-container *ngFor="let emoji of (messageType === 'directMessage' ? messageData.emojis : data.emojis) || []">
           <div class="reaction-type-wrap" *ngIf="emoji.amount > 0">
-            <div class="img-wrap"><img src="{{emoji.path}}"></div>
+            <div class="img-wrap"><img [src]="emoji.path"></div>
             <div class="amount-reaction-type">{{emoji.amount}}</div>
           </div>
         </ng-container>
-
-
       </div>
+
     </div>
     <!-- showReactionChoice" -->
-    <app-message-reaction [messageData]="messageData" [clickedContact]="clickedContact" *ngIf="showReactionChoice"
+    <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel" *ngIf="showReactionChoice"
       [withEditMessageOption]="checkIfOwnMessage()" (editMode)="receiveValueFromChild($event)"
       [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
