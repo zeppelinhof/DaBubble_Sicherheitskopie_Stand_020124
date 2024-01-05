@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ChannelService } from 'src/app/shared/services/channel.service';
+import { ThreadService } from 'src/app/shared/services/thread.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
@@ -7,7 +9,9 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   styleUrls: ['./side-right.component.scss'],
 })
 export class SideRightComponent {
-  constructor(public ws: WorkspaceService) {
+  constructor(public ws: WorkspaceService, 
+    public ts: ThreadService,
+    public cs: ChannelService) {
     setInterval(() => {
       // console.log("neu",this.ws.threadContainerIsVisible);
     }, 500);

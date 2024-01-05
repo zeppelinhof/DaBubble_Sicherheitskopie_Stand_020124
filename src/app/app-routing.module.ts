@@ -42,7 +42,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'channel', pathMatch: 'full' },
       { path: 'channel', component: ChannelComponent },
       { path: 'message', component: MessageComponent },
-      { path: 'new-message', component: NewMessageComponent },
+      { path: 'new-message', component: NewMessageComponent }
     ],
   },
 ];
@@ -51,4 +51,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

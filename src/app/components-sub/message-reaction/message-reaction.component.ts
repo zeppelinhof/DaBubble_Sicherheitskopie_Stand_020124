@@ -5,6 +5,7 @@ import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 
 @Component({
   selector: 'app-message-reaction',
@@ -21,6 +22,7 @@ export class MessageReactionComponent {
   
   @Input() messageData: Message = new Message();
   @Input() data: Message = new Message();
+  @Input() threadMessageData!: ThreadInterface;
   @Input() clickedContact!: User;
   @Input() clickedChannel!: Channel;
   @Input() messageType!: string;

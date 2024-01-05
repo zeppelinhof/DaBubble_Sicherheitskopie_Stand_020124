@@ -6,28 +6,39 @@
   <div class="info-and-message-box" [ngStyle]="{'width': getEditMode ? '100%' : 'auto'}"
     (mouseover)="reactionChoice(true)" (mouseleave)="reactionChoice(false)">
     <div class="thread-info-container" [ngClass]="{'row-reverse': checkIfOwnMessage()}">
+
       <div *ngIf="messageType=='channelMessage'" class="thread-user-name">
         {{us.getUserName(this.data.userCustomId )}}
       </div>
+
       <div *ngIf="messageType=='directMessage'" class="thread-user-name">
         {{us.getUserName(this.messageData.userCustomId)}}
       </div>
-      <div class="thread-message-time">{{this.data.createdTime['time'] || this.messageData.createdTime['time']}}</div>
+
+      <div *ngIf="messageType=='threadMessage'" class="thread-user-name">
+        {{us.getUserName(this.threadMessageData.userCustomId)}}
+      </div>
+      <div class="thread-message-time">{{this.data.createdTime['time'] || this.messageData.createdTime['time'] ||
+        this.threadMessageData.createdTime['time']}}</div>
     </div>
 
-    
+
 
     <div *ngIf="this.data.file">
       <img class="image-of-storage" [src]="this.data.file">
     </div>
 
     <div class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
-      <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}</div>
+      <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message || this.threadMessageData.answer}}
+      </div>
       <div *ngIf="getEditMode && messageType=='channelMessage'"><input class="inputfield" type="text"
           [(ngModel)]="this.data.message">
       </div>
       <div *ngIf="getEditMode && messageType=='directMessage'"><input class="inputfield" type="text"
           [(ngModel)]="this.messageData.message">
+      </div>
+      <div *ngIf="getEditMode && messageType=='threadMessage'"><input class="inputfield" type="text"
+          [(ngModel)]="this.threadMessageData.answer">
       </div>
       <div *ngIf="getEditMode" class="panel-wrap">
         <div class="hover-area">
@@ -50,17 +61,31 @@
 
       <div class="message-reactions-wrap">
         <ng-container *ngFor="let emoji of (messageType === 'directMessage' ? messageData.emojis : data.emojis) || []">
-          <div class="reaction-type-wrap" *ngIf="emoji.amount > 0" (click)="ws.addReaction(emoji.path, this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
+          <div class="reaction-type-wrap" *ngIf="emoji.amount > 0"
+            (click)="ws.addReaction(emoji.path, this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data)">
             <div class="img-wrap"><img [src]="emoji.path"></div>
             <div class="amount-reaction-type">{{emoji.amount}}</div>
           </div>
         </ng-container>
       </div>
 
+      <div *ngIf="hasAnswers()" class="link-to-answers" (click)="this.ts.clickedMessage = this.data; this.ts.threadVisible = true;">
+        <div class="answer-amount-wrap">
+          <div class="amount">2</div>
+          <div>Antworten</div>
+        </div>
+        <div class="last-answer-time">
+          <div>Letzte Antwort</div>
+          <div class="time">12:00</div>
+        </div>
+      </div>
+
     </div>
     <!-- showReactionChoice" -->
-    <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel" *ngIf="showReactionChoice"
-      [withEditMessageOption]="checkIfOwnMessage()" (editMode)="receiveValueFromChild($event)" (newThread)="createThread()"
+    <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data"
+      [threadMessageData]="threadMessageData" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel"
+      *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
+      (editMode)="receiveValueFromChild($event)" (newThread)="createThread()"
       [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
 </div>

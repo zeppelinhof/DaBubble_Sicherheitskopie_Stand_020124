@@ -17,6 +17,7 @@ import { UserService } from './user.service';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
+import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -243,7 +244,7 @@ export class ChannelService {
   }
 
   // Ausgabe, ob das Datum einer neu erstellte Message höher ist als das der letzten Nachricht
-  checkIfNewDay(chatsofUser: Message[] | undefined, index: number): boolean {
+  checkIfNewDay(chatsofUser: Message[] | ThreadInterface[] | undefined, index: number): boolean {
     // erster Eintrag immer mit Datum
     if (index == 0) {
       return true
@@ -252,7 +253,7 @@ export class ChannelService {
     if (chatsofUser !== undefined && index > 0 && chatsofUser![index - 1]) {
       // prüfe, ob Tag von vorherigem chat kleiner || (Tag von vorherigem chat größer && Nr. Date.now() von gestern kleiner)
       if (chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
-        chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser![index - 1]['messageId'] < chatsofUser![index]['messageId']) {
+        chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser[index - 1]['messageId'] < chatsofUser![index]['messageId']) {
         return true;
       }
       return false;

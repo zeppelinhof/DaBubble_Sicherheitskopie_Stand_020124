@@ -58,7 +58,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     EmojiPickerComponent,
     MessagesChannelComponent,
     MessageOfUserComponent,
-    MessageReactionComponent,
+    MessageReactionComponent
 
     // PickerComponent,
   ],

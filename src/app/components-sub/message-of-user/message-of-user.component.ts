@@ -7,6 +7,7 @@ import { StorageService } from 'src/app/shared/services/storage.service';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 
 @Component({
   selector: 'app-message-of-user',
@@ -14,8 +15,10 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   styleUrls: ['./message-of-user.component.scss']
 })
 export class MessageOfUserComponent {
-  @Input() messageData: Message = new Message();
-  @Input() data: Message = new Message();
+  @Input() messageData: Message = new Message();      // für Direktnachrichten
+  @Input() data: Message = new Message();             // für Channelnachrichten
+  @Input() threadMessageData!: ThreadInterface;       // für Threadnachrichten
+
   @Input() messageType: string = 'channel';
   getEditMode: boolean = false;
   showReactionChoice: boolean = false;
@@ -24,17 +27,17 @@ export class MessageOfUserComponent {
   clickedChannel!: Channel;
   unsubAllUsers: any;
 
-  constructor(public us: UserService, 
-    private cs: ChannelService, 
-    public ws: WorkspaceService, 
-    public storService:StorageService,
-    private ts: ThreadService) { }
+  constructor(public us: UserService,
+    private cs: ChannelService,
+    public ws: WorkspaceService,
+    public storService: StorageService,
+    public ts: ThreadService) { }
 
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();
     this.getCurrentUser();
     this.getCurrentChannel();
-    this.savePreviousMessage();    
+    this.savePreviousMessage();
   }
 
   savePreviousMessage() {
@@ -50,13 +53,14 @@ export class MessageOfUserComponent {
     this.getEditMode = value;
   }
 
-  createThread(){
-    if (this.messageType == 'directMessage') {
-      this.ts.clickedMessage = this.messageData;
-      this.ts.setTopicMessage('directMessage', this.clickedContact, this.clickedChannel);
-      
-      console.log('Die Message', this.messageData);      
-    }
+  createThread() {
+    this.ts.clickedMessage = this.data;
+    this.ts.clickedChannel = this.clickedChannel;
+    this.ts.setTopicMessage();
+  }
+
+  hasAnswers(){
+    return this.data.threads.length > 0
   }
 
   getCurrentUser() {
@@ -64,7 +68,7 @@ export class MessageOfUserComponent {
       this.clickedContact = user;
     });
   }
-  
+
   // fills allMembers array with all users in the current channel
   getCurrentChannel() {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
@@ -75,12 +79,12 @@ export class MessageOfUserComponent {
   // Die editierte Direkt-Nachricht oder Channel-Nachricht speichern
   saveEditedMessage() {
     // Handle Direct Message
-    if (this.messageType === 'directMessage') {    
+    if (this.messageType === 'directMessage') {
       // Nachricht bei Empfänger hinterlegen
       this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
       // Nachricht bei Sender hinterlegen
       this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
-    } 
+    }
     // Handle Channel Message
     else if (this.messageType === 'channelMessage') {
       this.cs.updateChannel({ allMessages: this.getAllMessagesOfChannel(this.clickedChannel) }, this.clickedChannel);

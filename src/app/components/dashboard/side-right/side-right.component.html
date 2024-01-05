@@ -3,7 +3,8 @@
   <div class="inner-padding-of-thread">
     <div class="thread-header-container">
       <div class="thread-header-title">Thread</div>
-      <div class="thread-name"># Entwicklerteam</div>
+      <!-- {{ts.clickedChannel.name || '?'}} -->
+      <div class="thread-name">#</div>
     </div>
     <div (click)="this.ws.threadContainerIsVisible = !this.ws.threadContainerIsVisible" class="close-icon-container">
       <img class="close-icon-normal" src="assets/icons/close.png" />
@@ -11,8 +12,18 @@
     </div>
   </div>
 
-  <!-- eventuell thread-user-message component erstellen  -->
-  <app-message-of-user></app-message-of-user>
+  <div *ngIf="ts.threadVisible" class="messages-channel-container" #scroll>
+    <div *ngFor="let thread of ts.clickedMessage.threads; let i = index">
+      <div *ngIf="this.cs.checkIfNewDay(ts.clickedMessage.threads, i)" class="new-day-date">
+        <div class="dateSeparatorAreaLeft"><div class="dateSeparator"></div></div>
+        <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay'] }}</div>
+        <div class="dateSeparatorAreaRight"><div class="dateSeparator"></div></div>
+      </div>
+      
+      <app-message-of-user [threadMessageData]="thread" [messageType]="'threadMessage'"></app-message-of-user>
+    </div>
+  </div>
+
 
   <app-input-field-thread></app-input-field-thread>
 </div>

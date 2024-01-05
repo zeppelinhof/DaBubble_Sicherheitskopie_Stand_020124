@@ -32,7 +32,7 @@
         </div>
       </div>
   
-      <div class="send-btn-container">
+      <div class="send-btn-container" (click)="sendThreadMessage()">
         <img
           *ngIf="!this.service.isWritingThread"
           class="send-btn-false"

@@ -1,8 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
-import { Thread } from 'src/app/models/thread';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
+import { ThreadService } from 'src/app/shared/services/thread.service';
 
 @Component({
   selector: 'app-input-field-thread',
@@ -17,22 +17,26 @@ export class InputFieldThreadComponent {
   input: string = '';
   showUserList: boolean = false;
   allMembers: any = [];
-  clickedChannel!: Channel;
-  constructor(public service: InputService, public cs: ChannelService, private _eref: ElementRef) {}
+  constructor(public service: InputService, public cs: ChannelService, private _eref: ElementRef, private ts: ThreadService) {}
 
 
   ngOnInit(): void {
     this.getCurrentChannel();
   }
   
-  
+  sendThreadMessage() {
+    if (this.input !== '') {
+      this.ts.addThreadAnswer(this.input);
+      this.input = '';
+    }
+  }
 
   // fills allMembers array with all users in the current channel
   getCurrentChannel() {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
-      this.clickedChannel = ch;
+      this.ts.clickedChannel = ch;
       this.allMembers = [];
-      this.allMembers.push(this.clickedChannel.members);
+      this.allMembers.push(this.ts.clickedChannel.members);
       console.log(this.allMembers);
       
     });

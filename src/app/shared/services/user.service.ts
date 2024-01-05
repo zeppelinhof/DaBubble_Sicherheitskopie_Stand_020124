@@ -13,7 +13,6 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
 import { reload } from '@angular/fire/auth';
-import { Thread } from 'src/app/models/thread';
 
 @Injectable({
   providedIn: 'root',
@@ -141,29 +140,9 @@ export class UserService {
       message: message.message || '',
       createdTime: message.createdTime || '',
       emojis: message.emojis || {},
-      threads: this.getCleanThreadsArrayJson(message.threads) || []
+      threads: message.threads || [],
+      file: message.file
     };
-  }
-
-  getCleanThreadsArrayJson(threads: Thread[]): {} {
-    const threadsArray = [];
-    for (let index = 0; index < threads.length; index++) {
-      const thread = threads[index];
-      const threadAsJson = this.getCleanThreadJson(thread);
-      threadsArray.push(threadAsJson);
-    }
-
-    return threadsArray;
-  }
-
-  getCleanThreadJson(thread: Thread): {} {
-    return {
-      userCustomId: thread.userCustomId || 0,
-      answer: thread.answer || '',
-      emojis: thread.emojis || {},
-      createdTime: thread.createdTime || ''
-    };
-
   }
 
 
