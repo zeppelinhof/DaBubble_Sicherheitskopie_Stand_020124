@@ -47,7 +47,7 @@ export class StorageService {
        
         let url_to_string= url.toString();
         this.channelCurrentUrl = url_to_string;
-        console.log(this.channelCurrentUrl);
+        console.log("current url",this.channelCurrentUrl);
         
         
       }
