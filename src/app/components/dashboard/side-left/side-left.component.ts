@@ -68,10 +68,12 @@ export class SideLeftComponent {
     // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
     // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
     // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
-    const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
+    if (this.cs.myChannels) {
+      const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
       channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
     );
     return onlyMyChannels;
+    }
   }
 
   clickDownArrowChannels() {

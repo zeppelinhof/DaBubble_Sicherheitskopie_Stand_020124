@@ -69,7 +69,7 @@
         </ng-container>
       </div>
 
-      <div *ngIf="hasAnswers()" class="link-to-answers" (click)="this.ts.clickedMessage = this.data; this.ts.threadVisible = true;">
+      <div *ngIf="hasAnswers()" class="link-to-answers" (click)="showThreads()">
         <div class="answer-amount-wrap">
           <div class="amount">2</div>
           <div>Antworten</div>

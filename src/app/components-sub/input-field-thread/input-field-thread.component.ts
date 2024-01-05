@@ -36,9 +36,7 @@ export class InputFieldThreadComponent {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
       this.ts.clickedChannel = ch;
       this.allMembers = [];
-      this.allMembers.push(this.ts.clickedChannel.members);
-      console.log(this.allMembers);
-      
+      this.allMembers.push(this.ts.clickedChannel.members);     
     });
   }
   addEmoji($event: any) {

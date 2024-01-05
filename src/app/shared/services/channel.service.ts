@@ -18,7 +18,6 @@ import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -28,15 +27,21 @@ export class ChannelService {
   allUsersCol = collection(this.firestore, 'users');
   allMessagesChannel: any = [];
   myChannels: any = {};
+  myThreads: any = {};
+  threadsOfMessage = new BehaviorSubject<ThreadInterface[]>([]);
+
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
+  clickedMessage!: Message;
   clickedUser = new BehaviorSubject<User>(new User());
   newChannel!: Channel;
   loadingUpdateData = false;
   unsubChannels;
+  unsubThreads;
 
   constructor(private us: UserService) {
     this.unsubChannels = this.subChannelList();
+    this.unsubThreads = this.subThreadList();
   }
 
   // Collection Channels beobachten
@@ -50,7 +55,6 @@ export class ChannelService {
         // ... Array myChannels füllen
         this.myChannels.push(this.setChannelObject(element.data(), element.id));
         this.setCurrentChannel(this.clickedChannelId.value);
-        // ausführen:
       });
     });
   }
@@ -68,6 +72,40 @@ export class ChannelService {
       }
     }
   }
+
+  // Collection Channels beobachten
+  async subThreadList() {
+    const qu = query(collection(this.firestore, 'channels'));
+    onSnapshot(qu, (querySnapshot) => {
+      // bei jeder Änderung in der Collection folgendes tun:
+      querySnapshot.forEach((element) => {
+        // ... Threads speichern, die in ausgewählter Message enthalten sind
+        this.myThreads = undefined;
+        let allMessages = this.setChannelObject(element.data(), element.id).allMessages;
+        allMessages.forEach((message) => {
+          if (this.clickedMessage && (message.messageId === this.clickedMessage.messageId)) {
+            this.myThreads = message;
+            this.setCurrentThreads();
+            return;
+          }
+        });
+
+      });
+    });
+  }
+
+  setCurrentThreads() {
+    const messageList: any[] = [];
+    if (this.myThreads) {
+      for (let index = 0; index < this.myThreads['threads'].length; index++) {
+        const thread = this.myThreads['threads'][index];
+        messageList.push(thread)
+      }
+      this.threadsOfMessage.next(messageList);
+    }
+  }
+
+  
 
   setChannelView(id: string) {
     this.clickedChannelId.next(id);
@@ -252,9 +290,14 @@ export class ChannelService {
 
     if (chatsofUser !== undefined && index > 0 && chatsofUser![index - 1]) {
       // prüfe, ob Tag von vorherigem chat kleiner || (Tag von vorherigem chat größer && Nr. Date.now() von gestern kleiner)
-      if (chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
+      try {
+        if (chatsofUser![index - 1] && chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
         chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser[index - 1]['messageId'] < chatsofUser![index]['messageId']) {
         return true;
+      }
+      } catch (error) {
+        console.log(error, 'und', chatsofUser![index - 1]);
+        
       }
       return false;
     }

@@ -13,10 +13,10 @@
   </div>
 
   <div *ngIf="ts.threadVisible" class="messages-channel-container" #scroll>
-    <div *ngFor="let thread of ts.clickedMessage.threads; let i = index">
-      <div *ngIf="this.cs.checkIfNewDay(ts.clickedMessage.threads, i)" class="new-day-date">
+    <div *ngFor="let thread of threadsOfMessage; let i = index">
+      <div *ngIf="this.cs.checkIfNewDay(cs.clickedMessage.threads, i)" class="new-day-date">
         <div class="dateSeparatorAreaLeft"><div class="dateSeparator"></div></div>
-        <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay'] }}</div>
+        <!-- <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay'] }}</div> -->
         <div class="dateSeparatorAreaRight"><div class="dateSeparator"></div></div>
       </div>
       

@@ -28,7 +28,7 @@ export class MessageOfUserComponent {
   unsubAllUsers: any;
 
   constructor(public us: UserService,
-    private cs: ChannelService,
+    public cs: ChannelService,
     public ws: WorkspaceService,
     public storService: StorageService,
     public ts: ThreadService) { }
@@ -54,14 +54,24 @@ export class MessageOfUserComponent {
   }
 
   createThread() {
-    this.ts.clickedMessage = this.data;
+    this.cs.clickedMessage = this.data;
     this.ts.clickedChannel = this.clickedChannel;
     this.ts.setTopicMessage();
   }
 
-  hasAnswers(){
-    return this.data.threads.length > 0
+  hasAnswers() {
+    if (this.data.threads) {
+      return this.data.threads.length > 0
+    }
+    return false;
   }
+
+  showThreads() {
+    this.cs.clickedMessage = this.data;
+    this.cs.subThreadList();
+    this.ts.threadVisible = true;
+  }
+
 
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
