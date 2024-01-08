@@ -48,7 +48,7 @@ export class ThreadService {
   }
 
   addThreadAnswer(input: string) {
-    let threadAnswer =
+    let threadAnswer: ThreadInterface =
     {
       userCustomId: this.us.userLoggedIn().customId,
       messageId: Date.now(),

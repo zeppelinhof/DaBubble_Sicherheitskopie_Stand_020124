@@ -80,8 +80,10 @@ export class InputFieldMessageComponent {
             new Date().getDate(),
             this.cs.todaysDate(),
             this.cs.getTime(),
-          )
-        )
+          ),
+        ),
+        [{path: '', amount: 0, setByUser: ''}],
+        [{userCustomId: '', messageId: 0, answer: '', emojis: [{ path: '', amount: 0, setByUser: '' }], createdTime: 0}]
       )
     );
   }
