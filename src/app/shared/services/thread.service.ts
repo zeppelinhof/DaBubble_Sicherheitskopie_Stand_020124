@@ -20,13 +20,30 @@ export class ThreadService {
   setTopicMessage() {
     let topicThread: ThreadInterface =
     {
-      userCustomId: this.us.userLoggedIn().customId,
+      userCustomId: this.cs.clickedMessage.userCustomId,
       messageId: this.cs.clickedMessage.messageId,
       answer: this.cs.clickedMessage.message,
       emojis: this.cs.clickedMessage.emojis,
       createdTime: this.cs.clickedMessage.createdTime
     }
     this.addThreadmessage(topicThread, this.clickedChannel, this.cs.clickedMessage);
+    this.threadVisible = true;
+  }
+
+  createOrShowThread(data: Message) {
+    debugger
+    this.cs.clickedMessage = data;
+    this.clickedChannel = this.clickedChannel;
+    // Topic Message nur dann, wenn noch keine vorhanden
+    if (data.threads.length === 0) {
+      debugger
+      this.setTopicMessage();
+    }    
+  }
+
+  showThreads(data: Message) {
+    this.cs.clickedMessage = data;
+    this.cs.subThreadList();
     this.threadVisible = true;
   }
 

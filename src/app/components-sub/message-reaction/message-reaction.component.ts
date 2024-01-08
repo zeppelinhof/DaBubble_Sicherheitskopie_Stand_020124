@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
+import { ThreadService } from 'src/app/shared/services/thread.service';
 
 @Component({
   selector: 'app-message-reaction',
@@ -28,7 +29,7 @@ export class MessageReactionComponent {
   @Input() messageType!: string;
   moreReactions: boolean = false;
 
-  constructor(public ws: WorkspaceService, public us: UserService) { }
+  constructor(public ws: WorkspaceService, public us: UserService, public ts: ThreadService) { }
 
   editMessageButton() {
     this.showEditMessageButton = !this.showEditMessageButton;
@@ -48,13 +49,17 @@ export class MessageReactionComponent {
   }
 
   threadToSend(){
+    this.ts.showThreads(this.data)
+    this.ts.createOrShowThread(this.data);
     this.newThread.emit(true);
   }
 
-  
-
   showMoreReactions() {
     this.moreReactions = !this.moreReactions;
+  }
+
+  hasThreadOption(): boolean{
+    return this.messageType == 'channelMessage';
   }
 
 }

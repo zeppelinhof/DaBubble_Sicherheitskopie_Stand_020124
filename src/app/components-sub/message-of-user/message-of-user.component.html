@@ -29,7 +29,9 @@
     </div>
 
     <div class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
-      <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message || this.threadMessageData.answer}}
+      <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}
+      </div>
+      <div *ngIf="!getEditMode && messageType=='threadMessage'">{{ this.threadMessageData.answer}}
       </div>
       <div *ngIf="getEditMode && messageType=='channelMessage'"><input class="inputfield" type="text"
           [(ngModel)]="this.data.message">
@@ -69,14 +71,15 @@
         </ng-container>
       </div>
 
-      <div *ngIf="hasAnswers()" class="link-to-answers" (click)="showThreads()">
+      <div *ngIf="hasAnswers()" class="link-to-answers" [ngClass]="{'left-0': !checkIfOwnMessage()}" (click)="ts.showThreads(this.data)">
         <div class="answer-amount-wrap">
-          <div class="amount">2</div>
-          <div>Antworten</div>
+          <div class="amount">{{data.threads.length - 1}}</div>
+          <div *ngIf="data.threads.length == 2">Antwort</div>
+          <div *ngIf="data.threads.length > 2">Antworten</div>
         </div>
         <div class="last-answer-time">
-          <div>Letzte Antwort</div>
-          <div class="time">12:00</div>
+          <div>Letzte Antwort: </div>
+          <div class="time">{{data.threads[data.threads.length - 1].createdTime['fullDay']}}</div>
         </div>
       </div>
 
@@ -85,7 +88,7 @@
     <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data"
       [threadMessageData]="threadMessageData" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel"
       *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
-      (editMode)="receiveValueFromChild($event)" (newThread)="createThread()"
+      (editMode)="receiveValueFromChild($event)" (newThread)="ts.createOrShowThread(this.data)"
       [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
   </div>
 </div>

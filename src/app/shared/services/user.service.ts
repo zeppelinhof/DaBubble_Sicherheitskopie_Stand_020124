@@ -143,7 +143,7 @@ export class UserService {
       createdTime: message.createdTime || '',
       emojis: message.emojis || {},
       threads: message.threads || [],
-      file: message.file
+      file: message.file || ''
     };
   }
 
@@ -178,6 +178,7 @@ export class UserService {
   }
 
   getUserName(userCustomId: string) {
+    // this.subAllUsersListFindUserName();
     let user = this.allUsersForUserName.find(
       (user) => user.customId === userCustomId
     );
