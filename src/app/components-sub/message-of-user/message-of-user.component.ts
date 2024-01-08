@@ -8,6 +8,7 @@ import { ThreadService } from 'src/app/shared/services/thread.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
+import { InputService } from 'src/app/shared/services/input.service';
 
 @Component({
   selector: 'app-message-of-user',
@@ -31,7 +32,8 @@ export class MessageOfUserComponent {
     public cs: ChannelService,
     public ws: WorkspaceService,
     public storService: StorageService,
-    public ts: ThreadService) { }
+    public ts: ThreadService,
+    public is: InputService) { }
 
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();

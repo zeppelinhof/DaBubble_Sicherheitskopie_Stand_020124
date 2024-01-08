@@ -66,7 +66,7 @@ export class InputFieldChannelComponent {
   }
 
   sendMessage(): void {
-    if (this.input !== '') {
+    if (this.input !== '' || this.selectedFile) {
       let newMessage: Message = {
         userCustomId: this.us.userLoggedIn().customId,
         messageId: Date.now(),
@@ -81,7 +81,7 @@ export class InputFieldChannelComponent {
       console.log("das ist newMessage: ", newMessage);
 
     }
-
+    
     this.addMemberToChannel(this.cs.clickedChannel.value);
     this.clearAll();
   }
@@ -108,6 +108,7 @@ export class InputFieldChannelComponent {
     this.btnNotVisible();
     this.clearInput();
     this.clearUrl();
+    this.service.inputFilled = false;
 
   }
   clearFileInput() {
@@ -120,6 +121,16 @@ export class InputFieldChannelComponent {
     this.storService.channelCurrentUrl = "";
   }
 
+  inputIsFilled() {
+    if (this.input !== "") {
+      this.service.inputFilled = true;
+    } else {
+      this.service.inputFilled = false;
+    }
+    console.log(this.service.inputFilled);
+    
+  }
+  
   ngOnInit(): void {
     this.getCurrentChannel();
   }

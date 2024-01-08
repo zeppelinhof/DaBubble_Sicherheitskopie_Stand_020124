@@ -8,6 +8,8 @@ export class InputService {
   isWritingThread: boolean = false;
   isWritingMessage: boolean = false;
 
+  inputFilled: boolean = false;
+
   constructor() {}
 
   onInputChannel(event: any): void {
