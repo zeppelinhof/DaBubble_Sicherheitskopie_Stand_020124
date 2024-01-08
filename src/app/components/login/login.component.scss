@@ -66,3 +66,25 @@ main {
     }
   }
 }
+
+//ANIMATION
+
+.animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  background-color: $purple;
+  z-index: 5;
+  display: none;
+}
+
+.letters {
+  font-size: 48px;
+  font-weight: bold;
+}
