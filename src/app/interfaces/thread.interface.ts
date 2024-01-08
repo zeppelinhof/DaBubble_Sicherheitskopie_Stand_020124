@@ -9,5 +9,6 @@ export interface ThreadInterface {
         amount: number,
         setByUser: string
     }[],
-    createdTime: MessageTime | any
+    createdTime: MessageTime | any,
+    file?: any;
 }
