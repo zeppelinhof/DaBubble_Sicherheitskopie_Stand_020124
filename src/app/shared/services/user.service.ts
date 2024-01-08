@@ -32,6 +32,8 @@ export class UserService {
 
   constructor() {
     this.unsubUsers = this.subUserList();
+    this.subAllUsersListFindUserName();
+    
   }
 
   userLoggedIn(): User {
