@@ -53,23 +53,11 @@ export class MessageOfUserComponent {
     this.getEditMode = value;
   }
 
-  createThread() {
-    this.cs.clickedMessage = this.data;
-    this.ts.clickedChannel = this.clickedChannel;
-    this.ts.setTopicMessage();
-  }
-
   hasAnswers() {
     if (this.data.threads) {
-      return this.data.threads.length > 0
+      return this.data.threads.length > 0;
     }
     return false;
-  }
-
-  showThreads() {
-    this.cs.clickedMessage = this.data;
-    this.cs.subThreadList();
-    this.ts.threadVisible = true;
   }
 
 

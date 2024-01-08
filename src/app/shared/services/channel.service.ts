@@ -80,7 +80,7 @@ export class ChannelService {
       // bei jeder Änderung in der Collection folgendes tun:
       querySnapshot.forEach((element) => {
         // ... Threads speichern, die in ausgewählter Message enthalten sind
-        this.myThreads = undefined;
+        this.myThreads = {};
         let allMessages = this.setChannelObject(element.data(), element.id).allMessages;
         allMessages.forEach((message) => {
           if (this.clickedMessage && (message.messageId === this.clickedMessage.messageId)) {
