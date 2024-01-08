@@ -4,7 +4,7 @@
     Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
     verwendest.
   </span>
-  <form ngNativeValidate [formGroup]="loginForm" (ngSubmit)="submit()">
+  <form ngNativeValidate [formGroup]="loginForm">
     <div class="container-input-field">
       <img src="assets/icons/mail.png" alt="icon of mail" />
       <input
@@ -62,6 +62,7 @@
 
     <div class="register-container">
       <button
+        (click)="submit()"
         type="submit"
         [disabled]="!loginForm.valid"
         [class.btn-form-not-valid]="!loginForm.valid"

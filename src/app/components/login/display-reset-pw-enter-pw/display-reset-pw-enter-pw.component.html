@@ -11,33 +11,74 @@
       *ngIf="arrowBackIsHovered"
       (mouseover)="arrowBackIsHovered = true"
       (mouseout)="arrowBackIsHovered = false"
-      routerLink="/reset-pw-enter-email"
+      routerLink="../reset-pw-enter-email"
       src="assets/icons/arrow_back_purple.png"
       alt="icon of purple arrow"
     />
     <span>Passwort zurücksetzen</span>
   </div>
-  <form action="">
+
+  <form
+    ngNativeValidate
+    [formGroup]="newPasswortForm"
+    *ngIf="!linkIsExpired"
+    action=""
+  >
     <div class="container-input-field">
       <img src="assets/icons/lock.png" alt="icon of lock" />
       <input
+        required
+        formControlName="passwordFirstInput"
         class="input-layout"
         type="password"
         placeholder="Neues Passwort"
       />
+      <span
+        *ngIf="newPasswortForm.get('passwordFirstInput')?.hasError('minlength')"
+        class="error"
+        >Das Passwort sollte mind. 8 Zeichen enthalten</span
+      >
+      <span
+        class="error"
+        *ngIf="
+          !newPasswortForm.get('passwordFirstInput')?.hasError('minlength') &&
+          newPasswortForm.get('passwordFirstInput')?.hasError('pattern')
+        "
+        >Das Passwort sollte ein Sonderzeichen & eine Zahl enthalten (?, !, @,
+        $, +, /, &, ^,...)
+      </span>
     </div>
     <div class="container-input-field">
       <img src="assets/icons/lock.png" alt="icon of lock" />
       <input
+        required
+        formControlName="passwordSecondInput"
         class="input-layout"
         type="password"
         placeholder="Neues Passwort bestätigen"
       />
-      <span class="error">Ihre Kennwörter stimmen nicht überein.</span>
+      <span
+        *ngIf="
+          newPasswortForm.get('passwordSecondInput')?.value.length > 0 &&
+          !passwordsMatch()
+        "
+        class="error"
+        >Ihre Kennwörter stimmen nicht überein.</span
+      >
+    </div>
+    <div class="change-password">
+      <button
+        (click)="changePasswort()"
+        class="button-layout"
+        [class.btn-login-valid]="newPasswortForm.valid && this.passwordsMatch()"
+      >
+        E-Mail senden
+      </button>
     </div>
   </form>
 
-  <div class="change-password">
-    <a routerLink="/reset-pw-enter-pw" class="button-layout">E-Mail senden</a>
-  </div>
+  <span *ngIf="linkIsExpired" class="link-has-expired"
+    >Der Link zum Zurücksetzen des Passwortes ist leider abgelaufen.<br />
+    Bitte fordere einen neuen an.
+  </span>
 </section>

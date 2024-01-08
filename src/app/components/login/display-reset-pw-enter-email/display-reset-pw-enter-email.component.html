@@ -18,7 +18,7 @@
     <span>Passwort zurücksetzen</span>
   </div>
   <span class="description">Bitte geben Sie Ihre E-Mail-Adresse ein. </span>
-  <form [formGroup]="forgotPwEnterEmail">
+  <form [formGroup]="forgotPwEnterEmailForm">
     <div class="container-input-field">
       <img src="assets/icons/mail.png" alt="icon of mail" />
       <input
@@ -29,7 +29,7 @@
       />
       <span
         *ngIf="
-          forgotPwEnterEmail.get('email')?.value.length > 0 &&
+          forgotPwEnterEmailForm.get('email')?.value.length > 0 &&
           !this.checkUserIsExisting()
         "
         class="error"
@@ -45,11 +45,10 @@
 
     <div class="send-me-email-container">
       <button
-        (click)="
-          forgotPwEnterEmail.valid &&
-            auth.sendEmailToResetPw(forgotPwEnterEmail.get('email').value)
+        (click)="forgotPwEnterEmailForm.valid && saveResetAndSendEmail()"
+        [class.btn-login-valid]="
+          forgotPwEnterEmailForm.valid && this.checkUserIsExisting()
         "
-        [class.btn-login-valid]="forgotPwEnterEmail.valid"
         class="button-layout"
       >
         E-Mail senden

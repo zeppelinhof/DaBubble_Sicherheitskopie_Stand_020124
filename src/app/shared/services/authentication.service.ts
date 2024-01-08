@@ -12,6 +12,7 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 
+import { confirmPasswordReset } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from 'src/app/models/user';
 import { Injectable } from '@angular/core';
@@ -79,7 +80,7 @@ export class AuthenticationService {
    * @param {string} password - The password of the user.
    * @param {string | null} name - The name of the new signed user (can be a string or null).
    */
-  login(email: string, password: string) {
+  login(email: string, password: string, updateUser?: 'updateUser') {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -111,6 +112,7 @@ export class AuthenticationService {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('logged User ', user.email, 'id', user.uid);
+        console.log('test', auth.currentUser);
         this.loggedUser.customId = user.uid;
         this.userService.loggedInUser = this.loggedUser;
         this.setPathWhenLogged();
@@ -150,8 +152,11 @@ export class AuthenticationService {
       .catch((error) => {});
   }
 
+  /**
+   * Sends a password reset email to the specified email address.
+   * @param {string} email - The email address to send the password reset email to.
+   */
   sendEmailToResetPw(email: string) {
-    console.log('Email gesendet');
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
       .then(() => {})
@@ -161,26 +166,21 @@ export class AuthenticationService {
       });
   }
 
-  /*
-
-  sendMail(event: any) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-
-    fetch('https://formspree.io/f/mzbnbzek', {
-      method: 'POST',
-      body: new FormData(event.target),
-      headers: {
-        Accept: 'application/json',
-      },
-    })
-      .then(() => {
-        window.location.href = './send_mail.html';
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async changePwWhenUserIsNotLogged(oobCode: string, newPassword: string) {
+    const auth = getAuth();
+    await confirmPasswordReset(auth, oobCode, newPassword);
+    this.router.navigate(['/login']);
   }
 
-    */
+  /*
+  updateProfile(auth.currentUser, {
+    displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+  }).then(() => {
+    // Profile updated!
+    // ...
+  }).catch((error) => {
+    // An error occurred
+    // ...
+  });
+  */
 }

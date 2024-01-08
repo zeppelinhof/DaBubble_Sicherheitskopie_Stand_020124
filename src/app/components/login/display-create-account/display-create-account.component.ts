@@ -21,6 +21,9 @@ export class DisplayCreateAccountComponent {
     password: new FormControl('', [
       Validators.required,
       Validators.minLength(8),
+      Validators.pattern(
+        /^(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])/
+      ),
     ]),
     agreement: new FormControl(false, [Validators.requiredTrue]),
   });
