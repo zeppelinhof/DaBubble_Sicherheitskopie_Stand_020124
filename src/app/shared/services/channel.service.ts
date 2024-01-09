@@ -31,8 +31,9 @@ export class ChannelService {
   threadsOfMessage = new BehaviorSubject<ThreadInterface[]>([]);
 
   clickedChannelId = new BehaviorSubject<string>('');
+  clickedMessageId = new BehaviorSubject<number>(0);
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
-  clickedMessage!: Message;
+  clickedMessage = new BehaviorSubject<Message>(new Message());
   clickedUser = new BehaviorSubject<User>(new User());
   newChannel!: Channel;
   loadingUpdateData = false;
@@ -73,6 +74,22 @@ export class ChannelService {
     }
   }
 
+  setCurrentMessage(messageId: number) {
+    const channelList: Channel[] = this.myChannels;
+    if (this.myChannels) {
+      // für alle Channels in Firebase
+      for (let index = 0; index < channelList.length; index++) {
+        for (let jndex = 0; jndex < channelList[index].allMessages.length; jndex++) {
+          const mId = channelList[index].allMessages[jndex].messageId;
+          if (mId === messageId) {
+            this.clickedMessage.next(channelList[index].allMessages[jndex]);
+          }
+          
+        }
+      }
+    }
+  }
+
   // Collection Channels beobachten
   async subThreadList() {
     const qu = query(collection(this.firestore, 'channels'));
@@ -83,7 +100,7 @@ export class ChannelService {
         this.myThreads = {};
         let allMessages = this.setChannelObject(element.data(), element.id).allMessages;
         allMessages.forEach((message) => {
-          if (this.clickedMessage && (message.messageId === this.clickedMessage.messageId)) {
+          if (message.messageId === this.clickedMessage.value.messageId) {
             this.myThreads = message;
             this.setCurrentThreads();
             return;
@@ -109,6 +126,11 @@ export class ChannelService {
   setChannelView(id: string) {
     this.clickedChannelId.next(id);
     this.setCurrentChannel(this.clickedChannelId.value);
+  }
+
+  setMessageView(messageId: number){
+    this.clickedMessageId.next(messageId);
+    this.setCurrentMessage(messageId);
   }
 
   setChannelObject(obj: any, id: string): Channel {

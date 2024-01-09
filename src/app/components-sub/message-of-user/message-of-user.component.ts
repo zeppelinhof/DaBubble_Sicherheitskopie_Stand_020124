@@ -84,7 +84,7 @@ export class MessageOfUserComponent {
   // Die editierte Direkt-Nachricht oder Channel-Nachricht speichern
   saveEditedMessage() {
     // Handle Direct Message
-    if (this.messageType === 'directMessage') {
+   if (this.messageType === 'directMessage') {
       // Nachricht bei Empfänger hinterlegen
       this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
       // Nachricht bei Sender hinterlegen
@@ -149,6 +149,9 @@ export class MessageOfUserComponent {
   refreshedChats_newMessage(dataMessageId: number, chatMessageId: number, chat: Message, allChats: Message[]) {
     if (chatMessageId === dataMessageId) {
       chat.message = this.data.message; // neu eingegebener Wert für Message
+      if (chat.threads[0]) {
+        chat.threads[0].answer = chat.message; // erster Thread und Ursprungsnachricht sollen gleichen Text haben
+      }
       allChats.push(chat);
       // für alle anderen Nachrichten die alte Nachricht übernehmen
     } else {
@@ -164,7 +167,7 @@ export class MessageOfUserComponent {
     for (let index = 0; index < this.clickedChannel.allMessages!.length; index++) {
       // Nachricht über messageId ermitteln
       const chat = this.clickedChannel.allMessages![index];
-      const dataMessageId = this.cs.clickedMessage.messageId;
+      const dataMessageId = this.cs.clickedMessage.value.messageId;
       const chatMessageId = chat.messageId;
       allChats = this.refreshedChats_newThread(dataMessageId, chatMessageId, chat, allChats);
     }
@@ -175,6 +178,7 @@ export class MessageOfUserComponent {
     if (chatMessageId === dataMessageId) {
       let allThreads: ThreadInterface[] = [];
       chat.threads = this.refreshedThreads(allThreads);
+      chat.message = chat.threads[0].answer; // erster Thread und Ursprungsnachricht sollen gleichen Text haben
       allChats.push(chat);
     } else {
       allChats.push(chat);

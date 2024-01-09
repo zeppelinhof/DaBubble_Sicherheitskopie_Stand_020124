@@ -20,18 +20,18 @@ export class ThreadService {
   setTopicMessage() {
     let topicThread: ThreadInterface =
     {
-      userCustomId: this.cs.clickedMessage.userCustomId,
-      messageId: this.cs.clickedMessage.messageId,
-      answer: this.cs.clickedMessage.message,
-      emojis: this.cs.clickedMessage.emojis,
-      createdTime: this.cs.clickedMessage.createdTime
+      userCustomId: this.cs.clickedMessage.value.userCustomId,
+      messageId: this.cs.clickedMessage.value.messageId,
+      answer: this.cs.clickedMessage.value.message,
+      emojis: this.cs.clickedMessage.value.emojis,
+      createdTime: this.cs.clickedMessage.value.createdTime
     }
-    this.addThreadmessage(topicThread, this.clickedChannel, this.cs.clickedMessage);
+    this.addThreadmessage(topicThread, this.clickedChannel, this.cs.clickedMessage.value);
     this.threadVisible = true;
   }
 
   createOrShowThread(data: Message) {
-    this.cs.clickedMessage = data;
+    this.cs.clickedMessage.next(data);
     this.clickedChannel = this.clickedChannel;
     // Topic Message nur dann, wenn noch keine vorhanden
     if (data.threads.length === 0) {
@@ -40,7 +40,7 @@ export class ThreadService {
   }
 
   showThreads(data: Message) {
-    this.cs.clickedMessage = data;
+    this.cs.clickedMessage.next(data);
     this.cs.subThreadList();
     this.threadVisible = true;
   }
@@ -61,7 +61,7 @@ export class ThreadService {
       )
     }
 
-    this.addThreadmessage(threadAnswer, this.clickedChannel, this.cs.clickedMessage);
+    this.addThreadmessage(threadAnswer, this.clickedChannel, this.cs.clickedMessage.value);
   }
 
   addThreadmessage(thread: ThreadInterface, clickedChannel: Channel, msgDta: Message) {
