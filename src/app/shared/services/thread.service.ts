@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Message } from 'src/app/models/message';
 import { WorkspaceService } from './workspace.service';
 import { UserService } from './user.service';
-import { User } from 'src/app/models/user';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from './channel.service';
 import { MessageTime } from 'src/app/models/message-time';

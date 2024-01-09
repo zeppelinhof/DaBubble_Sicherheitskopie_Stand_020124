@@ -14,17 +14,30 @@
 
   <div *ngIf="ts.threadVisible" class="messages-channel-container" #scroll>
     <div *ngFor="let thread of threadsOfMessage; let i = index">
+      <!-- Datumstrenner für jeden Tag -->
       <div *ngIf="this.cs.checkIfNewDay(threadsOfMessage, i)" class="new-day-date">
         <div class="dateSeparatorAreaLeft">
           <div class="dateSeparator"></div>
         </div>
-        <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay'] }}</div>
+        <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay']
+          }}</div>
         <div class="dateSeparatorAreaRight">
           <div class="dateSeparator"></div>
         </div>
       </div>
 
       <app-message-of-user [threadMessageData]="thread" [messageType]="'threadMessage'"></app-message-of-user>
+
+      <!-- Trenner unter Topic-Message -->
+      <div *ngIf="cs.threadsOfMessage.value.length > 1 && i == 0" class="amount-answers-wrap">
+        <div class="amount-text">
+          {{ cs.threadsOfMessage.value.length - 1 }} {{ cs.threadsOfMessage.value.length - 1 === 1 ? 'Antwort' : 'Antworten' }}
+        </div>
+        <div class="amountSeparatorAreaRight">
+          <div class="dateSeparator"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 

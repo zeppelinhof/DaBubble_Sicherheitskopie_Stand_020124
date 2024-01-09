@@ -1,4 +1,4 @@
-$purple: #535af1;
+@import 'src/styles.scss';
 
 .side-right-container {
   position: relative;
@@ -69,3 +69,31 @@ $purple: #535af1;
     }
   }
 }
+
+.amount-answers-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 40px;
+  gap: 20px;
+}
+
+.amountSeparatorAreaRight {
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  height: 1px;
+  justify-content: flex-start;
+}
+
+.dateSeparator {
+  width: 90%;
+  background-color: $light-grey;
+}
+
+.amount-text {
+  font-size: 18px;
+  font-weight: 400;
+  color: $light-grey;
+}
+
