@@ -38,7 +38,7 @@ section {
 form {
   display: flex;
   flex-direction: column;
-  gap: 35px;
+  gap: 20px;
 }
 
 .container-input-field {
@@ -79,15 +79,26 @@ form {
 .change-password {
   display: flex;
   justify-content: flex-end;
-  a {
+  button {
     background-color: $grey;
     border: 1px solid transparent;
+    cursor: not-allowed;
     color: #fff;
     padding: 12px 25px;
     text-decoration: none;
-    &:hover {
-      background-color: $purple2;
-      border-color: $purple2;
-    }
+  }
+}
+
+.link-has-expired {
+  font-size: 20px;
+}
+
+.btn-login-valid {
+  background-color: $purple3 !important;
+  border-color: $purple3 !important;
+  &:hover {
+    cursor: pointer !important;
+    background-color: $purple2 !important;
+    border-color: $purple2 !important;
   }
 }

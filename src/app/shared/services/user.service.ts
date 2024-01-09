@@ -182,6 +182,6 @@ export class UserService {
     let user = this.allUsersForUserName.find(
       (user) => user.customId === userCustomId
     );
-    return user ? user.name : 'Unknown';
+    return user ? user.name : 'is loading';
   }
 }

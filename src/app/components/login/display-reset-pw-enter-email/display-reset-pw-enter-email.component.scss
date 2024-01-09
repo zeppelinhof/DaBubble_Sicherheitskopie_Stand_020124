@@ -90,9 +90,11 @@ form {
 }
 
 .btn-login-valid {
+  background-color: $purple3 !important;
+  border-color: $purple3 !important;
   &:hover {
     cursor: pointer !important;
-    background-color: $purple3 !important;
-    border-color: $purple3 !important;
+    background-color: $purple2 !important;
+    border-color: $purple2 !important;
   }
 }

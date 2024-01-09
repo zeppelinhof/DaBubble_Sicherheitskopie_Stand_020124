@@ -31,7 +31,6 @@
         type="text"
         placeholder="Name und Nachname"
       />
-
       <span *ngIf="signUpForm.get('name')?.hasError('minlength')" class="error"
         >Der Name sollte mind. 3 Zeichen enthalten</span
       >
@@ -79,6 +78,15 @@
         class="error"
         >Das Passwort sollte mind. 8 Zeichen enthalten</span
       >
+      <span
+        class="error"
+        *ngIf="
+          !signUpForm.get('password')?.hasError('minlength') &&
+          signUpForm.get('password')?.hasError('pattern')
+        "
+        >Das Passwort sollte ein Sonderzeichen & eine Zahl enthalten (?, !, @,
+        $, +, /, &, ^,...)
+      </span>
     </div>
 
     <label class="checkbox-privacy-policy">
