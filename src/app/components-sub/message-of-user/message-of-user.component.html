@@ -28,7 +28,7 @@
       <img class="image-of-storage" [src]="this.data.file">
     </div>
 
-    <div *ngIf="this.data.message" class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
+    <div class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
       <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}
       </div>
       <div *ngIf="!getEditMode && messageType=='threadMessage'">{{ this.threadMessageData.answer}}
