@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { UserService } from './user.service';
 import { Message } from 'src/app/models/message';
 import { ChannelService } from './channel.service';
+import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -53,10 +54,12 @@ export class WorkspaceService {
     }
   }
 
-  addReaction(emojiPath: string, messageType: string, clickedContact: User, clickedChannel: Channel, messageData: Message, data: Message) {
+  addReaction(emojiPath: string, messageType: string, clickedContact: User, clickedChannel: Channel, messageData: Message, data: Message, threadMessageData: ThreadInterface) {
     // messageData kommt von Direktnachrichten; data von Channel-Nachrichten
     if (messageType == 'directMessage') {
       this.us.updateUser({ chats: this.allChatsWithNewEmoji(clickedContact, messageType, emojiPath, messageData) }, clickedContact);
+    } else if (messageType == 'threadMessage') {
+      this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data) }, clickedChannel);
     } else {
       this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data) }, clickedChannel);
     }
@@ -67,8 +70,9 @@ export class WorkspaceService {
     this.allChatsTemp = [];
 
     const messagesArray = messageType === 'directMessage' ? chatroom.chats : chatroom.allMessages;
-
+debugger
     if (messagesArray) {
+      
       for (let index = 0; index < messagesArray.length; index++) {
         const chat = messagesArray[index];
         const messageDBId = chat.messageId;               // messageId from message in Database
