@@ -89,7 +89,6 @@ export class ChannelService {
             return;
           }
         });
-
       });
     });
   }
@@ -296,7 +295,7 @@ export class ChannelService {
         return true;
       }
       } catch (error) {
-        console.log(error, 'und', chatsofUser![index - 1]);
+        console.log(error);
         
       }
       return false;

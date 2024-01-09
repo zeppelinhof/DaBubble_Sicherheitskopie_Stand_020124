@@ -26,6 +26,7 @@ export class MessageOfUserComponent {
   clickedContact!: User;
   clickedChannel!: Channel;
   unsubAllUsers: any;
+  threadsOfMessage!: ThreadInterface[];
 
   constructor(public us: UserService,
     public cs: ChannelService,
@@ -38,6 +39,11 @@ export class MessageOfUserComponent {
     this.getCurrentUser();
     this.getCurrentChannel();
     this.savePreviousMessage();
+
+    this.cs.threadsOfMessage
+      .subscribe((threads: ThreadInterface[]) => {
+        this.threadsOfMessage = threads;
+      });
   }
 
   savePreviousMessage() {
@@ -54,8 +60,9 @@ export class MessageOfUserComponent {
   }
 
   hasAnswers() {
+    // nur anzeigen wenn außer Thema auch eine Antwort existiert
     if (this.data.threads) {
-      return this.data.threads.length > 0;
+      return this.data.threads.length > 1;
     }
     return false;
   }
@@ -85,7 +92,9 @@ export class MessageOfUserComponent {
     }
     // Handle Channel Message
     else if (this.messageType === 'channelMessage') {
-      this.cs.updateChannel({ allMessages: this.getAllMessagesOfChannel(this.clickedChannel) }, this.clickedChannel);
+      this.cs.updateChannel({ allMessages: this.insertNewMessageIntoMessages(this.clickedChannel) }, this.clickedChannel);
+    } else if (this.messageType === 'threadMessage') {
+      this.cs.updateChannel({ allMessages: this.insertNewThreadIntoMessages() }, this.clickedChannel);
     } else {
       console.log('Speichern nicht erfolgreich');
 
@@ -122,9 +131,9 @@ export class MessageOfUserComponent {
     return allChats;
   }
 
-  getAllMessagesOfChannel(forChannel: Channel) {
-    let allChats = [];
-
+  insertNewMessageIntoMessages(forChannel: Channel): Message[] {
+    let allChats: Message[] = [];
+    //getAllMessagesOfChannel
     for (let index = 0; index < forChannel.allMessages!.length; index++) {
       const chat = forChannel.allMessages![index];
       // wenn die messageId der alten Nachticht gleich der messageId der bearbeiteten Nachricht ist
@@ -132,23 +141,68 @@ export class MessageOfUserComponent {
       const dataMessageId = this.data.messageId;
       const chatMessageId = chat.messageId;
 
-      if (chatMessageId === dataMessageId) {
-        chat.message = this.data.message; // neu eingegebener Wert für Message
-        allChats.push(chat);
-        // für alle anderen Nachrichten die alte Nachricht übernehmen
+      allChats = this.refreshedChats_newMessage(dataMessageId, chatMessageId, chat, allChats);
+    }
+    return allChats;
+  }
+
+  refreshedChats_newMessage(dataMessageId: number, chatMessageId: number, chat: Message, allChats: Message[]) {
+    if (chatMessageId === dataMessageId) {
+      chat.message = this.data.message; // neu eingegebener Wert für Message
+      allChats.push(chat);
+      // für alle anderen Nachrichten die alte Nachricht übernehmen
+    } else {
+      allChats.push(chat);
+    }
+    return allChats;
+  }
+
+
+  insertNewThreadIntoMessages() {
+    let allChats: Message[] = [];
+    //getAllMessagesOfChannel
+    for (let index = 0; index < this.clickedChannel.allMessages!.length; index++) {
+      // Nachricht über messageId ermitteln
+      const chat = this.clickedChannel.allMessages![index];
+      const dataMessageId = this.cs.clickedMessage.messageId;
+      const chatMessageId = chat.messageId;
+      allChats = this.refreshedChats_newThread(dataMessageId, chatMessageId, chat, allChats);
+    }
+    return allChats;
+  }
+
+  refreshedChats_newThread(dataMessageId: number, chatMessageId: number, chat: Message, allChats: Message[]): Message[] {
+    if (chatMessageId === dataMessageId) {
+      let allThreads: ThreadInterface[] = [];
+      chat.threads = this.refreshedThreads(allThreads);
+      allChats.push(chat);
+    } else {
+      allChats.push(chat);
+    }
+    return allChats;
+  }
+
+  refreshedThreads(allThreads: ThreadInterface[]): ThreadInterface[] {
+    for (let inTh = 0; inTh < this.threadsOfMessage.length; inTh++) {
+      const thread = this.threadsOfMessage[inTh];
+      if (thread.messageId === this.threadMessageData.messageId) {
+        // neue Nachricht eingetragen
+        thread.answer = this.threadMessageData.answer;
+        allThreads.push(thread);
       } else {
-        allChats.push(chat);
+        allThreads.push(thread);
       }
     }
-
-    return allChats;
+    return allThreads;
   }
 
   checkIfOwnMessage(): boolean {
     if (this.messageData.userCustomId) {
       return this.messageData.userCustomId == this.us.userLoggedIn().customId;
-    } else if (this.data.userCustomId) {
+    } else if (this.data.userCustomId && !this.threadMessageData) {
       return this.data.userCustomId == this.us.userLoggedIn().customId;
+    } else if (this.threadMessageData && this.threadMessageData.userCustomId) {
+      return this.threadMessageData.userCustomId == this.us.userLoggedIn().customId;
     }
     return false;
   }

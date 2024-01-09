@@ -19,8 +19,8 @@ export class SideRightComponent {
 
   ngOnInit(): void {
     this.cs.threadsOfMessage
-      .subscribe((thread: ThreadInterface[]) => {
-        this.threadsOfMessage = thread;
+      .subscribe((threads: ThreadInterface[]) => {
+        this.threadsOfMessage = threads;
       });
   }
 

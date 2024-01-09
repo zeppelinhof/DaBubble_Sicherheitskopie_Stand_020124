@@ -31,12 +31,10 @@ export class ThreadService {
   }
 
   createOrShowThread(data: Message) {
-    debugger
     this.cs.clickedMessage = data;
     this.clickedChannel = this.clickedChannel;
     // Topic Message nur dann, wenn noch keine vorhanden
     if (data.threads.length === 0) {
-      debugger
       this.setTopicMessage();
     }    
   }
