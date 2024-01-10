@@ -169,9 +169,14 @@ export class InputFieldMessageComponent {
   }
 
   btnVisible(): void {
-    this.service.isWritingChannel = true;
+    this.service.isWritingMessage = true;
+    
+    
+    
   }
   btnNotVisible(): void {
-    this.service.isWritingChannel = false;
+    this.service.isWritingMessage = false;
+    
+
   }
 }
