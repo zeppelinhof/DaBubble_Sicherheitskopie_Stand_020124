@@ -75,16 +75,82 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: $purple;
+  z-index: 5;
+  animation: disapear 1s ease 2s forwards;
+}
+
+.content {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 32px;
-  background-color: $purple;
-  z-index: 5;
-  display: none;
+  animation: moveToTopLeft 1s ease 2s forwards;
+  img {
+    animation: logoSlideToLeft 1s ease forwards;
+  }
+  span {
+    animation: spanSlideToRight 1.5s ease forwards;
+  }
 }
 
-.letters {
-  font-size: 48px;
-  font-weight: bold;
+@keyframes disapear {
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes logoSlideToLeft {
+  0% {
+    transform: translateX(227px);
+  }
+  60% {
+    transform: translateX(227px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes spanSlideToRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-227px);
+  }
+  70% {
+    opacity: 0;
+    transform: translateX(-227px);
+  }
+  80% {
+    opacity: 0;
+    transform: translateX(-227px);
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveToTopLeft {
+  90% {
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    left: 32px;
+  }
+}
+
+.animation-text {
+  font-size: 72px;
+  font-weight: 600;
+  color: #fff;
 }

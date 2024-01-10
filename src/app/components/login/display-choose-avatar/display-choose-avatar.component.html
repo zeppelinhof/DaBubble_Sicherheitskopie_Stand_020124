@@ -30,7 +30,7 @@
     />
   </div>
 
-  <span class="name">Frederik Beck </span>
+  <span class="name">{{ newUser.name }}</span>
 
   <span class="description">Aus der Liste wählen</span>
 
@@ -59,3 +59,8 @@
     </button>
   </div>
 </section>
+
+<div *ngIf="newUserSuccess" class="overlay-container"></div>
+<span *ngIf="newUserSuccess" class="overlay-text"
+  >Konto erfolgreich erstellt!</span
+>

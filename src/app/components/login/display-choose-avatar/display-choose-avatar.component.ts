@@ -13,6 +13,7 @@ export class DisplayChooseAvatarComponent {
   newUser: User = new User();
   choosenAvatar: string | null = null;
   password: string = '';
+  newUserSuccess = false;
 
   avatarImages = [
     'userFemale1.png',
@@ -34,6 +35,8 @@ export class DisplayChooseAvatarComponent {
       !localStorage.getItem('signUpEmail')
     ) {
       this.router.navigate(['login/display-login']);
+    } else {
+      this.setNewUserData();
     }
   }
 
@@ -51,9 +54,12 @@ export class DisplayChooseAvatarComponent {
    * and deletes corresponding data from localStorage.
    */
   createNewUser(): void {
-    this.setNewUserData();
-    this.auth.signUp(this.newUser, this.password);
+    this.newUser.img = this.choosenAvatar;
     this.deleteLocalStorage();
+    this.newUserSuccess = true;
+    setTimeout(() => {
+      this.auth.signUp(this.newUser, this.password);
+    }, 680);
   }
 
   /**
@@ -63,7 +69,6 @@ export class DisplayChooseAvatarComponent {
     this.password = localStorage.getItem('signUpPassword')!;
     this.newUser.name = localStorage.getItem('signUpName')!;
     this.newUser.email = localStorage.getItem('signUpEmail')!;
-    this.newUser.img = this.choosenAvatar;
   }
 
   /**

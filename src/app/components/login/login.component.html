@@ -18,16 +18,9 @@
   <a routerLink="privacy-policy" class="create-account">Datenschutz</a>
 </div>
 
-<div class="animation-container d-none">
-  <img src="./assets/imgs/logo-no-text.png" alt="logo" />
-  <div class="letters">
-    <span>D</span>
-    <span>A</span>
-    <span>B</span>
-    <span>u</span>
-    <span>b</span>
-    <span>b</span>
-    <span>l</span>
-    <span>e</span>
+<div *ngIf="router.url === '/login/display-login'" class="animation-container">
+  <div class="content">
+    <img src="./assets/imgs/logo-no-text.png" alt="logo" />
+    <span class="animation-text">DABubble</span>
   </div>
 </div>
