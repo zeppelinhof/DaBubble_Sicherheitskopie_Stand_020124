@@ -24,11 +24,11 @@
 
 
 
-    <div *ngIf="this.data.file">
-      <img class="image-of-storage" [src]="this.data.file">
+    <div *ngIf="this.data.file || this.messageData.file">
+      <img class="image-of-storage" [src]="this.data.file || this.messageData.file">
     </div>
 
-    <div class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
+    <div *ngIf="this.data.message || this.messageData.message || this.threadMessageData" class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
       <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}
       </div>
       <div *ngIf="!getEditMode && messageType=='threadMessage'">{{ this.threadMessageData.answer}}

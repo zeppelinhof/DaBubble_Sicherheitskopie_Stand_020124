@@ -25,7 +25,7 @@
       </div>
     </div>
     
-    <div routerLink="../channel" (click)="sendMessage(); uploadToStorage();" class="send-btn-container">
+    <div routerLink="../channel" (click)="sendMessage(); this.storService.uploadToStorage(this.selectedFile);" class="send-btn-container">
       <img *ngIf="!this.service.isWritingChannel" class="send-btn-false" src="assets/icons/disabeld_send-icon.png" />
       <img *ngIf="this.service.isWritingChannel" class="send-btn-true" src="assets/icons/send.png" />
     </div>

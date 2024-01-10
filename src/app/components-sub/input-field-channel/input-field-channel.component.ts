@@ -48,22 +48,14 @@ export class InputFieldChannelComponent {
       const selectedFile = inputElement.files[0];
       this.selectedFile = selectedFile;
       this.btnVisible();
-      this.uploadToStorage();
+      this.storService.uploadToStorage(this.selectedFile);
 
 
     }
 
   }
 
-  uploadToStorage(): Promise<string | null> | null {
-    if (this.selectedFile) {
-      const storage = getStorage();
-      const storageRef = ref(storage, this.selectedFile.name);
-      uploadBytes(storageRef, this.selectedFile);
-      this.storService.getFileUrl(this.selectedFile.name);
-    }
-    return null;
-  }
+  
 
   sendMessage(): void {
     if (this.input !== '' || this.selectedFile) {
@@ -75,7 +67,7 @@ export class InputFieldChannelComponent {
         emojis: [{ path: '', amount: 0, setByUser: '' }],
         threads: [],
         // ↓ file already uploaded 
-        file: this.getUrlFromStorage(),
+        file: this.storService.getUrlFromStorage(),
       };
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       console.log("das ist newMessage: ", newMessage);
@@ -88,13 +80,7 @@ export class InputFieldChannelComponent {
 
 
 
-  getUrlFromStorage(): string | null {
-    if (this.storService.channelCurrentUrl) {
-      return this.storService.channelCurrentUrl
-    } else {
-      return null;
-    }
-  }
+  
 
 
 
