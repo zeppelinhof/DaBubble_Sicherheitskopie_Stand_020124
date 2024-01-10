@@ -69,34 +69,65 @@ export class InputFieldMessageComponent {
       allChats.push(chat);
     }
     allChats.push(this.addNewMessage(messageId));
-
+    
     return allChats;
   }
 
-  addNewMessage(messageId: number) {
-    return this.us.getCleanMessageJson(
-      new Message(
-        this.us.userLoggedIn().customId,
-        messageId,
-        this.input,
-        this.cs.getCleanMessageTimeJson(
-          new MessageTime(
-            new Date().getDate(),
-            this.cs.todaysDate(),
-            this.cs.getTime(),
-          ),
-        ),
-        [{ path: '', amount: 0, setByUser: '' }],
-        [{ userCustomId: '', messageId: 0, answer: '', emojis: [{ path: '', amount: 0, setByUser: '' }], createdTime: 0 }],
-        this.storService.getUrlFromStorage(),
+  clearAll() {
+    this.clearFileInput();
+    this.clearSelectedFile();
+    this.btnNotVisible();
+    this.clearInput();
+    this.clearUrl();
+    this.service.inputFilled = false;
 
-      )
-      
-      
-    );
-    
-    
   }
+  
+  // clean help-functions 
+  clearUrl() {
+    this.storService.channelCurrentUrl = "";
+  }
+
+  clearFileInput() {
+    if (this.fileInputRef) {
+      this.fileInputRef.value = '';
+    }
+  }
+  clearSelectedFile() {
+    this.selectedFile = null;
+  }
+
+  clearInput() {
+    this.input = '';
+  }
+  //
+
+
+  // added try and finally because (variables have to be cleared) after return...
+  addNewMessage(messageId: number) {
+    try {
+      return this.us.getCleanMessageJson(
+        new Message(
+          this.us.userLoggedIn().customId,
+          messageId,
+          this.input,
+          this.cs.getCleanMessageTimeJson(
+            new MessageTime(
+              new Date().getDate(),
+              this.cs.todaysDate(),
+              this.cs.getTime(),
+            ),
+          ),
+          [{ path: '', amount: 0, setByUser: '' }],
+          [{ userCustomId: '', messageId: 0, answer: '', emojis: [{ path: '', amount: 0, setByUser: '' }], createdTime: 0 }],
+          this.storService.getUrlFromStorage(),
+        ),
+      );
+    } finally {
+      this.clearAll();
+    }
+  }
+  
 
   // Für emojis und @
   addEmoji($event: any) {
