@@ -292,3 +292,41 @@ button {
   
 
 
+.add-icon-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  img {
+    border-right: 1px solid #adb0d9;
+    padding-right: 5px;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+    left: 10;
+    bottom: 0;
+    width: 5% !important;
+    height: 5%;
+    cursor: pointer !important;
+  }
+  &:hover {
+    .add-icon-normal {
+      display: none;
+    }
+    .add-icon-purple {
+      display: flex;
+    }
+  }
+}
+
+.file-container{
+  border: 1px solid $purple;
+  background-color: #ECEEFE;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+}

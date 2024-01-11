@@ -112,7 +112,6 @@ export class AuthenticationService {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('logged User ', user.email, 'id', user.uid);
-        console.log('test', auth.currentUser);
         this.loggedUser.customId = user.uid;
         this.userService.loggedInUser = this.loggedUser;
         this.setPathWhenLogged();

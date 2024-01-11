@@ -56,3 +56,6 @@
     </div>
   </form>
 </section>
+
+<div *ngIf="emailWasSent" class="overlay-container"></div>
+<span *ngIf="emailWasSent" class="overlay-text">E-Mail wurde gesendet</span>

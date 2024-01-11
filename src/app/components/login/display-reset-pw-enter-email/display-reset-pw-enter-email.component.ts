@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
 export class DisplayResetPwEnterEmailComponent {
   arrowBackIsHovered: boolean = false;
   userId: string = '';
+  emailWasSent = false;
 
   forgotPwEnterEmailForm: any = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -27,6 +28,8 @@ export class DisplayResetPwEnterEmailComponent {
    * Checks if the user with the provided login email is existing.
    */
   checkUserIsExisting() {
+    console.log(this.userService.myUsers);
+
     const emailInputField = this.forgotPwEnterEmailForm.get('email').value;
     const emailExists = this.userService.myUsers.find(
       (user) => user.email === emailInputField
@@ -44,6 +47,7 @@ export class DisplayResetPwEnterEmailComponent {
   saveResetAndSendEmail() {
     const emailForPwReset = this.forgotPwEnterEmailForm.get('email').value;
     this.auth.sendEmailToResetPw(emailForPwReset);
+    this.emailWasSent = true;
     localStorage.setItem('userIdForPwReset', this.userId);
     const currentDateAndTime = new Date().toISOString();
     localStorage.setItem('pwResetRequestTime', currentDateAndTime);
