@@ -57,7 +57,7 @@ export class MessageOfUserComponent {
   }
 
   receiveValueFromChild(value: boolean) {
-    // Handle erhaltenen Wert von Kindkomponente
+    // Wert von Kindkomponente erhaltenen
     this.getEditMode = value;
   }
 
@@ -85,23 +85,32 @@ export class MessageOfUserComponent {
 
   // Die editierte Direkt-Nachricht oder Channel-Nachricht speichern
   saveEditedMessage() {
-    // Handle Direct Message
-   if (this.messageType === 'directMessage') {
-      // Nachricht bei Empfänger hinterlegen
-      this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
-      // Nachricht bei Sender hinterlegen
-      this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
+    if (this.messageType === 'directMessage') {
+      this.saveDirectMessage();
     }
-    // Handle Channel Message
     else if (this.messageType === 'channelMessage') {
-      this.cs.updateChannel({ allMessages: this.insertNewMessageIntoMessages(this.clickedChannel) }, this.clickedChannel);
+      this.saveChannelMessage();
     } else if (this.messageType === 'threadMessage') {
-      this.cs.updateChannel({ allMessages: this.insertNewThreadIntoMessages() }, this.clickedChannel);
+      this.saveThreadMessage();
     } else {
       console.log('Speichern nicht erfolgreich');
-
     }
     this.closeEditWindow();
+  }
+
+  saveDirectMessage() {
+    // Nachricht bei Empfänger hinterlegen
+    this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
+    // Nachricht bei Sender hinterlegen
+    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
+  }
+
+  saveChannelMessage() {
+    this.cs.updateChannel({ allMessages: this.insertNewMessageIntoMessages(this.clickedChannel) }, this.clickedChannel);
+  }
+
+  saveThreadMessage() {
+    this.cs.updateChannel({ allMessages: this.insertNewThreadIntoMessages() }, this.clickedChannel);
   }
 
   takePreviousMessage() {
@@ -152,7 +161,8 @@ export class MessageOfUserComponent {
     if (chatMessageId === dataMessageId) {
       chat.message = this.data.message; // neu eingegebener Wert für Message
       if (chat.threads[0]) {
-        chat.threads[0].answer = chat.message; // erster Thread und Ursprungsnachricht sollen gleichen Text haben
+        // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleichen Text haben
+        chat.threads[0].answer = chat.message;
       }
       allChats.push(chat);
       // für alle anderen Nachrichten die alte Nachricht übernehmen
@@ -180,7 +190,8 @@ export class MessageOfUserComponent {
     if (chatMessageId === dataMessageId) {
       let allThreads: ThreadInterface[] = [];
       chat.threads = this.refreshedThreads(allThreads);
-      chat.message = chat.threads[0].answer; // erster Thread und Ursprungsnachricht sollen gleichen Text haben
+      // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleichen Text haben
+      chat.message = chat.threads[0].answer;
       allChats.push(chat);
     } else {
       allChats.push(chat);

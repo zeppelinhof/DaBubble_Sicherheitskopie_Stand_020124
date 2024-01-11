@@ -24,6 +24,7 @@ export class WorkspaceService {
   threadContainerIsVisible: boolean = true;
   showEmojis: boolean = false;
   allChatsTemp: any[] = [];
+  indexChangedMessage!: number;
 
   constructor(private us: UserService, private cs: ChannelService) { }
 
@@ -60,7 +61,7 @@ export class WorkspaceService {
       this.us.updateUser({ chats: this.allChatsWithNewEmoji(clickedContact, messageType, emojiPath, messageData) }, clickedContact);
     } else if (messageType == 'threadMessage') {
       this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data, threadMessageData) }, clickedChannel);
-    } else {
+    } else { // für Channel-Message
       this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data) }, clickedChannel);
     }
     this.showEmojis = !this.showEmojis;
@@ -68,7 +69,6 @@ export class WorkspaceService {
 
   allChatsWithNewEmoji(chatroom: any, messageType: string, newEmojiPath: string, messageData: Message, threadMessageData?: ThreadInterface) {
     this.allChatsTemp = [];
-
     const messagesArray = messageType === 'directMessage' ? chatroom.chats : chatroom.allMessages;
 
     if (messagesArray) {
@@ -78,24 +78,48 @@ export class WorkspaceService {
         const messageDBId = chat.messageId;               // messageId from message in Database
         const messageClickedId = messageData.messageId;   // messageId from message clicked to add emoji
 
-        this.chatWithNewEmoji(chat, messageClickedId, messageDBId, newEmojiPath);
+        this.chatWithNewEmoji(index, chat, messageClickedId, messageDBId, newEmojiPath);
       }
     }
     // Wenn Emoji für Thread
-    if (threadMessageData) {  
-      debugger    
+    if (threadMessageData) {
       this.allChatsTemp = this.threadUpdateEmoji(this.allChatsTemp, threadMessageData, newEmojiPath);
     }
+
+    // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben
+    this.allChatsTemp[this.indexChangedMessage].threads[0].emojis = this.allChatsTemp[this.indexChangedMessage].emojis;
     return this.allChatsTemp;
   }
+  
+  chatWithNewEmoji(index: number, chat: Message, messageClickedId: number, messageDBId: number, newEmojiPath: string) {
+    // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
+    // so soll die neue Nachricht eingetragen werden.
 
-  threadUpdateEmoji(allChatsTemp: any[], threadMessageData: ThreadInterface,newEmojiPath: string){
+    if (messageDBId === messageClickedId) {
+      this.indexChangedMessage = index;
+      let emojiPathIndex = this.emojiAlreadyExits(chat.emojis, newEmojiPath);
+
+      chat = this.addOrRemoveEmoji(chat, emojiPathIndex, newEmojiPath);
+
+      this.allChatsTemp.push(chat);
+      // für alle anderen Nachrichten die alte Nachricht übernehmen
+    } else {
+      this.allChatsTemp.push(chat); // ganze Channel-Nachricht oder Direktnachricht übernehmen
+    }
+  }
+
+  threadUpdateEmoji(allChatsTemp: any[], threadMessageData: ThreadInterface, newEmojiPath: string) {
     for (let chat of allChatsTemp) {
       if (chat.messageId === this.cs.threadsOfMessage.value[0].messageId) {
         for (let thread of chat.threads) {
-          if (thread.messageId === threadMessageData.messageId) {            
+          if (thread.messageId === threadMessageData.messageId) {
             let refreshedThread = this.getRefreshedThread(threadMessageData, newEmojiPath)
-            chat.thread[chat.threads.indexOf(thread)] = refreshedThread;
+            chat.threads[chat.threads.indexOf(thread)] = refreshedThread;                    
+            if (this.isTopicMessage(chat, thread)) {
+              // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben
+              chat.emojis = refreshedThread.emojis;
+            }
+
           }
         }
       }
@@ -106,23 +130,21 @@ export class WorkspaceService {
   getRefreshedThread(threadMessageData: ThreadInterface, newEmojiPath: string) {
     let emojiPathIndex = this.emojiAlreadyExits(threadMessageData.emojis, newEmojiPath);
     return this.addOrRemoveEmoji(threadMessageData, emojiPathIndex, newEmojiPath);
+  }  
+
+  isTopicMessage(chat: Message, thread: ThreadInterface) {
+    return chat.threads.indexOf(thread) === 0;
   }
 
+  emojiAlreadyExits(emojis: { path: string, amount: number, setByUser: string }[], newEmojiPath: string): number {
 
-  chatWithNewEmoji(chat: Message, messageClickedId: number, messageDBId: number, newEmojiPath: string) {
-    // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
-    // so soll die neue Nachricht eingetragen werden.
-
-    if (messageDBId === messageClickedId) {
-      let emojiPathIndex = this.emojiAlreadyExits(chat.emojis, newEmojiPath);
-
-      chat = this.addOrRemoveEmoji(chat, emojiPathIndex, newEmojiPath);
-
-      this.allChatsTemp.push(chat);
-      // für alle anderen Nachrichten die alte Nachricht übernehmen
-    } else {
-      this.allChatsTemp.push(chat); // ganze Channel-Nachricht oder Direktnachricht übernehmen
+    for (let emojiPathIndex = 0; emojiPathIndex < emojis.length; emojiPathIndex++) {
+      const emoji = emojis[emojiPathIndex];
+      if (emoji.path == newEmojiPath) {
+        return emojiPathIndex;
+      }
     }
+    return -1;
   }
 
   addOrRemoveEmoji(chat: any, emojiPathIndex: number, newEmojiPath: string) {
@@ -136,15 +158,5 @@ export class WorkspaceService {
     }
     return chat;
   }
-
-  emojiAlreadyExits(emojis: { path: string, amount: number, setByUser: string }[], newEmojiPath: string): number {
-
-    for (let emojiPathIndex = 0; emojiPathIndex < emojis.length; emojiPathIndex++) {
-      const emoji = emojis[emojiPathIndex];
-      if (emoji.path == newEmojiPath) {
-        return emojiPathIndex;
-      }
-    }
-    return -1;
-  }
+  
 }
