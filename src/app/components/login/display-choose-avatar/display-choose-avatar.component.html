@@ -41,10 +41,19 @@
       alt="avatar iamge"
       (click)="setAvatarImage(imagePath)"
     />
-  </div>
 
+    <img
+      *ngFor="let imagePath of avatarImages"
+      [src]="this.storService.getUrlFromStorage()"
+      alt="avatar iamge"
+      (click)="setAvatarImage(imagePath)"
+    />
+
+  </div>
+  
   <div class="upload-own-image">
     <span>eigenes Bild verwenden</span>
+    <input (change)="fileExplorer($event)"  type="file" id="file" value="" name="avatar" accept="image/png, image/jpeg" />
     <button class="button-layout">Bilder hochladen</button>
   </div>
 

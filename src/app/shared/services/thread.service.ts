@@ -31,7 +31,7 @@ export class ThreadService {
       createdTime: this.cs.clickedMessage.value.createdTime,
       file: this.cs.clickedMessage.value.file
     }
-    debugger;
+    
     this.addThreadmessage(topicThread, this.clickedChannel, this.cs.clickedMessage.value);
     this.threadVisible = true;
   }
