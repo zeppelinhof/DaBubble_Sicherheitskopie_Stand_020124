@@ -45,7 +45,7 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage(clickedContact: User) {
-    if (this.input !== '') {
+    if (this.input !== '' || this.selectedFile) {
       let messageId = Date.now();
       // Nachricht bei Empfänger hinterlegen
       this.us.updateUser(

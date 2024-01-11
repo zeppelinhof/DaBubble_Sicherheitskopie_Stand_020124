@@ -55,7 +55,7 @@
       <div *ngFor="let member of allMembers">
         <div *ngFor="let name of member">
           <div
-            (click)="collectMemberFromList(name.name)"
+            (click)="collectMemberFromList(name.name); this.service.isWritingThread= true;"
             id="{{ name.customId }}"
             class="users-list"
           >

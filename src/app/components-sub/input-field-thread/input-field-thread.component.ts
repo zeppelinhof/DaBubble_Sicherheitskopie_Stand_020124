@@ -63,10 +63,11 @@ export class InputFieldThreadComponent {
 
 
   btnVisible(): void {
-    this.service.isWritingChannel = true;
+    this.service.isWritingThread = true;
   }
+
   btnNotVisible(): void {
-    this.service.isWritingChannel = false;
+    this.service.isWritingThread = false;
   }
 
   ngOnInit(): void {
@@ -74,7 +75,7 @@ export class InputFieldThreadComponent {
   }
   
   sendThreadMessage() {
-    if (this.input !== '') {
+    if (this.input !== '' || this.selectedFile) {
       this.ts.addThreadAnswer(this.input);
       this.clearAll();
     }
