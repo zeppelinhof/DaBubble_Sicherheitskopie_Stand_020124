@@ -76,7 +76,7 @@ export class WorkspaceService {
       for (let index = 0; index < messagesArray.length; index++) {
         const chat = messagesArray[index];
         const messageDBId = chat.messageId;               // messageId from message in Database
-        const messageClickedId = messageData.messageId;   // messageId from message clicked to add emoji
+        const messageClickedId = this.getMessageClickedId(messageType, messageData, threadMessageData)   // messageId from message clicked to add emoji
 
         this.chatWithNewEmoji(index, chat, messageClickedId, messageDBId, newEmojiPath);
       }
@@ -90,11 +90,18 @@ export class WorkspaceService {
     this.allChatsTemp[this.indexChangedMessage].threads[0].emojis = this.allChatsTemp[this.indexChangedMessage].emojis;
     return this.allChatsTemp;
   }
-  
+
+  getMessageClickedId(messageType: string, messageData: Message, threadMessageData?: ThreadInterface) {
+    if (messageType === 'threadMessage' && threadMessageData) {
+      return threadMessageData.messageId;   // messageId from message clicked to add emoji
+    } else {
+      return messageData.messageId;   // messageId from message clicked to add emoji
+    }
+  }
+
   chatWithNewEmoji(index: number, chat: Message, messageClickedId: number, messageDBId: number, newEmojiPath: string) {
     // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
     // so soll die neue Nachricht eingetragen werden.
-
     if (messageDBId === messageClickedId) {
       this.indexChangedMessage = index;
       let emojiPathIndex = this.emojiAlreadyExits(chat.emojis, newEmojiPath);
@@ -114,7 +121,7 @@ export class WorkspaceService {
         for (let thread of chat.threads) {
           if (thread.messageId === threadMessageData.messageId) {
             let refreshedThread = this.getRefreshedThread(threadMessageData, newEmojiPath)
-            chat.threads[chat.threads.indexOf(thread)] = refreshedThread;                    
+            chat.threads[chat.threads.indexOf(thread)] = refreshedThread;
             if (this.isTopicMessage(chat, thread)) {
               // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben
               chat.emojis = refreshedThread.emojis;
@@ -130,7 +137,7 @@ export class WorkspaceService {
   getRefreshedThread(threadMessageData: ThreadInterface, newEmojiPath: string) {
     let emojiPathIndex = this.emojiAlreadyExits(threadMessageData.emojis, newEmojiPath);
     return this.addOrRemoveEmoji(threadMessageData, emojiPathIndex, newEmojiPath);
-  }  
+  }
 
   isTopicMessage(chat: Message, thread: ThreadInterface) {
     return chat.threads.indexOf(thread) === 0;
@@ -158,5 +165,5 @@ export class WorkspaceService {
     }
     return chat;
   }
-  
+
 }
