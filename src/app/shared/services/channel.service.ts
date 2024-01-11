@@ -31,7 +31,6 @@ export class ChannelService {
   threadsOfMessage = new BehaviorSubject<ThreadInterface[]>([]);
 
   clickedChannelId = new BehaviorSubject<string>('');
-  clickedMessageId = new BehaviorSubject<number>(0);
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
   clickedMessage = new BehaviorSubject<Message>(new Message());
   clickedUser = new BehaviorSubject<User>(new User());
@@ -84,7 +83,7 @@ export class ChannelService {
           if (mId === messageId) {
             this.clickedMessage.next(channelList[index].allMessages[jndex]);
           }
-          
+
         }
       }
     }
@@ -121,15 +120,14 @@ export class ChannelService {
     }
   }
 
-  
+
 
   setChannelView(id: string) {
     this.clickedChannelId.next(id);
     this.setCurrentChannel(this.clickedChannelId.value);
   }
 
-  setMessageView(messageId: number){
-    this.clickedMessageId.next(messageId);
+  setMessageView(messageId: number) {
     this.setCurrentMessage(messageId);
   }
 
@@ -313,12 +311,12 @@ export class ChannelService {
       // prüfe, ob Tag von vorherigem chat kleiner || (Tag von vorherigem chat größer && Nr. Date.now() von gestern kleiner)
       try {
         if (chatsofUser![index - 1] && chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
-        chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser[index - 1]['messageId'] < chatsofUser![index]['messageId']) {
-        return true;
-      }
+          chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser[index - 1]['messageId'] < chatsofUser![index]['messageId']) {
+          return true;
+        }
       } catch (error) {
         console.log(error);
-        
+
       }
       return false;
     }

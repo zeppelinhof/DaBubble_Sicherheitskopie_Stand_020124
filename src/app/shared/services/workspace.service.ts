@@ -59,20 +59,20 @@ export class WorkspaceService {
     if (messageType == 'directMessage') {
       this.us.updateUser({ chats: this.allChatsWithNewEmoji(clickedContact, messageType, emojiPath, messageData) }, clickedContact);
     } else if (messageType == 'threadMessage') {
-      this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data) }, clickedChannel);
+      this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data, threadMessageData) }, clickedChannel);
     } else {
       this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data) }, clickedChannel);
     }
     this.showEmojis = !this.showEmojis;
   }
 
-  allChatsWithNewEmoji(chatroom: any, messageType: string, newEmojiPath: string, messageData: Message) {
+  allChatsWithNewEmoji(chatroom: any, messageType: string, newEmojiPath: string, messageData: Message, threadMessageData?: ThreadInterface) {
     this.allChatsTemp = [];
 
     const messagesArray = messageType === 'directMessage' ? chatroom.chats : chatroom.allMessages;
-debugger
+
     if (messagesArray) {
-      
+
       for (let index = 0; index < messagesArray.length; index++) {
         const chat = messagesArray[index];
         const messageDBId = chat.messageId;               // messageId from message in Database
@@ -81,7 +81,31 @@ debugger
         this.chatWithNewEmoji(chat, messageClickedId, messageDBId, newEmojiPath);
       }
     }
+    // Wenn Emoji für Thread
+    if (threadMessageData) {  
+      debugger    
+      this.allChatsTemp = this.threadUpdateEmoji(this.allChatsTemp, threadMessageData, newEmojiPath);
+    }
     return this.allChatsTemp;
+  }
+
+  threadUpdateEmoji(allChatsTemp: any[], threadMessageData: ThreadInterface,newEmojiPath: string){
+    for (let chat of allChatsTemp) {
+      if (chat.messageId === this.cs.threadsOfMessage.value[0].messageId) {
+        for (let thread of chat.threads) {
+          if (thread.messageId === threadMessageData.messageId) {            
+            let refreshedThread = this.getRefreshedThread(threadMessageData, newEmojiPath)
+            chat.thread[chat.threads.indexOf(thread)] = refreshedThread;
+          }
+        }
+      }
+    }
+    return allChatsTemp;
+  }
+
+  getRefreshedThread(threadMessageData: ThreadInterface, newEmojiPath: string) {
+    let emojiPathIndex = this.emojiAlreadyExits(threadMessageData.emojis, newEmojiPath);
+    return this.addOrRemoveEmoji(threadMessageData, emojiPathIndex, newEmojiPath);
   }
 
 
@@ -91,19 +115,26 @@ debugger
 
     if (messageDBId === messageClickedId) {
       let emojiPathIndex = this.emojiAlreadyExits(chat.emojis, newEmojiPath);
-      if (emojiPathIndex == -1) {
-        chat.emojis.push({ path: newEmojiPath, amount: 1, setByUser: this.us.userLoggedIn().customId }); // neu eingegebener Emojipfad für Message
-        // wenn das Emoji bereits existiert und eingeloggter User noch nicht dieses Emoji vergeben hat, dann Emoji-Anzahl erhöhen
-      } else if (chat.emojis[emojiPathIndex]['setByUser'] !== this.us.userLoggedIn().customId) {
-        chat.emojis[emojiPathIndex].amount = chat.emojis[emojiPathIndex]['amount'] + 1;
-      } else if ((chat.emojis[emojiPathIndex]['setByUser'] == this.us.userLoggedIn().customId)) { // (eigenes) Emoji entfernen
-        chat.emojis.splice(emojiPathIndex, 1);
-      }
+
+      chat = this.addOrRemoveEmoji(chat, emojiPathIndex, newEmojiPath);
+
       this.allChatsTemp.push(chat);
       // für alle anderen Nachrichten die alte Nachricht übernehmen
     } else {
-      this.allChatsTemp.push(chat);
+      this.allChatsTemp.push(chat); // ganze Channel-Nachricht oder Direktnachricht übernehmen
     }
+  }
+
+  addOrRemoveEmoji(chat: any, emojiPathIndex: number, newEmojiPath: string) {
+    if (emojiPathIndex == -1) {
+      chat.emojis.push({ path: newEmojiPath, amount: 1, setByUser: this.us.userLoggedIn().customId }); // neu eingegebener Emojipfad für Message
+      // wenn das Emoji bereits existiert und eingeloggter User noch nicht dieses Emoji vergeben hat, dann Emoji-Anzahl erhöhen
+    } else if (chat.emojis[emojiPathIndex]['setByUser'] !== this.us.userLoggedIn().customId) {
+      chat.emojis[emojiPathIndex].amount = chat.emojis[emojiPathIndex]['amount'] + 1;
+    } else if ((chat.emojis[emojiPathIndex]['setByUser'] == this.us.userLoggedIn().customId)) { // (eigenes) Emoji entfernen
+      chat.emojis.splice(emojiPathIndex, 1);
+    }
+    return chat;
   }
 
   emojiAlreadyExits(emojis: { path: string, amount: number, setByUser: string }[], newEmojiPath: string): number {
