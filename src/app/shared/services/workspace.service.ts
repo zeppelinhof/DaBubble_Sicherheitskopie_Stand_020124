@@ -155,11 +155,14 @@ export class WorkspaceService {
   }
 
   addOrRemoveEmoji(chat: any, emojiPathIndex: number, newEmojiPath: string) {
+    debugger
     if (emojiPathIndex == -1) {
       chat.emojis.push({ path: newEmojiPath, amount: 1, setByUser: this.us.userLoggedIn().customId }); // neu eingegebener Emojipfad für Message
-      // wenn das Emoji bereits existiert und eingeloggter User noch nicht dieses Emoji vergeben hat, dann Emoji-Anzahl erhöhen
+      // wenn das Emoji bereits existiert und eingeloggter User noch nicht dieses Emoji vergeben hat, dann Emoji-Anzahl erhöhen      
     } else if (chat.emojis[emojiPathIndex]['setByUser'] !== this.us.userLoggedIn().customId) {
+      // HIER WEITER
       chat.emojis[emojiPathIndex].amount = chat.emojis[emojiPathIndex]['amount'] + 1;
+
     } else if ((chat.emojis[emojiPathIndex]['setByUser'] == this.us.userLoggedIn().customId)) { // (eigenes) Emoji entfernen
       chat.emojis.splice(emojiPathIndex, 1);
     }
