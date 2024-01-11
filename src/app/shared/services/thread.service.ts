@@ -7,6 +7,7 @@ import { ChannelService } from './channel.service';
 import { MessageTime } from 'src/app/models/message-time';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { StorageService } from './storage.service';
+import { InputService } from './input.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class ThreadService {
   threadVisible: boolean = false;
 
   constructor(private ws: WorkspaceService, private us: UserService, private cs: ChannelService, public storService: StorageService) { }
+
+
+  
 
   setTopicMessage() {
     let topicThread: ThreadInterface =
@@ -47,6 +51,9 @@ export class ThreadService {
     this.threadVisible = true;
   }
 
+
+  
+
   addThreadAnswer(input: string) {
     let threadAnswer: ThreadInterface =
     {
@@ -65,6 +72,7 @@ export class ThreadService {
     }
 
     this.addThreadmessage(threadAnswer, this.clickedChannel, this.cs.clickedMessage.value);
+    
   }
 
   addThreadmessage(thread: ThreadInterface, clickedChannel: Channel, msgDta: Message) {
