@@ -6,6 +6,7 @@ import { Channel } from 'src/app/models/channel';
 import { ChannelService } from './channel.service';
 import { MessageTime } from 'src/app/models/message-time';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ThreadService {
   clickedChannel!: Channel;
   threadVisible: boolean = false;
 
-  constructor(private ws: WorkspaceService, private us: UserService, private cs: ChannelService) { }
+  constructor(private ws: WorkspaceService, private us: UserService, private cs: ChannelService, public storService: StorageService) { }
 
   setTopicMessage() {
     let topicThread: ThreadInterface =
@@ -23,8 +24,10 @@ export class ThreadService {
       messageId: this.cs.clickedMessage.value.messageId,
       answer: this.cs.clickedMessage.value.message,
       emojis: this.cs.clickedMessage.value.emojis,
-      createdTime: this.cs.clickedMessage.value.createdTime
+      createdTime: this.cs.clickedMessage.value.createdTime,
+      file: this.cs.clickedMessage.value.file
     }
+    debugger;
     this.addThreadmessage(topicThread, this.clickedChannel, this.cs.clickedMessage.value);
     this.threadVisible = true;
   }
@@ -35,7 +38,7 @@ export class ThreadService {
     // Topic Message nur dann, wenn noch keine vorhanden
     if (data.threads.length === 0) {
       this.setTopicMessage();
-    }    
+    }
   }
 
   showThreads(data: Message) {
@@ -57,7 +60,8 @@ export class ThreadService {
           this.cs.todaysDate(),
           this.cs.getTime(),
         )
-      )
+      ),
+      file: this.storService.getUrlFromStorage(),
     }
 
     this.addThreadmessage(threadAnswer, this.clickedChannel, this.cs.clickedMessage.value);

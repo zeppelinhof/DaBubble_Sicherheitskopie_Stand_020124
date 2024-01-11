@@ -143,7 +143,7 @@ export class UserService {
       createdTime: message.createdTime || '',
       emojis: message.emojis || {},
       threads: message.threads || [],
-      file: message.file || ''
+      file: message.file || null,
     };
   }
 
