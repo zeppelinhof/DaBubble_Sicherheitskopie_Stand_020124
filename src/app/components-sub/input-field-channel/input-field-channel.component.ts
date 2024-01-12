@@ -68,6 +68,7 @@ export class InputFieldChannelComponent {
         // ↓ file already uploaded 
         file: this.storService.getUrlFromStorage(),
       };
+      
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       console.log("das ist newMessage: ", newMessage);
 
