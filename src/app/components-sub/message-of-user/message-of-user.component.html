@@ -30,7 +30,7 @@
 
     <div
       *ngIf="this.data.message || this.messageData.message || (this.threadMessageData && this.threadMessageData.answer)"
-      class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
+      class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage(), 'border-radius-own-message': checkIfOwnMessage()}">
       <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}
       </div>
       <div *ngIf="!getEditMode && messageType=='threadMessage'">{{ this.threadMessageData.answer}}
@@ -93,7 +93,7 @@
     <div *ngIf="data.threads.length > 2">Antworten</div>
   </div>
   <div class="last-answer-time">
-    <div>Letzte Antwort: </div>
+    <div>Letzte Antwort:&nbsp;</div>
     <div class="time">{{data.threads[data.threads.length - 1].createdTime['fullDay']}}</div>
   </div>
 </div>
