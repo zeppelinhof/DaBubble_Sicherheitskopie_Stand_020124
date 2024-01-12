@@ -34,7 +34,7 @@
   <div *ngIf="showUserList" class="members-of-channel">
     <div *ngFor="let member of allMembers">
       <div *ngFor="let name of member">
-        <div (click)="collectMemberFromList(name.name)" id="{{ name.customId }}" class="users-list">
+        <div (click)="collectMemberFromList(name.name); this.service.isWritingChannel = true;" id="{{ name.customId }}" class="users-list">
           <div>
             <img class="user-list-img" src="assets/imgs/userMale1.png" alt="" />
           </div>

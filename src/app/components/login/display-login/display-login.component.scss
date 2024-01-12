@@ -141,3 +141,9 @@ form {
     }
   }
 }
+
+@media only screen and (max-width: 430px) {
+  .register-container {
+    flex-direction: column;
+  }
+}

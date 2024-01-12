@@ -10,6 +10,7 @@
     <div class="bottom-container-of-input">
       <div class="add-data-to-input-box-container">
         <div class="add-icon-container">
+          <input (change)="fileExplorer($event)"  type="file" id="file" value="" name="avatar" accept="image/png, image/jpeg" />
           <img class="add-icon-normal" src="assets/icons/add-grey.png" />
           <img class="add-icon-purple" src="assets/icons/add_purple.png" />
         </div>
@@ -28,6 +29,9 @@
               class="smiley-icon-purple"
               src="assets/icons/smiley-icon-purple.png"
             />
+          </div>
+          <div class="file-container" *ngIf="selectedFile">
+            {{ selectedFile.name }}
           </div>
         </div>
       </div>
@@ -51,7 +55,7 @@
       <div *ngFor="let member of allMembers">
         <div *ngFor="let name of member">
           <div
-            (click)="collectMemberFromList(name.name)"
+            (click)="collectMemberFromList(name.name); this.service.isWritingThread= true;"
             id="{{ name.customId }}"
             class="users-list"
           >

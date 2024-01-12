@@ -1,6 +1,5 @@
 import { Component, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-imprint',
@@ -10,5 +9,15 @@ import { Location } from '@angular/common';
 export class ImprintComponent {
   arrowBackIsHovered: boolean = false;
 
-  constructor(public location: Location) {}
+  constructor(private router: Router) {
+    this.handleBackButton();
+  }
+
+  private handleBackButton() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        //hier hinzufügen, was passieren soll, wenn Route geändert wurde - nichts
+      }
+    });
+  }
 }

@@ -2,6 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 
 @Component({
@@ -17,17 +18,66 @@ export class InputFieldThreadComponent {
   input: string = '';
   showUserList: boolean = false;
   allMembers: any = [];
-  constructor(public service: InputService, public cs: ChannelService, private _eref: ElementRef, private ts: ThreadService) {}
+  private fileInputRef: HTMLInputElement | undefined;
+  selectedFile: File | null = null;
+  constructor(public service: InputService, public cs: ChannelService, private _eref: ElementRef, private ts: ThreadService, private storService: StorageService) {}
 
+
+  fileExplorer(event: any): void {
+    this.fileInputRef = event.target as HTMLInputElement;
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const selectedFile = inputElement.files[0];
+      this.selectedFile = selectedFile;
+      this.btnVisible();
+      this.storService.uploadToStorage(this.selectedFile);
+
+
+    }
+
+  }
+  clearAll() {
+    this.clearFileInput();
+    this.clearSelectedFile();
+    this.btnNotVisible();
+    this.clearInput();
+    this.clearUrl();
+    this.service.inputFilled = false;
+  }
+  clearSelectedFile() {
+    this.selectedFile = null;
+  }
+  
+  clearInput() {
+    this.input = '';
+  }
+  clearFileInput() {
+    if (this.fileInputRef) {
+      this.fileInputRef.value = '';
+    }
+  }
+
+  clearUrl() {
+    this.storService.channelCurrentUrl = "";
+  }
+
+
+  btnVisible(): void {
+    this.service.isWritingThread = true;
+  }
+
+  btnNotVisible(): void {
+    this.service.isWritingThread = false;
+  }
 
   ngOnInit(): void {
     this.getCurrentChannel();
   }
   
   sendThreadMessage() {
-    if (this.input !== '') {
+    if (this.input !== '' || this.selectedFile) {
       this.ts.addThreadAnswer(this.input);
-      this.input = '';
+      this.clearAll();
     }
   }
 

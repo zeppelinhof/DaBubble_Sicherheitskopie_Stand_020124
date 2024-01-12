@@ -2,6 +2,7 @@ import { User } from 'src/app/models/user';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-display-choose-avatar',
@@ -14,7 +15,8 @@ export class DisplayChooseAvatarComponent {
   choosenAvatar: string | null = null;
   password: string = '';
   newUserSuccess = false;
-
+  selectedFile: File | null = null;
+  private fileInputRef: HTMLInputElement | undefined;
   avatarImages = [
     'userFemale1.png',
     'userMale3.png',
@@ -24,7 +26,7 @@ export class DisplayChooseAvatarComponent {
     'userFemale2.png',
   ];
 
-  constructor(private auth: AuthenticationService, private router: Router) {
+  constructor(private auth: AuthenticationService, private router: Router, public storService: StorageService) {
     this.checkDataLocalStorage();
   }
 
@@ -54,12 +56,22 @@ export class DisplayChooseAvatarComponent {
    * and deletes corresponding data from localStorage.
    */
   createNewUser(): void {
-    this.newUser.img = this.choosenAvatar;
-    this.deleteLocalStorage();
-    this.newUserSuccess = true;
-    setTimeout(() => {
-      this.auth.signUp(this.newUser, this.password);
-    }, 680);
+    if (this.selectedFile) {
+      this.newUser.img = this.storService.getUrlFromStorage();
+      this.deleteLocalStorage();
+      this.newUserSuccess = true;
+      setTimeout(() => {
+        this.auth.signUp(this.newUser, this.password);
+      }, 680);
+    } else {
+      this.newUser.img = this.choosenAvatar;
+      this.deleteLocalStorage();
+      this.newUserSuccess = true;
+      setTimeout(() => {
+        this.auth.signUp(this.newUser, this.password);
+      }, 680);
+    }
+
   }
 
   /**
@@ -78,5 +90,18 @@ export class DisplayChooseAvatarComponent {
     localStorage.removeItem('signUpPassword');
     localStorage.removeItem('signUpName');
     localStorage.removeItem('signUpEmail');
+  }
+
+
+  fileExplorer(event: any): void {
+    this.fileInputRef = event.target as HTMLInputElement;
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const selectedFile = inputElement.files[0];
+      this.selectedFile = selectedFile;
+      this.storService.uploadToStorage(this.selectedFile);
+
+
+    }
   }
 }
