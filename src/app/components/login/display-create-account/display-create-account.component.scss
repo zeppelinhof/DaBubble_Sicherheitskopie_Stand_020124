@@ -24,7 +24,7 @@ section {
       color: $purple;
     }
   }
-  span {
+  div {
     color: $purple3;
     font-size: 46px;
     font-weight: 700;
@@ -75,6 +75,7 @@ form {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 16px;
   a {
@@ -103,5 +104,20 @@ form {
   &:hover {
     background-color: $purple2 !important;
     border-color: $purple2 !important;
+  }
+}
+
+@media only screen and (max-width: 535px) {
+  .headline-container {
+    flex-direction: column;
+    align-items: flex-start;
+    img {
+      position: unset;
+    }
+    div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
   }
 }

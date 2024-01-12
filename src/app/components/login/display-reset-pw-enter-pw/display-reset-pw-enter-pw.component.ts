@@ -1,7 +1,7 @@
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-display-reset-pw-enter-pw',
@@ -14,7 +14,6 @@ export class DisplayResetPwEnterPwComponent {
   arrowBackIsHovered: boolean = false;
   linkIsExpired: boolean = false;
   oobCode: string;
-  passwortIsChanged: boolean = false;
 
   newPasswortForm: any = new FormGroup({
     passwordFirstInput: new FormControl('', [
@@ -29,8 +28,7 @@ export class DisplayResetPwEnterPwComponent {
 
   constructor(
     private auth: AuthenticationService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
     this.oobCode = this.route.snapshot.queryParams['oobCode'] || null;
     this.checkPwResetLinkExpiration();
@@ -69,9 +67,6 @@ export class DisplayResetPwEnterPwComponent {
   }
 
   changePasswort() {
-    this.passwortIsChanged = true;
-    setTimeout(() => {
-      this.auth.changePwWhenUserIsNotLogged(this.oobCode, this.passwort);
-    }, 1500);
+    this.auth.changePwWhenUserIsNotLogged(this.oobCode, this.passwort);
   }
 }
