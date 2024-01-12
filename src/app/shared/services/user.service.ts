@@ -33,7 +33,7 @@ export class UserService {
   constructor() {
     this.unsubUsers = this.subUserList();
     this.subAllUsersListFindUserName();
-    
+
   }
 
   userLoggedIn(): User {
@@ -63,7 +63,7 @@ export class UserService {
       })
       .then(() => {
         console.log('user updated');
-      });
+      });      
   }
 
   getSingleDocRef(colId: string, docId: string) {
@@ -125,14 +125,7 @@ export class UserService {
   }
 
   getCleanMessageArrayJson(messages: Message[]): {} {
-    const messageArray = [];
-    for (let index = 0; index < messages.length; index++) {
-      const member = messages[index];
-      const messageAsJson = this.getCleanMessageJson(member);
-      messageArray.push(messageAsJson);
-    }
-
-    return messageArray;
+    return messages.map(message => this.getCleanMessageJson(message));
   }
 
   getCleanMessageJson(message: Message): {} {
@@ -146,8 +139,6 @@ export class UserService {
       file: message.file || ''
     };
   }
-
-
 
   async sendDocToDB(item: User) {
     await addDoc(this.allUserCol, this.getCleanUserJson(item));

@@ -64,7 +64,7 @@ export class InputFieldChannelComponent {
         messageId: Date.now(),
         message: this.input,
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
-        emojis: [{ path: '', amount: 0, setByUser: '' }],
+        emojis: [{ path: '', amount: 0, setByUser: [''] }],
         threads: [],
         // ↓ file already uploaded 
         file: this.storService.getUrlFromStorage(),

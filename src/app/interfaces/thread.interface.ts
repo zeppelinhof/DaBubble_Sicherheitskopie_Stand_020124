@@ -7,7 +7,7 @@ export interface ThreadInterface {
     emojis: {
         path: string,
         amount: number,
-        setByUser: string
+        setByUser: string[]
     }[],
     createdTime: MessageTime | any,
     file?: any;

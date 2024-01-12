@@ -50,7 +50,7 @@ export class ThreadService {
       userCustomId: this.us.userLoggedIn().customId,
       messageId: Date.now(),
       answer: input,
-      emojis: [{ path: '', amount: 0, setByUser: '' }],
+      emojis: [{ path: '', amount: 0, setByUser: [''] }],
       createdTime: this.cs.getCleanMessageTimeJson(
         new MessageTime(
           new Date().getDate(),

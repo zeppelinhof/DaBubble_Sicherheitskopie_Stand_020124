@@ -45,7 +45,7 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage(clickedContact: User) {
-    if (this.input !== '') {
+    if (this.input !== '' || this.selectedFile) {
       let messageId = Date.now();
       // Nachricht bei Empfänger hinterlegen
       this.us.updateUser(
@@ -57,7 +57,7 @@ export class InputFieldMessageComponent {
         { chats: this.getAllChatsOfUser(this.us.userLoggedIn(), messageId) },
         this.us.userLoggedIn()
       );
-      this.input = '';
+      this.clearAll();
     }
   }
 
@@ -118,13 +118,14 @@ export class InputFieldMessageComponent {
               this.cs.getTime(),
             ),
           ),
-          [{ path: '', amount: 0, setByUser: '' }],
-          [{ userCustomId: '', messageId: 0, answer: '', emojis: [{ path: '', amount: 0, setByUser: '' }], createdTime: 0 }],
+          [{ path: '', amount: 0, setByUser: [''] }],
+          [{ userCustomId: '', messageId: 0, answer: '', emojis: [{ path: '', amount: 0, setByUser: [''] }], createdTime: 0 }],
           this.storService.getUrlFromStorage(),
         ),
       );
     } finally {
-      this.clearAll();
+      console.log('updated');
+      
     }
   }
   

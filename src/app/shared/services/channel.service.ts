@@ -175,13 +175,7 @@ export class ChannelService {
   }
 
   getCleanMemberArrayJson(members: User[]): {} {
-    const memberArray = [];
-    for (let index = 0; index < members.length; index++) {
-      const member = members[index];
-      const memberAsJson = this.us.getCleanUserJson(member);
-      memberArray.push(memberAsJson);
-    }
-    return memberArray;
+    return members.map(member => this.us.getCleanUserJson(member));
   }
 
   async getAllMessagesFromChannel(id: string) {
