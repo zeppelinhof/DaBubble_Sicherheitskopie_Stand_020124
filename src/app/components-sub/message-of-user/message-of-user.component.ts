@@ -69,7 +69,6 @@ export class MessageOfUserComponent {
     return false;
   }
 
-
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
       this.clickedContact = user;

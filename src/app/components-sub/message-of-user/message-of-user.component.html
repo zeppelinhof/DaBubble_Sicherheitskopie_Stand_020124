@@ -28,7 +28,9 @@
       <img class="image-of-storage" [src]="this.data.file || this.messageData.file || this.threadMessageData.file">
     </div>
 
-    <div *ngIf="this.data.message || this.messageData.message || (this.threadMessageData && this.threadMessageData.answer)" class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
+    <div
+      *ngIf="this.data.message || this.messageData.message || (this.threadMessageData && this.threadMessageData.answer)"
+      class="thread-message-container" [ngClass]="{'purple2': !checkIfOwnMessage()}">
       <div *ngIf="!getEditMode">{{ this.data.message || this.messageData.message }}
       </div>
       <div *ngIf="!getEditMode && messageType=='threadMessage'">{{ this.threadMessageData.answer}}
@@ -60,35 +62,38 @@
           </div>
         </div>
       </div>
-
-      <div class="message-reactions-wrap">
-        <ng-container *ngFor="let emoji of (messageType === 'directMessage' ? messageData.emojis : (messageType === 'threadMessage' ? threadMessageData.emojis : data.emojis)) || []">
-          <div class="reaction-type-wrap" *ngIf="emoji.amount > 0"
-            (click)="ws.addReaction(emoji.path, this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data, this.threadMessageData)">
-            <div class="img-wrap"><img [src]="emoji.path"></div>
-            <div class="amount-reaction-type">{{emoji.amount}}</div>
-          </div>
-        </ng-container>
-      </div>
-
-      <div *ngIf="hasAnswers()" class="link-to-answers" [ngClass]="{'left-0': !checkIfOwnMessage()}" (click)="ts.showThreads(this.data)">
-        <div class="answer-amount-wrap">
-          <div class="amount">{{data.threads.length - 1}}</div>
-          <div *ngIf="data.threads.length == 2">Antwort</div>
-          <div *ngIf="data.threads.length > 2">Antworten</div>
-        </div>
-        <div class="last-answer-time">
-          <div>Letzte Antwort: </div>
-          <div class="time">{{data.threads[data.threads.length - 1].createdTime['fullDay']}}</div>
-        </div>
-      </div>
-
     </div>
     <!-- showReactionChoice" -->
     <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data"
       [threadMessageData]="threadMessageData" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel"
       *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
       (editMode)="receiveValueFromChild($event)" (newThread)="ts.createOrShowThread(this.data)"
-      [messageOfLoggedInUser]="checkIfOwnMessage()"></app-message-reaction>
+      [messageOfLoggedInUser]="checkIfOwnMessage()">
+    </app-message-reaction>
+  </div>
+  
+</div>
+
+<div class="message-reactions-wrap" [ngClass]="{'flex-end': checkIfOwnMessage()}">
+  <ng-container
+    *ngFor="let emoji of (messageType === 'directMessage' ? messageData.emojis : (messageType === 'threadMessage' ? threadMessageData.emojis : data.emojis)) || []">
+    <div class="reaction-type-wrap" *ngIf="emoji.amount > 0"
+      (click)="ws.addReaction(emoji.path, this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data, this.threadMessageData)">
+      <div class="img-wrap"><img [src]="emoji.path"></div>
+      <div class="amount-reaction-type">{{emoji.amount}}</div>
+    </div>
+  </ng-container>
+</div>
+
+<div *ngIf="hasAnswers()" class="link-to-answers" [ngClass]="{'left-0': !checkIfOwnMessage(), 'flex-end': checkIfOwnMessage()}"
+  (click)="ts.showThreads(this.data)">
+  <div class="answer-amount-wrap">
+    <div class="amount">{{data.threads.length - 1}}</div>
+    <div *ngIf="data.threads.length == 2">Antwort</div>
+    <div *ngIf="data.threads.length > 2">Antworten</div>
+  </div>
+  <div class="last-answer-time">
+    <div>Letzte Antwort: </div>
+    <div class="time">{{data.threads[data.threads.length - 1].createdTime['fullDay']}}</div>
   </div>
 </div>

@@ -28,26 +28,22 @@
 }
 
 .message-reactions-wrap {
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: calc(100% + 5px);
     display: flex;
+    width: 100%;    
     gap: 10px;
     box-sizing: border-box;
     background-color: white;
+    padding: 4px 32px 4px 32px;
     // overflow-x: hidden;
 }
 
 .link-to-answers {
-    position: absolute;
-    right: 0;  // left: 0;
-    top: calc(100% + 15px);
     display: flex;
     align-items: center;
     font-weight: 400;
     gap: 20px;
     white-space: nowrap; 
+    padding: 0 32px 4px 32px;
 
     .answer-amount-wrap {
         display: flex;
@@ -68,6 +64,10 @@
 
 .left-0{
     left: 0;
+}
+
+.flex-end{
+    justify-content: flex-end;
 }
 
 // .message-reactions-wrap:hover {
