@@ -130,8 +130,9 @@
 
 
     img {
-        height: 300px;
-        width: 300px;
+        max-height: 300px;
+        height: fit-content;
+        width: fit-content;
     }
 }
 .close-icon-purple {
