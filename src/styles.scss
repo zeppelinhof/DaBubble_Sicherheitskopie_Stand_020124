@@ -190,6 +190,7 @@ button {
 }
 
 .thread-user-container {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 40px 32px 0 32px;
@@ -330,3 +331,5 @@ button {
   border-radius: 20px;
   font-size: 14px;
 }
+
+

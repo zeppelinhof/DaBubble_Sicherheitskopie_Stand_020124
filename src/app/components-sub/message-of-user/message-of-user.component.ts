@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
@@ -13,7 +13,8 @@ import { InputService } from 'src/app/shared/services/input.service';
 @Component({
   selector: 'app-message-of-user',
   templateUrl: './message-of-user.component.html',
-  styleUrls: ['./message-of-user.component.scss']
+  styleUrls: ['./message-of-user.component.scss'],
+  
 })
 export class MessageOfUserComponent {
   @Input() messageData: Message = new Message();      // für Direktnachrichten
@@ -28,6 +29,8 @@ export class MessageOfUserComponent {
   clickedChannel!: Channel;
   unsubAllUsers: any;
   threadsOfMessage!: ThreadInterface[];
+  imagePreview: boolean = false;
+  
 
   constructor(public us: UserService,
     public cs: ChannelService,
@@ -110,8 +113,13 @@ export class MessageOfUserComponent {
 
   saveThreadMessage() {
     this.cs.updateChannel({ allMessages: this.insertNewThreadIntoMessages() }, this.clickedChannel);
-  }
 
+  }
+ 
+
+  closeAllDivs() {
+    this.imagePreview = false;
+  }
   takePreviousMessage() {
     this.data.message = this.previousMessage;
   }
