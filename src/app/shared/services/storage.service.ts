@@ -13,25 +13,26 @@ export class StorageService {
   }
 
   // calling function with Parameter (file)
-  uploadToStorage(file: any): Promise<string | null> | null {
+  async uploadToStorage(file: any): Promise<string | null> {
     if (file) {
       const storage = getStorage();
       const storageRef = ref(storage, file.name);
-      uploadBytes(storageRef, file);
-      this.getFileUrl(file.name);
+      await uploadBytes(storageRef, file);
+      await this.getFileUrl(file.name);
+      return this.channelCurrentUrl;
     }
     return null;
   }
 
   getUrlFromStorage(): string | null {
     if (this.channelCurrentUrl) {
-      return this.channelCurrentUrl
+      return this.channelCurrentUrl;
     } else {
       return null;
     }
   }
 
-  async getFileUrl(fileName: string): Promise<string | null> {
+  async getFileUrl(fileName: string): Promise<void> {
     const storage = getStorage();
     const storageRef = ref(storage);
     const files = await listAll(storageRef);
@@ -39,15 +40,11 @@ export class StorageService {
     for (const file of files.items) {
       if (file.name === fileName) {
         const url = await getDownloadURL(file);
-
-        let url_to_string = url.toString();
-        this.channelCurrentUrl = url_to_string;
-        console.log("current url", this.channelCurrentUrl);
-
-
+        let urlToString = url.toString();
+        this.channelCurrentUrl = urlToString;
+        console.log("Aktuelle URL", this.channelCurrentUrl);
       }
     }
-    return null;
-
   }
+
 }
