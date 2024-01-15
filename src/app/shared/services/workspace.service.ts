@@ -13,7 +13,7 @@ export class WorkspaceService {
   showSideLeft: boolean = true;
   showCreateChannel: boolean = false;
   showAddMembers: boolean = false;
-  showAddMembersInExistingChannel: boolean = false;
+  showAddMembersInExistingChannel: boolean = false;  
   dialogGeneralData: boolean = true;
   radioButtonFirst: boolean = true;
   inputName: string = '';
@@ -26,7 +26,64 @@ export class WorkspaceService {
   allChatsTemp: any[] = [];
   indexChangedMessage!: number;
 
+  // Global Search
+  globalResults: boolean = false;
+  inputGlobalSearch: string = '';
+
   constructor(private us: UserService, private cs: ChannelService) { }
+
+  // #region get Channels and Users
+  getUsers() {
+    // Es werden nur die User angezeigt, welche in ihrem Chat die customId von Logged In User haben 
+    // Also: Diejenigen, welche von Logged In User angeschrieben wurden
+    const filteredUsers = this.us.myUsers.filter((user: User) => {
+      if (this.us.userLoggedIn().chats && user.chats) {
+        return user.chats.some((chat: Message) => chat.userCustomId === this.us.userLoggedIn().customId);
+      } else {
+        return [];
+      }
+    });
+
+    // diejenigen, welche Logged In User angeschrieben haben, ohne dass Logged User diese zuvor angeschrieben hat, werden nun auch hinzugefügt
+    for (let index = 0; index < this.us.userLoggedIn().chats!.length; index++) {
+      const userLoggedInChats = this.us.userLoggedIn().chats![index];
+      let alreadyIncluded: boolean = false;
+      for (let index = 0; index < filteredUsers.length; index++) {
+        const filteredUser = filteredUsers[index];
+        if (userLoggedInChats.userCustomId === filteredUser.customId) {
+          alreadyIncluded = true;
+        }
+      }
+      if (!alreadyIncluded) {
+        const userToAdd = this.us.myUsers.find((user: User) => user.customId === userLoggedInChats.userCustomId);
+        if (userToAdd) {
+          // falls noch
+          filteredUsers.push(userToAdd);
+        }
+      }
+
+    }
+    return filteredUsers;
+  }
+
+  getChannels() {
+    // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
+    // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
+    // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
+    if (this.cs.myChannels) {
+      const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
+      channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
+    );
+    return onlyMyChannels;
+    }
+  }
+
+  getNameOfChannel(idForName: string){
+    let channelName = this.getChannels().find((channel: Channel) => channel.customId === idForName);
+    return channelName.name;
+  }
+
+  // #endregion
 
   closeSideLeft() {
     this.showSideLeft = this.showSideLeft ? false : true;
@@ -34,15 +91,19 @@ export class WorkspaceService {
 
   openCloseCreateChannel() {
     this.showCreateChannel = this.showCreateChannel ? false : true;
-    this.clearValues();
+    this.addMemberClearValues();
   }
 
   closeAddMembers() {
     this.showAddMembers = false;
-    this.clearValues();
+    this.addMemberClearValues();
   }
 
-  clearValues() {
+  closeGlobalResults(){
+    this.globalResults = false;
+  }
+
+  addMemberClearValues() {
     if (!this.showCreateChannel) {
       this.showCreateChannel = false;
       this.dialogGeneralData = true;
@@ -55,6 +116,7 @@ export class WorkspaceService {
     }
   }
 
+//#region addReatcion
   addReaction(emojiPath: string, messageType: string, clickedContact: User, clickedChannel: Channel, messageData: Message, data: Message, threadMessageData: ThreadInterface) {
     // messageData kommt von Direktnachrichten; data von Channel-Nachrichten    
     if (messageType == 'directMessage') {
@@ -80,7 +142,7 @@ export class WorkspaceService {
     // Wenn Emoji für Thread
     if (threadMessageData) {
       this.allChatsTemp = this.threadUpdateEmoji(this.allChatsTemp, threadMessageData, newEmojiPath);
-      // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben
+      // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben      
       this.allChatsTemp[this.indexChangedMessage].threads[0].emojis = this.allChatsTemp[this.indexChangedMessage].emojis;
     }
     return this.allChatsTemp;
@@ -178,6 +240,6 @@ export class WorkspaceService {
 
     return chat;
   }
-
+// #endregion
 
 }

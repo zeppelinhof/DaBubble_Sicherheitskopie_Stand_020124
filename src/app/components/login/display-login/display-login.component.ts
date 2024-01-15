@@ -35,12 +35,12 @@ export class DisplayLoginComponent {
    * Submits the login form, logs in the user if the form is valid, and the user exists.
    */
   submit() {
-    console.log('test');
+    // console.log('test');
 
-    /*
+    
     if (this.loginFormIsValid() && this.checkUserIsExisting())
       this.userLogsIn();
-    */
+    
   }
 
   /**

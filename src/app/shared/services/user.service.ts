@@ -169,7 +169,6 @@ export class UserService {
   }
 
   getUserName(userCustomId: string) {
-    // this.subAllUsersListFindUserName();
     let user = this.allUsersForUserName.find(
       (user) => user.customId === userCustomId
     );

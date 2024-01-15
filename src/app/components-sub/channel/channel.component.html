@@ -123,12 +123,12 @@
             <img class="close-purple" src="assets/icons/close_purple.png" />
           </div>
         </div>
-        <!-- !this.ws.radioButtonFirst -->
+
         <input [(ngModel)]="this.ws.inputMember" (input)="
             sis.allFieldsFilled();
             addPreviousMembers();
-            sis.filterMembers(additionalMembers)
-          " class="inputfield" placeholder="Name eingeben" />
+            sis.filterMembers(additionalMembers)"
+            class="inputfield" placeholder="Name eingeben" />
       </div>
 
       <!-- Dropdown-Liste -->

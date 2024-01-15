@@ -11,6 +11,9 @@ import { Message } from 'src/app/models/message';
 })
 export class SearchInputService {
   filteredMembers: User[] = [];
+  filteredMessages: any[] = [];
+  countDirectmessages: number = 0;
+  countChannelmessages: number = 0;
 
   constructor(private ws: WorkspaceService, private cs: ChannelService, private us: UserService,) {
     this.getUsers();
@@ -53,6 +56,45 @@ export class SearchInputService {
     });
   }
 
+  filterCodeLearning() {
+    this.ws.globalResults = true;
+    const searchTerm = this.ws.inputGlobalSearch.toLowerCase();
+    this.relevantData(searchTerm);
+  }
+
+  relevantData(searchTerm: string){
+    this.filteredMessages = this.relevantDirectMessages(this.us.userLoggedIn(), searchTerm);
+    this.filteredMessages = [...this.filteredMessages, ...this.relevantChannelMessages(searchTerm)];                
+  }
+
+  relevantDirectMessages(userLoggedIn: User, searchTerm: string): any[] {
+    let messagesList = [];
+    if (userLoggedIn.chats) {
+      for (let index = 0; index < userLoggedIn.chats.length; index++) {
+        const chat = userLoggedIn.chats[index];
+        if (chat.message.toLowerCase().includes(searchTerm)) {
+          messagesList.push({chat: chat, userCustomId: chat.userCustomId})
+        }
+        
+      }
+    }    
+    return messagesList;
+  }  
+
+  relevantChannelMessages(searchTerm: string) {
+    let allChannels: Channel[] = this.ws.getChannels();  
+    let relevantChannelMessages: any[] = [];
+    for (let channel of allChannels) {
+      for (let chat of channel.allMessages) {                
+        if (chat.message.toLowerCase().includes(searchTerm)) {
+          relevantChannelMessages.push({chat: chat, channelId: channel.customId});  
+        }           
+      }
+    }       
+    this.countChannelmessages = relevantChannelMessages.length; 
+    return relevantChannelMessages;
+  }
+
   memberAlreadySelected(email: string, existingMembers: User[]): boolean {
     // const members = this.cs.newChannel.members;
     const members = existingMembers;
@@ -91,6 +133,16 @@ export class SearchInputService {
       }
     }, 1000);
   }
+
+  refreshMessageList(existingMembers: User[]) {
+    setTimeout(() => {
+      if (this.ws.showAddMembers) {
+        this.filterMembers(existingMembers);
+      }
+    }, 1000);
+  }
+
+
 
   clearChannelJSON() {
     this.cs.newChannel = new Channel();

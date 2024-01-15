@@ -5,11 +5,34 @@
 
   <div class="input-field-container">
     <div>
-      <input type="text" placeholder="Code learning durchsuchen" />
+      <input type="text" placeholder="Code learning durchsuchen" [(ngModel)]="this.ws.inputGlobalSearch"
+        (input)="sis.filterCodeLearning()" />
     </div>
     <div class="search-bar-icon">
       <img src="assets/icons/search.png" />
     </div>
+
+    <!-- Global Result-List -->
+    <div class="choose-members-wrap" *ngIf="this.ws.globalResults">
+      <div class="first-line">
+        <div class="headline-white-box">Globale Suche</div>
+        <div class="around-close" (click)="this.ws.closeGlobalResults()">
+          <img src="assets/icons/close.png" />
+        </div>
+      </div>
+      <div class="user-list-wrap">
+        <div class="user-list">
+          <div class="oneUser-line" *ngFor="let msgData of sis.filteredMessages" [routerLink]="getRouterLink(msgData)"
+            (click)="sis.clearSearchInput(); openChat(msgData)">
+            <img class="profile-image" src="assets/imgs/userMale3.png" />
+            <div class="name-text">
+              {{ messagePreview(msgData) }} von {{getMessageSource(msgData)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="current-user">
@@ -20,10 +43,6 @@
     <!-- {{us.userLoggedIn().name}} -->
     <img class="current-user-img" src="assets/imgs/userMale4.png" alt="" />
     <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
-    <img
-      class="arrow-down-icon-purple"
-      src="assets/icons/arrowDownPurple.png"
-      alt=""
-    />
+    <img class="arrow-down-icon-purple" src="assets/icons/arrowDownPurple.png" alt="" />
   </div>
 </header>
