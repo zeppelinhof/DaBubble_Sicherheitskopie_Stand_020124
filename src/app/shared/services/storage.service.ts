@@ -23,16 +23,20 @@ export class StorageService {
     }
     return null;
   }
-  
+
   getUrlFromStorage(): string | null {
-    return this.channelCurrentUrl;
+    if (this.channelCurrentUrl) {
+      return this.channelCurrentUrl;
+    } else {
+      return null;
+    }
   }
-  
+
   async getFileUrl(fileName: string): Promise<void> {
     const storage = getStorage();
     const storageRef = ref(storage);
     const files = await listAll(storageRef);
-  
+
     for (const file of files.items) {
       if (file.name === fileName) {
         const url = await getDownloadURL(file);
@@ -42,5 +46,5 @@ export class StorageService {
       }
     }
   }
-  
+
 }
