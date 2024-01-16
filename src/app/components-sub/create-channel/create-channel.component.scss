@@ -130,7 +130,6 @@ $btn-purple: #444DF2;
 
 .choose-members-wrap {
     position: absolute;
-    top: 250px;
     left: 0;
     min-width: 300px;
     max-height: 300px;
@@ -221,9 +220,15 @@ $btn-purple: #444DF2;
 
             .name-text {
                 display: flex;
+                justify-content: space-between;
+                width: 100%;
                 font-weight: 400;
                 font-size: 18px;
                 transition: 100ms;
+
+                >div {
+                    margin-right: 10px;
+                }
 
                 &:hover {
                     color: $purple;
@@ -235,6 +240,10 @@ $btn-purple: #444DF2;
             }
         }
     }
+}
+
+.top-250 {
+    top: 250px;
 }
 
 .profile-image {

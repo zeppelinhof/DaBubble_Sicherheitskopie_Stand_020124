@@ -26,7 +26,8 @@
             (click)="sis.clearSearchInput(); openChat(msgData)">
             <img class="profile-image" src="assets/imgs/userMale3.png" />
             <div class="name-text">
-              {{ messagePreview(msgData) }} von {{getMessageSource(msgData)}}
+              <div>{{ messagePreview(msgData) }}</div>
+              <div class="searchHitSourceName">von {{getMessageSource(msgData)}}</div>               
             </div>
           </div>
         </div>

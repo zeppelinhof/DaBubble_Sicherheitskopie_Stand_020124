@@ -99,6 +99,9 @@ export class HeaderComponent {
   getMessageSource(msgData: any) {
     // für Chats
     if (msgData.userCustomId) {
+      if (msgData.userCustomId === this.us.userLoggedIn().customId) {
+        return 'dir';
+      }
       return this.us.getUserName(msgData.userCustomId);
       // für Channels 
     } else {
