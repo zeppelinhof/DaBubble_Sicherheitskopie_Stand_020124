@@ -46,6 +46,7 @@ export class ThreadService {
   }
 
   showThreads(data: Message) {
+    this.ws.threadContainerIsVisible = true;
     this.cs.clickedMessage.next(data);
     this.cs.subThreadList();
     this.threadVisible = true;

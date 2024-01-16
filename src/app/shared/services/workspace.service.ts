@@ -21,7 +21,7 @@ export class WorkspaceService {
   inputMember: string = '';
   inputCertainMembers: User[] = [];
   allCurrentChannels: Channel[] = [];
-  threadContainerIsVisible: boolean = true;
+  threadContainerIsVisible: boolean = false;
   showEmojis: boolean = false;
   allChatsTemp: any[] = [];
   indexChangedMessage!: number;

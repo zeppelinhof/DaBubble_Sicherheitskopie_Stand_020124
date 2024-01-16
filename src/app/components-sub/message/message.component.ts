@@ -38,8 +38,7 @@ export class MessageComponent {
 
   ngAfterViewInit(): void {
     // wenn sich der User auf Channels (nicht auf Messages) befindet, und messages neu geladen wird, soll die Global Search
-    // auf den DOM-Elemente erst nach Laden aller Elemente geschehen (damit diese gefunden werden)
-    debugger
+    // auf den DOM-Elemente erst nach Laden aller Elemente geschehen (damit diese gefunden werden)    
     if (this.ws.messageToSearch) {
       this.ws.scrollToElementByContent(this.ws.messageToSearch.chat.message.toLowerCase());
     }
@@ -68,8 +67,7 @@ export class MessageComponent {
     }, 300);
   }
 
-  scrollToMessage(messageId: string) {
-    debugger
+  scrollToMessage(messageId: string) {    
     const element = document.getElementById(messageId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
