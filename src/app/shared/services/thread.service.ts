@@ -32,7 +32,7 @@ export class ThreadService {
       file: this.cs.clickedMessage.value.file
     }
     
-    this.addThreadmessage(topicThread, this.clickedChannel, this.cs.clickedMessage.value);
+    this.addThreadmessage(topicThread, this.cs.clickedChannel.value, this.cs.clickedMessage.value);
     this.threadVisible = true;
   }
 

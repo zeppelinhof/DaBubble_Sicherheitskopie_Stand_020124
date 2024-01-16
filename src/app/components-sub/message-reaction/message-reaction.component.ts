@@ -54,6 +54,7 @@ export class MessageReactionComponent {
     this.ts.showThreads(this.data)
     this.ts.createOrShowThread(this.data);
     this.newThread.emit(true);
+    this.ws.scrollToBottom('scrollThreadMessages');
   }
 
   showMoreReactions() {

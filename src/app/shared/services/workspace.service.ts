@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { User } from 'src/app/models/user';
 import { UserService } from './user.service';
@@ -243,8 +243,20 @@ export class WorkspaceService {
   }
   // #endregion
 
+  scrollToBottom(elementId: string) {
+    setTimeout(() => {
+      let element = document.getElementById(elementId);
+      if (element) {
+        element.scrollTo({
+          top: element.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+    }, 300)
+  }
+
   // für Global Search
-  scrollToElementByContent(content: string) {    
+  scrollToElementByContent(content: string) {
     const elements = document.getElementsByClassName('thread-message-container');
 
     for (let i = 0; i < elements.length; i++) {
@@ -253,6 +265,13 @@ export class WorkspaceService {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         break;
       }
+    }
+  }
+
+  scrollToMessage(messageId: string) {
+    const element = document.getElementById(messageId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 }

@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div *ngIf="ts.threadVisible" class="messages-channel-container" #scroll>
+  <div *ngIf="ts.threadVisible" class="messages-channel-container" id="scrollThreadMessages">
     <div *ngFor="let thread of threadsOfMessage; let i = index">
       <!-- Datumstrenner für jeden Tag -->
       <div *ngIf="this.cs.checkIfNewDay(threadsOfMessage, i)" class="new-day-date">

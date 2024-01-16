@@ -58,6 +58,7 @@ export class InputFieldMessageComponent {
         this.us.userLoggedIn()
       );
       this.clearAll();
+      this.ws.scrollToBottom('scrollDirectMessages') 
     }
   }
 

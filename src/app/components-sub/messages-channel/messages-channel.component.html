@@ -1,5 +1,4 @@
-<div *ngIf="this.cs.allMessagesChannel[0]" class="messages-channel-container">
-  <!-- <div  *ngFor="let item of this.cs.allMessagesChannel[0]"> -->
+<div *ngIf="this.cs.allMessagesChannel[0]" class="messages-channel-container" id="scrollChannelMessages">
   <div *ngFor="let item of this.cs.clickedChannel.value.allMessages; let i = index">
     <div *ngIf="this.cs.checkIfNewDay(this.cs.clickedChannel.value.allMessages, i)" class="new-day-date">
       <div class="dateSeparatorAreaLeft">

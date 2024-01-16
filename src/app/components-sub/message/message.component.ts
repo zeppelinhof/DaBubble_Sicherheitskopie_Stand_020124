@@ -14,14 +14,13 @@ import { MessageOfUserComponent } from '../message-of-user/message-of-user.compo
 export class MessageComponent {
   @ViewChild('scroll') scroll!: ElementRef;
   @ViewChild(MessageOfUserComponent, { static: false }) messageOfUser!: MessageOfUserComponent;
-  scrolled: boolean = false;
-  intervalIdConstantly?: any;
+  scrolled: boolean = false;  
 
   clickedContactId!: string;
   clickedContact!: User;
   isWriting: boolean = true;
 
-  constructor(public service: InputService, public us: UserService, public cs: ChannelService, private ws: WorkspaceService) { }
+  constructor(public service: InputService, public us: UserService, public cs: ChannelService, public ws: WorkspaceService) { }
 
 
   ngOnInit(): void {
@@ -36,47 +35,17 @@ export class MessageComponent {
       });
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     // wenn sich der User auf Channels (nicht auf Messages) befindet, und messages neu geladen wird, soll die Global Search
     // auf den DOM-Elemente erst nach Laden aller Elemente geschehen (damit diese gefunden werden)    
     if (this.ws.messageToSearch) {
       this.ws.scrollToElementByContent(this.ws.messageToSearch.chat.message.toLowerCase());
     }
+    
   }
 
   noChatsAvailable() {
     this.us.clickedContact.value.chats?.length == 0
   }
-
-  scrollToBottom() {    
-    clearInterval(this.intervalIdConstantly);
-    this.scrolled = true;
-    this.scroll.nativeElement.scrollTo({
-      top: this.scroll.nativeElement.scrollHeight,
-      behavior: 'smooth'
-    });
-  }
-
-  scrollToBottomConstantly() {    
-    this.intervalIdConstantly = setInterval(() => {
-      this.scroll.nativeElement.scrollTo({
-        top: this.scroll.nativeElement.scrollHeight,
-        behavior: 'smooth'
-      });
-
-    }, 300);
-  }
-
-  scrollToMessage(messageId: string) {    
-    const element = document.getElementById(messageId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  
-  
-  
-
 
 }

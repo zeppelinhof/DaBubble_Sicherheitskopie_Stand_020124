@@ -34,10 +34,7 @@
       </div>
 
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
-        <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel" (click)="
-            this.cs.setChannelView(cn.customId);
-            this.cs.getAllMessagesFromChannel(cn.customId)
-          ">
+        <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel" (click)="setChannel(cn)">
           <div class="logo-item-channel">
             <img src="assets/icons/tag.png" />
             <div class="oneName-channel">
@@ -80,8 +77,7 @@
   </div>
 
   <div *ngIf="arrowClickedContacts" class="list-container-contacts">
-    <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message"
-      (click)="this.us.setContactView(user.customId)">
+    <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
       <div class="logo-item-contact">
         <img class="profile-image" src="assets/imgs/userMale3.png" />
         <div>{{ user.name }}</div>

@@ -46,4 +46,15 @@ export class SideLeftComponent {
     }
   }
 
+  setChannel(cn: Channel) {
+    this.cs.setChannelView(cn.customId);
+    this.cs.getAllMessagesFromChannel(cn.customId);
+    this.ws.scrollToBottom('scrollChannelMessages');
+  }
+
+  async setContact(user: User) {
+    this.us.setContactView(user.customId); 
+    this.ws.scrollToBottom('scrollDirectMessages');
+  }
+
 }

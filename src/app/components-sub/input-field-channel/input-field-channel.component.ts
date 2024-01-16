@@ -8,6 +8,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { UserService } from 'src/app/shared/services/user.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-input-field-channel',
@@ -36,7 +37,8 @@ export class InputFieldChannelComponent {
     public cs: ChannelService,
     private us: UserService,
     private _eref: ElementRef,
-    public storService: StorageService
+    public storService: StorageService,
+    private ws: WorkspaceService
   ) {
 
   }
@@ -71,7 +73,7 @@ export class InputFieldChannelComponent {
       
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
       console.log("das ist newMessage: ", newMessage);
-
+      this.ws.scrollToBottom('scrollChannelMessages');
     }
     
     this.addMemberToChannel(this.cs.clickedChannel.value);

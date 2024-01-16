@@ -4,6 +4,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ThreadService } from 'src/app/shared/services/thread.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-input-field-thread',
@@ -20,7 +21,12 @@ export class InputFieldThreadComponent {
   allMembers: any = [];
   private fileInputRef: HTMLInputElement | undefined;
   selectedFile: File | null = null;
-  constructor(public service: InputService, public cs: ChannelService, private _eref: ElementRef, private ts: ThreadService, private storService: StorageService) {}
+  constructor(public service: InputService, 
+    public cs: ChannelService, 
+    private _eref: ElementRef, 
+    private ts: ThreadService, 
+    private storService: StorageService,
+    private ws: WorkspaceService) {}
 
 
   fileExplorer(event: any): void {
@@ -78,6 +84,7 @@ export class InputFieldThreadComponent {
     if (this.input !== '' || this.selectedFile) {
       this.ts.addThreadAnswer(this.input);
       this.clearAll();
+      this.ws.scrollToBottom('scrollThreadMessages') 
     }
   }
 

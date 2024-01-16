@@ -1,11 +1,11 @@
-<div class="message-div-container" (mouseenter)="scrollToBottom()">
+<div class="message-div-container">
   <div class="message-header-container">
     <img src="assets/imgs/userMale2.png" />
     <div class="message-user-name">{{this.clickedContact.name}}</div>
   </div>
 
   <!-- [scrollTop]="scroll.scrollHeight" -->
-  <div class="messages-channel-container" #scroll>
+  <div class="messages-channel-container" id="scrollDirectMessages">
     <div *ngFor="let chat of us.chatsWithClickedUser(); let i = index">
       <div *ngIf="this.cs.checkIfNewDay(us.chatsWithClickedUser(), i)" class="new-day-date">
         <div class="dateSeparatorAreaLeft">
@@ -35,6 +35,5 @@
     </div>
   </div>
 
-  <app-input-field-message (mouseenter)="scrollToBottomConstantly()"
-    (mouseleave)="scrollToBottom()"></app-input-field-message>
+  <app-input-field-message></app-input-field-message>
 </div>
