@@ -59,7 +59,7 @@ export class SearchInputService {
   filterCodeLearning() {
     this.ws.globalResults = true;
     const searchTerm = this.ws.inputGlobalSearch.toLowerCase();
-    this.relevantData(searchTerm);
+    this.relevantData(searchTerm);    
   }
 
   relevantData(searchTerm: string){

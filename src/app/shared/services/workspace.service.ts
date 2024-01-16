@@ -13,7 +13,7 @@ export class WorkspaceService {
   showSideLeft: boolean = true;
   showCreateChannel: boolean = false;
   showAddMembers: boolean = false;
-  showAddMembersInExistingChannel: boolean = false;  
+  showAddMembersInExistingChannel: boolean = false;
   dialogGeneralData: boolean = true;
   radioButtonFirst: boolean = true;
   inputName: string = '';
@@ -29,6 +29,7 @@ export class WorkspaceService {
   // Global Search
   globalResults: boolean = false;
   inputGlobalSearch: string = '';
+  messageToSearch: any;
 
   constructor(private us: UserService, private cs: ChannelService) { }
 
@@ -72,13 +73,13 @@ export class WorkspaceService {
     // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
     if (this.cs.myChannels) {
       const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
-      channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
-    );
-    return onlyMyChannels;
+        channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
+      );
+      return onlyMyChannels;
     }
   }
 
-  getNameOfChannel(idForName: string){
+  getNameOfChannel(idForName: string) {
     let channelName = this.getChannels().find((channel: Channel) => channel.customId === idForName);
     return channelName.name;
   }
@@ -99,7 +100,7 @@ export class WorkspaceService {
     this.addMemberClearValues();
   }
 
-  closeGlobalResults(){
+  closeGlobalResults() {
     this.globalResults = false;
   }
 
@@ -116,7 +117,7 @@ export class WorkspaceService {
     }
   }
 
-//#region addReatcion
+  //#region addReatcion
   addReaction(emojiPath: string, messageType: string, clickedContact: User, clickedChannel: Channel, messageData: Message, data: Message, threadMessageData: ThreadInterface) {
     // messageData kommt von Direktnachrichten; data von Channel-Nachrichten    
     if (messageType == 'directMessage') {
@@ -240,6 +241,18 @@ export class WorkspaceService {
 
     return chat;
   }
-// #endregion
+  // #endregion
 
+  // für Global Search
+  scrollToElementByContent(content: string) {    
+    const elements = document.getElementsByClassName('thread-message-container');
+
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i];
+      if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        break;
+      }
+    }
+  }
 }

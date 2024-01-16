@@ -21,7 +21,7 @@ export class MessageComponent {
   clickedContact!: User;
   isWriting: boolean = true;
 
-  constructor(public service: InputService, public us: UserService, public cs: ChannelService) { }
+  constructor(public service: InputService, public us: UserService, public cs: ChannelService, private ws: WorkspaceService) { }
 
 
   ngOnInit(): void {
@@ -36,11 +36,20 @@ export class MessageComponent {
       });
   }
 
+  ngAfterViewInit(): void {
+    // wenn sich der User auf Channels (nicht auf Messages) befindet, und messages neu geladen wird, soll die Global Search
+    // auf den DOM-Elemente erst nach Laden aller Elemente geschehen (damit diese gefunden werden)
+    debugger
+    if (this.ws.messageToSearch) {
+      this.ws.scrollToElementByContent(this.ws.messageToSearch.chat.message.toLowerCase());
+    }
+  }
+
   noChatsAvailable() {
     this.us.clickedContact.value.chats?.length == 0
   }
 
-  scrollToBottom() {
+  scrollToBottom() {    
     clearInterval(this.intervalIdConstantly);
     this.scrolled = true;
     this.scroll.nativeElement.scrollTo({
@@ -49,7 +58,7 @@ export class MessageComponent {
     });
   }
 
-  scrollToBottomConstantly() {
+  scrollToBottomConstantly() {    
     this.intervalIdConstantly = setInterval(() => {
       this.scroll.nativeElement.scrollTo({
         top: this.scroll.nativeElement.scrollHeight,
@@ -58,6 +67,18 @@ export class MessageComponent {
 
     }, 300);
   }
+
+  scrollToMessage(messageId: string) {
+    debugger
+    const element = document.getElementById(messageId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  
+  
+  
 
 
 }

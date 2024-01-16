@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
-import { SlicePipe } from '@angular/common';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 
@@ -14,7 +13,14 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(public us: UserService, public auth: AuthenticationService, public ws: WorkspaceService, public sis: SearchInputService, private cs: ChannelService) { }
+
+  messageType: string = '';
+
+  constructor(public us: UserService,
+    public auth: AuthenticationService,
+    public ws: WorkspaceService,
+    public sis: SearchInputService,
+    private cs: ChannelService) { }
 
 
 
@@ -39,35 +45,50 @@ export class HeaderComponent {
 
   getRouterLink(msgData: any): string[] {
     if (msgData.userCustomId) {
+      this.messageType = 'directMessage'
       return ['message'];
     } else {
+      this.messageType = 'channelMessage'
       return ['channel'];
     }
 
   }
 
-  openChat(clickedMessage: any) {
+  async openChat(messageToSearch: any) {
 
     let userLoggedIn = this.us.userLoggedIn().customId;
-    // Direktnachrichten
-    if (clickedMessage.userCustomId) { 
-      let allUsers = this.sis.getUsers();
+    this.ws.messageToSearch = messageToSearch;
+    
+    if (messageToSearch.userCustomId) {
+      // Direktnachrichten
+      this.setDirectMessage(messageToSearch, userLoggedIn)      
+    } else {
+      // Channelnachrichten
+      this.setChannelAndScrollToElement(messageToSearch)
+    }
+    this.ws.closeGlobalResults();    
+  }
 
-      for (let user of allUsers) {
-        if (user.chats) {
-          for (let chat of user.chats) {
-            if (this.isMessageOfChatpartner(chat, user, clickedMessage, userLoggedIn)) {
-              this.us.setContactView(user.customId);
-              break;
-            }
+  async setDirectMessage(messageToSearch: any, userLoggedIn: string) {
+    let allUsers = this.sis.getUsers();
+
+    for (let user of allUsers) {
+      if (user.chats) {
+        for (let chat of user.chats) {
+          if (this.isMessageOfChatpartner(chat, user, messageToSearch, userLoggedIn)) {
+            this.us.setContactView(user.customId);
+            break;
           }
         }
       }
-      // Channelnachrichten
-    } else {
-      this.cs.setChannelView(clickedMessage.channelId);
-      this.cs.getAllMessagesFromChannel(clickedMessage.channelId)
     }
+    // ScrollToElement in message.component.ts after init
+  }
+
+  async setChannelAndScrollToElement(messageToSearch: any) {
+    this.cs.setChannelView(messageToSearch.channelId);
+    await this.cs.getAllMessagesFromChannel(messageToSearch.channelId);
+    this.ws.scrollToElementByContent(messageToSearch.chat.message.toLowerCase());
   }
 
   isMessageOfChatpartner(chat: Message, user: User, clickedMessage: any, userLoggedIn: string) {

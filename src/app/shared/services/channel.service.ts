@@ -120,8 +120,6 @@ export class ChannelService {
     }
   }
 
-
-
   setChannelView(id: string) {
     this.clickedChannelId.next(id);
     this.setCurrentChannel(this.clickedChannelId.value);
