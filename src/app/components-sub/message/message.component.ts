@@ -39,7 +39,7 @@ export class MessageComponent {
     // wenn sich der User auf Channels (nicht auf Messages) befindet, und messages neu geladen wird, soll die Global Search
     // auf den DOM-Elemente erst nach Laden aller Elemente geschehen (damit diese gefunden werden)    
     if (this.ws.messageToSearch) {
-      this.ws.scrollToElementByContent(this.ws.messageToSearch.chat.message.toLowerCase());
+      this.ws.scrollToElementByContent(this.ws.messageToSearch.chat.message.toLowerCase(), this.ws.messageToSearch.type);
     }
     
   }

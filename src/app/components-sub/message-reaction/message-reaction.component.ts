@@ -51,7 +51,7 @@ export class MessageReactionComponent {
 
   threadToSend(){
     this.cs.setMessageView(this.data.messageId);
-    this.ts.showThreads(this.data)
+    this.ts.showThreads(this.data);
     this.ts.createOrShowThread(this.data);
     this.newThread.emit(true);
     this.ws.scrollToBottom('scrollThreadMessages');

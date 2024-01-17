@@ -63,8 +63,9 @@ export class SearchInputService {
   }
 
   relevantData(searchTerm: string){
-    this.filteredMessages = this.relevantDirectMessages(this.us.userLoggedIn(), searchTerm);
-    this.filteredMessages = [...this.filteredMessages, ...this.relevantChannelMessages(searchTerm)];                
+    this.filteredMessages = this.relevantDirectMessages(this.us.userLoggedIn(), searchTerm) // relevante Direkt-Nachrichten
+    .concat(this.relevantChannelMessages(searchTerm))                                       // relevante Channel-Nachrichten anhängen
+    .concat(this.relevantThreadMessages(searchTerm));                                       // relevante Thread-Nachrichten anhängen
   }
 
   relevantDirectMessages(userLoggedIn: User, searchTerm: string): any[] {
@@ -73,7 +74,7 @@ export class SearchInputService {
       for (let index = 0; index < userLoggedIn.chats.length; index++) {
         const chat = userLoggedIn.chats[index];
         if (chat.message.toLowerCase().includes(searchTerm)) {
-          messagesList.push({chat: chat, userCustomId: chat.userCustomId})
+          messagesList.push({chat: chat, userCustomId: chat.userCustomId, type: 'directMessage'})
         }
         
       }
@@ -87,12 +88,26 @@ export class SearchInputService {
     for (let channel of allChannels) {
       for (let chat of channel.allMessages) {                
         if (chat.message.toLowerCase().includes(searchTerm)) {
-          relevantChannelMessages.push({chat: chat, channelId: channel.customId});  
+          relevantChannelMessages.push({chat: chat, channelId: channel.customId, type: 'channelMessage'});  
         }           
       }
     }       
-    this.countChannelmessages = relevantChannelMessages.length; 
     return relevantChannelMessages;
+  }
+
+  relevantThreadMessages(searchTerm: string) {
+    let allChannels: Channel[] = this.ws.getChannels();  
+    let relevantThreadMessages: any[] = [];
+    for (let channel of allChannels) {
+      for (let chat of channel.allMessages) {                
+        for( let thread of chat.threads){
+          if (thread.answer.toLowerCase().includes(searchTerm)) {
+            relevantThreadMessages.push({thread: thread, channelId: channel.customId, chat: chat, type: 'threadMessage'});  
+          }    
+        }
+      }
+    }       
+    return relevantThreadMessages;
   }
 
   memberAlreadySelected(email: string, existingMembers: User[]): boolean {

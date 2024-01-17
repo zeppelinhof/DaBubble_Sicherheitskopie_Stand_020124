@@ -6,6 +6,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
+import { ThreadService } from 'src/app/shared/services/thread.service';
 
 @Component({
   selector: 'app-header',
@@ -14,13 +15,12 @@ import { User } from 'src/app/models/user';
 })
 export class HeaderComponent {
 
-  messageType: string = '';
-
   constructor(public us: UserService,
     public auth: AuthenticationService,
     public ws: WorkspaceService,
     public sis: SearchInputService,
-    private cs: ChannelService) { }
+    private cs: ChannelService,
+    private ts: ThreadService) { }
 
 
 
@@ -32,44 +32,60 @@ export class HeaderComponent {
     this.ws.globalResults = true;
   }
 
+  // angezeigter Suchvorschlag in Global Search auf max. 15 zeichen kürzen
   messagePreview(msgData: any): string {
-    if (msgData.userCustomId) {
-      return msgData.chat.message.length > 15 ? msgData.chat.message.slice(0, 15) + '...' : msgData.chat.message;
-    } else if (msgData.channelId) {
-      return msgData.chat.message.length > 15 ? msgData.chat.message.slice(0, 15) + '...' : msgData.chat.message;
-    } else {
-      return '';
-    }
+  const message = msgData.type === 'directMessage' || msgData.type === 'channelMessage'
+    ? msgData.chat.message    // Direkt oder Channel-Nachricht
+    : msgData.thread.answer;   // Thread-Nachricht
 
-  }
+  return message.length > 15 ? message.slice(0, 15) + '...' : message; 
+}
+
 
   getRouterLink(msgData: any): string[] {
     if (msgData.userCustomId) {
-      this.messageType = 'directMessage'
+      msgData.type === 'directMessage';
       return ['message'];
     } else {
-      this.messageType = 'channelMessage'
+      msgData.type === 'channelMessage';
       return ['channel'];
     }
-
   }
 
   async openChat(messageToSearch: any) {
-
-    let userLoggedIn = this.us.userLoggedIn().customId;
+    const userLoggedIn = this.us.userLoggedIn().customId;
     this.ws.messageToSearch = messageToSearch;
-    
-    if (messageToSearch.userCustomId) {
-      // Direktnachrichten
-      this.setDirectMessage(messageToSearch, userLoggedIn)      
+  
+    if (messageToSearch.type === 'directMessage') {
+      this.openDirectMessageChat(messageToSearch, userLoggedIn);
+    } else if (messageToSearch.type === 'channelMessage') {
+      this.openChannelMessageChat(messageToSearch);
     } else {
-      // Channelnachrichten
-      this.setChannelAndScrollToElement(messageToSearch)
+      this.openThreadMessageChat(messageToSearch);
     }
-    this.ws.closeGlobalResults();    
+  
+    this.resetSearchAndCloseResults();
   }
+  
+  openDirectMessageChat(messageToSearch: any, userLoggedIn: string) {
+    this.setDirectMessageAndScrollToElement(messageToSearch, userLoggedIn);
+  }
+  
+  openChannelMessageChat(messageToSearch: any) {
+    this.setChannelAndScrollToElement(messageToSearch);
+  }
+  
+  openThreadMessageChat(messageToSearch: any) {
+    this.setThreadAndScrollToElement(messageToSearch);
+  }
+  
+  resetSearchAndCloseResults() {
+    this.ws.inputGlobalSearch = '';
+    this.ws.closeGlobalResults();
+  }
+  
 
-  async setDirectMessage(messageToSearch: any, userLoggedIn: string) {
+  async setDirectMessageAndScrollToElement(messageToSearch: any, userLoggedIn: string) {
     let allUsers = this.sis.getUsers();
 
     for (let user of allUsers) {
@@ -82,13 +98,33 @@ export class HeaderComponent {
         }
       }
     }
-    // ScrollToElement in message.component.ts after init
+    
+    this.scrollWithDelay(messageToSearch.chat.message, messageToSearch);
   }
 
   async setChannelAndScrollToElement(messageToSearch: any) {
     this.cs.setChannelView(messageToSearch.channelId);
     await this.cs.getAllMessagesFromChannel(messageToSearch.channelId);
-    this.ws.scrollToElementByContent(messageToSearch.chat.message.toLowerCase());
+    this.ws.scrollToElementByContent(messageToSearch.chat.message.toLowerCase(), messageToSearch.type);
+  }
+
+  async setThreadAndScrollToElement(messageToSearch: any) {
+    this.cs.setChannelView(messageToSearch.channelId);
+    await this.cs.getAllMessagesFromChannel(messageToSearch.channelId);
+
+    this.ws.threadContainerIsVisible = true;
+
+    this.cs.setMessageView(messageToSearch.thread.messageId);
+    this.ts.showThreads(messageToSearch.thread);    
+    this.ts.createOrShowThread(messageToSearch.chat);
+
+    this.scrollWithDelay(messageToSearch.thread.answer, messageToSearch);
+  }
+
+  scrollWithDelay(message: string, messageToSearch: any){
+    setTimeout(() => {
+      this.ws.scrollToElementByContent(message.toLowerCase(), messageToSearch.type);
+    }, 100);
   }
 
   isMessageOfChatpartner(chat: Message, user: User, clickedMessage: any, userLoggedIn: string) {
@@ -97,15 +133,19 @@ export class HeaderComponent {
   }
 
   getMessageSource(msgData: any) {
-    // für Chats
-    if (msgData.userCustomId) {
+    // für Chats    
+    if (msgData.type === 'directMessage') {
       if (msgData.userCustomId === this.us.userLoggedIn().customId) {
         return 'dir';
       }
       return this.us.getUserName(msgData.userCustomId);
       // für Channels 
-    } else {
+    } else if (msgData.type === 'channelMessage') {
       return this.ws.getNameOfChannel(msgData.channelId) + '(Channel)';
+    }
+    // für Threads
+    else {
+      return this.ws.getNameOfChannel(msgData.channelId) + '>(Thread)';
     }
   }
 }
