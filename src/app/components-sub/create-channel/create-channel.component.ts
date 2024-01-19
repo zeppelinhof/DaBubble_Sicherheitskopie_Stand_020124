@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
-// import { Channel } from 'src/app/interfaces/channel';
-import { Channel } from 'src/app/models/channel';
-import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 
@@ -17,7 +14,8 @@ export class CreateChannelComponent {
   constructor(
     public ws: WorkspaceService,
     public cs: ChannelService,    
-    public sis: SearchInputService
+    public sis: SearchInputService,
+    public us: UserService
   ) {}  
 
   changeRadioButton() {

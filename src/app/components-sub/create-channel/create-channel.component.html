@@ -15,7 +15,7 @@
                 <div class="channel-property-title">
                     Channel name
                 </div>
-                <input [(ngModel)]="this.ws.inputName" (input)="sis.allFieldsFilled()" class="channel-property-input"
+                <input [(ngModel)]="this.ws.inputName" (input)="sis.allFieldsFilled(us.userLoggedIn())" class="channel-property-input"
                     placeholder="# z.B. Kooperationsprojekte">
             </div>
 
@@ -23,7 +23,7 @@
                 <div class="channel-property-title">
                     Beschreibung (optional)
                 </div>
-                <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled()" class="channel-property-input"
+                <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())" class="channel-property-input"
                     placeholder="Dein Text hier">
             </div>
 
@@ -67,7 +67,7 @@
                 </div>
                 <!-- !this.ws.radioButtonFirst -->
                 <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
-                    (input)="this.sis.allFieldsFilled(); this.sis.filterMembers(this.cs.newChannel.members)" class="inputfield"
+                    (input)="this.sis.allFieldsFilled(us.userLoggedIn()); this.sis.filterMembers(this.cs.newChannel.members)" class="inputfield"
                     placeholder="Name eingeben">
             </div>
 
@@ -100,8 +100,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="sis.allFieldsFilled()" class="btn-wrap">
-            <div (click)="sis.createChannel()" class="btn-purple">Erstellen</div>
+        <div *ngIf="sis.allFieldsFilled(us.userLoggedIn())" class="btn-wrap">
+            <div (click)="sis.createChannel();" class="btn-purple">Erstellen</div>
         </div>
     </div>
 </div>

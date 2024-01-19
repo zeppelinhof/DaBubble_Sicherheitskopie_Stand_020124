@@ -125,7 +125,7 @@
         </div>
 
         <input [(ngModel)]="this.ws.inputMember" (input)="
-            sis.allFieldsFilled();
+            sis.allFieldsFilled(us.userLoggedIn());
             addPreviousMembers();
             sis.filterMembers(additionalMembers)" class="inputfield" placeholder="Name eingeben" />
       </div>

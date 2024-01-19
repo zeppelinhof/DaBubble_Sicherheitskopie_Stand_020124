@@ -27,14 +27,18 @@ export class SearchInputService {
     return this.cs.myChannels;
   }
 
-  allFieldsFilled(): Boolean {
-    if (this.cs.newChannel) {   // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
+  allFieldsFilled(userLoggedIn: User): Boolean {
+    if (this.newChannelAlreadyExists()) {   // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
       this.cs.newChannel.name = this.ws.inputName;
       this.cs.newChannel.description = this.ws.inputDescription;
-    } else {   debugger           // diese Werte werden nur einmal für den Channel gesetzt
-      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), this.us.userLoggedIn());
+    } else {           // diese Werte werden nur einmal für den Channel gesetzt; userLoggedIn ist standardmäßig erster Member
+      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [userLoggedIn], this.cs.todaysDate(), this.us.userLoggedIn());
     }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
+  }
+
+  newChannelAlreadyExists(){
+    return this.cs.newChannel && this.cs.newChannel.members.length > 0;
   }
 
   filterMembers(existingMembers: User[]) {
@@ -165,11 +169,17 @@ export class SearchInputService {
 
   addMembersFromFirstChannel() {
     if (this.getChannels()[0].members) {
-      for (let index = 0; index < this.getChannels()[0].members.length; index++) {
-        this.cs.newChannel.members?.push(this.getChannels()[0].members[index]);
+      for (let member of this.getChannels()[0].members) {        
+        if (this.notUserLoggedIn(member)) { // avoid userLogged in 2 times in members
+          this.cs.newChannel.members?.push(member);
+        }
       }
       this.createChannel();
     }
+  }
+
+  notUserLoggedIn(member: User): boolean{
+    return member.customId !== this.us.userLoggedIn().customId;
   }
 
   createChannel() {
