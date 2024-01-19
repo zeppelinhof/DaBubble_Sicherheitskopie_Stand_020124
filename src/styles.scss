@@ -307,6 +307,7 @@ button {
 
 
 .add-icon-container {
+  position: relative;
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
@@ -324,7 +325,7 @@ button {
     position: absolute;
     left: 10;
     bottom: 0;
-    width: 5% !important;
+    width: 90% !important;
     height: 5%;
     cursor: pointer !important;
   }
