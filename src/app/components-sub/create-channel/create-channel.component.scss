@@ -293,9 +293,18 @@ $btn-purple: #444DF2;
     padding: 10px;
     box-sizing: border-box;
     z-index: 2;
+    border: 1px solid red;
 
     transition: opacity 1s ease-in-out;
     opacity: 1;
+
+    img{
+        position: absolute;
+        width: 50px;
+        height: auto;
+        bottom: -20px;
+        right: 10px;
+    }
 }
 
 .length-info-message-hidden {
