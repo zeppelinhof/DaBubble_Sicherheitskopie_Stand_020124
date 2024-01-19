@@ -5,6 +5,7 @@ import { UserService } from './user.service';
 import { Message } from 'src/app/models/message';
 import { ChannelService } from './channel.service';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
+import { Observable, filter, fromEvent } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,14 @@ export class WorkspaceService {
   showEmojis: boolean = false;
   allChatsTemp: any[] = [];
   indexChangedMessage!: number;
+
+  enterKeyPressSubject = fromEvent<KeyboardEvent>(document, 'keyup').pipe(
+    filter(event => event.key === 'Enter')
+  );
+
+  getEnterKeyPress(): Observable<KeyboardEvent> {
+    return this.enterKeyPressSubject;
+  }
 
   // Global Search
   globalResults: boolean = false;
@@ -304,5 +313,7 @@ export class WorkspaceService {
   
     return modifiedWords.join(' ');
   }
+
+  
   
 }

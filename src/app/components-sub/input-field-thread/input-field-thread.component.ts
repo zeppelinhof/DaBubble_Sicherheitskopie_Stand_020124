@@ -78,6 +78,11 @@ export class InputFieldThreadComponent {
 
   ngOnInit(): void {
     this.getCurrentChannel();
+
+    this.ws.getEnterKeyPress().subscribe(event => {
+      // sendThreadMessage aufrufen, wenn die Enter-Taste gedrückt wird
+      this.sendThreadMessage();
+    });
   }
   
   sendThreadMessage() {

@@ -39,8 +39,15 @@ export class InputFieldChannelComponent {
     private _eref: ElementRef,
     public storService: StorageService,
     private ws: WorkspaceService
-  ) {
+  ) {}
 
+  ngOnInit(): void {
+    this.getCurrentChannel();
+
+    this.ws.getEnterKeyPress().subscribe(event => {
+      // sendMessage aufrufen, wenn die Enter-Taste gedrückt wird
+      this.sendMessage();
+    });
   }
 
   fileExplorer(event: any): void {
@@ -55,8 +62,6 @@ export class InputFieldChannelComponent {
 
     }
   }
-
-  
 
   sendMessage(): void {
     if (this.input !== '' || this.selectedFile) {
@@ -79,12 +84,6 @@ export class InputFieldChannelComponent {
     this.addMemberToChannel(this.cs.clickedChannel.value);
     this.clearAll();
   }
-
-
-
-  
-
-
 
   clearSelectedFile() {
     this.selectedFile = null;
@@ -119,9 +118,7 @@ export class InputFieldChannelComponent {
     
   }
   
-  ngOnInit(): void {
-    this.getCurrentChannel();
-  }
+  
 
   // fills allMembers array with all users in the current channel
   getCurrentChannel() {
@@ -146,16 +143,12 @@ export class InputFieldChannelComponent {
     this.input = '';
   }
 
-
-
   getFileName(): string | null {
     if (this.selectedFile) {
       return this.selectedFile.name;
     }
     return null;
   }
-
-
 
   addMemberToChannel(clickedChannel: Channel) {
     this.cs.updateChannel(

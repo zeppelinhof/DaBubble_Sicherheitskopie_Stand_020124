@@ -36,6 +36,11 @@ export class InputFieldMessageComponent {
 
   ngOnInit(): void {
     this.getCurrentUser();
+
+    this.ws.getEnterKeyPress().subscribe(event => {
+      // sendDirectMessage aufrufen, wenn die Enter-Taste gedrückt wird
+      this.sendDirectMessage();
+    });
   }
 
   getCurrentUser() {
@@ -44,13 +49,13 @@ export class InputFieldMessageComponent {
     });
   }
 
-  sendDirectMessage(clickedContact: User) {
+  sendDirectMessage() {
     if (this.input !== '' || this.selectedFile) {
       let messageId = Date.now();
       // Nachricht bei Empfänger hinterlegen
       this.us.updateUser(
-        { chats: this.getAllChatsOfUser(clickedContact, messageId) },
-        clickedContact
+        { chats: this.getAllChatsOfUser(this.clickedContact, messageId) },
+        this.clickedContact
       );
       // Nachricht bei Sender hinterlegen
       this.us.updateUser(
