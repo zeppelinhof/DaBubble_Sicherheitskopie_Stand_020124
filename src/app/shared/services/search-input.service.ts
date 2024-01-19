@@ -4,7 +4,6 @@ import { ChannelService } from './channel.service';
 import { User } from 'src/app/models/user';
 import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
-import { Message } from 'src/app/models/message';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +31,8 @@ export class SearchInputService {
     if (this.cs.newChannel) {   // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
       this.cs.newChannel.name = this.ws.inputName;
       this.cs.newChannel.description = this.ws.inputDescription;
-    } else {              // diese Werte werden nur einmal für den Channel gesetzt
-      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), this.us.userLoggedIn())
-
-
+    } else {   debugger           // diese Werte werden nur einmal für den Channel gesetzt
+      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [], this.cs.todaysDate(), this.us.userLoggedIn());
     }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
@@ -111,7 +108,6 @@ export class SearchInputService {
   }
 
   memberAlreadySelected(email: string, existingMembers: User[]): boolean {
-    // const members = this.cs.newChannel.members;
     const members = existingMembers;
     if (members) {
       for (let index = 0; index < members.length; index++) {
@@ -129,7 +125,7 @@ export class SearchInputService {
     this.cs.newChannel.members?.push(user);
   }
 
-  removeMember(email: string) {
+  removeMember(email: string) {    
     const members = this.cs.newChannel.members;
     if (members) {
       for (let index = 0; index < members.length; index++) {
