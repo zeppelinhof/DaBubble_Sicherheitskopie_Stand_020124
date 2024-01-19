@@ -2,13 +2,11 @@
   display: flex; 
   flex-direction: column; 
   height: 100%;
-  background-color: aqua;
 }
 
 .dasboard-container {
   display: flex;
   align-items: center;
-  background-color: lightcoral;
   height: 100%;
 
   app-side-left{
@@ -23,7 +21,7 @@
   flex: 1;
 }
 
-app-side-left{
+app-side-right{
   display: flex;
   margin-right: 15px;
   height: 100%;

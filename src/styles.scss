@@ -22,7 +22,6 @@ body {
   background-color: $light-violet;
   font-family: "Nunito", sans-serif;
   padding: $marginBody;
-  background-color: beige;
   height: 100%;
 }
 
@@ -253,7 +252,10 @@ button {
 }
 
 .messages-channel-container {
-  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; 
+  height: 100px;
   overflow-y: auto;
   transition: 525ms ease-in-out;
 }

@@ -11,8 +11,6 @@ $add-img-width: 20px;
     padding: 32px 30px;
     gap: 25px;
     box-sizing: border-box;
-    background-color: burlywood;
-
     transform: translateX(0); // Standard-Position
     transition: opacity 1s, transform 1s // Füge die Opaz
 }
@@ -50,14 +48,12 @@ $add-img-width: 20px;
     display: flex;
     flex-direction: column;
     gap: 25px;
-    background-color: cadetblue;
     height: 100%;
 
     .overview-channels {
         display: flex;
         flex-direction: column;
         gap: 25px;
-        background-color: greenyellow;
     }
 
     .dropdown-line {
@@ -192,8 +188,7 @@ $add-img-width: 20px;
 
 .control-scroll-area{
     display: flex; 
-    flex-direction: column; 
-    background-color: orange; 
+    flex-direction: column;
     flex-grow: 1; 
     overflow-y: auto; 
     height: 100px;
@@ -310,7 +305,6 @@ $add-img-width: 20px;
     flex-direction: column;
     gap: 25px;
     overflow-y: auto;
-    background-color: crimson;
     height: 100%;
 }
 
