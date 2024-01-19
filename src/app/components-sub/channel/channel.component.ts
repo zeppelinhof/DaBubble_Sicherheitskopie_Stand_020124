@@ -59,7 +59,7 @@ export class ChannelComponent {
   }
 
   removeMember(email: string) {
-    const members = this.additionalMembers;
+    const members = this.additionalMembers;    
     if (members) {
       for (let index = 0; index < members.length; index++) {
         const member = members[index];
@@ -68,6 +68,8 @@ export class ChannelComponent {
         }
       }
     }
+    this.additionalMembers = [];
+    this.ws.inputMember = '';
   }
 
   addPreviousMembers() {
@@ -76,7 +78,13 @@ export class ChannelComponent {
       this.previousAdded = true;
       this.clickedChannel.members.forEach((member) => { this.additionalMembers.push(member) });
     }
-
   }
+  previewNumberMembers(): string {
+    let numberMembers = this.clickedChannel.members.length;
+    // let numberMembersString = numberMembers.toString();
+
+    return numberMembers < 5 ? numberMembers.toString() : '4+';
+  }
+
 
 }

@@ -87,11 +87,11 @@
 
     <div class="channel-all-user-plus-add">
       <div class="channel-user-img-container">
-        <img *ngFor="let item of clickedChannel.members" src="assets/imgs/userMale1.png" />
+        <img *ngFor="let item of clickedChannel.members.slice(0, 4)" src="assets/imgs/userMale1.png" />
       </div>
 
       <div class="channel-user-counter">
-        <div>{{ clickedChannel.members.length }}</div>
+        <div>{{previewNumberMembers()}}</div>
       </div>
 
       <div class="channel-add-user-container" (click)="switchShowAddMembersInExistingChannel()">
@@ -127,8 +127,7 @@
         <input [(ngModel)]="this.ws.inputMember" (input)="
             sis.allFieldsFilled();
             addPreviousMembers();
-            sis.filterMembers(additionalMembers)"
-            class="inputfield" placeholder="Name eingeben" />
+            sis.filterMembers(additionalMembers)" class="inputfield" placeholder="Name eingeben" />
       </div>
 
       <!-- Dropdown-Liste -->
@@ -161,13 +160,8 @@
       </div>
 
       <div class="btn-wrap">
-        <div (click)="
-            cs.updateChannel(
-              { members: cs.getCleanMemberJson(additionalMembers) },
-              clickedChannel
-            );
-            switchShowAddMembersInExistingChannel()
-          " class="btn-grey">
+        <div (click)="cs.updateChannel({ members: cs.getCleanMemberJson(additionalMembers) }, clickedChannel);
+        switchShowAddMembersInExistingChannel(); additionalMembers = []" class="btn-grey"> 
           Hinzufügen
         </div>
       </div>
