@@ -32,23 +32,24 @@
           <img (click)="this.ws.openCloseCreateChannel()" class="add-icon_purple" src="assets/icons/add_purple.png" />
         </div>
       </div>
-
-      <div *ngIf="arrowClickedChannels" class="list-container-channels">
-        <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel" (click)="setChannel(cn)">
-          <div class="logo-item-channel">
-            <img src="assets/icons/tag.png" />
-            <div class="oneName-channel">
-              {{ cn.name }}
+      <div *ngIf="arrowClickedChannels" class="control-scroll-area">
+        <div *ngIf="arrowClickedChannels" class="list-container-channels">
+          <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel" (click)="setChannel(cn)">
+            <div class="logo-item-channel">
+              <img src="assets/icons/tag.png" />
+              <div class="oneName-channel">
+                {{ cn.name }}
+              </div>
             </div>
           </div>
-        </div>
-        <div (click)="this.ws.openCloseCreateChannel()" class="add-object-wrap">
-          <div class="add-object">
-            <div class="add-img-wrap">
-              <img class="add-standard" src="assets/icons/add_circle.png" />
-              <img class="add-purple" src="assets/icons/add_circle_purple.png" />
+          <div (click)="this.ws.openCloseCreateChannel()" class="add-object-wrap">
+            <div class="add-object">
+              <div class="add-img-wrap">
+                <img class="add-standard" src="assets/icons/add_circle.png" />
+                <img class="add-purple" src="assets/icons/add_circle_purple.png" />
+              </div>
+              <div class="text-add-object">Channel hinzufügen</div>
             </div>
-            <div class="text-add-object">Channel hinzufügen</div>
           </div>
         </div>
       </div>
@@ -74,16 +75,21 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <div *ngIf="arrowClickedContacts" class="list-container-contacts">
-    <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
-      <div class="logo-item-contact">
-        <img class="profile-image" src="assets/imgs/userMale3.png" />
-        <div>{{ user.name }}</div>
+    <!-- hier eingefügt -->
+    <div *ngIf="arrowClickedContacts" class="control-scroll-area">
+      <div *ngIf="arrowClickedContacts" class="list-container-contacts">
+        <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
+          <div class="logo-item-contact">
+            <img class="profile-image" src="assets/imgs/userMale3.png" />
+            <div>{{ user.name }}</div>
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
+
+
 </div>
 
 <div (click)="this.ws.closeSideLeft()" class="close-workspace">

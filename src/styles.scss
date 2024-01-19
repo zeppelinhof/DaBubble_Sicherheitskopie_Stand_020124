@@ -10,10 +10,20 @@ $purple3: #444df2;
 $rosaError: #ed1e79;
 $marginBody: 32px;
 
+html {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
   background-color: $light-violet;
   font-family: "Nunito", sans-serif;
-  margin: $marginBody $marginBody;
+  padding: $marginBody;
+  background-color: beige;
+  height: 100%;
 }
 
 span,
@@ -40,7 +50,7 @@ button {
   display: none;
 }
 
-.image-from-storage{
+.image-from-storage {
   height: 100px;
 }
 
@@ -197,8 +207,8 @@ button {
   gap: 20px;
 }
 
-.row-reverse{
-    flex-direction: row-reverse;
+.row-reverse {
+  flex-direction: row-reverse;
 }
 
 .thread-user-img-container {
@@ -218,6 +228,7 @@ button {
     font-size: 18px;
     font-weight: 700;
   }
+
   .thread-message-time {
     font-size: 14px;
     font-weight: 400;
@@ -236,14 +247,14 @@ button {
   gap: 16px;
 }
 
-.purple2{
+.purple2 {
   color: white;
   background-color: $purple2;
 }
 
 .messages-channel-container {
-  height: 60vh;
-  overflow-y: scroll;
+  background-color: gray;
+  overflow-y: auto;
   transition: 525ms ease-in-out;
 }
 
@@ -290,7 +301,7 @@ button {
   padding: 5px 15px;
   font-size: 18px;
 }
-  
+
 
 
 .add-icon-container {
@@ -300,6 +311,7 @@ button {
   align-items: center;
   justify-content: flex-start;
   cursor: pointer;
+
   img {
     border-right: 1px solid #adb0d9;
     padding-right: 5px;
@@ -314,22 +326,22 @@ button {
     height: 5%;
     cursor: pointer !important;
   }
+
   &:hover {
     .add-icon-normal {
       display: none;
     }
+
     .add-icon-purple {
       display: flex;
     }
   }
 }
 
-.file-container{
+.file-container {
   border: 1px solid $purple;
   background-color: #ECEEFE;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 14px;
 }
-
-

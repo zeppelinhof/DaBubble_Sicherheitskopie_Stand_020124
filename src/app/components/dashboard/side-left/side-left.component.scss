@@ -2,15 +2,16 @@
 $add-img-width: 20px;
 
 .side-left-container {
-    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     width: 366px;
     background-color: white;
     border-radius: 30px;
     padding: 32px 30px;
-    display: flex;
-    flex-direction: column;
     gap: 25px;
     box-sizing: border-box;
+    background-color: burlywood;
 
     transform: translateX(0); // Standard-Position
     transition: opacity 1s, transform 1s // Füge die Opaz
@@ -49,11 +50,14 @@ $add-img-width: 20px;
     display: flex;
     flex-direction: column;
     gap: 25px;
+    background-color: cadetblue;
+    height: 100%;
 
     .overview-channels {
         display: flex;
         flex-direction: column;
         gap: 25px;
+        background-color: greenyellow;
     }
 
     .dropdown-line {
@@ -186,6 +190,15 @@ $add-img-width: 20px;
     }
 }
 
+.control-scroll-area{
+    display: flex; 
+    flex-direction: column; 
+    background-color: orange; 
+    flex-grow: 1; 
+    overflow-y: auto; 
+    height: 100px;
+}
+
 .list-container-channels {
     display: flex;
     flex-direction: column;
@@ -209,7 +222,7 @@ $add-img-width: 20px;
 
 .item-line {
     display: flex;
-    margin-left: 15px;    
+    margin-left: 15px;
 }
 
 .logo-item-channel {
@@ -293,8 +306,12 @@ $add-img-width: 20px;
 }
 
 .list-container-contacts {
-    @extend .list-container-channels;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     overflow-y: auto;
+    background-color: crimson;
+    height: 100%;
 }
 
 .list-container-contacts::-webkit-scrollbar {
@@ -361,12 +378,12 @@ $add-img-width: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;        
+    padding: 8px;
     cursor: pointer;
 
     img {
         height: 24px;
-        width: 24px;    
+        width: 24px;
         border-radius: 20px;
     }
 
@@ -383,9 +400,9 @@ $add-img-width: 20px;
 }
 
 .add-icon_purple {
-    display: none;   
+    display: none;
 }
 
-.right-arrow{
+.right-arrow {
     transform: rotate(-90deg);
 }

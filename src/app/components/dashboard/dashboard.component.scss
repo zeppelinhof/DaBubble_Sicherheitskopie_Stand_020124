@@ -1,13 +1,30 @@
+.content-wrap{
+  display: flex; 
+  flex-direction: column; 
+  height: 100%;
+  background-color: aqua;
+}
+
 .dasboard-container {
   display: flex;
   align-items: center;
+  background-color: lightcoral;
+  height: 100%;
 
   app-side-left{
+    display: flex;
     margin-right: 15px;
-  }
+    height: 100%;
+  }    
+}
 
-  .router{
-    flex: 1;
-  }
-  
+.router{
+  height: 100%;
+  flex: 1;
+}
+
+app-side-left{
+  display: flex;
+  margin-right: 15px;
+  height: 100%;
 }

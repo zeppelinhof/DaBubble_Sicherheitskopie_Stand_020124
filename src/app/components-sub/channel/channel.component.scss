@@ -3,14 +3,23 @@
 
 $width-channel: 989px;
 
+app-messages-channel{
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
 .channel-div-container {
-  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   position: relative;
-  // width: $width-channel;
   background-color: white;
   border-radius: 30px;
   margin-right: 15px;
   transition: opacity 1s, transform 1s; // Füge die Opaz
+  background-color: yellow;
 }
 
 .channel-header-container {

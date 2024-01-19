@@ -4,7 +4,6 @@
     <div class="message-user-name">{{this.clickedContact.name}}</div>
   </div>
 
-  <!-- [scrollTop]="scroll.scrollHeight" -->
   <div class="messages-channel-container" id="scrollDirectMessages">
     <div *ngFor="let chat of us.chatsWithClickedUser(); let i = index">
       <div *ngIf="this.cs.checkIfNewDay(us.chatsWithClickedUser(), i)" class="new-day-date">
