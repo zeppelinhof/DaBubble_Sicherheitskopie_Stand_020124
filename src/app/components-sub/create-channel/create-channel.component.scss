@@ -281,3 +281,23 @@ $btn-purple: #444DF2;
 .close-purple {
     display: none;
 }
+
+.length-info-message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    max-width: 500px;
+    border-radius: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 2;
+
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
+
+.length-info-message-hidden {
+    opacity: 0;
+}

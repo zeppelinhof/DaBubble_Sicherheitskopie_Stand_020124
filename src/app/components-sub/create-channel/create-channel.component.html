@@ -15,16 +15,16 @@
                 <div class="channel-property-title">
                     Channel name
                 </div>
-                <input [(ngModel)]="this.ws.inputName" (input)="sis.allFieldsFilled(us.userLoggedIn())" class="channel-property-input"
-                    placeholder="# z.B. Kooperationsprojekte">
+                <input [(ngModel)]="this.ws.inputName" (input)="onInput()" class="channel-property-input"
+                    placeholder="# z.B. Kooperationsprojekte" maxlength="{{maxNameLength}}">
             </div>
 
             <div class="channel-property">
                 <div class="channel-property-title">
                     Beschreibung (optional)
                 </div>
-                <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())" class="channel-property-input"
-                    placeholder="Dein Text hier">
+                <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())"
+                    class="channel-property-input" placeholder="Dein Text hier">
             </div>
 
         </div>
@@ -43,7 +43,8 @@
                     <div class="radio-wrap">
                         <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
                         <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div style="display: flex;">Alle Mitglieder von <div (click)="sis.addMembersFromFirstChannel()" class="first-channel-name">{{sis.getChannels()[0].name}}</div> hinzufügen</div>
+                        <div style="display: flex;">Alle Mitglieder von <div (click)="sis.addMembersFromFirstChannel()"
+                                class="first-channel-name">{{sis.getChannels()[0].name}}</div> hinzufügen</div>
                     </div>
                 </div>
                 <div class="option" (click)="changeRadioButton()">
@@ -67,11 +68,11 @@
                 </div>
                 <!-- !this.ws.radioButtonFirst -->
                 <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
-                    (input)="this.sis.allFieldsFilled(us.userLoggedIn()); this.sis.filterMembers(this.cs.newChannel.members)" class="inputfield"
-                    placeholder="Name eingeben">
+                    (input)="this.sis.allFieldsFilled(us.userLoggedIn()); this.sis.filterMembers(this.cs.newChannel.members)"
+                    class="inputfield" placeholder="Name eingeben">
             </div>
 
-            
+
             <!-- this.ws.showAddMembers -->
             <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap top-250">
                 <div class="first-line">
@@ -82,11 +83,12 @@
                 </div>
                 <div class="user-list-wrap">
                     <div class="user-list">
-                        <div class="oneUser-line" *ngFor="let user of sis.filteredMembers" (click)="sis.addMember(user); sis.clearSearchInput()">
+                        <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
+                            (click)="sis.addMember(user); sis.clearSearchInput()">
                             <img class="profile-image" src="assets/imgs/userMale3.png">
                             <div class="name-text">
                                 {{ user.name }}
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="add-object-wrap">
@@ -104,4 +106,10 @@
             <div (click)="sis.createChannel();" class="btn-purple">Erstellen</div>
         </div>
     </div>
+</div>
+
+
+<div [ngClass]="{'length-info-message': true, 'length-info-message-hidden': !showLengthInfo}">
+    Die Länge für einen Channel-Namen ist auf {{maxNameLength}} Zeichen begrenzt. <br>Für die Eingabe
+    ausführlicher Informationen zum Channel nutze bitte das Feld Beschreibung.
 </div>
