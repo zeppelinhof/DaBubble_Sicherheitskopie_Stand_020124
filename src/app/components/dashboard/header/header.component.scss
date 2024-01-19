@@ -14,28 +14,30 @@ input {
   min-width: 800px;
   border: 0px;
   font-size: 16px;
-  
-  &::placeholder{
-    
+
+  &::placeholder {
+
     font-size: 16px;
   }
 }
 
-.header-logo{
-    cursor: pointer;
+.header-logo {
+  cursor: pointer;
 }
-.userSettings{
+
+.userSettings {
   z-index: 12;
   padding: 20px 40px;
   background-color: #797df38e;
   backdrop-filter: blur(10px);
   color: white;
   height: 200px;
-  width: 180px;  position: absolute;
-  right: 20px;
-  top: 75px;
+  width: 220px;
+  position: absolute;
+  right: 0px;
+  top: 72px;
   border-radius: 20px 10px 20px 20px;
-  
+
 }
 
 .current-user {
@@ -47,33 +49,38 @@ input {
 
   &:hover {
     .name-of-user {
-        color: #797ef3;
+      color: #797ef3;
     }
-    .arrow-down-icon{
-        display: none;
+
+    .arrow-down-icon {
+      display: none;
     }
-    .arrow-down-icon-purple{
-        display: flex;
+
+    .arrow-down-icon-purple {
+      display: flex;
     }
   }
 }
 
 
-.input-field-container{
-    position: relative;
-    width: fit-content;
+.input-field-container {
+  position: relative;
+  width: fit-content;
 }
-.search-bar-icon{
-    position: absolute;
-    top: 5px;
-    right: 30px;
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
+
+.search-bar-icon {
+  position: absolute;
+  top: 5px;
+  right: 30px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
 }
-.arrow-down-icon-purple{
-    display: none;
+
+.arrow-down-icon-purple {
+  display: none;
 }
+
 .name-of-user {
   font-size: 32px;
 }
@@ -89,6 +96,6 @@ input {
   width: 30px;
 }
 
-.searchHitSourceName{
+.searchHitSourceName {
   color: $purple;
 }
