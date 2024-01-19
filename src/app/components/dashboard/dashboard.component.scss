@@ -1,28 +1,31 @@
-.content-wrap{
-  display: flex; 
-  flex-direction: column; 
+.content-wrap {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
 .dasboard-container {
   display: flex;
   align-items: center;
+  gap: 10px;
   height: 100%;
 
-  app-side-left{
+  app-side-left {
     display: flex;
-    margin-right: 15px;
     height: 100%;
-  }    
+  }
 }
 
-.router{
+.router {
   height: 100%;
   flex: 1;
 }
 
-app-side-right{
+app-side-right {
   display: flex;
-  margin-right: 15px;
   height: 100%;
+}
+
+@media (max-width:1500px) {
+  
 }

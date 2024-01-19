@@ -14,7 +14,7 @@ import { ThreadService } from 'src/app/shared/services/thread.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-
+  userSettings: boolean = false;
   constructor(public us: UserService,
     public auth: AuthenticationService,
     public ws: WorkspaceService,

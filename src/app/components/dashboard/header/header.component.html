@@ -36,14 +36,21 @@
 
   </div>
 
-  <div class="current-user">
+  <div (click)="this.userSettings = !this.userSettings;" class="current-user">
     <div class="name-of-user">
       {{ this.us.getUserName(this.auth.loggedUser.customId) }}
     </div>
-    <span (click)="this.auth.logout()">logout</span>
+    
     <!-- {{us.userLoggedIn().name}} -->
     <img class="current-user-img" src="assets/imgs/userMale4.png" alt="" />
     <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
     <img class="arrow-down-icon-purple" src="assets/icons/arrowDownPurple.png" alt="" />
+
+    <div class="userSettings" *ngIf="this.userSettings">
+      <span (click)="this.auth.logout()">logout</span>
+    </div>
   </div>
+
+  
+  
 </header>
