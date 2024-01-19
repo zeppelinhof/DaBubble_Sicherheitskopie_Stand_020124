@@ -21,6 +21,7 @@ export class InputFieldThreadComponent {
   allMembers: any = [];
   private fileInputRef: HTMLInputElement | undefined;
   selectedFile: File | null = null;
+  
   constructor(public service: InputService, 
     public cs: ChannelService, 
     private _eref: ElementRef, 
