@@ -243,7 +243,7 @@ export class WorkspaceService {
   }
   // #endregion
 
-  scrollToBottom(elementId: string) {
+  scrollToBottom(elementId: string) {    
     setTimeout(() => {
       let element = document.getElementById(elementId);
       if (element) {
@@ -289,4 +289,20 @@ export class WorkspaceService {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+
+  // um Überlauf in Bubbles zu vermeiden, werden lange Worte nach dem 25. Zeichen (charMax) aufgetrennt
+  separateLongWords(input: string): string {
+    let charMax = 25;
+    const words = input.split(' ');
+  
+    const modifiedWords = words.map(word => {
+      if (word.length > charMax) {
+        return word.slice(0, charMax) + '- ' + this.separateLongWords(word.slice(charMax)); // falls Rest immer noch zu lang -> nochmals trennen
+      }
+      return word;
+    });
+  
+    return modifiedWords.join(' ');
+  }
+  
 }

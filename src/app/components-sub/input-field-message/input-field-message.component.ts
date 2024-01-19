@@ -111,7 +111,7 @@ export class InputFieldMessageComponent {
         new Message(
           this.us.userLoggedIn().customId,
           messageId,
-          this.input,
+          this.ws.separateLongWords(this.input),
           this.cs.getCleanMessageTimeJson(
             new MessageTime(
               new Date().getDate(),

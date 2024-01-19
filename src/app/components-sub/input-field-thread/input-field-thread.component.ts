@@ -82,7 +82,7 @@ export class InputFieldThreadComponent {
   
   sendThreadMessage() {
     if (this.input !== '' || this.selectedFile) {
-      this.ts.addThreadAnswer(this.input);
+      this.ts.addThreadAnswer(this.ws.separateLongWords(this.input));
       this.clearAll();
       this.ws.scrollToBottom('scrollThreadMessages') 
     }
