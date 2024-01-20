@@ -18,13 +18,18 @@
 
 .router {
   height: 100%;
+ 
   flex: 1;
 }
+
+
 
 app-side-right {
   display: flex;
   height: 100%;
 }
+
+
 
 @media (max-width:1500px) {
   

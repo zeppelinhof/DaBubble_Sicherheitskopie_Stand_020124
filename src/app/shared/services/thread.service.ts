@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild } from '@angular/core';
 import { Message } from 'src/app/models/message';
 import { WorkspaceService } from './workspace.service';
 import { UserService } from './user.service';
@@ -8,6 +8,8 @@ import { MessageTime } from 'src/app/models/message-time';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { StorageService } from './storage.service';
 import { InputService } from './input.service';
+import { ResponsiveService } from 'src/app/responsive.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,8 @@ import { InputService } from './input.service';
 export class ThreadService {
   clickedChannel!: Channel;
   threadVisible: boolean = false;
-
-  constructor(private ws: WorkspaceService, private us: UserService, private cs: ChannelService, public storService: StorageService) { }
+  
+  constructor(private ws: WorkspaceService, private router: Router, private us: UserService, private cs: ChannelService, public storService: StorageService, private resService: ResponsiveService) { }
 
 
   
@@ -43,6 +45,8 @@ export class ThreadService {
     if (data.threads.length === 0) {
       this.setTopicMessage();
     }
+    // this.resService.closeRouter();
+    
   }
 
   showThreads(data: Message) {

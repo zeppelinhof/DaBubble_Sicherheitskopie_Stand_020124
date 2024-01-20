@@ -352,3 +352,16 @@ button {
   border-radius: 20px;
   font-size: 14px;
 }
+
+// responsive 
+@media (max-width: 1458px) {
+  .side-right-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1355px) {
+  .side-right-container {
+    width: 100%;
+  }
+}

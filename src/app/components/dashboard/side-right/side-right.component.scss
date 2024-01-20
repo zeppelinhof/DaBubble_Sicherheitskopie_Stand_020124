@@ -20,9 +20,11 @@
 .thread-header-title {
   font-size: 24px;
 }
+
 .hidden {
   display: none;
 }
+
 .inner-padding-of-thread {
   display: flex;
   align-items: center;
@@ -51,20 +53,23 @@
 
   height: 24px;
 }
+
 .close-icon-container {
   display: flex;
   align-items: center;
   justify-content: center;
 
   img {
-    
+
     padding: 5px;
     border-radius: 20px;
   }
+
   &:hover {
     .close-icon-normal {
       display: none;
     }
+
     .close-icon-purple {
       display: flex;
       background-color: #eceefe;
@@ -100,3 +105,8 @@
   color: $light-grey;
 }
 
+@media (max-width: 1458px) {
+  .side-right-container {
+    width: 100%;
+  }
+}
