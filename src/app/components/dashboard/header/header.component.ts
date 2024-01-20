@@ -1,6 +1,6 @@
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
@@ -15,6 +15,7 @@ import { ThreadService } from 'src/app/shared/services/thread.service';
 })
 export class HeaderComponent {
   userSettings: boolean = false;
+  @ViewChild('input') input: ElementRef | undefined;
   constructor(public us: UserService,
     public auth: AuthenticationService,
     public ws: WorkspaceService,
@@ -30,6 +31,12 @@ export class HeaderComponent {
 
   showGlobalResultsContainer() {
     this.ws.globalResults = true;
+  }
+
+  focusInput() {
+    if (this.input && this.input.nativeElement) {
+      this.input.nativeElement.focus();
+    }
   }
 
   // angezeigter Suchvorschlag in Global Search auf max. 15 zeichen kürzen

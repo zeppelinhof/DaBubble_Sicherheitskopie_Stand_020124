@@ -45,7 +45,7 @@
   </div>
 
   <div id="emoji-container" *ngIf="showEmojis">
-    <emoji-mart (emojiClick)="addEmoji($event); this.service.isWritingChannel = true;"></emoji-mart>
+    <emoji-mart (emojiClick)="addEmoji($event); this.service.isWritingChannel = true;" ></emoji-mart>
   </div>
 
   
