@@ -126,6 +126,11 @@ $btn-purple: #444DF2;
 .radio-wrap {
     display: flex;
     gap: 20px;
+
+    img{
+        height: 20px;
+        width: 20px;
+    }
 }
 
 .choose-members-wrap {

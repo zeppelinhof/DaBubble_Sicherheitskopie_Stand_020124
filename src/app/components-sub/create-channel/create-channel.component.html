@@ -43,15 +43,15 @@
                     <div class="radio-wrap">
                         <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
                         <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div style="display: flex;">Alle Mitglieder von <div (click)="sis.addMembersFromFirstChannel()"
-                                class="first-channel-name">{{sis.getChannels()[0].name}}</div> hinzufügen</div>
+                        <div style="display: flex; flex-wrap: wrap;">Alle Mitglieder von <span (click)="sis.addMembersFromFirstChannel()"
+                            class="first-channel-name">{{sis.getChannels()[0].name}}</span> hinzufügen</div>
                     </div>
                 </div>
                 <div class="option" (click)="changeRadioButton()">
                     <div class="radio-wrap">
                         <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
                         <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div>Bestimmte Leutes hinzufügen</div>
+                        <div>Bestimmte Leute hinzufügen</div>
                     </div>
                 </div>
             </div>
