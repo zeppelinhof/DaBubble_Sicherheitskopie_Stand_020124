@@ -2,8 +2,9 @@
   <app-header></app-header>
 
   <div class="dasboard-container">
-    <app-side-left></app-side-left>
+    <app-side-left *ngIf="this.repService.sideLeftVisible"></app-side-left>
     <div *ngIf="this.repService.routerIsVisible" class="router"><router-outlet></router-outlet></div>
     <app-side-right *ngIf="this.repService.sideRightVisible" ></app-side-right>
   </div>
+  <app-workspacebutton></app-workspacebutton>
 </div>
