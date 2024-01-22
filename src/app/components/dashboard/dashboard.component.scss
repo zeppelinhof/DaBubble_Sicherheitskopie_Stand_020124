@@ -22,14 +22,26 @@
   flex: 1;
 }
 
-
+app-mobile-header{
+  display: none;
+  margin-bottom: 10px;
+}
 
 app-side-right {
   display: flex;
   height: 100%;
+  
 }
 
 
+@media (max-width:960px) {
+  app-header{
+    display: none;
+  }
+  app-mobile-header{
+    display: block;
+  }
+}
 
 @media (max-width:1500px) {
   

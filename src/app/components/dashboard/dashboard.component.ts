@@ -17,17 +17,27 @@ export class DashboardComponent {
     clearTimeout(this.resizeTimeout);
     this.resizeTimeout = setTimeout(() => {
       this.zone.run(() => {
-        this.checkSize();
+        this.checkSizeRightSide();
+        this.checkSizeLeftSide();
       });
     },10); // Ändere die Verzögerung nach Bedarf
   }
 
-  checkSize() {
+  checkSizeRightSide() {
     if (window.innerWidth < 1335) {
       this.repService.sideRightVisible = false;
       console.log(window.innerWidth);
     } else {
       this.repService.sideRightVisible = true;
+    }
+  }
+
+  checkSizeLeftSide() {
+    if (window.innerWidth < 960) {
+      this.repService.sideLeftVisible = false;
+      console.log(window.innerWidth);
+    } else {
+      this.repService.sideLeftVisible = true;
     }
   }
 }

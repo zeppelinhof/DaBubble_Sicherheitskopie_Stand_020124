@@ -32,6 +32,7 @@ import { MessageOfUserComponent } from './components-sub/message-of-user/message
 import { MessageReactionComponent } from './components-sub/message-reaction/message-reaction.component';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
+import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-header.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { WorkspacebuttonComponent } from './components-sub/workspacebutton/works
     MessagesChannelComponent,
     MessageOfUserComponent,
     MessageReactionComponent,
-    WorkspacebuttonComponent
+    WorkspacebuttonComponent,
+    MobileHeaderComponent
 
     // PickerComponent,
   ],
