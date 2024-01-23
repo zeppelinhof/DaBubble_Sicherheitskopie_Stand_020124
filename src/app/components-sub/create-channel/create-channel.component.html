@@ -9,9 +9,10 @@
                         <img src="assets/icons/close.png" alt="">
                     </div>
                 </div>
-                <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen
+                <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie
+                    themenbezogen
                     sein. #marketing zum Beispiel.</div>
-    
+
                 <div class="channel-property">
                     <div class="channel-property-title">
                         Channel name
@@ -19,7 +20,7 @@
                     <input [(ngModel)]="this.ws.inputName" (input)="onInput()" class="channel-property-input"
                         placeholder="# z.B. Kooperationsprojekte" maxlength="{{maxNameLength}}">
                 </div>
-    
+
                 <div class="channel-property">
                     <div class="channel-property-title">
                         Beschreibung (optional)
@@ -27,9 +28,9 @@
                     <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())"
                         class="channel-property-input" placeholder="Dein Text hier">
                 </div>
-    
+
             </div>
-    
+
             <!-- !this.ws.dialogGeneralData -->
             <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
                 <div class="first-line">
@@ -38,7 +39,7 @@
                         <img src="assets/icons/close.png">
                     </div>
                 </div>
-    
+
                 <div class="options">
                     <div class="option" (click)="changeRadioButton()">
                         <div class="radio-wrap">
@@ -57,8 +58,8 @@
                         </div>
                     </div>
                 </div>
-    
-    
+
+
                 <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
                     <div *ngFor="let item of cs.newChannel.members" class="complete-member">
                         <img class="profile-image" src="assets/imgs/userMale3.png">
@@ -74,11 +75,12 @@
                         class="inputfield" placeholder="Name eingeben">
                 </div>
             </div>
+
             <div *ngIf="sis.allFieldsFilled(us.userLoggedIn())" class="btn-wrap">
-                <div (click)="sis.createChannel();" class="btn-purple">Erstellen</div>
+                <div (click)="sis.createChannel()" class="btn-purple">Erstellen</div>
             </div>
         </div>
-    
+
         <!-- User Auswahl-Menü -->
         <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap">
             <div class="first-line">

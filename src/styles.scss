@@ -133,6 +133,7 @@ button {
   position: relative;
   display: flex;
   justify-content: center;
+  max-height: 100vh;
   flex-direction: column;
   box-sizing: border-box;
   background-color: white;
@@ -413,6 +414,10 @@ button {
   }
   .dasboard-container{
     gap: 0px;
+  }
+
+  .hide-mobile{
+    display: none;
   }
   
 }

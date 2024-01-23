@@ -6,15 +6,14 @@ $btn-purple: #444DF2;
     display: flex;
     flex-direction: column;
     width: 900px;
-    max-height: calc(100vh - 80px);
+    max-height: 100vh;
     max-width: 90vw;
-    box-sizing: border-box;
-    background-color: yellow;
 }
 
 .dialog-general-data {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: 20px;
 }
 
@@ -61,6 +60,8 @@ $btn-purple: #444DF2;
 .channel-expl {
     font-size: 18px;
     font-weight: 400;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .channel-property {
@@ -161,6 +162,8 @@ $btn-purple: #444DF2;
     background-color: white;
     box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
     z-index: 2;
+    flex-grow: 1;
+    overflow-y: auto;
 
 
 
@@ -264,10 +267,6 @@ $btn-purple: #444DF2;
     }
 }
 
-// .top-250 {
-//     top: 250px;
-// }
-
 .profile-image {
     height: 50px;
     width: 50px;
@@ -337,4 +336,31 @@ $btn-purple: #444DF2;
     .hide-mobile {
         display: none;
     }
+
+    .name-text {
+        flex-direction: column;
+    }
+
+    .headline-white-box {
+        font-size: 20px;
+    }
+
+    .channel-expl {
+        font-size: 12px;
+    }
+
+    .choose-members-wrap{
+        animation: slideInFromBottom 1s ease-in-out;
+    }
+    
+    @keyframes slideInFromBottom {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0%);
+        }
+    }
+    
 }

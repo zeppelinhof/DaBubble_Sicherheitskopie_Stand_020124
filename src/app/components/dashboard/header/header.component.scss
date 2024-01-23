@@ -5,7 +5,7 @@ header {
   align-items: center;
   margin: 0px 10px;
 
-  
+
 }
 
 input {
@@ -69,11 +69,13 @@ input {
   position: relative;
   width: 100%;
   margin-right: 70px;
-  
+
 }
-.input-field-inside{
+
+.input-field-inside {
   position: relative;
 }
+
 .search-bar-icon {
   position: absolute;
   top: 5px;
@@ -104,4 +106,14 @@ input {
 
 .searchHitSourceName {
   color: $purple;
+}
+
+.choose-members-header-wrap {
+  @extend .choose-members-wrap;
+
+  position: absolute;
+  top: 100%;
+  left: 0;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 }

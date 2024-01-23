@@ -1,4 +1,4 @@
-<div (click)="this.respService.sideLeftVisible = !this.respService.sideLeftVisible" class="close-workspace">
-    <div class="close-workspace-text">Workspace-Menü schließen</div>
-    <img src="assets/icons/workspace_close.png" />
-  </div>
+<div *ngIf="ws.workspaceButtonVisible" (click)="this.respService.sideLeftVisible = !this.respService.sideLeftVisible" class="close-workspace">
+  <div class="close-workspace-text">Workspace-Menü schließen</div>
+  <img src="assets/icons/workspace_close.png" />
+</div>
