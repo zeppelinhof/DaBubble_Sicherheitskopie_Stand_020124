@@ -9,6 +9,7 @@ import {
 } from '@angular/fire/firestore';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
+import { ResponsiveService } from 'src/app/responsive.service';
 
 @Component({
   selector: 'app-side-left',
@@ -27,7 +28,8 @@ export class SideLeftComponent {
   constructor(
     public us: UserService,
     public ws: WorkspaceService,
-    public cs: ChannelService
+    public cs: ChannelService,
+    public respService: ResponsiveService 
   ) { }
 
 

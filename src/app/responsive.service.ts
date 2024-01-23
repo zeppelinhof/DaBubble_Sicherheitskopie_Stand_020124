@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class ResponsiveService {
   routerIsVisible: boolean = true;
   sideRightVisible: boolean = true;
+  sideLeftVisible: boolean = true;
   constructor() { }
 
   closeRouter() {

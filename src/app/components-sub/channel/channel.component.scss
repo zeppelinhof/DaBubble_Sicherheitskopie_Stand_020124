@@ -225,3 +225,11 @@ app-messages-channel{
   background-color: $purple;
   border-radius: 25px;
 }
+
+@media (max-width: 550px) {
+  .channel-div-container {
+    border-radius: 0px;
+    margin-right: 0px;
+    width: 100%;
+  }
+}

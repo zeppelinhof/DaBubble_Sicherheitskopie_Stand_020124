@@ -6,6 +6,7 @@ import { Message } from 'src/app/models/message';
 import { ChannelService } from './channel.service';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { Observable, filter, fromEvent } from 'rxjs';
+import { ResponsiveService } from 'src/app/responsive.service';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +41,7 @@ export class WorkspaceService {
   inputGlobalSearch: string = '';
   messageToSearch: any;
 
-  constructor(private us: UserService, private cs: ChannelService) { }
+  constructor(private us: UserService, private cs: ChannelService, private respService: ResponsiveService) { }
 
   // #region get Channels and Users
   getUsers() {
@@ -95,9 +96,7 @@ export class WorkspaceService {
 
   // #endregion
 
-  closeSideLeft() {
-    this.showSideLeft = this.showSideLeft ? false : true;
-  }
+ 
 
   openCloseCreateChannel() {
     this.showCreateChannel = this.showCreateChannel ? false : true;

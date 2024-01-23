@@ -31,6 +31,8 @@ import { MessagesChannelComponent } from './components-sub/messages-channel/mess
 import { MessageOfUserComponent } from './components-sub/message-of-user/message-of-user.component';
 import { MessageReactionComponent } from './components-sub/message-reaction/message-reaction.component';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
+import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-header.component';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
     EmojiPickerComponent,
     MessagesChannelComponent,
     MessageOfUserComponent,
-    MessageReactionComponent
+    MessageReactionComponent,
+    WorkspacebuttonComponent,
+    MobileHeaderComponent
 
     // PickerComponent,
   ],

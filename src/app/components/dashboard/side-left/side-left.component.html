@@ -1,4 +1,4 @@
-<div [class.hidden]="!this.ws.showSideLeft" class="side-left-container">
+<div *ngIf="this.respService.sideLeftVisible" class="side-left-container">
   <div class="first-line">
     <div class="logo-headline">
       <img class="logo-code-learning" src="assets/imgs/workspace_logo.png" />
@@ -93,10 +93,7 @@
 
 </div>
 
-<div (click)="this.ws.closeSideLeft()" class="close-workspace">
-  <div class="close-workspace-text">Workspace-Menü schließen</div>
-  <img src="assets/icons/workspace_close.png" />
-</div>
+
 
 <app-create-channel *ngIf="true"></app-create-channel>
 <!-- this.ws.showCreateChannel -->
