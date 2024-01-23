@@ -24,7 +24,7 @@
 
 
 
-    <div class="image-of-user-container" *ngIf="this.data.file || this.messageData.file || this.threadMessageData" (click)="this.imagePreview = true">
+    <div class="image-of-user-container" [ngClass]="{'row-reverse': checkIfOwnMessage()}" *ngIf="this.data.file || this.messageData.file || this.threadMessageData" (click)="this.imagePreview = true">
       <img class="image-of-storage" [src]="this.data.file || this.messageData.file || this.threadMessageData.file">
     </div>
 
