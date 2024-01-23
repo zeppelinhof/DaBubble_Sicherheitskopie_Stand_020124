@@ -75,3 +75,10 @@
 .name-of-chat-partner {
     color: #535AF1 !important;
 }
+
+@media (max-width: 550px) {
+    .message-div-container {
+        border-radius: 0px;
+        margin-right: 0px;
+    }
+  }
