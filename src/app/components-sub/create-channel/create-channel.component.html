@@ -1,109 +1,111 @@
-<div class="wrap" *ngIf="this.ws.showCreateChannel">
-    <div class="dialog">
-        <!-- this.ws.dialogGeneralData  -->
-        <div *ngIf="this.ws.dialogGeneralData " class="dialog-general-data">
-            <div class="first-line">
-                <div class="headline-white-box">Channel erstellen</div>
-                <div (click)="this.ws.openCloseCreateChannel()" class="around-close">
-                    <img src="assets/icons/close.png" alt="">
-                </div>
-            </div>
-            <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen
-                sein. #marketing zum Beispiel.</div>
-
-            <div class="channel-property">
-                <div class="channel-property-title">
-                    Channel name
-                </div>
-                <input [(ngModel)]="this.ws.inputName" (input)="onInput()" class="channel-property-input"
-                    placeholder="# z.B. Kooperationsprojekte" maxlength="{{maxNameLength}}">
-            </div>
-
-            <div class="channel-property">
-                <div class="channel-property-title">
-                    Beschreibung (optional)
-                </div>
-                <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())"
-                    class="channel-property-input" placeholder="Dein Text hier">
-            </div>
-
-        </div>
-
-        <!-- !this.ws.dialogGeneralData -->
-        <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
-            <div class="first-line">
-                <div class="headline-white-box ">Leute hinzufügen</div>
-                <div (click)="this.ws.openCloseCreateChannel(); sis.clearChannelJSON()" class="around-close">
-                    <img src="assets/icons/close.png">
-                </div>
-            </div>
-
-            <div class="options">
-                <div class="option" (click)="changeRadioButton()">
-                    <div class="radio-wrap">
-                        <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
-                        <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div style="display: flex; flex-wrap: wrap;">Alle Mitglieder von <span (click)="sis.addMembersFromFirstChannel()"
-                            class="first-channel-name">{{sis.getChannels()[0].name}}</span> hinzufügen</div>
-                    </div>
-                </div>
-                <div class="option" (click)="changeRadioButton()">
-                    <div class="radio-wrap">
-                        <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
-                        <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
-                        <div>Bestimmte Leute hinzufügen</div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
-                <div *ngFor="let item of cs.newChannel.members" class="complete-member">
-                    <img class="profile-image" src="assets/imgs/userMale3.png">
-                    <div class="complete-name">{{item.name}}</div>
-                    <div class="remove-member" (click)="sis.removeMember(item.email)">
-                        <img class="close-normal" src="assets/icons/close.png" />
-                        <img class="close-purple" src="assets/icons/close_purple.png" />
-                    </div>
-                </div>
-                <!-- !this.ws.radioButtonFirst -->
-                <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
-                    (input)="this.sis.allFieldsFilled(us.userLoggedIn()); this.sis.filterMembers(this.cs.newChannel.members)"
-                    class="inputfield" placeholder="Name eingeben">
-            </div>
-
-
-            <!-- this.ws.showAddMembers -->
-            <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap top-250">
+<div class="wrap" *ngIf="this.ws.showCreateChannel" [ngClass]="{'align-items-flex-start': this.ws.showAddMembers}">
+    <div class="wrap-dialog-choose-members">
+        <div class="dialog">
+            <!-- this.ws.dialogGeneralData  -->
+            <div *ngIf="this.ws.dialogGeneralData " class="dialog-general-data">
                 <div class="first-line">
-                    <div class="headline-white-box">Mitglieder</div>
-                    <div class="around-close" (click)="this.ws.closeAddMembers()">
+                    <div class="headline-white-box">Channel erstellen</div>
+                    <div (click)="this.ws.openCloseCreateChannel()" class="around-close">
+                        <img src="assets/icons/close.png" alt="">
+                    </div>
+                </div>
+                <div class="channel-expl">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen
+                    sein. #marketing zum Beispiel.</div>
+    
+                <div class="channel-property">
+                    <div class="channel-property-title">
+                        Channel name
+                    </div>
+                    <input [(ngModel)]="this.ws.inputName" (input)="onInput()" class="channel-property-input"
+                        placeholder="# z.B. Kooperationsprojekte" maxlength="{{maxNameLength}}">
+                </div>
+    
+                <div class="channel-property">
+                    <div class="channel-property-title">
+                        Beschreibung (optional)
+                    </div>
+                    <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())"
+                        class="channel-property-input" placeholder="Dein Text hier">
+                </div>
+    
+            </div>
+    
+            <!-- !this.ws.dialogGeneralData -->
+            <div *ngIf="!this.ws.dialogGeneralData" class="dialog-members">
+                <div class="first-line">
+                    <div class="headline-white-box ">Leute hinzufügen</div>
+                    <div (click)="this.ws.openCloseCreateChannel(); sis.clearChannelJSON()" class="around-close">
                         <img src="assets/icons/close.png">
                     </div>
                 </div>
-                <div class="user-list-wrap">
-                    <div class="user-list">
-                        <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
-                            (click)="sis.addMember(user); sis.clearSearchInput()">
-                            <img class="profile-image" src="assets/imgs/userMale3.png">
-                            <div class="name-text">
-                                {{ user.name }}
-                            </div>
+    
+                <div class="options">
+                    <div class="option" (click)="changeRadioButton()">
+                        <div class="radio-wrap">
+                            <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
+                            <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
+                            <div style="display: flex; flex-wrap: wrap;">Alle Mitglieder von <span
+                                    (click)="sis.addMembersFromFirstChannel()"
+                                    class="first-channel-name">{{sis.getChannels()[0].name}}</span> hinzufügen</div>
                         </div>
                     </div>
-                    <div class="add-object-wrap">
-                        <div class="add-object" (click)="sis.clearSearchInput()">
-                            <div class="add-img-wrap">
-                                <img class="add-standard" src="assets/icons/add_members_button.png">
-                            </div>
-                            <div class="text-add-object">Mitglieder hinzufügen</div>
+                    <div class="option" (click)="changeRadioButton()">
+                        <div class="radio-wrap">
+                            <img *ngIf="this.ws.radioButtonFirst" src="assets/icons/radio_button_unchecked.png">
+                            <img *ngIf="!this.ws.radioButtonFirst" src="assets/icons/radio_button_checked.png">
+                            <div>Bestimmte Leute hinzufügen</div>
                         </div>
                     </div>
                 </div>
+    
+    
+                <div class="selected-members" *ngIf="!this.ws.radioButtonFirst">
+                    <div *ngFor="let item of cs.newChannel.members" class="complete-member">
+                        <img class="profile-image" src="assets/imgs/userMale3.png">
+                        <div class="complete-name">{{item.name}}</div>
+                        <div class="remove-member" (click)="sis.removeMember(item.email)">
+                            <img class="close-normal" src="assets/icons/close.png" />
+                            <img class="close-purple" src="assets/icons/close_purple.png" />
+                        </div>
+                    </div>
+                    <!-- !this.ws.radioButtonFirst -->
+                    <input *ngIf="!this.ws.radioButtonFirst " [(ngModel)]="this.ws.inputMember"
+                        (input)="this.sis.allFieldsFilled(us.userLoggedIn()); this.sis.filterMembers(this.cs.newChannel.members)"
+                        class="inputfield" placeholder="Name eingeben">
+                </div>
+            </div>
+            <div *ngIf="sis.allFieldsFilled(us.userLoggedIn())" class="btn-wrap">
+                <div (click)="sis.createChannel();" class="btn-purple">Erstellen</div>
             </div>
         </div>
-        <div *ngIf="sis.allFieldsFilled(us.userLoggedIn())" class="btn-wrap">
-            <div (click)="sis.createChannel();" class="btn-purple">Erstellen</div>
+    
+        <!-- User Auswahl-Menü -->
+        <div *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst" class="choose-members-wrap">
+            <div class="first-line">
+                <div class="headline-white-box">Mitglieder</div>
+                <div class="around-close" (click)="this.ws.closeAddMembers()">
+                    <img src="assets/icons/close.png">
+                </div>
+            </div>
+            <div class="user-list-wrap">
+                <div class="user-list">
+                    <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
+                        (click)="sis.addMember(user); sis.clearSearchInput()">
+                        <img class="profile-image" src="assets/imgs/userMale3.png">
+                        <div class="name-text">
+                            {{ user.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="add-object-wrap">
+                    <div class="add-object" (click)="sis.clearSearchInput()">
+                        <div class="add-img-wrap">
+                            <img class="add-standard" src="assets/icons/add_members_button.png">
+                        </div>
+                        <div class="text-add-object hide-mobile">Mitglieder hinzufügen</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
