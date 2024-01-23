@@ -409,17 +409,15 @@ button {
   }
 }
 
-@media (max-width:550px) {
+@media (max-width:610px) {
   body {
     padding: 0;
     margin: 0;
   }
-  .dasboard-container{
-    gap: 0px;
-  }
-
   .hide-mobile{
     display: none;
   }
-  
+  .dasboard-container{
+    gap: 0px !important;
+  }
 }

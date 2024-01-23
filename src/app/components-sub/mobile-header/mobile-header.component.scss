@@ -5,7 +5,7 @@ header {
     align-items: center;
     justify-content: space-between;
     margin: 0px 10px;
-
+    
 
 }
 
@@ -166,7 +166,7 @@ input {
     overflow-y: auto;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 610px) {
     header {
         margin-top: 10px;
     }
@@ -188,6 +188,13 @@ input {
 
         input {
             height: 10px;
+        }
+    }
+    input {
+        border-radius: 0px;
+        &::placeholder {
+    
+            font-size: 14px;
         }
     }
 }
