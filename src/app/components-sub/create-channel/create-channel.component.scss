@@ -162,7 +162,7 @@ $btn-purple: #444DF2;
     background-color: white;
     box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
     z-index: 2;
-    flex-grow: 1;
+    flex-grow: 2;
     overflow-y: auto;
 
 
@@ -330,6 +330,12 @@ $btn-purple: #444DF2;
 
 .length-info-message-hidden {
     opacity: 0;
+}
+
+.to-background{
+    opacity: 0.4;
+    background-color: $grey;
+    height: 200px;
 }
 
 @media (max-width: 400px) {

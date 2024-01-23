@@ -1,6 +1,6 @@
 <div class="wrap" *ngIf="this.ws.showCreateChannel" [ngClass]="{'align-items-flex-start': this.ws.showAddMembers}">
     <div class="wrap-dialog-choose-members">
-        <div class="dialog">
+        <div class="dialog" [ngClass]="{'to-background': this.ws.showAddMembers && !this.ws.radioButtonFirst}">
             <!-- this.ws.dialogGeneralData  -->
             <div *ngIf="this.ws.dialogGeneralData " class="dialog-general-data">
                 <div class="first-line">
