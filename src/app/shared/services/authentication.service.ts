@@ -184,16 +184,14 @@ export class AuthenticationService {
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Updates the email of the currently logged-in user.
-   * @param {string} newEmail - The new email address to set for the user.
-   */
-  async updateEmailUser(newEmail: string) {
+  updateUserEmail(newEmail: string) {
     const auth = getAuth();
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      updateEmail(currentUser, newEmail)
-        .then(() => {})
+    const user = auth.currentUser;
+    if (user) {
+      updateEmail(user, newEmail)
+        .then(() => {
+          console.log('updated');
+        })
         .catch((error) => {});
     }
   }

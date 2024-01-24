@@ -110,8 +110,8 @@ input {
 .choose-members-header-wrap {
   @extend .choose-members-wrap;
 
-  position: absolute;
-  top: 100%;
+  position: fixed;
+  bottom: 0;
   left: 0;
   max-height: calc(100vh - 200px);
   overflow-y: auto;
