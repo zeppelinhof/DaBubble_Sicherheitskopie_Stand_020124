@@ -36,7 +36,7 @@
 
     <div *ngIf="arrowClickedChannels" class="control-scroll-area">
       <div *ngIf="arrowClickedChannels" class="list-container-channels">
-        <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel" (click)="setChannel(cn)">
+        <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel" (click)="setChannel(cn); this.respService.onlyChannel()">
           <div class="logo-item-channel">
             <img src="assets/icons/tag.png" />
             <div class="oneName-channel">

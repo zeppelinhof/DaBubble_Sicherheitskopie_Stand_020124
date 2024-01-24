@@ -110,3 +110,8 @@
     width: 100%;
   }
 }
+@media (max-width:610px) {
+  .side-right-container{
+   border-radius: 0px;
+  }
+}

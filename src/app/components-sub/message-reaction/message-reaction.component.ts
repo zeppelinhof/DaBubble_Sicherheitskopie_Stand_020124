@@ -9,6 +9,7 @@ import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-message-reaction',
@@ -31,7 +32,7 @@ export class MessageReactionComponent {
   @Input() messageType!: string;
   moreReactions: boolean = false;
 
-  constructor(public ws: WorkspaceService, public us: UserService, public ts: ThreadService, private cs: ChannelService) { }
+  constructor(public ws: WorkspaceService, public us: UserService, public ts: ThreadService, private cs: ChannelService, public respService: ResponsiveService) { }
 
   editMessageButton() {
     this.showEditMessageButton = !this.showEditMessageButton;

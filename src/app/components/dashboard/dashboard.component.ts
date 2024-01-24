@@ -40,5 +40,15 @@ export class DashboardComponent {
       this.repService.sideLeftVisible = true;
     }
   }
+
+  responsiveView(){
+    if(window.innerWidth < 960){
+      this.repService.sideLeftVisible = true;
+      this.repService.sideRightVisible = false;
+      this.repService.routerIsVisible = false;
+    }
+  }
+  
+  
 }
 

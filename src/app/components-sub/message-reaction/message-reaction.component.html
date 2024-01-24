@@ -18,8 +18,8 @@
     <div *ngIf="hasThreadOption()" class="hover-area">
         <img *ngIf="!moreReactions" class="icon" src="assets/reactions/answer.png">
         <img *ngIf="!moreReactions" class="icon_purple" src="assets/reactions/answer_purple.png"
-            (click)="this.ws.threadContainerIsVisible = true; threadToSend();">
-
+            (click)="this.respService.onlyThread(); threadToSend();">
+                        
         <img *ngIf="moreReactions" class="icon" src="assets/reactions/nerd.png">
         <img *ngIf="moreReactions" class="icon_purple" src="assets/reactions/nerd.png" (click)="ws.addReaction('assets/reactions/nerd.png', this.messageType, this.clickedContact, this.clickedChannel, this.messageData, this.data, this.threadMessageData)">
     </div>

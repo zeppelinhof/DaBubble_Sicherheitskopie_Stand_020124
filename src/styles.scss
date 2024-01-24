@@ -409,7 +409,14 @@ button {
     width: 100%;
   }
 }
-
+@media (max-width:960px) {
+  app-side-left{
+    width: 100% !important;
+  }
+  app-side-right{
+    width: 100% !important;
+  }
+}
 @media (max-width: 610px) {
   body {
     padding: 0;

@@ -14,5 +14,30 @@ export class ResponsiveService {
       this.routerIsVisible = false;
     }
   }
+  onlyWorksSpace() {
+    if (window.innerWidth < 960) {
+      this.sideLeftVisible = true;
+      this.routerIsVisible = false;
+      this.sideRightVisible = false;
+    } else {
+      this.sideLeftVisible = !this.sideLeftVisible
+    }
 
+  }
+  onlyChannel() {
+    if (window.innerWidth < 960) {
+      this.sideLeftVisible = false;
+      this.routerIsVisible = true;
+    }
+
+  }
+  onlyThread() {
+    if (window.innerWidth < 960) {
+      this.sideLeftVisible = false;
+      this.routerIsVisible = false;
+      this.sideRightVisible = true;
+    }
+
+  }
+  
 }
