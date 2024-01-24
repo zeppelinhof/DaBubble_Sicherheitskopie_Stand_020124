@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ResponsiveService } from 'src/app/responsive.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-workspacebutton',
@@ -8,7 +9,7 @@ import { ResponsiveService } from 'src/app/responsive.service';
 })
 export class WorkspacebuttonComponent {
 
-  constructor(public respService: ResponsiveService){
+  constructor(public respService: ResponsiveService, public ws: WorkspaceService){
 
   }
 }

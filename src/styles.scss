@@ -23,6 +23,7 @@ body {
   font-family: "Nunito", sans-serif;
   padding: $marginBody;
   height: 100%;
+  // overflow: hidden
 }
 
 span,
@@ -128,23 +129,25 @@ button {
   height: 100vh;
   width: 100vw;
   background-color: rgba($color: #00000048, $alpha: 0.2);
-  z-index: 1;
+  z-index: 10;
+  overflow: hidden;
 }
 
 .dialog {
   position: relative;
   display: flex;
   justify-content: center;
+  max-height: 100vh;
   flex-direction: column;
   box-sizing: border-box;
   background-color: white;
-  width: 900px;
-  max-height: 100vh;
-  max-width: 90vw;
   border-radius: 30px;
   padding: 40px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
   gap: 20px;
+  transition: top 1s ease-in-out;
+  flex-grow: 1;
+  transition: 1s ease-in-out;
 }
 
 // input style
@@ -407,12 +410,15 @@ button {
   }
 }
 
-@media (max-width: 550px) {
+@media (max-width: 610px) {
   body {
     padding: 0;
     margin: 0;
   }
+  .hide-mobile {
+    display: none;
+  }
   .dasboard-container {
-    gap: 0px;
+    gap: 0px !important;
   }
 }

@@ -226,10 +226,38 @@ app-messages-channel{
   border-radius: 25px;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 610px) {
   .channel-div-container {
     border-radius: 0px;
     margin-right: 0px;
     width: 100%;
+  }
+  // .channel-all-user-plus-add{
+  //   display: none;
+  // }
+  .channel-user-img-container{
+    img{
+      height: 22px;
+      width: 22px;
+    }
+  }
+  .channel-add-user-container{
+    height: 22px;
+    width: 22px;
+  }
+  .channel-user-counter{
+    font-size: 18px;
+  }
+  .channel-info-unfold{
+    img{
+      height: 16px;
+    }
+    .channel-name{
+      font-size: 20px;
+    }
+    
+  }
+  .channel-header-container{
+    padding: 25px 5px;
   }
 }

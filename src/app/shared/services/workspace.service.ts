@@ -27,6 +27,7 @@ export class WorkspaceService {
   showEmojis: boolean = false;
   allChatsTemp: any[] = [];
   indexChangedMessage!: number;
+  workspaceButtonVisible: boolean = true
 
   enterKeyPressSubject = fromEvent<KeyboardEvent>(document, 'keyup').pipe(
     filter(event => event.key === 'Enter')
@@ -101,6 +102,7 @@ export class WorkspaceService {
   openCloseCreateChannel() {
     this.showCreateChannel = this.showCreateChannel ? false : true;
     this.addMemberClearValues();
+    this.workspaceButtonVisible = !this.workspaceButtonVisible;
   }
 
   closeAddMembers() {

@@ -2,11 +2,29 @@
 
 $btn-purple: #444DF2;
 
+.wrap-dialog-choose-members {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    max-height: 100vh;
+    max-width: 90vw;
+}
+
 .dialog-general-data {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: 20px;
 }
+
+.dialog-shifted {
+    top: 0px;
+}
+
+.align-items-flex-start {
+    align-items: flex-start;
+}
+
 
 .first-line {
     display: flex;
@@ -42,6 +60,8 @@ $btn-purple: #444DF2;
 .channel-expl {
     font-size: 18px;
     font-weight: 400;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .channel-property {
@@ -126,21 +146,26 @@ $btn-purple: #444DF2;
 .radio-wrap {
     display: flex;
     gap: 20px;
+
+    img {
+        height: 20px;
+        width: 20px;
+    }
 }
 
 .choose-members-wrap {
-    position: absolute;
-    left: 0;
-    min-width: 300px;
-    max-height: 300px;
     display: flex;
     flex-direction: column;
     padding: 40px;
     gap: 20px;
-    border-radius: 30px 0;
+    border-radius: 30px;
     background-color: white;
     box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
     z-index: 2;
+    flex-grow: 2;
+    overflow-y: auto;
+
+
 
     .add-object-wrap {
         display: flex;
@@ -242,10 +267,6 @@ $btn-purple: #444DF2;
     }
 }
 
-.top-250 {
-    top: 250px;
-}
-
 .profile-image {
     height: 50px;
     width: 50px;
@@ -298,7 +319,7 @@ $btn-purple: #444DF2;
     transition: opacity 1s ease-in-out;
     opacity: 1;
 
-    img{
+    img {
         position: absolute;
         width: 50px;
         height: auto;
@@ -309,4 +330,43 @@ $btn-purple: #444DF2;
 
 .length-info-message-hidden {
     opacity: 0;
+}
+
+.to-background{
+    opacity: 0.4;
+    background-color: $grey;
+    height: 200px;
+}
+
+@media (max-width: 400px) {
+    .hide-mobile {
+        display: none;
+    }
+
+    .name-text {
+        flex-direction: column;
+    }
+
+    .headline-white-box {
+        font-size: 20px;
+    }
+
+    .channel-expl {
+        font-size: 12px;
+    }
+
+    .choose-members-wrap{
+        animation: slideInFromBottom 1s ease-in-out;
+    }
+    
+    @keyframes slideInFromBottom {
+        from {
+            transform: translateY(100%);
+        }
+
+        to {
+            transform: translateY(0%);
+        }
+    }
+    
 }

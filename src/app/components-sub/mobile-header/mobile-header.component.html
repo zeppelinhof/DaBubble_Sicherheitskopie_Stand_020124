@@ -62,12 +62,13 @@
     />
   </div>
 
-  <!-- Global Result-List -->
-  <div class="choose-members-wrap" *ngIf="this.ws.globalResults">
-    <div class="first-line">
-      <div class="headline-white-box">Globale Suche</div>
-      <div class="around-close" (click)="this.ws.closeGlobalResults()">
-        <img src="assets/icons/close.png" />
+    <!-- Global Result-List -->
+    <div class="choose-members-header-wrap" *ngIf="this.ws.globalResults">
+      <div class="first-line">
+        <div class="headline-white-box">Globale Suche</div>
+        <div class="around-close" (click)="this.ws.closeGlobalResults()">
+          <img src="assets/icons/close.png" />
+        </div>
       </div>
     </div>
     <div class="user-list-wrap">
