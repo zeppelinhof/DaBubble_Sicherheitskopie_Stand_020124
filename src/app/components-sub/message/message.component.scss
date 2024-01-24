@@ -100,7 +100,7 @@
   z-index: 90;
 }
 
-.user-profile {
+.div-user-profile {
   position: absolute;
   top: 0;
   left: 0;
@@ -115,5 +115,14 @@
   .message-div-container {
     border-radius: 0px;
     margin-right: 0px;
+  }
+}
+
+@media (max-width: 500px) {
+  app-settings-user-data-message {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

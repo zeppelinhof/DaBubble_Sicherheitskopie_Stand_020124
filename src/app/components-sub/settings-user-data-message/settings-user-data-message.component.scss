@@ -128,6 +128,21 @@
   }
 }
 
+.btn-message {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: $purple3;
+  background-color: $purple3;
+  color: #fff;
+  padding: 12px 25px;
+  border: 1px solid $purple3;
+  &:hover {
+    background-color: $purple2;
+    border-color: $purple2;
+  }
+}
+
 @media (max-width: 685px) {
   .name-and-edit {
     img {
@@ -137,5 +152,11 @@
 
   .edit {
     display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .user-profil {
+    width: 85%;
   }
 }

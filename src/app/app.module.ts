@@ -36,6 +36,7 @@ import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-hea
 import { SettingsUserMenuComponent } from './components-sub/settings-user-menu/settings-user-menu.component';
 import { SettingsUserDataComponent } from './components-sub/settings-user-data/settings-user-data.component';
 import { SettingsEditUserDataComponent } from './components-sub/settings-edit-user-data/settings-edit-user-data.component';
+import { SettingsUserDataMessageComponent } from './components-sub/settings-user-data-message/settings-user-data-message.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { SettingsEditUserDataComponent } from './components-sub/settings-edit-us
     SettingsUserMenuComponent,
     SettingsUserDataComponent,
     SettingsEditUserDataComponent,
+    SettingsUserDataMessageComponent,
 
     // PickerComponent,
   ],

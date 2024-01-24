@@ -1,9 +1,6 @@
 <div class="message-div-container">
-  <div
-    (click)="settingsService.profilIsOpenThroughMessage = true"
-    class="message-header-container"
-  >
-    <div>
+  <div class="message-header-container">
+    <div (click)="settingsService.profilIsOpenThroughMessage = true">
       <img src="assets/imgs/userMale2.png" />
       <div class="message-user-name">{{ this.clickedContact.name }}</div>
     </div>
@@ -62,6 +59,13 @@
   (click)="settingsService.profilIsOpenThroughMessage = false"
 ></div>
 
-<div *ngIf="settingsService.profilIsOpenThroughMessage" class="user-profile">
-  <app-settings-user-data style="z-index: 100"></app-settings-user-data>
+<div
+  *ngIf="settingsService.profilIsOpenThroughMessage"
+  class="div-user-profile"
+>
+  <app-settings-user-data-message
+    [userName]="clickedContact.name"
+    [userEmail]="clickedContact.email"
+    style="z-index: 100"
+  ></app-settings-user-data-message>
 </div>

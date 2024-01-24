@@ -20,5 +20,6 @@ export class UserSettingsService {
     this.menuIsOpen = false;
     this.profilIsOpen = false;
     this.editUserDataIsOpen = false;
+    this.profilIsOpenThroughMessage = false;
   }
 }
