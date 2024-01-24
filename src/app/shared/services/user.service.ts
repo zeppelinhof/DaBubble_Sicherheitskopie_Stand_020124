@@ -51,6 +51,7 @@ export class UserService {
         });
         this.setCurrentContact(this.clickedContactId.value);
       });
+      console.log(this.myUsers);
     });
   }
 

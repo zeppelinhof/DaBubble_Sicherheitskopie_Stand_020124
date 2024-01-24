@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { Component } from '@angular/core';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
@@ -5,7 +6,6 @@ import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
-
 
 @Component({
   selector: 'app-new-message',
@@ -32,7 +32,8 @@ export class NewMessageComponent {
   constructor(
     public us: UserService,
     private ws: WorkspaceService,
-    private cs: ChannelService
+    private cs: ChannelService,
+    public auth: AuthenticationService
   ) {
     this.allUsers = this.getUsers();
     this.allChannels = this.getChannels();
@@ -67,6 +68,7 @@ export class NewMessageComponent {
       this.showAddMember = true;
       this.filteredMembers = this.allUsers.filter((member) => {
         const fullName = `${member.email}`.toLowerCase();
+        const id = `${member.customId}`;
         if (this.showAddMember) {
           this.refreshMemberList();
         }
@@ -83,6 +85,7 @@ export class NewMessageComponent {
       this.showAddMember = true;
       this.filteredMembers = this.allUsers.filter((member) => {
         const fullName = `${member.name}`.toLowerCase();
+        const id = `${member.customId}`;
         if (this.showAddMember) {
           this.refreshMemberList();
         }
