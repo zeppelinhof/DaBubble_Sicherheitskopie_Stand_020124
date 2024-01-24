@@ -20,4 +20,9 @@ export class SettingsUserMenuComponent {
     this.settingsService.menuIsOpen = false;
     this.settingsService.profilIsOpen = true;
   }
+
+  logout() {
+    this.settingsService.closeMenu();
+    this.auth.logout();
+  }
 }
