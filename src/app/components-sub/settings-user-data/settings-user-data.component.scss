@@ -55,9 +55,11 @@
   img {
     display: none;
     border-radius: 100px;
-    background-color: $light-violet;
     padding: 6px;
     cursor: pointer;
+    &:hover {
+      background-color: $light-violet;
+    }
   }
 }
 
