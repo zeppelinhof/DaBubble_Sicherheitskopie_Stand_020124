@@ -117,7 +117,6 @@ export class AuthenticationService {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('logged User ', user.email, 'id', user.uid);
         this.loggedUserMail = user.email;
         this.loggedUserName = user.displayName;
         this.loggedUser.customId = user.uid;

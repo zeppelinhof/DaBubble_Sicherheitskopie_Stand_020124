@@ -32,12 +32,17 @@ section {
 }
 
 .container-profile-image {
-  img {
+  .no-image-selected {
+    background-color: $purple2;
     width: 136px;
     height: 136px;
-    background-color: $purple2;
+  }
+  img {
+    width: 160px;
+    height: 160px;
     border-radius: 100px;
     padding: 16px;
+    object-fit: cover;
   }
 }
 

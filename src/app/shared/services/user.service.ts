@@ -177,4 +177,9 @@ export class UserService {
     );
     return user ? user.name : 'is loading';
   }
+
+  getUserImage(userCustomId: string) {
+    let user = this.myUsers.find((user) => user.customId === userCustomId);
+    return user ? user.img : 'assets/imgs/person.png';
+  }
 }
