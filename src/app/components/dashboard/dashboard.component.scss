@@ -43,6 +43,8 @@ app-side-right {
   }
 }
 
-@media (max-width:1500px) {
-  
+@media (max-width:610px) {
+  app-mobile-header{
+    margin-bottom: 0px;
+  }
 }

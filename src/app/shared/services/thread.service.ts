@@ -1,6 +1,6 @@
 import { Injectable, ViewChild } from '@angular/core';
 import { Message } from 'src/app/models/message';
-import { WorkspaceService } from './workspace.service';
+
 import { UserService } from './user.service';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from './channel.service';
@@ -8,8 +8,9 @@ import { MessageTime } from 'src/app/models/message-time';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { StorageService } from './storage.service';
 import { InputService } from './input.service';
-import { ResponsiveService } from 'src/app/responsive.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { Router } from '@angular/router';
+import { WorkspaceService } from './workspace.service';
 
 @Injectable({
   providedIn: 'root'

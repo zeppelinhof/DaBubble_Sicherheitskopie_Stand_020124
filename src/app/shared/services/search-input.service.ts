@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { WorkspaceService } from './workspace.service';
+
 import { ChannelService } from './channel.service';
 import { User } from 'src/app/models/user';
 import { Channel } from 'src/app/models/channel';
 import { UserService } from './user.service';
+import { WorkspaceService } from './workspace.service';
 
 @Injectable({
   providedIn: 'root'

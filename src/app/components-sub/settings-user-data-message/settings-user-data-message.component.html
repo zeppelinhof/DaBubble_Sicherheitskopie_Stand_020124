@@ -1,0 +1,51 @@
+<div class="user-profil">
+  <div class="header">
+    <span>Profil</span>
+    <img
+      *ngIf="!closeIsHovered"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="settingsService.closeMenu()"
+      src="/assets/icons/close.png"
+      alt="icon to close dialog"
+    />
+    <img
+      *ngIf="closeIsHovered"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="settingsService.closeMenu()"
+      src="/assets/icons/close-purple.png"
+      alt="icon to close dialog"
+    />
+  </div>
+  <div class="img-container">
+    <img src="/assets/imgs/userFemale1.png" alt="image of user" />
+  </div>
+  <div class="name-and-edit">
+    <span class="name">
+      {{ userName }}
+    </span>
+  </div>
+  <div class="active">
+    <div class="circle"></div>
+    <span>Aktiv</span>
+  </div>
+  <div class="email-container">
+    <div class="email-text">
+      <img src="assets/icons/mail-black.png" alt="icon of mail" />
+      <span>E-Mail-Adresse</span>
+    </div>
+    <div>
+      <a href="mailto:{{ userEmail }}" class="email-user">
+        {{ userEmail }}
+      </a>
+    </div>
+  </div>
+
+  <button
+    (click)="settingsService.profilIsOpenThroughMessage = false"
+    class="button-layout btn-message"
+  >
+    <img src="assets/icons/message.png" alt="icon of message" />Nachricht
+  </button>
+</div>

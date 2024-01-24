@@ -3,13 +3,14 @@ import { Component, inject } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
 import {
   Firestore,
 } from '@angular/fire/firestore';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
-import { ResponsiveService } from 'src/app/responsive.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-side-left',

@@ -1,0 +1,64 @@
+<div class="user-profil">
+  <div class="header">
+    <span>Profil</span>
+    <img
+      *ngIf="!closeIsHovered"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="
+        settingsService.menuIsOpen = true; settingsService.profilIsOpen = false
+      "
+      src="/assets/icons/close.png"
+      alt="icon to close dialog"
+    />
+    <img
+      *ngIf="closeIsHovered"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="
+        settingsService.menuIsOpen = true; settingsService.profilIsOpen = false
+      "
+      src="/assets/icons/close-purple.png"
+      alt="icon to close dialog"
+    />
+  </div>
+  <div class="img-container">
+    <img src="/assets/imgs/userFemale1.png" alt="image of user" />
+  </div>
+  <div class="name-and-edit">
+    <span class="name">{{
+      this.us.getUserName(this.auth.loggedUser.customId)
+    }}</span>
+    <span
+      (click)="
+        settingsService.profilIsOpen = false;
+        settingsService.editUserDataIsOpen = true
+      "
+      class="edit"
+      >Bearbeiten</span
+    >
+    <img
+      (click)="
+        settingsService.profilIsOpen = false;
+        settingsService.editUserDataIsOpen = true
+      "
+      src="assets/icons/edit.png"
+      alt="icon of pencil"
+    />
+  </div>
+  <div class="active">
+    <div class="circle"></div>
+    <span>Aktiv</span>
+  </div>
+  <div class="email-container">
+    <div class="email-text">
+      <img src="assets/icons/mail-black.png" alt="icon of mail" />
+      <span>E-Mail-Adresse</span>
+    </div>
+    <div>
+      <a href="mailto:{{ auth.loggedUserMail }}" class="email-user">{{
+        auth.loggedUserMail
+      }}</a>
+    </div>
+  </div>
+</div>

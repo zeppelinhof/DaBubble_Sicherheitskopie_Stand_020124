@@ -1,3 +1,4 @@
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { HeaderComponent } from './components/dashboard/header/header.component';
 import { NgModule } from '@angular/core';
 import { provideAuth, getAuth } from '@angular/fire/auth';
@@ -31,8 +32,13 @@ import { MessagesChannelComponent } from './components-sub/messages-channel/mess
 import { MessageOfUserComponent } from './components-sub/message-of-user/message-of-user.component';
 import { MessageReactionComponent } from './components-sub/message-reaction/message-reaction.component';
 import { getStorage, provideStorage } from '@angular/fire/storage';
-import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
+
 import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-header.component';
+import { SettingsUserMenuComponent } from './components-sub/settings-user-menu/settings-user-menu.component';
+import { SettingsUserDataComponent } from './components-sub/settings-user-data/settings-user-data.component';
+import { SettingsEditUserDataComponent } from './components-sub/settings-edit-user-data/settings-edit-user-data.component';
+import { SettingsUserDataMessageComponent } from './components-sub/settings-user-data-message/settings-user-data-message.component';
+import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
 
 
 @NgModule({
@@ -62,7 +68,12 @@ import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-hea
     MessageOfUserComponent,
     MessageReactionComponent,
     WorkspacebuttonComponent,
-    MobileHeaderComponent
+    MobileHeaderComponent,
+    SettingsUserMenuComponent,
+    SettingsUserDataComponent,
+    SettingsEditUserDataComponent,
+    SettingsUserDataMessageComponent,
+    
 
     // PickerComponent,
   ],
@@ -90,5 +101,4 @@ import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-hea
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}

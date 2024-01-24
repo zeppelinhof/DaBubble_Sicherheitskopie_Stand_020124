@@ -1,0 +1,41 @@
+<div class="userMenu">
+  <div
+    (click)="openProfile()"
+    (mouseover)="profileIsHovered = true"
+    (mouseout)="profileIsHovered = false"
+  >
+    <img
+      *ngIf="!profileIsHovered"
+      src="/assets/icons/account_circle.png"
+      alt="icon of profile"
+    />
+    <img
+      *ngIf="profileIsHovered"
+      (mouseout)="profileIsHovered = false"
+      src="/assets/icons/account_circle_purple.png"
+      alt="icon of profile"
+    />
+    <span>Profil</span>
+  </div>
+  <div
+    (click)="logout()"
+    (mouseover)="logoutIsHovered = true"
+    (mouseout)="logoutIsHovered = false"
+  >
+    <img
+      *ngIf="!logoutIsHovered"
+      (mouseover)="logoutIsHovered = true"
+      (mouseout)="logoutIsHovered = false"
+      src="/assets/icons/logout.png"
+      alt="icon of profile"
+    />
+    <img
+      *ngIf="logoutIsHovered"
+      (mouseover)="logoutIsHovered = true"
+      (mouseout)="logoutIsHovered = false"
+      src="/assets/icons/logout_purple.png"
+      alt="icon of profile"
+    />
+    <span>Log out</span>
+  </div>
+</div>

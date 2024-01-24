@@ -1,11 +1,10 @@
-@import 'src/app/components-sub/create-channel/create-channel.component.scss';
+@import "src/app/components-sub/create-channel/create-channel.component.scss";
 
 header {
   display: flex;
   align-items: center;
   margin: 0px 10px;
-
-
+  position: relative;
 }
 
 input {
@@ -17,7 +16,6 @@ input {
   font-size: 16px;
 
   &::placeholder {
-
     font-size: 16px;
   }
 }
@@ -27,19 +25,22 @@ input {
   margin-right: 70px;
 }
 
-.userSettings {
-  z-index: 12;
-  padding: 20px 40px;
-  background-color: #797df38e;
-  backdrop-filter: blur(10px);
-  color: white;
-  height: 200px;
-  width: 220px;
+.bg-userSettings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.2;
+  background-color: #2d2d2d;
+  z-index: 90;
+}
+
+.container-all-settings {
+  z-index: 100;
   position: absolute;
   right: 0px;
-  top: 72px;
-  border-radius: 20px 10px 20px 20px;
-
+  top: 76px;
 }
 
 .current-user {
@@ -64,12 +65,10 @@ input {
   }
 }
 
-
 .input-field-container {
   position: relative;
   width: 100%;
   margin-right: 70px;
-
 }
 
 .input-field-inside {

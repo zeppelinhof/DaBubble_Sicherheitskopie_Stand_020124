@@ -10,6 +10,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendPasswordResetEmail,
+  updateEmail,
 } from 'firebase/auth';
 
 import { confirmPasswordReset } from '@angular/fire/auth';
@@ -23,6 +24,8 @@ import { Injectable } from '@angular/core';
 export class AuthenticationService {
   passwordLoginIsWrong: boolean = false;
   loggedUser: User = new User();
+  loggedUserMail: string | null = '';
+  loggedUserName: string | null = '';
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -50,6 +53,9 @@ export class AuthenticationService {
       });
   }
 
+  /**
+   * Signs up a user using Google authentication.
+   */
   signUpWithGoogle() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
@@ -112,6 +118,8 @@ export class AuthenticationService {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('logged User ', user.email, 'id', user.uid);
+        this.loggedUserMail = user.email;
+        this.loggedUserName = user.displayName;
         this.loggedUser.customId = user.uid;
         this.userService.loggedInUser = this.loggedUser;
         this.setPathWhenLogged();
@@ -165,21 +173,26 @@ export class AuthenticationService {
       });
   }
 
+  /**
+   * Changes the password when the user is not logged in using the provided oobCode and newPassword.
+   * @param {string} oobCode - The out-of-band code sent to the user's email for password reset.
+   * @param {string} newPassword - The new password to set for the user.
+   */
   async changePwWhenUserIsNotLogged(oobCode: string, newPassword: string) {
     const auth = getAuth();
     await confirmPasswordReset(auth, oobCode, newPassword);
     this.router.navigate(['/login']);
   }
 
-  /*
-  updateProfile(auth.currentUser, {
-    displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
-  }).then(() => {
-    // Profile updated!
-    // ...
-  }).catch((error) => {
-    // An error occurred
-    // ...
-  });
-  */
+  updateUserEmail(newEmail: string) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      updateEmail(user, newEmail)
+        .then(() => {
+          console.log('updated');
+        })
+        .catch((error) => {});
+    }
+  }
 }

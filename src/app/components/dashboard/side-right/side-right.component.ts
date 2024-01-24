@@ -4,6 +4,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
+
 @Component({
   selector: 'app-side-right',
   templateUrl: './side-right.component.html',

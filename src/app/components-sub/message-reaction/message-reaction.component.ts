@@ -4,10 +4,11 @@ import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-message-reaction',

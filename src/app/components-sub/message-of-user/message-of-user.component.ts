@@ -6,9 +6,10 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { InputService } from 'src/app/shared/services/input.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-message-of-user',

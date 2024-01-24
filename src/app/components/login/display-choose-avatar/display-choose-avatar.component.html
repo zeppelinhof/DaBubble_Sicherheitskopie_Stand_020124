@@ -17,16 +17,29 @@
     />
     <span>Wähle deinen Avatar</span>
   </div>
-
   <div class="container-profile-image">
     <img
-      [src]="
-        choosenAvatar === null
-          ? 'assets/imgs/person.png'
-          : 'assets/imgs/' + choosenAvatar
-      "
-      alt="profile image"
-      [class.image-is-selected]="choosenAvatar !== null"
+      *ngIf="!choosenAvatar && !this.storService.getUrlFromStorage()"
+      src="{{ noImageSelected }}"
+      alt="beides null"
+    />
+
+    <img
+      *ngIf="choosenAvatar && !this.storService.getUrlFromStorage()"
+      src="{{ choosenAvatar }}"
+      alt="wenn ein avatar"
+    />
+
+    <img
+      *ngIf="!choosenAvatar && this.storService.getUrlFromStorage()"
+      [src]="this.storService.getUrlFromStorage()"
+      alt="wenn url"
+    />
+
+    <img
+      *ngIf="choosenAvatar && this.storService.getUrlFromStorage()"
+      [src]="choosenAvatar"
+      alt="wenn url"
     />
   </div>
 
@@ -37,24 +50,27 @@
   <div class="selection-images">
     <img
       *ngFor="let imagePath of avatarImages"
-      src="assets/imgs/{{ imagePath }}"
+      src="{{ imagePath }}"
       alt="avatar iamge"
       (click)="setAvatarImage(imagePath)"
     />
-
-    <img
-      *ngFor="let imagePath of avatarImages"
-      [src]="this.storService.getUrlFromStorage()"
-      alt="avatar iamge"
-      (click)="setAvatarImage(imagePath)"
-    />
-
   </div>
-  
+
   <div class="upload-own-image">
     <span>eigenes Bild verwenden</span>
-    <input (change)="fileExplorer($event)"  type="file" id="file" value="" name="avatar" accept="image/png, image/jpeg" />
-    <button class="button-layout">Bilder hochladen</button>
+
+    <button class="button-layout">
+      <input
+        #inputUpload
+        (click)="resetAvatarImage()"
+        (change)="fileExplorer()"
+        type="file"
+        id="file"
+        value=""
+        name="avatar"
+        accept="image/png, image/jpeg"
+      />Bilder hochladen
+    </button>
   </div>
 
   <div class="continue-container">

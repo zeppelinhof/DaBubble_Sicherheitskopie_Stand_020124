@@ -50,6 +50,10 @@ button {
   display: none;
 }
 
+.c-pointer {
+  cursor: pointer;
+}
+
 .image-from-storage {
   height: 100px;
 }
@@ -313,8 +317,6 @@ button {
   font-size: 18px;
 }
 
-
-
 .add-icon-container {
   position: relative;
   margin-top: 10px;
@@ -352,13 +354,12 @@ button {
 
 .file-container {
   border: 1px solid $purple;
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 14px;
 }
-
-// workspace pos abs 
+// workspace pos abs
 .close-workspace {
   position: fixed;
   left: 0;
@@ -396,11 +397,9 @@ button {
     .close-workspace-text {
       scale: 1.03;
     }
-
   }
 }
-
-// responsive 
+// responsive
 @media (max-width: 1458px) {
   .side-right-container {
     width: 100%;
@@ -413,7 +412,7 @@ button {
   }
 }
 
-@media (max-width:610px) {
+@media (max-width: 610px) {
   body {
     padding: 0;
     margin: 0;

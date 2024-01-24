@@ -1,0 +1,104 @@
+<div class="edit-user-data">
+  <div class="header">
+    <span>Dein Profil bearbeiten</span>
+    <img
+      *ngIf="!closeIsHovered"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      src="/assets/icons/close.png"
+      alt="icon to close dialog"
+    />
+    <img
+      *ngIf="closeIsHovered"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="
+        settingsService.menuIsOpen = true;
+        settingsService.editUserDataIsOpen = false
+      "
+      src="/assets/icons/close-purple.png"
+      alt="icon to close dialog"
+    />
+  </div>
+  <div class="img-container">
+    <img src="/assets/imgs/userFemale1.png" alt="image of user" />
+  </div>
+  <form
+    (submit)="changeUserData()"
+    ngNativeValidate
+    [formGroup]="changeUserDataForm"
+  >
+    <div class="name">
+      <img src="/assets/icons/account_circle.png" alt="icon of profile" />
+      <span>Vollständiger Name</span>
+    </div>
+    <div class="container-input-field">
+      <input
+        formControlName="name"
+        type="text"
+        placeholder="{{
+          this.userService.getUserName(this.auth.loggedUser.customId)
+        }}"
+      />
+      <span
+        *ngIf="changeUserDataForm.get('name')?.hasError('minlength')"
+        class="error"
+        >Der Name sollte mind. 3 Zeichen enthalten</span
+      >
+    </div>
+    <div class="email">
+      <img src="/assets/icons/mail.png" alt="icon of mail" />
+      <span>E-Mail-Adresse</span>
+    </div>
+    <div class="container-input-field">
+      <input
+        formControlName="email"
+        type="email"
+        placeholder="{{ auth.loggedUserMail }}"
+      />
+      <span
+        *ngIf="
+          changeUserDataForm.get('email')?.value.length > 0 &&
+          (changeUserDataForm.get('email')?.hasError('email') ||
+            !checkInputEmailContainsDot())
+        "
+        class="error"
+      >
+        Diese E-Mail-Adresse ist leider ungültig.
+      </span>
+      <span
+        *ngIf="
+          changeUserDataForm.get('email')?.value.length > 0 &&
+          this.userIsAlreadyExisting()
+        "
+        class="error"
+      >
+        Diese E-Mail-Adresse existiert bereits.
+      </span>
+    </div>
+
+    <div class="btns-container">
+      <button
+        (click)="
+          settingsService.menuIsOpen = true;
+          settingsService.editUserDataIsOpen = false
+        "
+        type="button"
+        class="button-layout btn-cancel"
+      >
+        Abbrechen
+      </button>
+      <button
+        type="submit"
+        [disabled]="!changeUserDataForm.valid || noDataEntered()"
+        [class.btn-save-not-valid]="
+          !changeUserDataForm.valid || noDataEntered()
+        "
+        [class.btn-save-valid]="changeUserDataForm.valid && !noDataEntered()"
+        class="button-layout btn-save"
+      >
+        Speichern
+      </button>
+    </div>
+  </form>
+</div>
