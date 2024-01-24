@@ -20,7 +20,7 @@ export class ResponsiveService {
       this.routerIsVisible = false;
       this.sideRightVisible = false;
     } else {
-      this.sideLeftVisible = !this.sideLeftVisible
+      this.sideLeftVisible = !this.sideLeftVisible;
     }
 
   }
@@ -45,3 +45,5 @@ export class ResponsiveService {
   }
 
 }
+
+  
