@@ -12,7 +12,7 @@
       alt="icon to close dialog"
     />
     <img
-      *ngIf="closeIsHovered && !settingsService.profilIsOpenThroughMessage"
+      *ngIf="closeIsHovered"
       (mouseover)="closeIsHovered = true"
       (mouseout)="closeIsHovered = false"
       (click)="
