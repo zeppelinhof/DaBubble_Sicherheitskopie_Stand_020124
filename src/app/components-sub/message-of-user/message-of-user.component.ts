@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { Component, Input, ElementRef } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
@@ -15,12 +16,11 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   selector: 'app-message-of-user',
   templateUrl: './message-of-user.component.html',
   styleUrls: ['./message-of-user.component.scss'],
-  
 })
 export class MessageOfUserComponent {
-  @Input() messageData: Message = new Message();      // für Direktnachrichten
-  @Input() data: Message = new Message();             // für Channelnachrichten
-  @Input() threadMessageData!: ThreadInterface;       // für Threadnachrichten
+  @Input() messageData: Message = new Message(); // für Direktnachrichten
+  @Input() data: Message = new Message(); // für Channelnachrichten
+  @Input() threadMessageData!: ThreadInterface; // für Threadnachrichten
 
   @Input() messageType: string = 'channel';
   getEditMode: boolean = false;
@@ -31,14 +31,16 @@ export class MessageOfUserComponent {
   unsubAllUsers: any;
   threadsOfMessage!: ThreadInterface[];
   imagePreview: boolean = false;
-  
 
-  constructor(public us: UserService,
+  constructor(
+    public us: UserService,
     public cs: ChannelService,
     public ws: WorkspaceService,
     public storService: StorageService,
     public ts: ThreadService,
-    public is: InputService) { }
+    public is: InputService,
+    public auth: AuthenticationService
+  ) {}
 
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();
@@ -46,10 +48,9 @@ export class MessageOfUserComponent {
     this.getCurrentChannel();
     this.savePreviousMessage();
 
-    this.cs.threadsOfMessage
-      .subscribe((threads: ThreadInterface[]) => {
-        this.threadsOfMessage = threads;
-      });
+    this.cs.threadsOfMessage.subscribe((threads: ThreadInterface[]) => {
+      this.threadsOfMessage = threads;
+    });
   }
 
   savePreviousMessage() {
@@ -90,8 +91,7 @@ export class MessageOfUserComponent {
   saveEditedMessage() {
     if (this.messageType === 'directMessage') {
       this.saveDirectMessage();
-    }
-    else if (this.messageType === 'channelMessage') {
+    } else if (this.messageType === 'channelMessage') {
       this.saveChannelMessage();
     } else if (this.messageType === 'threadMessage') {
       this.saveThreadMessage();
@@ -103,20 +103,30 @@ export class MessageOfUserComponent {
 
   saveDirectMessage() {
     // Nachricht bei Empfänger hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(this.clickedContact) }, this.clickedContact);
+    this.us.updateUser(
+      { chats: this.getAllChatsOfUser(this.clickedContact) },
+      this.clickedContact
+    );
     // Nachricht bei Sender hinterlegen
-    this.us.updateUser({ chats: this.getAllChatsOfUser(this.us.userLoggedIn()) }, this.us.userLoggedIn());
+    this.us.updateUser(
+      { chats: this.getAllChatsOfUser(this.us.userLoggedIn()) },
+      this.us.userLoggedIn()
+    );
   }
 
   saveChannelMessage() {
-    this.cs.updateChannel({ allMessages: this.insertNewMessageIntoMessages(this.clickedChannel) }, this.clickedChannel);
+    this.cs.updateChannel(
+      { allMessages: this.insertNewMessageIntoMessages(this.clickedChannel) },
+      this.clickedChannel
+    );
   }
 
   saveThreadMessage() {
-    this.cs.updateChannel({ allMessages: this.insertNewThreadIntoMessages() }, this.clickedChannel);
-
+    this.cs.updateChannel(
+      { allMessages: this.insertNewThreadIntoMessages() },
+      this.clickedChannel
+    );
   }
- 
 
   closeAllDivs() {
     this.imagePreview = false;
@@ -160,12 +170,22 @@ export class MessageOfUserComponent {
       const dataMessageId = this.data.messageId;
       const chatMessageId = chat.messageId;
 
-      allChats = this.refreshedChats_newMessage(dataMessageId, chatMessageId, chat, allChats);
+      allChats = this.refreshedChats_newMessage(
+        dataMessageId,
+        chatMessageId,
+        chat,
+        allChats
+      );
     }
     return allChats;
   }
 
-  refreshedChats_newMessage(dataMessageId: number, chatMessageId: number, chat: Message, allChats: Message[]) {
+  refreshedChats_newMessage(
+    dataMessageId: number,
+    chatMessageId: number,
+    chat: Message,
+    allChats: Message[]
+  ) {
     if (chatMessageId === dataMessageId) {
       chat.message = this.data.message; // neu eingegebener Wert für Message
       if (chat.threads[0]) {
@@ -180,21 +200,34 @@ export class MessageOfUserComponent {
     return allChats;
   }
 
-
   insertNewThreadIntoMessages() {
     let allChats: Message[] = [];
     //getAllMessagesOfChannel
-    for (let index = 0; index < this.clickedChannel.allMessages!.length; index++) {
+    for (
+      let index = 0;
+      index < this.clickedChannel.allMessages!.length;
+      index++
+    ) {
       // Nachricht über messageId ermitteln
       const chat = this.clickedChannel.allMessages![index];
       const dataMessageId = this.cs.clickedMessage.value.messageId;
       const chatMessageId = chat.messageId;
-      allChats = this.refreshedChats_newThread(dataMessageId, chatMessageId, chat, allChats);
+      allChats = this.refreshedChats_newThread(
+        dataMessageId,
+        chatMessageId,
+        chat,
+        allChats
+      );
     }
     return allChats;
   }
 
-  refreshedChats_newThread(dataMessageId: number, chatMessageId: number, chat: Message, allChats: Message[]): Message[] {
+  refreshedChats_newThread(
+    dataMessageId: number,
+    chatMessageId: number,
+    chat: Message,
+    allChats: Message[]
+  ): Message[] {
     if (chatMessageId === dataMessageId) {
       let allThreads: ThreadInterface[] = [];
       chat.threads = this.refreshedThreads(allThreads);
@@ -227,10 +260,10 @@ export class MessageOfUserComponent {
     } else if (this.data.userCustomId && !this.threadMessageData) {
       return this.data.userCustomId == this.us.userLoggedIn().customId;
     } else if (this.threadMessageData && this.threadMessageData.userCustomId) {
-      return this.threadMessageData.userCustomId == this.us.userLoggedIn().customId;
+      return (
+        this.threadMessageData.userCustomId == this.us.userLoggedIn().customId
+      );
     }
     return false;
   }
-
-
 }

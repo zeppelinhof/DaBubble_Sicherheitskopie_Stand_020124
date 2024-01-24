@@ -1,7 +1,7 @@
 <div class="message-div-container">
   <div class="message-header-container">
     <div (click)="settingsService.profilIsOpenThroughMessage = true">
-      <img src="assets/imgs/userMale2.png" />
+      <img [src]="this.us.getUserImage(this.clickedContact.customId)" />
       <div class="message-user-name">{{ this.clickedContact.name }}</div>
     </div>
   </div>
