@@ -13,6 +13,15 @@
       alt="image of user"
     />
     <img
+      *ngIf="messageType == 'directMessage'"
+      [src]="
+        checkIfOwnMessage()
+          ? this.us.getUserImage(this.auth.loggedUser.customId)
+          : this.us.getUserImage(this.messageData.userCustomId)
+      "
+      alt="image of user"
+    />
+    <img
       *ngIf="messageType == 'threadMessage'"
       [src]="
         checkIfOwnMessage()
