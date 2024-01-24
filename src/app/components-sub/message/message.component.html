@@ -1,38 +1,65 @@
 <div class="message-div-container">
-  <div class="message-header-container">
+  <div
+    (click)="settingsService.profilIsOpenThroughMessage = true"
+    class="message-header-container"
+  >
     <img src="assets/imgs/userMale2.png" />
-    <div class="message-user-name">{{this.clickedContact.name}}</div>
+    <div class="message-user-name">{{ this.clickedContact.name }}</div>
   </div>
 
   <div class="messages-channel-container" id="scrollDirectMessages">
     <div *ngFor="let chat of us.chatsWithClickedUser(); let i = index">
-      <div *ngIf="this.cs.checkIfNewDay(us.chatsWithClickedUser(), i)" class="new-day-date">
+      <div
+        *ngIf="this.cs.checkIfNewDay(us.chatsWithClickedUser(), i)"
+        class="new-day-date"
+      >
         <div class="dateSeparatorAreaLeft">
           <div class="dateSeparator"></div>
         </div>
-        <div class="date-text">{{ this.cs.isToday(chat.createdTime['day']) ? 'Heute' : chat.createdTime['fullDay'] }}
+        <div class="date-text">
+          {{
+            this.cs.isToday(chat.createdTime["day"])
+              ? "Heute"
+              : chat.createdTime["fullDay"]
+          }}
         </div>
         <div class="dateSeparatorAreaRight">
           <div class="dateSeparator"></div>
         </div>
       </div>
-      <app-message-of-user [messageData]="chat" [messageType]="'directMessage'"></app-message-of-user>
+      <app-message-of-user
+        [messageData]="chat"
+        [messageType]="'directMessage'"
+      ></app-message-of-user>
     </div>
   </div>
 
   <!-- inner info card -->
-  <div *ngIf="!this.service.isWritingMessage && noChatsAvailable()" class="inner-info-card-container">
+  <div
+    *ngIf="!this.service.isWritingMessage && noChatsAvailable()"
+    class="inner-info-card-container"
+  >
     <div class="message-inner-container">
       <img src="assets/imgs/userMale2.png" />
-      <div class="message-inner-name">{{this.clickedContact.name}}</div>
+      <div class="message-inner-name">{{ this.clickedContact.name }}</div>
     </div>
 
     <div class="this-conversation-text-container">
       <div>Diese Unterhaltung findet nur zwischen</div>
-      <div class="name-of-chat-partner">@{{this.clickedContact.name}}</div>
+      <div class="name-of-chat-partner">@{{ this.clickedContact.name }}</div>
       <div>und dir statt.</div>
     </div>
   </div>
 
   <app-input-field-message></app-input-field-message>
+</div>
+
+<div
+  class="bg-user-profile"
+  *ngIf="settingsService.profilIsOpenThroughMessage"
+  (click)="settingsService.profilIsOpenThroughMessage = false"
+></div>
+
+<div *ngIf="settingsService.profilIsOpenThroughMessage" class="user-profile">
+  <app-settings-user-data style="z-index: 100"></app-settings-user-data>
 </div>

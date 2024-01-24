@@ -33,7 +33,9 @@ import { MessageReactionComponent } from './components-sub/message-reaction/mess
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
 import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-header.component';
-
+import { SettingsUserMenuComponent } from './components-sub/settings-user-menu/settings-user-menu.component';
+import { SettingsUserDataComponent } from './components-sub/settings-user-data/settings-user-data.component';
+import { SettingsEditUserDataComponent } from './components-sub/settings-edit-user-data/settings-edit-user-data.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,10 @@ import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-hea
     MessageOfUserComponent,
     MessageReactionComponent,
     WorkspacebuttonComponent,
-    MobileHeaderComponent
+    MobileHeaderComponent,
+    SettingsUserMenuComponent,
+    SettingsUserDataComponent,
+    SettingsEditUserDataComponent,
 
     // PickerComponent,
   ],
@@ -90,5 +95,4 @@ import { MobileHeaderComponent } from './components-sub/mobile-header/mobile-hea
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}

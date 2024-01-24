@@ -1,0 +1,38 @@
+@import "src/styles.scss";
+
+.userMenu {
+  z-index: 100;
+  padding: 20px;
+  background-color: #fff;
+  backdrop-filter: blur(10px);
+  color: black;
+  border-radius: 20px 10px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  font-size: 24px;
+  div {
+    display: flex;
+    padding: 10px 70px;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    border-radius: 100px;
+    &:hover {
+      color: $purple;
+      background-color: $light-violet;
+      cursor: pointer;
+    }
+  }
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 685px) {
+  .userMenu {
+    align-items: flex-start;
+  }
+}

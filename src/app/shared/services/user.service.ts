@@ -33,7 +33,6 @@ export class UserService {
   constructor() {
     this.unsubUsers = this.subUserList();
     this.subAllUsersListFindUserName();
-
   }
 
   userLoggedIn(): User {
@@ -63,7 +62,7 @@ export class UserService {
       })
       .then(() => {
         console.log('user updated');
-      });      
+      });
   }
 
   getSingleDocRef(colId: string, docId: string) {
@@ -125,7 +124,7 @@ export class UserService {
   }
 
   getCleanMessageArrayJson(messages: Message[]): {} {
-    return messages.map(message => this.getCleanMessageJson(message));
+    return messages.map((message) => this.getCleanMessageJson(message));
   }
 
   getCleanMessageJson(message: Message): {} {
@@ -157,15 +156,19 @@ export class UserService {
   // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an verschickt hat und
   // (c) deren messageId bei mir existiert (damit nicht Nachrichten bei mir von clickedContact angezeigt werden, die er an andere User verschickt hat)
   chatsWithClickedUser() {
-    let chats = this.clickedContact.value.chats?.filter((chat) =>
-      chat.userCustomId == this.userLoggedIn().customId ||
-      (chat.userCustomId == this.clickedContact.value.customId && this.messageExitsInOwnChats(chat.messageId)!)
+    let chats = this.clickedContact.value.chats?.filter(
+      (chat) =>
+        chat.userCustomId == this.userLoggedIn().customId ||
+        (chat.userCustomId == this.clickedContact.value.customId &&
+          this.messageExitsInOwnChats(chat.messageId)!)
     );
     return chats;
   }
 
   messageExitsInOwnChats(messageIdToCheck: number) {
-    return this.userLoggedIn().chats?.find((chat) => chat.messageId == messageIdToCheck)
+    return this.userLoggedIn().chats?.find(
+      (chat) => chat.messageId == messageIdToCheck
+    );
   }
 
   getUserName(userCustomId: string) {

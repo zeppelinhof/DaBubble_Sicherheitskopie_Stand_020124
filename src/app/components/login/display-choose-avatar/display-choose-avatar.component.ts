@@ -1,6 +1,6 @@
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
 
@@ -13,20 +13,29 @@ export class DisplayChooseAvatarComponent {
   arrowBackIsHovered: boolean = false;
   newUser: User = new User();
   choosenAvatar: string | null = null;
+  showNoImage: boolean = false;
+  fileWasUploaded: boolean = false;
+  @ViewChild('inputUpload') inputUpload: any;
+  noImageSelected: string = 'assets/imgs/person.png';
   password: string = '';
   newUserSuccess = false;
   selectedFile: File | null = null;
-  private fileInputRef: HTMLInputElement | undefined;
+  url: any = '';
+  fileInputRef: HTMLInputElement | undefined;
   avatarImages = [
-    'userFemale1.png',
-    'userMale3.png',
-    'userMale1.png',
-    'userMale2.png',
-    'userMale4.png',
-    'userFemale2.png',
+    'assets/imgs/userFemale1.png',
+    'assets/imgs/userMale3.png',
+    'assets/imgs/userMale1.png',
+    'assets/imgs/userMale2.png',
+    'assets/imgs/userMale4.png',
+    'assets/imgs/userFemale2.png',
   ];
 
-  constructor(private auth: AuthenticationService, private router: Router, public storService: StorageService) {
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router,
+    public storService: StorageService
+  ) {
     this.checkDataLocalStorage();
   }
 
@@ -71,7 +80,6 @@ export class DisplayChooseAvatarComponent {
         this.auth.signUp(this.newUser, this.password);
       }, 680);
     }
-
   }
 
   /**
@@ -92,16 +100,25 @@ export class DisplayChooseAvatarComponent {
     localStorage.removeItem('signUpEmail');
   }
 
+  resetAvatarImage() {
+    this.choosenAvatar = null;
+  }
 
-  fileExplorer(event: any): void {
-    this.fileInputRef = event.target as HTMLInputElement;
-    const inputElement = event.target as HTMLInputElement;
+  async fileExplorer(): Promise<any> {
+    const inputElement = this.inputUpload.nativeElement as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
-      const selectedFile = inputElement.files[0];
-      this.selectedFile = selectedFile;
-      this.storService.uploadToStorage(this.selectedFile);
+      this.selectedFile = inputElement.files[0];
+      let newFileName =
+        this.selectedFile.name +
+        Math.floor(Math.random() * (5000000 - 1000000 + 1)) +
+        1000000;
+      let newFile = new File([this.selectedFile], newFileName.toString(), {
+        type: this.selectedFile.type,
+      });
+      console.log(newFile);
+      await this.storService.uploadToStorage(newFile);
 
-
+      inputElement.value = ''; // Aktualisierte Zeile
     }
   }
 }

@@ -1,179 +1,209 @@
-@import 'src/app/components-sub/create-channel/create-channel.component.scss';
+@import "src/app/components-sub/create-channel/create-channel.component.scss";
 
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0px 10px;
-
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 10px;
+  position: relative;
 }
 
 input {
-    border-radius: 42px;
-    padding: 10px 40px;
-    height: 30px;
-    width: -webkit-fill-available;
-    border: 0px;
+  border-radius: 42px;
+  padding: 10px 40px;
+  height: 30px;
+  width: -webkit-fill-available;
+  border: 0px;
+  font-size: 16px;
+
+  &::placeholder {
     font-size: 16px;
-
-    &::placeholder {
-
-        font-size: 16px;
-    }
+  }
 }
 
 .header-logo {
-    cursor: pointer;
-    margin-right: 70px;
-}
-
-.userSettings {
-    z-index: 12;
-    padding: 20px 40px;
-    background-color: #797df38e;
-    backdrop-filter: blur(10px);
-    color: white;
-    height: 200px;
-    width: 220px;
-    position: absolute;
-    right: 0px;
-    top: 72px;
-    border-radius: 20px 10px 20px 20px;
-
+  cursor: pointer;
+  margin-right: 70px;
 }
 
 .current-user {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
 
-    &:hover {
-        .name-of-user {
-            color: #797ef3;
-        }
-
-        .arrow-down-icon {
-            display: none;
-        }
-
-        .arrow-down-icon-purple {
-            display: flex;
-        }
+  &:hover {
+    .name-of-user {
+      color: #797ef3;
     }
+
+    .arrow-down-icon {
+      display: none;
+    }
+
+    .arrow-down-icon-purple {
+      display: flex;
+    }
+  }
 }
 
-
 .input-field-container {
-    position: relative;
-    width: 100%;
-    margin-right: 70px;
-
+  position: relative;
+  width: 100%;
+  margin-right: 70px;
 }
 
 .input-field-inside {
-    position: relative;
+  position: relative;
 }
 
 .search-bar-icon {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
-    height: 35px;
-    width: 35px;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px;
 }
 
 .arrow-down-icon-purple {
-    display: none;
+  display: none;
 }
 
 .name-of-user {
-    font-size: 32px;
+  font-size: 32px;
 }
 
 .current-user-img {
-    height: 72px;
-    width: 72px;
-    border-radius: 42px;
+  height: 72px;
+  width: 72px;
+  border-radius: 42px;
 }
 
 .arrow-down-icon {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
 
 .searchHitSourceName {
-    color: $purple;
+  color: $purple;
+}
+
+.bg-userSettings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.2;
+  background-color: #2d2d2d;
+  z-index: 90;
+}
+
+.container-all-settings {
+  z-index: 100;
+  position: absolute;
+  right: 0px;
+  top: 76px;
 }
 
 @media (max-width: 685px) {
-    .name-of-user {
+  .name-of-user {
+    display: none;
+  }
+  .current-user-img {
+    height: 62px;
+    width: 62px;
+  }
+  .arrow-down-icon {
+    display: none;
+  }
+
+  .header-logo {
+    img {
+      height: 60px;
+    }
+  }
+
+  .search-bar-icon {
+    top: 11px;
+
+    img {
+      height: 30px;
+    }
+
+    input {
+      height: 20px;
+    }
+  }
+
+  .current-user {
+    &:hover {
+      .arrow-down-icon {
         display: none;
-    }
-    .current-user-img {
-        height: 62px;
-        width: 62px;
-     
-    }
-    .arrow-down-icon {
+      }
+
+      .arrow-down-icon-purple {
         display: none;
+      }
     }
+  }
 
-    .header-logo {
-        img {
-            height: 60px;
-        }
-    }
+  header {
+    position: unset;
+  }
 
-    .search-bar-icon {
-        top: 11px;
+  .mobileMenu {
+    top: unset !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    transform: unset !important;
+  }
 
-        img {
-            height: 30px;
-        }
-
-        input {
-            height: 20px;
-        }
-    }
-
-    .current-user {
-
-        &:hover {
-            .arrow-down-icon {
-                display: none;
-            }
-
-            .arrow-down-icon-purple {
-                display: none;
-            }
-        }
-    }
+  .container-all-settings {
+    top: 50%;
+    left: 50%;
+    right: unset;
+    bottom: unset;
+    transform: translate(-50%, -50%);
+  }
 }
 
 @media (max-width: 550px) {
-    header{
-        margin-top: 10px;
+  header {
+    margin-top: 10px;
+  }
+  .header-logo {
+    img {
+      height: 40px;
     }
-    .header-logo {
-        img {
-            height: 40px;
-        }
-    }
+  }
 
-    .current-user-img {
-        height: 42px;
-        width: 42px;
-        
-    }
-    .search-bar-icon {
-        top: 10px;
+  .current-user-img {
+    height: 42px;
+    width: 42px;
+  }
+  .search-bar-icon {
+    top: 10px;
 
-        input {
-            height: 10px;
-        }
+    input {
+      height: 10px;
     }
+  }
+
+  .container-all-settings {
+    width: 90%;
+  }
+
+  .mobileMenu {
+    width: 100% !important;
+  }
+
+  app-settings-user-data,
+  app-settings-edit-user-data {
+    display: flex;
+    width: 100%;
+  }
 }

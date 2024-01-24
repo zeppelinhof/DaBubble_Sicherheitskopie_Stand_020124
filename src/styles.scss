@@ -49,6 +49,10 @@ button {
   display: none;
 }
 
+.c-pointer {
+  cursor: pointer;
+}
+
 .image-from-storage {
   height: 100px;
 }
@@ -258,7 +262,7 @@ button {
 .messages-channel-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; 
+  flex-grow: 1;
   height: 100px;
   overflow-y: auto;
   transition: 525ms ease-in-out;
@@ -308,8 +312,6 @@ button {
   font-size: 18px;
 }
 
-
-
 .add-icon-container {
   position: relative;
   margin-top: 10px;
@@ -347,12 +349,12 @@ button {
 
 .file-container {
   border: 1px solid $purple;
-  background-color: #ECEEFE;
+  background-color: #eceefe;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 14px;
 }
-// workspace pos abs 
+// workspace pos abs
 .close-workspace {
   position: fixed;
   left: 0;
@@ -375,25 +377,24 @@ button {
   z-index: 10;
 
   .close-workspace-text {
-      font-size: 20px;
-      font-weight: 500;
+    font-size: 20px;
+    font-weight: 500;
   }
 
   img {
-      height: 32px;
-      width: 32px;
+    height: 32px;
+    width: 32px;
   }
 
   &:hover {
-      color: $purple;
+    color: $purple;
 
-      .close-workspace-text {
-          scale: 1.03;
-      }
-
+    .close-workspace-text {
+      scale: 1.03;
+    }
   }
 }
-// responsive 
+// responsive
 @media (max-width: 1458px) {
   .side-right-container {
     width: 100%;
@@ -406,13 +407,12 @@ button {
   }
 }
 
-@media (max-width:550px) {
+@media (max-width: 550px) {
   body {
     padding: 0;
     margin: 0;
   }
-  .dasboard-container{
+  .dasboard-container {
     gap: 0px;
   }
-  
 }

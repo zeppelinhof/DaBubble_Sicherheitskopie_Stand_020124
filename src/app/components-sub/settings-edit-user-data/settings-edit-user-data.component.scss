@@ -1,0 +1,141 @@
+@import "src/styles.scss";
+
+.edit-user-data {
+  z-index: 100;
+  padding: 20px;
+  background-color: #fff;
+  backdrop-filter: blur(10px);
+  color: black;
+  border-radius: 20px 10px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 420px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  img {
+    border-radius: 30px;
+    padding: 8px;
+    width: 24px;
+    height: 24px;
+    &:hover {
+      background-color: $light-violet;
+      cursor: pointer;
+    }
+  }
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 135px;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 100px;
+  }
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  input {
+    width: 100%;
+    padding: 18px;
+    box-sizing: border-box;
+    border: 1px solid $grey;
+    border-radius: 100px;
+    outline: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: $grey;
+    &:hover {
+      border-color: $grey;
+    }
+    &:focus {
+      border-color: $purple3;
+    }
+  }
+}
+
+.container-input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.error {
+  position: absolute;
+  bottom: -17px;
+  font-size: 12px;
+  color: $rosaError;
+}
+
+.name,
+.email {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+  }
+  span {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.btns-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.btn-cancel {
+  border-color: $purple3;
+  color: $purple3;
+  background-color: transparent;
+  padding: 12px 25px;
+  &:hover {
+    background-color: $purple3;
+    color: #fff;
+  }
+}
+
+.btn-save {
+  color: $purple2;
+  background-color: $purple3;
+  color: #fff;
+  padding: 12px 25px;
+  border: 1px solid $purple3;
+}
+
+.btn-save-not-valid {
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
+.btn-save-valid {
+  &:hover {
+    background-color: $purple2;
+    border-color: $purple2;
+  }
+}

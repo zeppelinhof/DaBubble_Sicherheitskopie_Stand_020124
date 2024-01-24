@@ -1,16 +1,21 @@
 import { Injectable } from '@angular/core';
-import { getDownloadURL, getStorage, listAll, ref, uploadBytes } from '@angular/fire/storage';
+import {
+  getDownloadURL,
+  getStorage,
+  listAll,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from '@angular/fire/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
   imageUrls: string[] = [];
   channelCurrentUrl!: string;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   // calling function with Parameter (file)
   async uploadToStorage(file: any): Promise<string | null> {
@@ -42,9 +47,20 @@ export class StorageService {
         const url = await getDownloadURL(file);
         let urlToString = url.toString();
         this.channelCurrentUrl = urlToString;
-        console.log("Aktuelle URL", this.channelCurrentUrl);
+        console.log('Aktuelle URL', this.channelCurrentUrl);
       }
     }
   }
 
+  deleteFile() {
+    const storage = getStorage();
+    const desertRef = ref(storage, this.channelCurrentUrl);
+    deleteObject(desertRef)
+      .then(() => {
+        // File deleted successfully
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+      });
+  }
 }
