@@ -5,6 +5,7 @@ header {
   align-items: center;
   justify-content: space-between;
   margin: 0px 10px;
+  position: relative;
 }
 
 input {
@@ -164,6 +165,7 @@ input {
     right: 0 !important;
     bottom: 0 !important;
     transform: unset !important;
+    width: 100% !important;
   }
 
   .container-all-settings {
@@ -172,6 +174,14 @@ input {
     right: unset;
     bottom: unset;
     transform: translate(-50%, -50%);
+    width: 90%;
+  }
+
+  app-settings-user-data,
+  app-settings-edit-user-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -208,20 +218,6 @@ input {
   input {
     height: 10px;
   }
-}
-
-.container-all-settings {
-  width: 90%;
-}
-
-.mobileMenu {
-  width: 100% !important;
-}
-
-app-settings-user-data,
-app-settings-edit-user-data {
-  display: flex;
-  width: 100%;
 }
 
 input {
