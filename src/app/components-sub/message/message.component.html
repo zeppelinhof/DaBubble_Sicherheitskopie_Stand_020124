@@ -3,8 +3,10 @@
     (click)="settingsService.profilIsOpenThroughMessage = true"
     class="message-header-container"
   >
-    <img src="assets/imgs/userMale2.png" />
-    <div class="message-user-name">{{ this.clickedContact.name }}</div>
+    <div>
+      <img src="assets/imgs/userMale2.png" />
+      <div class="message-user-name">{{ this.clickedContact.name }}</div>
+    </div>
   </div>
 
   <div class="messages-channel-container" id="scrollDirectMessages">
