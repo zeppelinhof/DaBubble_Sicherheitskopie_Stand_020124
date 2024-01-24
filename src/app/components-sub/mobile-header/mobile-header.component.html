@@ -62,28 +62,36 @@
     />
   </div>
 
-    <!-- Global Result-List -->
-    <div class="choose-members-header-wrap" *ngIf="this.ws.globalResults">
-      <div class="first-line">
-        <div class="headline-white-box">Globale Suche</div>
-        <div class="around-close" (click)="this.ws.closeGlobalResults()">
-          <img src="assets/icons/close.png" />
+  <!-- Global Result-List -->
+  <div class="choose-members-wrap" *ngIf="this.ws.globalResults">
+    <div class="first-line">
+      <div class="headline-white-box">Globale Suche</div>
+      <div class="around-close" (click)="this.ws.closeGlobalResults()">
+        <img src="assets/icons/close.png" />
+        <!-- Global Result-List -->
+        <div class="choose-members-header-wrap" *ngIf="this.ws.globalResults">
+          <div class="first-line">
+            <div class="headline-white-box">Globale Suche</div>
+            <div class="around-close" (click)="this.ws.closeGlobalResults()">
+              <img src="assets/icons/close.png" />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="user-list-wrap">
-      <div class="user-list">
-        <div
-          class="oneUser-line"
-          *ngFor="let msgData of sis.filteredMessages"
-          [routerLink]="getRouterLink(msgData)"
-          (click)="sis.clearSearchInput(); openChat(msgData)"
-        >
-          <img class="profile-image" src="assets/imgs/userMale3.png" />
-          <div class="name-text">
-            <div>{{ messagePreview(msgData) }}</div>
-            <div class="searchHitSourceName">
-              von {{ getMessageSource(msgData) }}
+        <div class="user-list-wrap">
+          <div class="user-list">
+            <div
+              class="oneUser-line"
+              *ngFor="let msgData of sis.filteredMessages"
+              [routerLink]="getRouterLink(msgData)"
+              (click)="sis.clearSearchInput(); openChat(msgData)"
+            >
+              <img class="profile-image" src="assets/imgs/userMale3.png" />
+              <div class="name-text">
+                <div>{{ messagePreview(msgData) }}</div>
+                <div class="searchHitSourceName">
+                  von {{ getMessageSource(msgData) }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
