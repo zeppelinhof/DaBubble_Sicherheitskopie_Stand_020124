@@ -64,11 +64,10 @@ export class SettingsEditUserDataComponent {
     const emailValue = this.changeUserDataForm.get('email')?.value;
     const nameValue = this.changeUserDataForm.get('name')?.value;
     const currentUser = this.userService.userLoggedIn();
-    console.log(currentUser);
 
     if (emailValue) {
       await this.userService.updateUser({ email: emailValue }, currentUser);
-      await this.auth.updateEmailUser(emailValue);
+      //await this.auth.updateUserEmail(emailValue);
     }
     if (nameValue) {
       await this.userService.updateUser({ name: nameValue }, currentUser);
