@@ -2,12 +2,13 @@ import { UserSettingsService } from './../../shared/services/user-settings.servi
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-mobile-header',

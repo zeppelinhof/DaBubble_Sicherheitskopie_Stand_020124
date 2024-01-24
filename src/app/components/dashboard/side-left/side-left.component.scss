@@ -362,3 +362,9 @@ $add-img-width: 20px;
 .right-arrow {
     transform: rotate(-90deg);
 }
+
+@media (max-width: 610px) {
+    .side-left-container{
+        border-radius: 0px;
+    }
+}

@@ -4,10 +4,11 @@ import { AuthenticationService } from './../../../shared/services/authentication
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { ThreadService } from 'src/app/shared/services/thread.service';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-header',

@@ -1,11 +1,12 @@
 import { UserSettingsService } from './../../shared/services/user-settings.service';
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { InputService } from '../../shared/services/input.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { MessageOfUserComponent } from '../message-of-user/message-of-user.component';
+import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 @Component({
   selector: 'app-message',

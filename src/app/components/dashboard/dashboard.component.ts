@@ -1,5 +1,5 @@
 import { Component, HostListener, NgZone } from '@angular/core';
-import { ResponsiveService } from 'src/app/responsive.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-dashboard',

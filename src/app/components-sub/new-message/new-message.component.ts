@@ -6,6 +6,7 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
+
 @Component({
   selector: 'app-new-message',
   templateUrl: './new-message.component.html',

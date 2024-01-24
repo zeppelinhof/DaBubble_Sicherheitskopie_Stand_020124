@@ -15,7 +15,7 @@ input {
   width: -webkit-fill-available;
   border: 0px;
   font-size: 16px;
-
+  
   &::placeholder {
     font-size: 16px;
   }
@@ -65,6 +65,10 @@ input {
   cursor: pointer;
   height: 35px;
   width: 35px;
+input{
+  border-radius: 20px !important;
+
+}
 }
 
 .arrow-down-icon-purple {
@@ -141,16 +145,13 @@ input {
   .current-user {
     &:hover {
       .arrow-down-icon {
-        display: none;
+        display: none !important;
       }
 
-      .current-user-img {
-        height: 62px;
-        width: 62px;
-      }
+      
 
-      .arrow-down-icon {
-        display: none;
+      .arrow-down-icon-purple {
+        display: none !important;
       }
     }
   }
@@ -200,29 +201,35 @@ input {
     margin-top: 10px;
   }
 
+  input{
+    border-radius: 0px;
+  }
   .header-logo {
     img {
       height: 40px;
     }
   }
-}
-
-.current-user-img {
-  height: 42px;
-  width: 42px;
-}
-
-.search-bar-icon {
-  top: 10px;
-
+  .current-user-img {
+    height: 50px;
+    width: 50px;
+  }
+  
+  .search-bar-icon {
+    top: 10px;
+  
+    input {
+      height: 10px;
+    }
+  }
+  
   input {
-    height: 10px;
+    border-radius: 0px;
+    border-bottom:1px solid #3338c929;
+    &::placeholder {
+      font-size: 14px;
+    }
   }
+  
 }
 
-input {
-  border-radius: 0px;
-  &::placeholder {
-    font-size: 14px;
-  }
-}
+

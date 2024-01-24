@@ -174,4 +174,24 @@
     justify-content: flex-start;
   }
 
- 
+ @media (max-width:610px) {
+    .thread-user-img-container{
+        img{
+            height: 50px;
+            width: 50px;
+        }
+    }
+    .thread-user-name{
+        font-size: 16px !important;
+    }
+    .thread-message-container{
+        padding: 12px;
+
+        div{
+            font-size: 14px;
+        }
+    }
+    .thread-message-time{
+        font-size: 12px;
+    }
+ }

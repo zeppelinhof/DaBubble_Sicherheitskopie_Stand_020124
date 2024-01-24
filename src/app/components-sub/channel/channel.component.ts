@@ -7,6 +7,7 @@ import { SearchInputService } from 'src/app/shared/services/search-input.service
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
+
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
