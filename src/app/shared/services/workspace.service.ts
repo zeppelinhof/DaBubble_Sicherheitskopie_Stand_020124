@@ -79,14 +79,19 @@ export class WorkspaceService {
   }
 
   getChannels() {
-    // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
-    // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
-    // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
-    if (this.cs.myChannels) {
-      const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
-        channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
-      );
-      return onlyMyChannels;
+    try {
+      // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
+      // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
+      // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
+      if (this.cs.myChannels) {
+        const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
+          channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
+        );
+        return onlyMyChannels;
+      }
+    } catch(err){
+      console.error('Keine bearbeitbaren Channels.');
+      return [];
     }
   }
 
@@ -97,7 +102,7 @@ export class WorkspaceService {
 
   // #endregion
 
- 
+
 
   openCloseCreateChannel() {
     this.showCreateChannel = this.showCreateChannel ? false : true;
@@ -253,7 +258,7 @@ export class WorkspaceService {
   }
   // #endregion
 
-  scrollToBottom(elementId: string) {    
+  scrollToBottom(elementId: string) {
     setTimeout(() => {
       let element = document.getElementById(elementId);
       if (element) {
@@ -266,7 +271,7 @@ export class WorkspaceService {
   }
 
   // für Global Search
-  scrollToElementByContent(content: string, type: string) {        
+  scrollToElementByContent(content: string, type: string) {
     // zu Threadnachricht scrollen
     if (type === 'threadMessage') {
       let sideRightContainer = document.getElementsByClassName('side-right-container');
@@ -304,17 +309,17 @@ export class WorkspaceService {
   separateLongWords(input: string): string {
     let charMax = 25;
     const words = input.split(' ');
-  
+
     const modifiedWords = words.map(word => {
       if (word.length > charMax) {
         return word.slice(0, charMax) + '- ' + this.separateLongWords(word.slice(charMax)); // falls Rest immer noch zu lang -> nochmals trennen
       }
       return word;
     });
-  
+
     return modifiedWords.join(' ');
   }
 
-  
-  
+
+
 }

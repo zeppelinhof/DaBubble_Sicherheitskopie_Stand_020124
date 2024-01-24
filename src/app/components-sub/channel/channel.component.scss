@@ -3,10 +3,10 @@
 
 $width-channel: 989px;
 
-app-messages-channel{
+app-messages-channel {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; 
+  flex-grow: 1;
   height: 100px;
   overflow-y: auto;
 }
@@ -33,9 +33,6 @@ app-messages-channel{
 
 .channel-info-container {
   position: relative;
-  // display: flex;
-  // align-items: center;
-  // gap: 10px;
 
   img {
     cursor: pointer;
@@ -105,21 +102,52 @@ app-messages-channel{
   }
 }
 
+.add-user-purple {
+  display: none;
+}
+
+
+.add-member-info {
+  display: flex;
+
+  &:hover {
+    .add-user-normal-info {
+      display: none;
+    }
+
+    .add-user-purple-info {
+      display: flex;
+    }
+  }
+}
+
+.add-user-purple-info {
+  display: none;
+}
+
+
 .channel-user-counter {
   font-weight: 600;
   font-size: 20px;
 }
 
-.add-user-purple {
-  display: none;
-}
-
-.info-foldable {
-  $width: 450px;
+.dialog-channel-info {
+  @extend .dialog;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 24px;
+  margin-right: 24px;
+  max-width: 700px;
+  max-height: 100vh;
 
   .headline {
     display: flex;
     justify-content: space-between;
+    height: 100%;
+    max-height: 100px;
+    align-items: center;
+    padding-left: 40px;
+    padding-right: 40px;
 
     img {
       height: 20px;
@@ -132,7 +160,26 @@ app-messages-channel{
       gap: 15px;
     }
   }
+
+  .main-info {
+    display: flex;
+    padding-left: 40px;
+    padding-right: 40px;
+    flex-direction: column;
+    gap: 25px;
+    overflow: auto;
+  }
+
+  .main-info::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .main-info::-webkit-scrollbar-thumb {
+    background-color: $purple;
+    border-radius: 25px;
+  }
 }
+
 
 .info-part {
   display: flex;
@@ -170,6 +217,53 @@ app-messages-channel{
   font-size: 18px;
   font-weight: 700;
 }
+
+.h-members {
+  @extend .h-name;
+  font-size: 24px;
+}
+
+.members-list-wrap {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100px;
+  overflow-y: auto;
+
+  .img-name {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 4px 20px;
+  }
+
+  img {
+    border-radius: 30px;
+    height: 50px;
+    width: 50px;
+  }
+
+  .user-name {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+.members-list-wrap::-webkit-scrollbar {
+  width: 4px;
+}
+
+.members-list-wrap::-webkit-scrollbar-thumb {
+  background-color: $purple;
+  border-radius: 25px;
+}
+
+.img-add-users {
+  border-radius: 30px;
+  height: 32px !important;
+  width: 32px !important;
+}
+
 
 .second-line {
   display: flex;
@@ -227,37 +321,78 @@ app-messages-channel{
 }
 
 @media (max-width: 610px) {
+
+  .hide-mobile {
+    display: none;
+  }
+
   .channel-div-container {
     border-radius: 0px;
     margin-right: 0px;
     width: 100%;
   }
+
   // .channel-all-user-plus-add{
   //   display: none;
   // }
-  .channel-user-img-container{
-    img{
+  .channel-user-img-container {
+    img {
       height: 22px;
       width: 22px;
     }
   }
-  .channel-add-user-container{
+
+  .channel-add-user-container {
     height: 22px;
     width: 22px;
   }
-  .channel-user-counter{
+
+  .channel-user-counter {
     font-size: 18px;
   }
-  .channel-info-unfold{
-    img{
+
+  .channel-info-unfold {
+    img {
       height: 16px;
     }
-    .channel-name{
+
+    .channel-name {
       font-size: 20px;
     }
-    
+
   }
-  .channel-header-container{
+
+  .channel-header-container {
     padding: 25px 5px;
+  }
+
+  .dialog-channel-info {
+    height: 100vh;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 0;
+    width: 100vw;
+  }
+
+  .headline {
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .add-members-mobile {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    animation: slideInFromBottom 1s ease-in-out;
+  }
+
+  @keyframes slideInFromBottom {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0%);
+    }
   }
 }

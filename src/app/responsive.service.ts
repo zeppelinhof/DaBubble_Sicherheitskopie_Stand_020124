@@ -15,4 +15,8 @@ export class ResponsiveService {
     }
   }
 
+  mobileMode(): boolean{
+    return window.innerWidth <= 610;
+  }
+
 }

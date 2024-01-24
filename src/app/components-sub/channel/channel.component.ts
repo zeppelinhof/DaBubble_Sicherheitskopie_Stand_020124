@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
 import { User } from 'src/app/models/user';
+import { ResponsiveService } from 'src/app/responsive.service';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -26,7 +27,8 @@ export class ChannelComponent {
   constructor(public ws: WorkspaceService, 
     public cs: ChannelService, 
     public sis: SearchInputService, 
-    public us: UserService) { }
+    public us: UserService,
+    public rs: ResponsiveService) { }
 
   ngOnInit(): void {
     this.cs.clickedChannelId
@@ -88,6 +90,14 @@ export class ChannelComponent {
     // let numberMembersString = numberMembers.toString();
 
     return numberMembers < 5 ? numberMembers.toString() : '4+';
+  }
+
+  saveName(){
+    this.cs.updateChannel({ name: this.clickedChannel.name }, this.clickedChannel); this.changeNameToInput()
+  }
+
+  saveDescription(){
+    this.cs.updateChannel({ description: this.clickedChannel.description }, this.clickedChannel); this.changeDescriptionToInput()
   }
 
 

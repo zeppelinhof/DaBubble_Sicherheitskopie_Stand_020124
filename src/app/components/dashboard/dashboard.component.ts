@@ -26,7 +26,7 @@ export class DashboardComponent {
   checkSizeRightSide() {
     if (window.innerWidth < 1335) {
       this.repService.sideRightVisible = false;
-      console.log(window.innerWidth);
+      // console.log(window.innerWidth);
     } else {
       this.repService.sideRightVisible = true;
     }
@@ -35,7 +35,7 @@ export class DashboardComponent {
   checkSizeLeftSide() {
     if (window.innerWidth < 960) {
       this.repService.sideLeftVisible = false;
-      console.log(window.innerWidth);
+      // console.log(window.innerWidth);
     } else {
       this.repService.sideLeftVisible = true;
     }
