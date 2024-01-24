@@ -1,3 +1,5 @@
+import { UserService } from 'src/app/shared/services/user.service';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { Component } from '@angular/core';
 
@@ -9,7 +11,19 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'DABubble';
 
-  constructor(private auth: AuthenticationService) {
+  constructor(
+    private auth: AuthenticationService,
+    private router: Router,
+    private userService: UserService
+  ) {
     this.auth.checkIfUserIslogged();
+    this.setBodyBgColor();
+  }
+
+  setBodyBgColor() {
+    const currentRoute = this.router.url;
+    if (!currentRoute.includes('google-screen')) {
+      document.body.style.backgroundColor = '#eceefe';
+    }
   }
 }

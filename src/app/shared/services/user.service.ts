@@ -51,7 +51,6 @@ export class UserService {
         });
         this.setCurrentContact(this.clickedContactId.value);
       });
-      console.log(this.myUsers);
     });
   }
 
@@ -182,5 +181,17 @@ export class UserService {
   getUserImage(userCustomId: string) {
     let user = this.myUsers.find((user) => user.customId === userCustomId);
     return user ? user.img : 'assets/imgs/person.png';
+  }
+
+  /**
+   * Checks if the user with the provided email already exists.
+   */
+  userIsAlreadyExisting(emailToCheck: string | null): boolean {
+    console.log(this.myUsers);
+    debugger;
+    const emailExists = this.myUsers.some(
+      (user) => user.email === emailToCheck
+    );
+    return emailExists;
   }
 }

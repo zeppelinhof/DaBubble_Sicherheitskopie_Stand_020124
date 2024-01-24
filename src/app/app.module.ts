@@ -39,6 +39,7 @@ import { SettingsUserDataComponent } from './components-sub/settings-user-data/s
 import { SettingsEditUserDataComponent } from './components-sub/settings-edit-user-data/settings-edit-user-data.component';
 import { SettingsUserDataMessageComponent } from './components-sub/settings-user-data-message/settings-user-data-message.component';
 import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
+import { GoogleScreenComponent } from './components/login/google-screen/google-screen.component';
 
 
 @NgModule({
@@ -73,6 +74,7 @@ import { WorkspacebuttonComponent } from './components-sub/workspacebutton/works
     SettingsUserDataComponent,
     SettingsEditUserDataComponent,
     SettingsUserDataMessageComponent,
+    GoogleScreenComponent,
     
 
     // PickerComponent,

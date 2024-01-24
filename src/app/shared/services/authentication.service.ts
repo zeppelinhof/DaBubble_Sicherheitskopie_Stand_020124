@@ -8,9 +8,10 @@ import {
   onAuthStateChanged,
   signOut,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   sendPasswordResetEmail,
   updateEmail,
+  getRedirectResult,
 } from 'firebase/auth';
 
 import { confirmPasswordReset } from '@angular/fire/auth';
@@ -26,6 +27,8 @@ export class AuthenticationService {
   loggedUser: User = new User();
   loggedUserMail: string | null = '';
   loggedUserName: string | null = '';
+  googleLoginInProgress: boolean = false;
+  loggedGoggleUser: User = new User();
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -56,26 +59,39 @@ export class AuthenticationService {
   /**
    * Signs up a user using Google authentication.
    */
-  signUpWithGoogle() {
+  signInWithGoogle() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
-    signInWithPopup(auth, provider)
+    this.googleLoginInProgress = true;
+    signInWithRedirect(auth, provider);
+  }
+
+  getGoogleUserData() {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    getRedirectResult(auth)
       .then((result) => {
-        const user = result.user;
-        if (!this.userIsAlreadyExisting(user.email)) {
-          let newUser = new User();
-          newUser.customId = user.uid || '';
-          newUser.name = user.displayName || '';
-          newUser.email = user.email || '';
-          newUser.img = 'userMale3.png';
-          this.userService.sendDocToDB(newUser);
+        const user = result?.user;
+        if (user) {
+          this.loggedGoggleUser = new User();
+          this.loggedGoggleUser.customId = user.uid || '';
+          this.loggedGoggleUser.name = user.displayName || '';
+          this.loggedGoggleUser.email = user.email || '';
+          this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';
+          this.checkIfNewGoogleUser(user.email);
         }
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
       });
+  }
+
+  async checkIfNewGoogleUser(loggedGoggleUserEmail: string | null) {
+    await this.userService.subUserList();
+    const userExists = this.userService.userIsAlreadyExisting(
+      loggedGoggleUserEmail
+    );
+    if (!userExists) this.userService.sendDocToDB(this.loggedGoggleUser);
   }
 
   /**
@@ -98,16 +114,6 @@ export class AuthenticationService {
         const errorMessage = error.message;
         this.passwordLoginIsWrong = true;
       });
-  }
-
-  /**
-   * Checks if the user with the provided signup email already exists.
-   */
-  userIsAlreadyExisting(emailToCheck: string | null): boolean {
-    const emailExists = this.userService.myUsers.some(
-      (user) => user.email === emailToCheck
-    );
-    return emailExists;
   }
 
   /**
@@ -143,7 +149,7 @@ export class AuthenticationService {
    * Navigates to '/login' if the current path does not contain 'login'.
    */
   setPathWhenNotLogged() {
-    if (!this.router.url.includes('login')) {
+    if (!this.googleLoginInProgress && !this.router.url.includes('login')) {
       this.router.navigate(['/login']);
     }
   }

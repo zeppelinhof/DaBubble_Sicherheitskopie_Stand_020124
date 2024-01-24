@@ -1,3 +1,4 @@
+import { GoogleScreenComponent } from './components/login/google-screen/google-screen.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { ImprintComponent } from './components/login/imprint/imprint.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
       { path: 'display-login', component: DisplayLoginComponent },
       { path: 'choose-avatar', component: DisplayChooseAvatarComponent },
       { path: 'create-account', component: DisplayCreateAccountComponent },
+
       {
         path: 'reset-pw-enter-email',
         component: DisplayResetPwEnterEmailComponent,
@@ -42,8 +44,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'channel', pathMatch: 'full' },
       { path: 'channel', component: ChannelComponent },
       { path: 'message', component: MessageComponent },
-      { path: 'new-message', component: NewMessageComponent }
+      { path: 'new-message', component: NewMessageComponent },
     ],
+  },
+  {
+    path: 'google-screen',
+    component: GoogleScreenComponent,
   },
 ];
 
@@ -51,4 +57,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
