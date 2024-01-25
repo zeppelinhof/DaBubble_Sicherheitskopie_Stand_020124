@@ -84,8 +84,7 @@ form {
   color: $rosaError;
 }
 
-.name,
-.email {
+.name {
   width: 100%;
   display: flex;
   align-items: center;
@@ -99,6 +98,11 @@ form {
     font-size: 20px;
     font-weight: 700;
   }
+}
+
+.enter-name-text {
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .btns-container {

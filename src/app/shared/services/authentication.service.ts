@@ -12,6 +12,7 @@ import {
   sendPasswordResetEmail,
   updateEmail,
   getRedirectResult,
+  verifyBeforeUpdateEmail,
 } from 'firebase/auth';
 
 import {
@@ -210,9 +211,25 @@ export class AuthenticationService {
     this.router.navigate(['/login']);
   }
 
+  async updateUserEmail(newEmail: string) {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      try {
+        await verifyBeforeUpdateEmail(user, newEmail);
+        window.location.reload();
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    }
+  }
+
+  /*
   updateUserEmail(newEmail: string) {
     const auth = getAuth();
     const user = auth.currentUser;
+    console.log('test');
+
     if (user) {
       updateEmail(user, newEmail)
         .then(() => {
@@ -221,4 +238,5 @@ export class AuthenticationService {
         .catch((error) => {});
     }
   }
+  */
 }
