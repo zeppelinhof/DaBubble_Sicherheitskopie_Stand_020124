@@ -6,9 +6,7 @@
   <div class="wrap-dialog-choose-members">
     <div
       class="dialog"
-      [ngClass]="{
-        'to-background': this.ws.showAddMembers && !this.ws.radioButtonFirst
-      }"
+      [ngClass]="{'to-background': this.ws.showAddMembers && !this.ws.radioButtonFirst, 'dialog-gray': this.ws.showAddMembers}"
     >
       <!-- this.ws.dialogGeneralData  -->
       <div *ngIf="this.ws.dialogGeneralData" class="dialog-general-data">
