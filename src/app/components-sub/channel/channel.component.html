@@ -1,4 +1,4 @@
-<div [class.grow]="!this.ws.showSideLeft" class="channel-div-container" [ngClass]="{'dialog-gray': this.ws.globalResults}">
+<div [class.grow]="!this.ws.showSideLeft" class="channel-div-container" [ngClass]="{'dialog-gray': this.ws.globalResults && rs.mobileMode()}">
   <div class="channel-header-container">
     <div class="channel-info-container">
       <div class="channel-info-unfold" (click)="showInfo()">

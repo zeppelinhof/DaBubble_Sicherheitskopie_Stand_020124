@@ -4,6 +4,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -18,7 +19,8 @@ export class CreateChannelComponent {
     public ws: WorkspaceService,
     public cs: ChannelService,
     public sis: SearchInputService,
-    public us: UserService
+    public us: UserService,
+    public rs: ResponsiveService
   ) { this.showLengthInfo = false; }
 
   changeRadioButton() {
