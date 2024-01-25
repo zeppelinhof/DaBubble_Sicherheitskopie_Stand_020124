@@ -10,20 +10,18 @@
   <div class="display-container">
     <router-outlet></router-outlet>
   </div>
+  <div
+    *ngIf="router.url === '/login/display-login'"
+    class="container-text-mobile"
+  >
+    <span>Neu bei DABubble?</span>
+    <a routerLink="create-account" class="create-account">Konto erstellen</a>
+  </div>
+  <div class="imprint-privacy-policy">
+    <a routerLink="imprint" class="create-account">Impressum</a>
+    <a routerLink="privacy-policy" class="create-account">Datenschutz</a>
+  </div>
 </main>
-
-<div class="imprint-privacy-policy">
-  <a routerLink="imprint" class="create-account">Impressum</a>
-  <a routerLink="privacy-policy" class="create-account">Datenschutz</a>
-</div>
-
-<div
-  *ngIf="router.url === '/login/display-login'"
-  class="container-text-mobile"
->
-  <span>Neu bei DABubble?</span>
-  <a routerLink="create-account" class="create-account">Konto erstellen</a>
-</div>
 
 <div *ngIf="router.url === '/login/display-login'" class="animation-container">
   <div class="content">

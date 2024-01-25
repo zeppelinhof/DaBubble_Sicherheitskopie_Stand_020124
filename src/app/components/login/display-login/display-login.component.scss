@@ -142,8 +142,14 @@ form {
   }
 }
 
-@media only screen and (max-width: 430px) {
-  .register-container {
-    flex-direction: column;
+//RESPONSIV
+
+@media only screen and (max-width: 950px) {
+  .headline {
+    font-size: 40px;
+  }
+
+  .description {
+    font-size: 18px;
   }
 }

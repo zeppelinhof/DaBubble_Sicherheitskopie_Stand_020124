@@ -90,7 +90,6 @@ export class AuthenticationService {
           this.loggedGoggleUser.email = user.email || '';
           this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';
           this.checkIfNewGoogleUser(user.email);
-          console.log(this.loggedGoggleUser);
         }
       })
       .catch((error) => {
@@ -105,7 +104,6 @@ export class AuthenticationService {
       if (!existingUser) {
         querySnapshot.forEach((element) => {
           let foundUser: any = element.data();
-          console.log('Gefundener Benutzer:', foundUser);
           existingUser = true;
         });
       }

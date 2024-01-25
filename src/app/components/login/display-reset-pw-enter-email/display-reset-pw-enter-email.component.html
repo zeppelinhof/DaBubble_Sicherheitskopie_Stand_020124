@@ -1,21 +1,27 @@
 <section>
   <div class="headline-container">
-    <img
-      *ngIf="!arrowBackIsHovered"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-    />
-    <img
-      *ngIf="arrowBackIsHovered"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      routerLink="../display-login"
-      src="assets/icons/arrow_back_purple.png"
-      alt="icon of purple arrow"
-    />
-    <span>Passwort zurücksetzen</span>
+    <div class="container-img">
+      <img
+        *ngIf="!arrowBackIsHovered"
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+      />
+      <img
+        *ngIf="arrowBackIsHovered"
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        routerLink="../display-login"
+        src="assets/icons/arrow_back_purple.png"
+        alt="icon of purple arrow"
+      />
+    </div>
+    <div class="container-text">
+      <span>Passwort</span>
+      <span>zurücksetzen</span>
+    </div>
+    <div style="width: 0.01px"></div>
   </div>
   <span class="description">Bitte geben Sie Ihre E-Mail-Adresse ein. </span>
   <form [formGroup]="forgotPwEnterEmailForm">
