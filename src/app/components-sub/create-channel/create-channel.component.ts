@@ -11,7 +11,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   styleUrls: ['./create-channel.component.scss'],
 })
 export class CreateChannelComponent {
-  showLengthInfo: boolean = false;
+  showLengthInfo!: boolean;
   maxNameLength: number = 20;
 
   constructor(
@@ -19,7 +19,7 @@ export class CreateChannelComponent {
     public cs: ChannelService,
     public sis: SearchInputService,
     public us: UserService
-  ) { }
+  ) { this.showLengthInfo = false; }
 
   changeRadioButton() {
     return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);

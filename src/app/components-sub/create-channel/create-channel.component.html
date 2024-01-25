@@ -168,12 +168,7 @@
   </div>
 </div>
 
-<div
-  [ngClass]="{
-    'length-info-message': true,
-    'length-info-message-hidden': !showLengthInfo
-  }"
->
+<div *ngIf="showLengthInfo" [ngClass]="{'length-info-message-hidden': !showLengthInfo, 'length-info-message': true}"> 
   Die Länge für einen Channel-Namen ist auf {{ maxNameLength }} Zeichen
   begrenzt. <br />Für die Eingabe ausführlicher Informationen zum Channel nutze
   bitte das Feld Beschreibung.
