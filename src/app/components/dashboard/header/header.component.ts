@@ -9,6 +9,7 @@ import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ClickOutsideService } from 'src/app/shared/services/click-outside-directive.service';
 
 @Component({
   selector: 'app-header',
@@ -24,8 +25,13 @@ export class HeaderComponent {
     public sis: SearchInputService,
     private cs: ChannelService,
     private ts: ThreadService,
-    public settingsService: UserSettingsService
+    public settingsService: UserSettingsService,
+    public cos: ClickOutsideService, private elementRef: ElementRef
   ) {}
+
+  ngOnInit(): void {
+    this.cos.onClickOutside(this.elementRef, () => {debugger; this.ws.closeGlobalResults()});
+  }
 
   reloadPage() {
     window.location.reload();

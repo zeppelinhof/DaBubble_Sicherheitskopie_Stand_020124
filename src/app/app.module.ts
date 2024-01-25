@@ -74,7 +74,7 @@ import { GoogleScreenComponent } from './components/login/google-screen/google-s
     SettingsUserDataComponent,
     SettingsEditUserDataComponent,
     SettingsUserDataMessageComponent,
-    GoogleScreenComponent,
+    GoogleScreenComponent
     
 
     // PickerComponent,

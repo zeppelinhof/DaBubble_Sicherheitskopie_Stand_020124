@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { UserService } from 'src/app/shared/services/user.service';
 
 import { ChannelService } from 'src/app/shared/services/channel.service';
@@ -20,7 +20,7 @@ export class CreateChannelComponent {
     public cs: ChannelService,
     public sis: SearchInputService,
     public us: UserService,
-    public rs: ResponsiveService
+    public rs: ResponsiveService,
   ) { this.showLengthInfo = false; }
 
   changeRadioButton() {

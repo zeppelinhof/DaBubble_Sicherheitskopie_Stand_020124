@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 // import { Channel } from 'src/app/interfaces/channel';
 import { Channel } from 'src/app/models/channel';
 import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { ClickOutsideService } from 'src/app/shared/services/click-outside-directive.service';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -28,7 +29,8 @@ export class ChannelComponent {
     public cs: ChannelService,
     public sis: SearchInputService,
     public us: UserService,
-    public rs: ResponsiveService
+    public rs: ResponsiveService,
+    public cos: ClickOutsideService, private elementRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,8 @@ export class ChannelComponent {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
       this.clickedChannel = ch;
     });
+
+    this.cos.onClickOutside(this.elementRef, () => {debugger; this.ws.closeAddMembers();});
   }
 
   showInfo() {
