@@ -30,7 +30,7 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit(): void {
-    this.cos.onClickOutside(this.elementRef, () => {debugger; this.ws.closeGlobalResults()});
+    this.cos.onClickOutside(this.elementRef, () => {this.ws.closeGlobalResults()});
   }
 
   reloadPage() {

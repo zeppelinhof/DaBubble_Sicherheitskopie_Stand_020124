@@ -42,7 +42,7 @@ export class ChannelComponent {
       this.clickedChannel = ch;
     });
 
-    this.cos.onClickOutside(this.elementRef, () => {debugger; this.ws.closeAddMembers();});
+    this.cos.onClickOutside(this.elementRef, () => {this.ws.closeAddMembers();});
   }
 
   showInfo() {
