@@ -142,8 +142,20 @@ form {
   }
 }
 
-@media only screen and (max-width: 430px) {
+//RESPONSIV
+
+@media only screen and (max-width: 950px) {
+  .headline {
+    font-size: 40px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 395px) {
   .register-container {
-    flex-direction: column;
+    gap: 10px;
   }
 }

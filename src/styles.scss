@@ -8,7 +8,7 @@ $purple: #535af1;
 $purple2: #797ef3;
 $purple3: #444df2;
 $rosaError: #ed1e79;
-$marginBody: 32px;
+$gapBody: 32px;
 
 html {
   display: flex;
@@ -20,9 +20,9 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Nunito", sans-serif;
-  padding: $marginBody;
+  padding: $gapBody;
   height: 100%;
-  // overflow: hidden
+  margin: 0;
 }
 
 span,

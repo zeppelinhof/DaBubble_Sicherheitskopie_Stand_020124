@@ -121,3 +121,13 @@ form {
     }
   }
 }
+
+@media only screen and (max-width: 950px) {
+  .headline {
+    font-size: 40px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
+}

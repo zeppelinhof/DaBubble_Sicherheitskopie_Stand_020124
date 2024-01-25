@@ -1,0 +1,63 @@
+@import "src/styles.scss";
+
+.content {
+  max-height: 60vh;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 1px !important;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888 !important;
+  }
+}
+
+.arrow-container {
+  display: flex;
+  justify-content: flex-start;
+
+  img {
+    padding: 8px;
+    cursor: pointer;
+    &:hover {
+      padding: 8px;
+      border-radius: 50px;
+      background-color: $light-violet;
+      color: $purple;
+    }
+  }
+}
+
+.privacy {
+  width: 100%;
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    color: $purple;
+  }
+  h1 {
+    color: $purple;
+  }
+}
+
+@media only screen and (max-width: 470px) {
+  h1 {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-size: 25px;
+  }
+}

@@ -3,9 +3,9 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { InputService } from 'src/app/shared/services/input.service';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
-
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-display-login',
@@ -30,8 +30,21 @@ export class DisplayLoginComponent {
     public auth: AuthenticationService,
     private userService: UserService,
     private inputService: InputService,
-    private router: Router
-  ) {}
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.setBodyOverflow();
+  }
+
+  setBodyOverflow() {
+    const currentRoute = this.router.url;
+    if (currentRoute.includes('display-login')) {
+      this.document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        this.document.body.style.overflow = '';
+      }, 1900);
+    }
+  }
 
   /**
    * Submits the login form, logs in the user if the form is valid, and the user exists.
