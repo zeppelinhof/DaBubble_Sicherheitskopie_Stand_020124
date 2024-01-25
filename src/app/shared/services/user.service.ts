@@ -175,7 +175,7 @@ export class UserService {
     let user = this.allUsersForUserName.find(
       (user) => user.customId === userCustomId
     );
-    return user ? user.name : 'is loading';
+    return user ? user.name : 'loading';
   }
 
   getUserImage(userCustomId: string) {
