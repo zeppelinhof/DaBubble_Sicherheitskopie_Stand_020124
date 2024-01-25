@@ -14,15 +14,26 @@ import {
   getRedirectResult,
 } from 'firebase/auth';
 
+import {
+  collection,
+  doc,
+  Firestore,
+  onSnapshot,
+  query,
+  where,
+} from '@angular/fire/firestore';
+
 import { confirmPasswordReset } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from 'src/app/models/user';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
+  firestore: Firestore = inject(Firestore);
+  allUserCol = collection(this.firestore, 'allUsers');
   passwordLoginIsWrong: boolean = false;
   loggedUser: User = new User();
   loggedUserMail: string | null = '';
@@ -66,7 +77,7 @@ export class AuthenticationService {
     signInWithRedirect(auth, provider);
   }
 
-  getGoogleUserData() {
+  async getGoogleUserData() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     getRedirectResult(auth)
@@ -79,6 +90,7 @@ export class AuthenticationService {
           this.loggedGoggleUser.email = user.email || '';
           this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';
           this.checkIfNewGoogleUser(user.email);
+          console.log(this.loggedGoggleUser);
         }
       })
       .catch((error) => {
@@ -86,12 +98,23 @@ export class AuthenticationService {
       });
   }
 
-  async checkIfNewGoogleUser(loggedGoggleUserEmail: string | null) {
-    await this.userService.subUserList();
-    const userExists = this.userService.userIsAlreadyExisting(
-      loggedGoggleUserEmail
-    );
-    if (!userExists) this.userService.sendDocToDB(this.loggedGoggleUser);
+  async checkIfNewGoogleUser(emailToBeChecked: string | null) {
+    const qu = query(this.allUserCol, where('email', '==', emailToBeChecked));
+    onSnapshot(qu, (querySnapshot) => {
+      let existingUser: boolean = false;
+      if (!existingUser) {
+        querySnapshot.forEach((element) => {
+          let foundUser: any = element.data();
+          console.log('Gefundener Benutzer:', foundUser);
+          existingUser = true;
+        });
+      }
+      if (!existingUser) this.addNewGoogleUser();
+    });
+  }
+
+  addNewGoogleUser() {
+    this.userService.sendDocToDB(this.loggedGoggleUser);
   }
 
   /**

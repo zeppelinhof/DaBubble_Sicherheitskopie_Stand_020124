@@ -1,5 +1,5 @@
 import { UserService } from 'src/app/shared/services/user.service';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { AuthenticationService } from './shared/services/authentication.service';
 import { Component } from '@angular/core';
 
@@ -18,11 +18,22 @@ export class AppComponent {
   ) {
     this.auth.checkIfUserIslogged();
     this.setBodyBgColor();
+    this.auth.getGoogleUserData();
+  }
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.setBodyBgColor();
+      }
+    });
   }
 
   setBodyBgColor() {
     const currentRoute = this.router.url;
-    if (!currentRoute.includes('google-screen')) {
+    if (currentRoute.includes('google-screen')) {
+      document.body.style.backgroundColor = '#fff';
+    } else {
       document.body.style.backgroundColor = '#eceefe';
     }
   }
