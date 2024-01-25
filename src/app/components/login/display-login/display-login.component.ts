@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -28,19 +29,16 @@ export class DisplayLoginComponent {
   constructor(
     public auth: AuthenticationService,
     private userService: UserService,
-    private inputService: InputService
+    private inputService: InputService,
+    private router: Router
   ) {}
 
   /**
    * Submits the login form, logs in the user if the form is valid, and the user exists.
    */
   submit() {
-    // console.log('test');
-
-    
     if (this.loginFormIsValid() && this.checkUserIsExisting())
       this.userLogsIn();
-    
   }
 
   /**
@@ -121,5 +119,10 @@ export class DisplayLoginComponent {
 
   noGuestUsersRegistered() {
     return this.guestNumbers.length === 0;
+  }
+
+  googleLogin() {
+    this.router.navigate(['/google-screen']);
+    this.auth.signInWithGoogle();
   }
 }

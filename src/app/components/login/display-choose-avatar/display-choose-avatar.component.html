@@ -19,6 +19,7 @@
   </div>
   <div class="container-profile-image">
     <img
+      class="no-image-selected"
       *ngIf="!choosenAvatar && !this.storService.getUrlFromStorage()"
       src="{{ noImageSelected }}"
       alt="beides null"
@@ -33,12 +34,6 @@
     <img
       *ngIf="!choosenAvatar && this.storService.getUrlFromStorage()"
       [src]="this.storService.getUrlFromStorage()"
-      alt="wenn url"
-    />
-
-    <img
-      *ngIf="choosenAvatar && this.storService.getUrlFromStorage()"
-      [src]="choosenAvatar"
       alt="wenn url"
     />
   </div>
@@ -75,8 +70,12 @@
 
   <div class="continue-container">
     <button
-      [disabled]="choosenAvatar === null"
-      [class.btn-no-image-selected]="choosenAvatar === null"
+      [disabled]="
+        choosenAvatar === null && this.storService.channelCurrentUrl === null
+      "
+      [class.btn-no-image-selected]="
+        choosenAvatar === null && this.storService.channelCurrentUrl === null
+      "
       class="button-layout"
       (click)="createNewUser()"
     >

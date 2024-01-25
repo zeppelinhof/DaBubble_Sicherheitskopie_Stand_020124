@@ -33,7 +33,10 @@
             [routerLink]="getRouterLink(msgData)"
             (click)="sis.clearSearchInput(); openChat(msgData)"
           >
-            <img class="profile-image" src="assets/imgs/userMale3.png" />
+            <img
+              class="profile-image"
+              [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+            />
             <div class="name-text">
               <div>{{ messagePreview(msgData) }}</div>
               <div class="searchHitSourceName">
@@ -59,7 +62,11 @@
     </div>
 
     <!-- {{us.userLoggedIn().name}} -->
-    <img class="current-user-img" src="assets/imgs/userMale4.png" alt="" />
+    <img
+      class="current-user-img"
+      [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+      alt=""
+    />
     <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
     <img
       class="arrow-down-icon-purple"

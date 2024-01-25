@@ -14,13 +14,10 @@ export class DisplayChooseAvatarComponent {
   newUser: User = new User();
   choosenAvatar: string | null = null;
   showNoImage: boolean = false;
-  fileWasUploaded: boolean = false;
-  @ViewChild('inputUpload') inputUpload: any;
   noImageSelected: string = 'assets/imgs/person.png';
   password: string = '';
   newUserSuccess = false;
   selectedFile: File | null = null;
-  url: any = '';
   fileInputRef: HTMLInputElement | undefined;
   avatarImages = [
     'assets/imgs/userFemale1.png',
@@ -30,6 +27,7 @@ export class DisplayChooseAvatarComponent {
     'assets/imgs/userMale4.png',
     'assets/imgs/userFemale2.png',
   ];
+  @ViewChild('inputUpload') inputUpload: any;
 
   constructor(
     private auth: AuthenticationService,
@@ -57,6 +55,7 @@ export class DisplayChooseAvatarComponent {
    */
   setAvatarImage(imagePath: string): void {
     this.choosenAvatar = imagePath;
+    this.resetUploadedImage();
   }
 
   /**
@@ -65,21 +64,16 @@ export class DisplayChooseAvatarComponent {
    * and deletes corresponding data from localStorage.
    */
   createNewUser(): void {
-    if (this.selectedFile) {
-      this.newUser.img = this.storService.getUrlFromStorage();
-      this.deleteLocalStorage();
-      this.newUserSuccess = true;
-      setTimeout(() => {
-        this.auth.signUp(this.newUser, this.password);
-      }, 680);
-    } else {
+    if (this.choosenAvatar) {
       this.newUser.img = this.choosenAvatar;
-      this.deleteLocalStorage();
-      this.newUserSuccess = true;
-      setTimeout(() => {
-        this.auth.signUp(this.newUser, this.password);
-      }, 680);
+    } else {
+      this.newUser.img = this.storService.channelCurrentUrl;
     }
+    this.deleteLocalStorage();
+    this.newUserSuccess = true;
+    setTimeout(() => {
+      this.auth.signUp(this.newUser, this.password);
+    }, 680);
   }
 
   /**
@@ -100,10 +94,24 @@ export class DisplayChooseAvatarComponent {
     localStorage.removeItem('signUpEmail');
   }
 
+  /**
+   * Resets the chosen avatar to null.
+   */
   resetAvatarImage() {
     this.choosenAvatar = null;
   }
 
+  /**
+   * Resets the uploaded image URL in the storage service.
+   */
+  resetUploadedImage() {
+    this.storService.channelCurrentUrl = '';
+  }
+
+  /**
+   * Handles the file explorer functionality by uploading the selected file with number to storage.
+   *
+   */
   async fileExplorer(): Promise<any> {
     const inputElement = this.inputUpload.nativeElement as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
@@ -115,10 +123,8 @@ export class DisplayChooseAvatarComponent {
       let newFile = new File([this.selectedFile], newFileName.toString(), {
         type: this.selectedFile.type,
       });
-      console.log(newFile);
       await this.storService.uploadToStorage(newFile);
-
-      inputElement.value = ''; // Aktualisierte Zeile
+      inputElement.value = '';
     }
   }
 }

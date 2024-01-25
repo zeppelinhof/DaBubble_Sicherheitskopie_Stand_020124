@@ -12,6 +12,7 @@ export class SettingsUserDataMessageComponent {
   closeIsHovered: boolean = false;
   @Input() userName: string = '';
   @Input() userEmail: string = '';
+  @Input() userId: string = '';
 
   constructor(
     public us: UserService,

@@ -8,11 +8,10 @@ import { SearchInputService } from 'src/app/shared/services/search-input.service
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
-
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss']
+  styleUrls: ['./channel.component.scss'],
 })
 export class ChannelComponent {
   clickedChannelId!: string;
@@ -24,23 +23,22 @@ export class ChannelComponent {
   editNameButton: boolean = true;
   editDescriptionButton: boolean = true;
 
-
-  constructor(public ws: WorkspaceService, 
-    public cs: ChannelService, 
-    public sis: SearchInputService, 
+  constructor(
+    public ws: WorkspaceService,
+    public cs: ChannelService,
+    public sis: SearchInputService,
     public us: UserService,
-    public rs: ResponsiveService) { }
+    public rs: ResponsiveService
+  ) {}
 
   ngOnInit(): void {
-    this.cs.clickedChannelId
-      .subscribe((chId: string) => {
-        this.clickedChannelId = chId;
-      });
+    this.cs.clickedChannelId.subscribe((chId: string) => {
+      this.clickedChannelId = chId;
+    });
 
-    this.cs.clickedChannel
-      .subscribe((ch: Channel) => {
-        this.clickedChannel = ch;
-      });
+    this.cs.clickedChannel.subscribe((ch: Channel) => {
+      this.clickedChannel = ch;
+    });
   }
 
   showInfo() {
@@ -50,7 +48,8 @@ export class ChannelComponent {
   }
 
   switchShowAddMembersInExistingChannel() {
-    this.ws.showAddMembersInExistingChannel = !this.ws.showAddMembersInExistingChannel;
+    this.ws.showAddMembersInExistingChannel =
+      !this.ws.showAddMembersInExistingChannel;
     // Dropdown-Liste soll immer geschlossen werden, wenn Leute hinzufügen Fenster geschlossen wird
     if (!this.ws.showAddMembersInExistingChannel) {
       this.ws.showAddMembers = false;
@@ -66,7 +65,7 @@ export class ChannelComponent {
   }
 
   removeMember(email: string) {
-    const members = this.additionalMembers;    
+    const members = this.additionalMembers;
     if (members) {
       for (let index = 0; index < members.length; index++) {
         const member = members[index];
@@ -83,7 +82,9 @@ export class ChannelComponent {
     // additionalMembers nimmt die zusätzlichen Members auf und fügt die bisherigen Members (einmal) hinzu
     if (!this.previousAdded) {
       this.previousAdded = true;
-      this.clickedChannel.members.forEach((member) => { this.additionalMembers.push(member) });
+      this.clickedChannel.members.forEach((member) => {
+        this.additionalMembers.push(member);
+      });
     }
   }
   previewNumberMembers(): string {
@@ -93,13 +94,19 @@ export class ChannelComponent {
     return numberMembers < 5 ? numberMembers.toString() : '4+';
   }
 
-  saveName(){
-    this.cs.updateChannel({ name: this.clickedChannel.name }, this.clickedChannel); this.changeNameToInput()
+  saveName() {
+    this.cs.updateChannel(
+      { name: this.clickedChannel.name },
+      this.clickedChannel
+    );
+    this.changeNameToInput();
   }
 
-  saveDescription(){
-    this.cs.updateChannel({ description: this.clickedChannel.description }, this.clickedChannel); this.changeDescriptionToInput()
+  saveDescription() {
+    this.cs.updateChannel(
+      { description: this.clickedChannel.description },
+      this.clickedChannel
+    );
+    this.changeDescriptionToInput();
   }
-
-
 }

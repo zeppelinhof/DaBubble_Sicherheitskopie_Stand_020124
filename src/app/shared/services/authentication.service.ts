@@ -8,24 +8,38 @@ import {
   onAuthStateChanged,
   signOut,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   sendPasswordResetEmail,
   updateEmail,
+  getRedirectResult,
 } from 'firebase/auth';
+
+import {
+  collection,
+  doc,
+  Firestore,
+  onSnapshot,
+  query,
+  where,
+} from '@angular/fire/firestore';
 
 import { confirmPasswordReset } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from 'src/app/models/user';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
+  firestore: Firestore = inject(Firestore);
+  allUserCol = collection(this.firestore, 'allUsers');
   passwordLoginIsWrong: boolean = false;
   loggedUser: User = new User();
   loggedUserMail: string | null = '';
   loggedUserName: string | null = '';
+  googleLoginInProgress: boolean = false;
+  loggedGoggleUser: User = new User();
 
   constructor(private userService: UserService, private router: Router) {}
 
@@ -56,26 +70,51 @@ export class AuthenticationService {
   /**
    * Signs up a user using Google authentication.
    */
-  signUpWithGoogle() {
+  signInWithGoogle() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
-    signInWithPopup(auth, provider)
+    this.googleLoginInProgress = true;
+    signInWithRedirect(auth, provider);
+  }
+
+  async getGoogleUserData() {
+    const provider = new GoogleAuthProvider();
+    const auth = getAuth();
+    getRedirectResult(auth)
       .then((result) => {
-        const user = result.user;
-        if (!this.userIsAlreadyExisting(user.email)) {
-          let newUser = new User();
-          newUser.customId = user.uid || '';
-          newUser.name = user.displayName || '';
-          newUser.email = user.email || '';
-          newUser.img = 'userMale3.png';
-          this.userService.sendDocToDB(newUser);
+        const user = result?.user;
+        if (user) {
+          this.loggedGoggleUser = new User();
+          this.loggedGoggleUser.customId = user.uid || '';
+          this.loggedGoggleUser.name = user.displayName || '';
+          this.loggedGoggleUser.email = user.email || '';
+          this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';
+          this.checkIfNewGoogleUser(user.email);
+          console.log(this.loggedGoggleUser);
         }
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        const email = error.customData.email;
       });
+  }
+
+  async checkIfNewGoogleUser(emailToBeChecked: string | null) {
+    const qu = query(this.allUserCol, where('email', '==', emailToBeChecked));
+    onSnapshot(qu, (querySnapshot) => {
+      let existingUser: boolean = false;
+      if (!existingUser) {
+        querySnapshot.forEach((element) => {
+          let foundUser: any = element.data();
+          console.log('Gefundener Benutzer:', foundUser);
+          existingUser = true;
+        });
+      }
+      if (!existingUser) this.addNewGoogleUser();
+    });
+  }
+
+  addNewGoogleUser() {
+    this.userService.sendDocToDB(this.loggedGoggleUser);
   }
 
   /**
@@ -101,23 +140,12 @@ export class AuthenticationService {
   }
 
   /**
-   * Checks if the user with the provided signup email already exists.
-   */
-  userIsAlreadyExisting(emailToCheck: string | null): boolean {
-    const emailExists = this.userService.myUsers.some(
-      (user) => user.email === emailToCheck
-    );
-    return emailExists;
-  }
-
-  /**
    * Checks if a user is logged in. If logged in, navigates to path.
    */
   checkIfUserIslogged() {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('logged User ', user.email, 'id', user.uid);
         this.loggedUserMail = user.email;
         this.loggedUserName = user.displayName;
         this.loggedUser.customId = user.uid;
@@ -144,7 +172,7 @@ export class AuthenticationService {
    * Navigates to '/login' if the current path does not contain 'login'.
    */
   setPathWhenNotLogged() {
-    if (!this.router.url.includes('login')) {
+    if (!this.googleLoginInProgress && !this.router.url.includes('login')) {
       this.router.navigate(['/login']);
     }
   }

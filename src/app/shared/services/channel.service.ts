@@ -78,12 +78,15 @@ export class ChannelService {
     if (this.myChannels) {
       // für alle Channels in Firebase
       for (let index = 0; index < channelList.length; index++) {
-        for (let jndex = 0; jndex < channelList[index].allMessages.length; jndex++) {
+        for (
+          let jndex = 0;
+          jndex < channelList[index].allMessages.length;
+          jndex++
+        ) {
           const mId = channelList[index].allMessages[jndex].messageId;
           if (mId === messageId) {
             this.clickedMessage.next(channelList[index].allMessages[jndex]);
           }
-
         }
       }
     }
@@ -97,7 +100,10 @@ export class ChannelService {
       querySnapshot.forEach((element) => {
         // ... Threads speichern, die in ausgewählter Message enthalten sind
         this.myThreads = {};
-        let allMessages = this.setChannelObject(element.data(), element.id).allMessages;
+        let allMessages = this.setChannelObject(
+          element.data(),
+          element.id
+        ).allMessages;
         allMessages.forEach((message) => {
           if (message.messageId === this.clickedMessage.value.messageId) {
             this.myThreads = message;
@@ -114,7 +120,7 @@ export class ChannelService {
     if (this.myThreads) {
       for (let index = 0; index < this.myThreads['threads'].length; index++) {
         const thread = this.myThreads['threads'][index];
-        messageList.push(thread)
+        messageList.push(thread);
       }
       this.threadsOfMessage.next(messageList);
     }
@@ -158,8 +164,8 @@ export class ChannelService {
     return {
       day: messageTime.day,
       fullDay: messageTime.fullDay,
-      time: messageTime.time
-    }
+      time: messageTime.time,
+    };
   }
 
   getCleanMemberJson(members: User[]): {} {
@@ -173,7 +179,7 @@ export class ChannelService {
   }
 
   getCleanMemberArrayJson(members: User[]): {} {
-    return members.map(member => this.us.getCleanUserJson(member));
+    return members.map((member) => this.us.getCleanUserJson(member));
   }
 
   async getAllMessagesFromChannel(id: string) {
@@ -184,13 +190,10 @@ export class ChannelService {
       const allMessagesArray = docSnapshot.get('allMessages') || [];
       this.allMessagesChannel = [];
       this.allMessagesChannel.push(allMessagesArray);
-
     } else {
       console.error('Dokument existiert nicht für die ID:', id);
     }
   }
-
-
 
   async sendMessageToDB(obj: {}, id: string) {
     const allMsgRef = doc(this.firestore, `channels/${id}`);
@@ -202,8 +205,6 @@ export class ChannelService {
       console.error('Dokument existiert nicht für die ID:', id);
     }
   }
-
-
 
   async updateMessage(obj: {}, docSnapshot: any, allMsgRef: any) {
     const allMessagesFromDB = docSnapshot.get('allMessages') || [];
@@ -293,28 +294,36 @@ export class ChannelService {
   }
 
   // Ausgabe, ob das Datum einer neu erstellte Message höher ist als das der letzten Nachricht
-  checkIfNewDay(chatsofUser: Message[] | ThreadInterface[] | undefined, index: number): boolean {
+  checkIfNewDay(
+    chatsofUser: Message[] | ThreadInterface[] | undefined,
+    index: number
+  ): boolean {
     // erster Eintrag immer mit Datum
     if (index == 0) {
-      return true
+      return true;
     }
 
     if (chatsofUser !== undefined && index > 0 && chatsofUser![index - 1]) {
       // prüfe, ob Tag von vorherigem chat kleiner || (Tag von vorherigem chat größer && Nr. Date.now() von gestern kleiner)
       try {
-        if (chatsofUser![index - 1] && chatsofUser![index - 1]['createdTime']['day'] < chatsofUser![index]['createdTime']['day'] ||
-          chatsofUser![index - 1]['createdTime']['day'] > chatsofUser![index]['createdTime']['day'] && chatsofUser[index - 1]['messageId'] < chatsofUser![index]['messageId']) {
+        if (
+          (chatsofUser![index - 1] &&
+            chatsofUser![index - 1]['createdTime']['day'] <
+              chatsofUser![index]['createdTime']['day']) ||
+          (chatsofUser![index - 1]['createdTime']['day'] >
+            chatsofUser![index]['createdTime']['day'] &&
+            chatsofUser[index - 1]['messageId'] <
+              chatsofUser![index]['messageId'])
+        ) {
           return true;
         }
       } catch (error) {
         console.log(error);
-
       }
       return false;
     }
     return false;
   }
-
 
   // sending message to firebase allMessages array[] with help of customId of current channel
   sendMessageToChannel(id: any, message: Message) {
