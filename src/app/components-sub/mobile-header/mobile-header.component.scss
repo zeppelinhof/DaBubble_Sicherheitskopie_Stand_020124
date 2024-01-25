@@ -190,9 +190,7 @@ input{
     @extend .choose-members-wrap;
     width: calc(100vw - 80px);
     position: fixed;
-    bottom: 0;
     left: 0;
-    max-height: calc(100vh - 270px);
     overflow-y: auto;
 }
 
