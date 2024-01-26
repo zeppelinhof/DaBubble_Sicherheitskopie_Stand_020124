@@ -9,8 +9,8 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   styleUrls: ['./workspacebutton.component.scss']
 })
 export class WorkspacebuttonComponent {
-
-  constructor(public respService: ResponsiveService, public ws: WorkspaceService){
+  hovered: boolean = false;
+  constructor(public respService: ResponsiveService, public ws: WorkspaceService) {
 
   }
 }
