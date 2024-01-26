@@ -27,6 +27,9 @@ import { confirmPasswordReset } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from 'src/app/models/user';
 import { inject, Injectable } from '@angular/core';
+import { ChannelService } from './channel.service';
+import { MessageTime } from 'src/app/models/message-time';
+import { Message } from 'src/app/models/message';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +44,7 @@ export class AuthenticationService {
   googleLoginInProgress: boolean = false;
   loggedGoggleUser: User = new User();
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private cs: ChannelService, private router: Router) { }
 
   /**
    * Signs up a new user with the provided user information and password.
@@ -50,12 +53,13 @@ export class AuthenticationService {
    * @param {User} newUser - The user information for the new user.
    * @param {string} password - The password for the new user.
    */
-  signUp(newUser: User, password: string) {
+  async signUp(newUser: User, password: string) {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, newUser.email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         newUser.customId = user.uid;
+        newUser.chats = this.sendDefaultMessage();
         this.userService.sendDocToDB(newUser);
       })
       .then(() => {
@@ -65,6 +69,19 @@ export class AuthenticationService {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
+  }
+
+  sendDefaultMessage() {
+    let messageId = Date.now();
+    let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1'
+
+    // Nachricht bei eingeloggtem User speichern
+    let deafaultMessage = new Message(defaultUserId, messageId, 'Hi', this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())));
+    // Nachricht bvei Default-User Sophia speichern
+    this.userService.updateDefaultUser(
+      { chats: [this.userService.getCleanMessageJson(deafaultMessage)] }, defaultUserId);
+
+    return [deafaultMessage];
   }
 
   /**
@@ -181,8 +198,8 @@ export class AuthenticationService {
   logout() {
     const auth = getAuth();
     signOut(auth)
-      .then(() => {})
-      .catch((error) => {});
+      .then(() => { })
+      .catch((error) => { });
   }
 
   /**
@@ -192,7 +209,7 @@ export class AuthenticationService {
   sendEmailToResetPw(email: string) {
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -218,7 +235,7 @@ export class AuthenticationService {
         .then(() => {
           console.log('updated');
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   }
 }

@@ -65,6 +65,17 @@ export class UserService {
       });
   }
 
+  async updateDefaultUser(newValue: any, customId: string) {
+    let docRef = this.getSingleDocRef('allUsers', customId);
+    await updateDoc(docRef, newValue)
+      .catch((err) => {
+        console.log(err);
+      })
+      .then(() => {
+        console.log('user updated');
+      });
+  }
+
   getSingleDocRef(colId: string, docId: string) {
     let realDocId = this.getRealDocId(docId);
     return doc(collection(this.firestore, colId), realDocId);
@@ -153,7 +164,7 @@ export class UserService {
     });
   }
 
-  // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an verschickt hat und
+  // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an mich verschickt hat und
   // (c) deren messageId bei mir existiert (damit nicht Nachrichten bei mir von clickedContact angezeigt werden, die er an andere User verschickt hat)
   chatsWithClickedUser() {
     let chats = this.clickedContact.value.chats?.filter(
