@@ -105,7 +105,7 @@ export class AuthenticationService {
           this.loggedGoggleUser.customId = user.uid || '';
           this.loggedGoggleUser.name = user.displayName || '';
           this.loggedGoggleUser.email = user.email || '';
-          this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';
+          this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';          
           this.checkIfNewGoogleUser(user.email);
         }
       })
@@ -128,7 +128,8 @@ export class AuthenticationService {
     });
   }
 
-  addNewGoogleUser() {
+  addNewGoogleUser() {    
+    this.loggedGoggleUser.chats = this.sendDefaultMessage();
     this.userService.sendDocToDB(this.loggedGoggleUser);
   }
 
