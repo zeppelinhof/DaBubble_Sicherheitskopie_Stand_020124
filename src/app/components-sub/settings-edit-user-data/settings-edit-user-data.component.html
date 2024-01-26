@@ -37,6 +37,7 @@
     </div>
     <div class="container-input-field">
       <input
+        required
         formControlName="name"
         type="text"
         placeholder="{{
@@ -49,36 +50,8 @@
         >Der Name sollte mind. 3 Zeichen enthalten</span
       >
     </div>
-    <div class="email">
-      <img src="/assets/icons/mail.png" alt="icon of mail" />
-      <span>E-Mail-Adresse</span>
-    </div>
-    <div class="container-input-field">
-      <input
-        formControlName="email"
-        type="email"
-        placeholder="{{ auth.loggedUserMail }}"
-      />
-      <span
-        *ngIf="
-          changeUserDataForm.get('email')?.value.length > 0 &&
-          (changeUserDataForm.get('email')?.hasError('email') ||
-            !checkInputEmailContainsDot())
-        "
-        class="error"
-      >
-        Diese E-Mail-Adresse ist leider ungültig.
-      </span>
-      <span
-        *ngIf="
-          changeUserDataForm.get('email')?.value.length > 0 &&
-          this.userIsAlreadyExisting()
-        "
-        class="error"
-      >
-        Diese E-Mail-Adresse existiert bereits.
-      </span>
-    </div>
+
+    <span class="enter-name-text">Gebe hier deinen neuen Profilnamen ein</span>
 
     <div class="btns-container">
       <button
@@ -93,11 +66,9 @@
       </button>
       <button
         type="submit"
-        [disabled]="!changeUserDataForm.valid || noDataEntered()"
-        [class.btn-save-not-valid]="
-          !changeUserDataForm.valid || noDataEntered()
-        "
-        [class.btn-save-valid]="changeUserDataForm.valid && !noDataEntered()"
+        [disabled]="!changeUserDataForm.valid"
+        [class.btn-save-not-valid]="!changeUserDataForm.valid"
+        [class.btn-save-valid]="changeUserDataForm.valid"
         class="button-layout btn-save"
       >
         Speichern
