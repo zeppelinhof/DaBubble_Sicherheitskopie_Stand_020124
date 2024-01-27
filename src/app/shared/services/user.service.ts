@@ -55,8 +55,6 @@ export class UserService {
   }
 
   async updateUser(newValue: any, user: User) {
-    console.log(newValue);
-    console.log(user.customId);
     let docRef = await this.getSingleDocRef('allUsers', user.customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {
