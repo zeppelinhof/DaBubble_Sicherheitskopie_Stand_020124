@@ -28,6 +28,7 @@ export class ResponsiveService {
     if (window.innerWidth < 960) {
       this.sideLeftVisible = false;
       this.routerIsVisible = true;
+      this.sideRightVisible = false;
     }
 
   }

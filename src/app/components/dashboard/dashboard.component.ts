@@ -1,4 +1,4 @@
-import { Component, HostListener, NgZone } from '@angular/core';
+import { Component, HostListener, NgZone, OnInit } from '@angular/core';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
@@ -10,7 +10,9 @@ export class DashboardComponent {
   private resizeTimeout: any;
   sideRightVisible: boolean = true;
   
-  constructor(public repService: ResponsiveService, private zone: NgZone) {}
+  constructor(public repService: ResponsiveService, private zone: NgZone) {
+    this.onInit();
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
@@ -23,6 +25,18 @@ export class DashboardComponent {
     },10); // Ändere die Verzögerung nach Bedarf
   }
 
+  onInit(){
+    this.checkFirstLoadMobile();
+  }
+
+  checkFirstLoadMobile(){
+    if(window.innerWidth < 960){
+      this.repService.sideLeftVisible = true;
+      this.repService.sideRightVisible = false;
+      this.repService.routerIsVisible = true;
+    }
+    
+  }
   checkSizeRightSide() {
     if (window.innerWidth < 1335) {
       this.repService.sideRightVisible = false;
