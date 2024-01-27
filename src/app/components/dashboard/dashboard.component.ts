@@ -31,7 +31,7 @@ export class DashboardComponent {
 
   checkFirstLoadMobile(){
     if(window.innerWidth < 960){
-      this.repService.sideLeftVisible = true;
+      this.repService.sideLeftVisible = false;
       this.repService.sideRightVisible = false;
       this.repService.routerIsVisible = true;
     }
