@@ -11,6 +11,8 @@
       <input
         #input
         type="text"
+        Globale
+        Suche
         placeholder="Code learning durchsuchen"
         [(ngModel)]="this.ws.inputGlobalSearch"
         (input)="sis.filterCodeLearning()"
@@ -35,7 +37,7 @@
           >
             <img
               class="profile-image"
-              [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+              [src]="this.us.getUserImage(this.msgData.userCustomId)"
             />
             <div class="name-text">
               <div>{{ messagePreview(msgData) }}</div>

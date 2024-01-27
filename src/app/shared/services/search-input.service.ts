@@ -7,7 +7,7 @@ import { UserService } from './user.service';
 import { WorkspaceService } from './workspace.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchInputService {
   filteredMembers: User[] = [];
@@ -15,7 +15,11 @@ export class SearchInputService {
   countDirectmessages: number = 0;
   countChannelmessages: number = 0;
 
-  constructor(private ws: WorkspaceService, private cs: ChannelService, private us: UserService,) {
+  constructor(
+    private ws: WorkspaceService,
+    private cs: ChannelService,
+    private us: UserService
+  ) {
     this.getUsers();
     this.getChannels();
   }
@@ -29,16 +33,25 @@ export class SearchInputService {
   }
 
   allFieldsFilled(userLoggedIn: User): Boolean {
-    if (this.newChannelAlreadyExists()) {   // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
+    if (this.newChannelAlreadyExists()) {
+      // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
       this.cs.newChannel.name = this.ws.inputName;
       this.cs.newChannel.description = this.ws.inputDescription;
-    } else {           // diese Werte werden nur einmal für den Channel gesetzt; userLoggedIn ist standardmäßig erster Member
-      this.cs.newChannel = new Channel('', this.ws.inputName, this.ws.inputDescription, [userLoggedIn], this.cs.todaysDate(), this.us.userLoggedIn());
+    } else {
+      // diese Werte werden nur einmal für den Channel gesetzt; userLoggedIn ist standardmäßig erster Member
+      this.cs.newChannel = new Channel(
+        '',
+        this.ws.inputName,
+        this.ws.inputDescription,
+        [userLoggedIn],
+        this.cs.todaysDate(),
+        this.us.userLoggedIn()
+      );
     }
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
-  newChannelAlreadyExists(){
+  newChannelAlreadyExists() {
     return this.cs.newChannel && this.cs.newChannel.members.length > 0;
   }
 
@@ -48,6 +61,9 @@ export class SearchInputService {
 
     this.filteredMembers = this.getUsers().filter((member) => {
       const fullName = `${member.name}`.toLowerCase();
+      const userImage = member.img;
+      console.log(userImage);
+      debugger;
       if (this.ws.showAddMembers) {
         this.refreshMemberList(existingMembers);
       }
@@ -61,13 +77,16 @@ export class SearchInputService {
   filterCodeLearning() {
     this.ws.globalResults = true;
     const searchTerm = this.ws.inputGlobalSearch.toLowerCase();
-    this.relevantData(searchTerm);    
+    this.relevantData(searchTerm);
   }
 
-  relevantData(searchTerm: string){
-    this.filteredMessages = this.relevantDirectMessages(this.us.userLoggedIn(), searchTerm) // relevante Direkt-Nachrichten
-    .concat(this.relevantChannelMessages(searchTerm))                                       // relevante Channel-Nachrichten anhängen
-    .concat(this.relevantThreadMessages(searchTerm));                                       // relevante Thread-Nachrichten anhängen
+  relevantData(searchTerm: string) {
+    this.filteredMessages = this.relevantDirectMessages(
+      this.us.userLoggedIn(),
+      searchTerm
+    ) // relevante Direkt-Nachrichten
+      .concat(this.relevantChannelMessages(searchTerm)) // relevante Channel-Nachrichten anhängen
+      .concat(this.relevantThreadMessages(searchTerm)); // relevante Thread-Nachrichten anhängen
   }
 
   relevantDirectMessages(userLoggedIn: User, searchTerm: string): any[] {
@@ -75,40 +94,54 @@ export class SearchInputService {
     if (userLoggedIn.chats) {
       for (let index = 0; index < userLoggedIn.chats.length; index++) {
         const chat = userLoggedIn.chats[index];
+        console.log(chat);
+
         if (chat.message.toLowerCase().includes(searchTerm)) {
-          messagesList.push({chat: chat, userCustomId: chat.userCustomId, type: 'directMessage'})
+          messagesList.push({
+            chat: chat,
+            userCustomId: chat.userCustomId,
+            type: 'directMessage',
+          });
         }
-        
       }
-    }    
+    }
     return messagesList;
-  }  
+  }
 
   relevantChannelMessages(searchTerm: string) {
-    let allChannels: Channel[] = this.ws.getChannels();  
+    let allChannels: Channel[] = this.ws.getChannels();
     let relevantChannelMessages: any[] = [];
     for (let channel of allChannels) {
-      for (let chat of channel.allMessages) {                
+      for (let chat of channel.allMessages) {
         if (chat.message.toLowerCase().includes(searchTerm)) {
-          relevantChannelMessages.push({chat: chat, channelId: channel.customId, type: 'channelMessage'});  
-        }           
+          relevantChannelMessages.push({
+            chat: chat,
+            channelId: channel.customId,
+            type: 'channelMessage',
+          });
+        }
       }
-    }       
+    }
     return relevantChannelMessages;
   }
 
   relevantThreadMessages(searchTerm: string) {
-    let allChannels: Channel[] = this.ws.getChannels();  
+    let allChannels: Channel[] = this.ws.getChannels();
     let relevantThreadMessages: any[] = [];
     for (let channel of allChannels) {
-      for (let chat of channel.allMessages) {                
-        for( let thread of chat.threads){
+      for (let chat of channel.allMessages) {
+        for (let thread of chat.threads) {
           if (thread.answer.toLowerCase().includes(searchTerm)) {
-            relevantThreadMessages.push({thread: thread, channelId: channel.customId, chat: chat, type: 'threadMessage'});  
-          }    
+            relevantThreadMessages.push({
+              thread: thread,
+              channelId: channel.customId,
+              chat: chat,
+              type: 'threadMessage',
+            });
+          }
         }
       }
-    }       
+    }
     return relevantThreadMessages;
   }
 
@@ -130,7 +163,7 @@ export class SearchInputService {
     this.cs.newChannel.members?.push(user);
   }
 
-  removeMember(email: string) {    
+  removeMember(email: string) {
     const members = this.cs.newChannel.members;
     if (members) {
       for (let index = 0; index < members.length; index++) {
@@ -158,8 +191,6 @@ export class SearchInputService {
     }, 1000);
   }
 
-
-
   clearChannelJSON() {
     this.cs.newChannel = new Channel();
   }
@@ -170,8 +201,9 @@ export class SearchInputService {
 
   addMembersFromFirstChannel() {
     if (this.getChannels()[0].members) {
-      for (let member of this.getChannels()[0].members) {        
-        if (this.notUserLoggedIn(member)) { // avoid userLogged in 2 times in members
+      for (let member of this.getChannels()[0].members) {
+        if (this.notUserLoggedIn(member)) {
+          // avoid userLogged in 2 times in members
           this.cs.newChannel.members?.push(member);
         }
       }
@@ -179,7 +211,7 @@ export class SearchInputService {
     }
   }
 
-  notUserLoggedIn(member: User): boolean{
+  notUserLoggedIn(member: User): boolean {
     return member.customId !== this.us.userLoggedIn().customId;
   }
 
@@ -197,5 +229,4 @@ export class SearchInputService {
     this.ws.openCloseCreateChannel();
     this.ws.closeAddMembers();
   }
-
 }

@@ -6,7 +6,10 @@
   <div class="wrap-dialog-choose-members">
     <div
       class="dialog"
-      [ngClass]="{'to-background': this.ws.showAddMembers && !this.ws.radioButtonFirst, 'dialog-gray': this.ws.showAddMembers && rs.mobileMode()}"
+      [ngClass]="{
+        'to-background': this.ws.showAddMembers && !this.ws.radioButtonFirst,
+        'dialog-gray': this.ws.showAddMembers && rs.mobileMode()
+      }"
     >
       <!-- this.ws.dialogGeneralData  -->
       <div *ngIf="this.ws.dialogGeneralData" class="dialog-general-data">
@@ -144,7 +147,7 @@
             *ngFor="let user of sis.filteredMembers"
             (click)="sis.addMember(user); sis.clearSearchInput()"
           >
-            <img class="profile-image" src="assets/imgs/userMale3.png" />
+            <img class="profile-image" [src]="user.img" />
             <div class="name-text">
               {{ user.name }}
             </div>
@@ -166,7 +169,13 @@
   </div>
 </div>
 
-<div *ngIf="showLengthInfo" [ngClass]="{'length-info-message-hidden': !showLengthInfo, 'length-info-message': true}"> 
+<div
+  *ngIf="showLengthInfo"
+  [ngClass]="{
+    'length-info-message-hidden': !showLengthInfo,
+    'length-info-message': true
+  }"
+>
   Die Länge für einen Channel-Namen ist auf {{ maxNameLength }} Zeichen
   begrenzt. <br />Für die Eingabe ausführlicher Informationen zum Channel nutze
   bitte das Feld Beschreibung.
