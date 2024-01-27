@@ -26,9 +26,13 @@
       {{ userName }}
     </span>
   </div>
-  <div class="active">
+  <div *ngIf="this.us.getUserOnlineStats(userId) == 'online'" class="online">
     <div class="circle"></div>
     <span>Aktiv</span>
+  </div>
+  <div *ngIf="this.us.getUserOnlineStats(userId) == 'offline'" class="offline">
+    <div class="circle"></div>
+    <span>Abwesend</span>
   </div>
   <div class="email-container">
     <div class="email-text">

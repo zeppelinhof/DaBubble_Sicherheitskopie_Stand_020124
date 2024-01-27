@@ -4,7 +4,22 @@
       class="content-user"
       (click)="settingsService.profilIsOpenThroughMessage = true"
     >
-      <img [src]="this.us.getUserImage(this.clickedContact.customId)" />
+      <div class="container-img">
+        <img [src]="this.us.getUserImage(this.clickedContact.customId)" />
+        <div
+          *ngIf="
+            this.us.getUserOnlineStats(this.clickedContact.customId) == 'online'
+          "
+          class="online"
+        ></div>
+        <div
+          *ngIf="
+            this.us.getUserOnlineStats(this.clickedContact.customId) ==
+            'offline'
+          "
+          class="offline"
+        ></div>
+      </div>
       <div class="message-user-name">{{ this.clickedContact.name }}</div>
     </div>
   </div>

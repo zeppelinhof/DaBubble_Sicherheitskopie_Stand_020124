@@ -3,42 +3,69 @@
     <img src="assets/imgs/logo.png" />
   </div>
 
-  <div (click)="
+  <div
+    (click)="
       settingsService.settingsAreOpen =
         !settingsService.settingsAreOpen &&
         (settingsService.menuIsOpen = !settingsService.menuIsOpen)
-    " class="current-user">
+    "
+    class="current-user"
+  >
     <div class="name-of-user">
       {{ this.us.getUserName(this.auth.loggedUser.customId) }}
     </div>
 
-    <!-- {{us.userLoggedIn().name}} -->
+    <div class="container-current-user-img">
+      <img
+        class="current-user-img"
+        [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+        alt=""
+      />
+      <div *ngIf="this.auth.loggedUserOnline" class="online"></div>
+    </div>
+    <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
     <img
-      class="current-user-img"
-      [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+      class="arrow-down-icon-purple"
+      src="assets/icons/arrowDownPurple.png"
       alt=""
     />
-    <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
-    <img class="arrow-down-icon-purple" src="assets/icons/arrowDownPurple.png" alt="" />
   </div>
 
-  <div class="container-all-settings" [ngClass]="{ mobileMenu: settingsService.menuIsOpen }"
-    *ngIf="settingsService.settingsAreOpen">
-    <app-settings-user-menu *ngIf="settingsService.menuIsOpen"></app-settings-user-menu>
-    <app-settings-user-data *ngIf="settingsService.profilIsOpen"></app-settings-user-data>
-    <app-settings-edit-user-data *ngIf="settingsService.editUserDataIsOpen"></app-settings-edit-user-data>
+  <div
+    class="container-all-settings"
+    [ngClass]="{ mobileMenu: settingsService.menuIsOpen }"
+    *ngIf="settingsService.settingsAreOpen"
+  >
+    <app-settings-user-menu
+      *ngIf="settingsService.menuIsOpen"
+    ></app-settings-user-menu>
+    <app-settings-user-data
+      *ngIf="settingsService.profilIsOpen"
+    ></app-settings-user-data>
+    <app-settings-edit-user-data
+      *ngIf="settingsService.editUserDataIsOpen"
+    ></app-settings-edit-user-data>
   </div>
 </header>
 
-<div (click)="settingsService.closeMenu()" *ngIf="settingsService.settingsAreOpen" class="bg-userSettings"></div>
+<div
+  (click)="settingsService.closeMenu()"
+  *ngIf="settingsService.settingsAreOpen"
+  class="bg-userSettings"
+></div>
 
 <div class="input-field-container">
   <div class="input-field-inside">
     <div (click)="this.focusInput()" class="search-bar-icon">
       <img src="assets/icons/search.png" />
     </div>
-    <input #input type="text" placeholder="Code learning durchsuchen" [(ngModel)]="this.ws.inputGlobalSearch"
-      (input)="sis.filterCodeLearning()" />
+    <input
+      #input
+      type="text"
+      placeholder="Code learning durchsuchen"
+      [(ngModel)]="this.ws.inputGlobalSearch"
+      (input)="sis.filterCodeLearning()"
+    />
   </div>
 
   <!-- Global Result-List -->
@@ -60,8 +87,12 @@
     </div>
     <div class="user-list-wrap">
       <div class="user-list">
-        <div class="oneUser-line" *ngFor="let msgData of sis.filteredMessages" [routerLink]="getRouterLink(msgData)"
-          (click)="sis.clearSearchInput(); openChat(msgData)">
+        <div
+          class="oneUser-line"
+          *ngFor="let msgData of sis.filteredMessages"
+          [routerLink]="getRouterLink(msgData)"
+          (click)="sis.clearSearchInput(); openChat(msgData)"
+        >
           <img class="profile-image" src="assets/imgs/userMale3.png" />
           <div class="name-text">
             <div>{{ messagePreview(msgData) }}</div>
@@ -72,5 +103,5 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>

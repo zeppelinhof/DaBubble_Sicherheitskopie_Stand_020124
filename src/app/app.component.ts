@@ -16,8 +16,6 @@ export class AppComponent {
     private router: Router,
     private userService: UserService
   ) {
-    this.auth.checkIfUserIslogged();
-    this.setBodyBgColor();
     this.auth.getGoogleUserData();
   }
 
@@ -25,6 +23,7 @@ export class AppComponent {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.setBodyBgColor();
+        this.auth.checkIfUserIslogged();
       }
     });
   }

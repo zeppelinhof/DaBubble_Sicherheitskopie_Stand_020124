@@ -127,10 +127,20 @@
           (click)="setContact(user)"
         >
           <div class="logo-item-contact">
-            <img
-              class="profile-image"
-              [src]="this.us.getUserImage(user.customId)"
-            />
+            <div class="container-user-img">
+              <img
+                class="profile-image"
+                [src]="this.us.getUserImage(user.customId)"
+              />
+              <div
+                *ngIf="us.getUserOnlineStats(user.customId) === 'online'"
+                class="online"
+              ></div>
+              <div
+                *ngIf="us.getUserOnlineStats(user.customId) === 'offline'"
+                class="offline"
+              ></div>
+            </div>
             <div>{{ user.name }}</div>
           </div>
         </div>

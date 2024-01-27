@@ -39,6 +39,7 @@ export class AuthenticationService {
   loggedUser: User = new User();
   loggedUserMail: string | null = '';
   loggedUserName: string | null = '';
+  loggedUserOnline: boolean = false;
   googleLoginInProgress: boolean = false;
   loggedGoggleUser: User = new User();
 
@@ -57,6 +58,7 @@ export class AuthenticationService {
       .then((userCredential) => {
         const user = userCredential.user;
         newUser.customId = user.uid;
+        newUser.status = 'offline';
         this.userService.sendDocToDB(newUser);
       })
       .then(() => {
@@ -141,13 +143,14 @@ export class AuthenticationService {
   /**
    * Checks if a user is logged in. If logged in, navigates to path.
    */
-  checkIfUserIslogged() {
+  async checkIfUserIslogged() {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.loggedUserMail = user.email;
         this.loggedUserName = user.displayName;
         this.loggedUser.customId = user.uid;
+        this.loggedUserOnline = true;
         this.userService.loggedInUser = this.loggedUser;
         this.setPathWhenLogged();
       } else {
@@ -164,6 +167,13 @@ export class AuthenticationService {
     if (!this.router.url.includes('dashboard')) {
       this.router.navigate(['/dashboard/channel']);
     }
+    this.setOnlineStatus();
+  }
+
+  setOnlineStatus() {
+    setTimeout(() => {
+      this.userService.updateUser({ status: 'online' }, this.loggedUser);
+    }, 2000);
   }
 
   /**
@@ -179,7 +189,8 @@ export class AuthenticationService {
   /**
    * Logs out the currently authenticated user.
    */
-  logout() {
+  async logout() {
+    await this.userService.updateUser({ status: 'offline' }, this.loggedUser);
     const auth = getAuth();
     signOut(auth)
       .then(() => {})

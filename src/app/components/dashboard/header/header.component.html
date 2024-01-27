@@ -63,12 +63,15 @@
       {{ this.us.getUserName(this.auth.loggedUser.customId) }}
     </div>
 
-    <!-- {{us.userLoggedIn().name}} -->
-    <img
-      class="current-user-img"
-      [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
-      alt=""
-    />
+    <div class="container-current-user-img">
+      <img
+        class="current-user-img"
+        [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+        alt=""
+      />
+      <div *ngIf="this.auth.loggedUserOnline" class="online"></div>
+    </div>
+
     <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
     <img
       class="arrow-down-icon-purple"
