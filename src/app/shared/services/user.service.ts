@@ -55,7 +55,7 @@ export class UserService {
   }
 
   async updateUser(newValue: any, user: User) {
-    let docRef = this.getSingleDocRef('allUsers', user.customId);
+    let docRef = await this.getSingleDocRef('allUsers', user.customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {
         console.log(err);
@@ -65,8 +65,8 @@ export class UserService {
       });
   }
 
-  getSingleDocRef(colId: string, docId: string) {
-    let realDocId = this.getRealDocId(docId);
+  async getSingleDocRef(colId: string, docId: string) {
+    let realDocId = await this.getRealDocId(docId);
     return doc(collection(this.firestore, colId), realDocId);
   }
 
@@ -108,7 +108,14 @@ export class UserService {
   }
 
   setUserObject(obj: any): User {
-    return new User(obj.customId, obj.name, obj.email, obj.img, obj.chats);
+    return new User(
+      obj.customId,
+      obj.name,
+      obj.email,
+      obj.img,
+      obj.chats,
+      obj.status
+    );
   }
 
   getCleanUserJson(user: User): {} {
@@ -120,6 +127,7 @@ export class UserService {
       chats: this.getCleanMessageArrayJson(user.chats || [new Message()]) || [
         {},
       ],
+      status: user.status,
     };
   }
 
@@ -181,5 +189,10 @@ export class UserService {
   getUserImage(userCustomId: string) {
     let user = this.myUsers.find((user) => user.customId === userCustomId);
     return user ? user.img : 'assets/imgs/person.png';
+  }
+
+  getUserOnlineStats(userCustomId: string) {
+    let user = this.myUsers.find((user) => user.customId === userCustomId);
+    return user ? user.status : 'offline';
   }
 }

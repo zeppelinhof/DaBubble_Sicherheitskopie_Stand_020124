@@ -94,8 +94,6 @@ export class SearchInputService {
     if (userLoggedIn.chats) {
       for (let index = 0; index < userLoggedIn.chats.length; index++) {
         const chat = userLoggedIn.chats[index];
-        console.log(chat);
-
         if (chat.message.toLowerCase().includes(searchTerm)) {
           messagesList.push({
             chat: chat,

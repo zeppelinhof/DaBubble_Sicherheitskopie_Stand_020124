@@ -4,13 +4,12 @@ import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
-import {
-  Firestore,
-} from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 
 @Component({
   selector: 'app-side-left',
@@ -30,12 +29,13 @@ export class SideLeftComponent {
     public us: UserService,
     public ws: WorkspaceService,
     public cs: ChannelService,
-    public respService: ResponsiveService 
-  ) { }
-
+    public respService: ResponsiveService,
+    public auth: AuthenticationService
+  ) {}
 
   clickDownArrowChannels() {
-    this.arrowClickedChannels = this.rightArrowChannels = !this.arrowClickedChannels;
+    this.arrowClickedChannels = this.rightArrowChannels =
+      !this.arrowClickedChannels;
 
     if (this.arrowClickedContacts) {
       this.arrowClickedContacts = !this.arrowClickedChannels; // Direktnachrichten-Ansicht schließen, wenn Channels-Ansicht geöffnet
@@ -43,7 +43,8 @@ export class SideLeftComponent {
   }
 
   clickDownArrowContacts() {
-    this.arrowClickedContacts = this.rightArrowContacts = !this.arrowClickedContacts;
+    this.arrowClickedContacts = this.rightArrowContacts =
+      !this.arrowClickedContacts;
     if (this.arrowClickedChannels) {
       this.arrowClickedChannels = !this.arrowClickedContacts; // Channels-Ansicht schließen, wenn Direktnachrichten-Ansicht geöffnet
     }
@@ -56,8 +57,7 @@ export class SideLeftComponent {
   }
 
   async setContact(user: User) {
-    this.us.setContactView(user.customId); 
+    this.us.setContactView(user.customId);
     this.ws.scrollToBottom('scrollDirectMessages');
   }
-
 }

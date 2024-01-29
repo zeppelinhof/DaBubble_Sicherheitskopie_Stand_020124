@@ -15,7 +15,7 @@ input {
   width: -webkit-fill-available;
   border: 0px;
   font-size: 16px;
-  
+
   &::placeholder {
     font-size: 16px;
   }
@@ -65,10 +65,9 @@ input {
   cursor: pointer;
   height: 35px;
   width: 35px;
-input{
-  border-radius: 20px !important;
-
-}
+  input {
+    border-radius: 20px !important;
+  }
 }
 
 .arrow-down-icon-purple {
@@ -77,6 +76,20 @@ input{
 
 .name-of-user {
   font-size: 32px;
+}
+
+.container-current-user-img {
+  position: relative;
+  .online {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50px;
+    border: 3px solid $light-violet;
+    background-color: #92c83e;
+  }
 }
 
 .current-user-img {
@@ -148,8 +161,6 @@ input{
         display: none !important;
       }
 
-      
-
       .arrow-down-icon-purple {
         display: none !important;
       }
@@ -184,14 +195,19 @@ input{
     justify-content: center;
     align-items: center;
   }
+
+  .online {
+    width: 14px !important;
+    height: 14px !important;
+  }
 }
 
 .choose-members-header-wrap {
-    @extend .choose-members-wrap;
-    width: calc(100vw - 80px);
-    position: fixed;
-    left: 0;
-    overflow-y: auto;
+  @extend .choose-members-wrap;
+  width: calc(100vw - 80px);
+  position: fixed;
+  left: 0;
+  overflow-y: auto;
 }
 
 @media (max-width: 610px) {
@@ -199,7 +215,7 @@ input{
     margin-top: 10px;
   }
 
-  input{
+  input {
     border-radius: 0px;
   }
   .header-logo {
@@ -211,23 +227,25 @@ input{
     height: 50px;
     width: 50px;
   }
-  
+
   .search-bar-icon {
     top: 10px;
-  
+
     input {
       height: 10px;
     }
   }
-  
+
   input {
     border-radius: 0px;
-    border-bottom:1px solid #3338c929;
+    border-bottom: 1px solid #3338c929;
     &::placeholder {
       font-size: 14px;
     }
   }
-  
+
+  .online {
+    width: 12px !important;
+    height: 12px !important;
+  }
 }
-
-

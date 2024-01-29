@@ -7,21 +7,21 @@ export class User {
   email: string;
   img?: any;
   chats?: Message[];
+  status?: string;
 
   constructor(
     customId?: string,
     name?: string,
     email?: string,
-    img?: any,
-    chats?: Message[]
+    img?: string,
+    chats?: Message[],
+    status?: string
   ) {
     this.customId = customId || '';
     this.name = name || '';
     this.email = email || '';
     this.img = img || '';
     this.chats = chats || [];
+    this.status = status || '';
   }
 }
-
-
-
