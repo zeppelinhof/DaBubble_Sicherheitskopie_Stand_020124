@@ -26,9 +26,9 @@
     </div>
 
     <div class="send-btn-container" routerLink="../message" (click)="sendDirectMessage()">
-      <img *ngIf="!this.service.isWritingMessage && !this.storService.loader" class="send-btn-false" src="assets/icons/disabeld_send-icon.png" />
-      <img *ngIf="this.service.isWritingMessage && !this.storService.loader" class="send-btn-true" src="assets/icons/send.png" />
-      <span *ngIf="this.storService.loader" class="loader"></span>
+      <img *ngIf="!this.service.isWritingMessage && !this.loader" class="send-btn-false" src="assets/icons/disabeld_send-icon.png" />
+      <img *ngIf="this.service.isWritingMessage && !this.loader" class="send-btn-true" src="assets/icons/send.png" />
+      <span *ngIf="this.loader" class="loader"></span>
     </div>
   </div>
 
