@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {
   getDownloadURL,
   getStorage,
@@ -11,17 +11,15 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class StorageService {
+export class StorageService   {
   imageUrls: string[] = [];
   channelCurrentUrl!: string;
+  hideLoader: boolean = true;
 
-  constructor() {}
+  
 
   // calling function with Parameter (file)
-  async uploadToStorage(file: any): Promise<string | null> {
-    
-    console.log(file);
-    
+  async uploadToStorage(file: any): Promise<string | null> {    
     if (file) {
       const storage = getStorage();
       const storageRef = ref(storage, file.name);

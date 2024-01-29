@@ -44,12 +44,13 @@ export class InputFieldChannelComponent {
 
   ngOnInit(): void {
     this.getCurrentChannel();
-
     this.ws.getEnterKeyPress().subscribe(event => {
-      // sendMessage aufrufen, wenn die Enter-Taste gedrückt wird
       this.sendMessage();
     });
+    
   }
+  
+  
 
   fileExplorer(event: any): void {
     this.fileInputRef = event.target as HTMLInputElement;
@@ -62,6 +63,9 @@ export class InputFieldChannelComponent {
 
 
     }
+  }
+  log(){
+    console.log("ello");
   }
 
   sendMessage(): void {
