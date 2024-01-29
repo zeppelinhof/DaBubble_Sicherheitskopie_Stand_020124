@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
-import { AuthenticationService } from './../../../shared/services/authentication.service';
+import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { AnimationsService } from 'src/app/shared/services/animations.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -21,6 +22,7 @@ export class DisplayResetPwEnterEmailComponent {
   constructor(
     private userService: UserService,
     public auth: AuthenticationService,
+    public animations: AnimationsService,
     private router: Router
   ) {}
 
@@ -45,10 +47,11 @@ export class DisplayResetPwEnterEmailComponent {
   saveResetAndSendEmail() {
     const emailForPwReset = this.forgotPwEnterEmailForm.get('email').value;
     this.auth.sendEmailToResetPw(emailForPwReset);
-    this.emailWasSent = true;
+    this.animations.emailWasSent = true;
     setTimeout(() => {
+      this.animations.emailWasSent = false;
       this.router.navigate(['login/display-login']);
-    }, 1400);
+    }, 1000);
     localStorage.setItem('userIdForPwReset', this.userId);
     const currentDateAndTime = new Date().toISOString();
     localStorage.setItem('pwResetRequestTime', currentDateAndTime);
