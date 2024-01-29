@@ -5,7 +5,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 enum MenuStatus {
   Close = 'Workspace-Menü schließen',
   Open = 'Workspace-Menü öffnen',
-  AlreadyOpen = 'Menü-bereits geöffnet',
+  AlreadyOpen = 'Workspace-Menü bereits geöffnet',
 }
 
 @Component({
