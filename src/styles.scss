@@ -100,7 +100,6 @@ button {
   border: 1px solid transparent;
   border-radius: 100px;
   outline: none;
-  cursor: pointer;
   font-size: 16px;
 }
 
@@ -151,7 +150,7 @@ button {
   margin-right: 24px;
 }
 
-.dialog-gray{
+.dialog-gray {
   background-color: rgba($color: #00000048, $alpha: 0.2) !important;
 }
 
