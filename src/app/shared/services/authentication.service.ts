@@ -42,6 +42,7 @@ export class AuthenticationService {
   loggedUser: User = new User();
   loggedUserMail: string | null = '';
   loggedUserName: string | null = '';
+  loggedUserOnline: boolean = false;
   googleLoginInProgress: boolean = false;
   loggedGoggleUser: User = new User();
 
@@ -60,6 +61,7 @@ export class AuthenticationService {
       .then((userCredential) => {
         const user = userCredential.user;
         newUser.customId = user.uid;
+        newUser.status = 'offline';
         newUser.chats = this.sendDefaultMessage();
         this.userService.sendDocToDB(newUser);
       })
@@ -74,15 +76,15 @@ export class AuthenticationService {
 
   sendDefaultMessage() {
     let messageId = Date.now();
-    let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1'
+    let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1';
 
     // Nachricht bei eingeloggtem User speichern
-    let deafaultMessage = new Message(defaultUserId, messageId, 'Hi', this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())));
-    // Nachricht bvei Default-User Sophia speichern
+    let defaultMessage = new Message(defaultUserId, messageId, 'Hi', this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())));
+    // Nachricht bei Default-User Sophia speichern
     this.userService.updateDefaultUser(
-      { chats: [this.userService.getCleanMessageJson(deafaultMessage)] }, defaultUserId);
+      { chats: [this.userService.getCleanMessageJson(defaultMessage)] }, defaultUserId);
 
-    return [deafaultMessage];
+    return [defaultMessage];
   }
 
   /**
@@ -129,7 +131,7 @@ export class AuthenticationService {
     });
   }
 
-  addNewGoogleUser() {    
+  addNewGoogleUser() {
     this.loggedGoggleUser.chats = this.sendDefaultMessage();
     this.userService.sendDocToDB(this.loggedGoggleUser);
   }
@@ -159,13 +161,14 @@ export class AuthenticationService {
   /**
    * Checks if a user is logged in. If logged in, navigates to path.
    */
-  checkIfUserIslogged() {
+  async checkIfUserIslogged() {
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         this.loggedUserMail = user.email;
         this.loggedUserName = user.displayName;
         this.loggedUser.customId = user.uid;
+        this.loggedUserOnline = true;
         this.userService.loggedInUser = this.loggedUser;
         this.setPathWhenLogged();
       } else {
@@ -182,6 +185,13 @@ export class AuthenticationService {
     if (!this.router.url.includes('dashboard')) {
       this.router.navigate(['/dashboard/channel']);
     }
+    this.setOnlineStatus();
+  }
+
+  setOnlineStatus() {
+    setTimeout(() => {
+      this.userService.updateUser({ status: 'online' }, this.loggedUser);
+    }, 2000);
   }
 
   /**
@@ -197,7 +207,8 @@ export class AuthenticationService {
   /**
    * Logs out the currently authenticated user.
    */
-  logout() {
+  async logout() {
+    await this.userService.updateUser({ status: 'offline' }, this.loggedUser);
     const auth = getAuth();
     signOut(auth)
       .then(() => { })
@@ -228,33 +239,4 @@ export class AuthenticationService {
     await confirmPasswordReset(auth, oobCode, newPassword);
     this.router.navigate(['/login']);
   }
-
-  async updateUserEmail(newEmail: string) {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      try {
-        await verifyBeforeUpdateEmail(user, newEmail);
-        window.location.reload();
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    }
-  }
-
-  /*
-  updateUserEmail(newEmail: string) {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    console.log('test');
-
-    if (user) {
-      updateEmail(user, newEmail)
-        .then(() => {
-          console.log('updated');
-        })
-        .catch((error) => { });
-    }
-  }
-  */
 }

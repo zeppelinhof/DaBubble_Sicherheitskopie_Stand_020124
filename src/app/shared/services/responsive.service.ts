@@ -7,7 +7,9 @@ export class ResponsiveService {
   routerIsVisible: boolean = true;
   sideRightVisible: boolean = true;
   sideLeftVisible: boolean = true;
-  constructor() { }
+  constructor() { 
+    
+  }
 
   closeRouter() {
     if (window.innerWidth <= 1458) {
@@ -28,6 +30,7 @@ export class ResponsiveService {
     if (window.innerWidth < 960) {
       this.sideLeftVisible = false;
       this.routerIsVisible = true;
+      this.sideRightVisible = false;
     }
 
   }

@@ -75,6 +75,14 @@
       background-color: #eceefe;
     }
   }
+
+  .arrow-back-mobile {
+    display: none;
+
+    &:hover {
+      background-color: #eceefe;
+    }
+  }
 }
 
 
@@ -110,8 +118,21 @@
     width: 100%;
   }
 }
+
 @media (max-width:610px) {
-  .side-right-container{
-   border-radius: 0px;
+  .side-right-container {
+    border-radius: 0px;
+  }
+}
+
+@media (max-width:960px) {
+  .close-icon-purple{
+    display: none !important;
+  }
+  .close-icon-normal{
+    display: none !important;
+  }
+  .arrow-back-mobile{
+    display: block!important;
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { ChannelService } from 'src/app/shared/services/channel.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
@@ -16,7 +17,8 @@ export class SideRightComponent {
 
   constructor(public ws: WorkspaceService,
     public ts: ThreadService,
-    public cs: ChannelService) {}
+    public cs: ChannelService,
+    public respService: ResponsiveService) {}
 
   ngOnInit(): void {
     this.cs.threadsOfMessage

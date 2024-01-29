@@ -42,6 +42,32 @@
   }
 }
 
+.container-img {
+  position: relative;
+
+  .online {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    border: 3px solid white;
+    background-color: #92c83e;
+  }
+
+  .offline {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 12px;
+    height: 12px;
+    border-radius: 50px;
+    border: 3px solid white;
+    background-color: #686868;
+  }
+}
+
 .message-inner-container {
   display: flex;
   align-items: center;

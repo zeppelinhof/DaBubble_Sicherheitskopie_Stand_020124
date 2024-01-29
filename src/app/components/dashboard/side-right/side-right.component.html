@@ -9,6 +9,7 @@
     <div (click)="this.ws.threadContainerIsVisible = !this.ws.threadContainerIsVisible" class="close-icon-container">
       <img class="close-icon-normal" src="assets/icons/close.png" />
       <img class="close-icon-purple" src="assets/icons/close_purple.png">
+      <img (click)="this.respService.onlyChannel()" class="arrow-back-mobile" src="assets/icons/arrowBack.png" alt="">
     </div>
   </div>
 

@@ -11,6 +11,8 @@
       <input
         #input
         type="text"
+        Globale
+        Suche
         placeholder="Code learning durchsuchen"
         [(ngModel)]="this.ws.inputGlobalSearch"
         (input)="sis.filterCodeLearning()"
@@ -35,7 +37,7 @@
           >
             <img
               class="profile-image"
-              [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+              [src]="this.us.getUserImage(this.msgData.userCustomId)"
             />
             <div class="name-text">
               <div>{{ messagePreview(msgData) }}</div>
@@ -61,12 +63,15 @@
       {{ this.us.getUserName(this.auth.loggedUser.customId) }}
     </div>
 
-    <!-- {{us.userLoggedIn().name}} -->
-    <img
-      class="current-user-img"
-      [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
-      alt=""
-    />
+    <div class="container-current-user-img">
+      <img
+        class="current-user-img"
+        [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
+        alt=""
+      />
+      <div *ngIf="this.auth.loggedUserOnline" class="online"></div>
+    </div>
+
     <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
     <img
       class="arrow-down-icon-purple"

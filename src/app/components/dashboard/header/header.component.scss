@@ -92,6 +92,20 @@ input {
   font-size: 32px;
 }
 
+.container-current-user-img {
+  position: relative;
+  .online {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50px;
+    border: 3px solid $light-violet;
+    background-color: #92c83e;
+  }
+}
+
 .current-user-img {
   height: 72px;
   width: 72px;
