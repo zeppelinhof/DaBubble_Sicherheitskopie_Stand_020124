@@ -19,6 +19,9 @@ export class StorageService {
 
   // calling function with Parameter (file)
   async uploadToStorage(file: any): Promise<string | null> {
+    
+    console.log(file);
+    
     if (file) {
       const storage = getStorage();
       const storageRef = ref(storage, file.name);

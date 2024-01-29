@@ -83,7 +83,7 @@
                   <img [src]="this.us.getUserImage(member.customId)" />
                   <div class="user-name">{{ member.name }}</div>
                 </div>
-                <div class="img-name">
+                <div *ngIf="rs.mobileMode()" class="img-name">
                   <div class="add-member-info" (click)="switchShowAddMembersInExistingChannel()">
                     <img class="add-user-normal-info img-add-users" src="assets/icons/person_add.png" />
                     <img class="add-user-purple-info img-add-users" src="assets/icons/person_add_purple.png" />
