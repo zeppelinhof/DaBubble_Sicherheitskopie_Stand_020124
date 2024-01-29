@@ -244,7 +244,6 @@ export class ChannelService {
     );
 
     if (channel) {
-      // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
       const userIdToRemove = this.us.userLoggedIn().customId;
       const updatedMembers = channel.members.filter(
         (member: User) => member.customId !== userIdToRemove

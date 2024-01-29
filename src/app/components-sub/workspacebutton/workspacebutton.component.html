@@ -1,4 +1,5 @@
-<div *ngIf="ws.workspaceButtonVisible" (click)="this.respService.onlyWorksSpace()" class="close-workspace">
+<div *ngIf="ws.workspaceButtonVisible" (click)="this.respService.onlyWorksSpace()" class="close-workspace" (mouseover)="hovered = true" (mouseout)="hovered = false">
   <div class="close-workspace-text hide-mobile">{{this.value}}</div>
-  <img src="assets/icons/workspace_close.png" />
+  <img [src]="respService.sideLeftVisible ? 'assets/icons/workspace/cm_b.png' : 'assets/icons/workspace/om_b.png'"    
+  [ngClass]="{'hovered-image-close': hovered && respService.sideLeftVisible, 'hovered-image-open': hovered && !respService.sideLeftVisible}" />
 </div>

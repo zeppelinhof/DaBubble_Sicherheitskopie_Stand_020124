@@ -164,6 +164,7 @@
               <img class="profile-image" [src]="this.us.getUserImage(this.user.customId)" />
               <div class="name-text">
                 {{ user.name }}
+                {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
               </div>
             </div>
           </div>

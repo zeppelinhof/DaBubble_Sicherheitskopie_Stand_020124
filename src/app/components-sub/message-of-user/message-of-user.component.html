@@ -55,7 +55,7 @@
       </div>
       <div class="thread-message-time">
         {{
-          this.data.createdTime["time"] ||
+          (this.data && this.data.createdTime["time"]) ||
             this.messageData.createdTime["time"] ||
             this.threadMessageData.createdTime["time"]
         }}

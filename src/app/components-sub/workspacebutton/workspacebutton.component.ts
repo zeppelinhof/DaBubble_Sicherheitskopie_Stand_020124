@@ -3,9 +3,9 @@ import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 
 enum MenuStatus {
-  Close = 'Menü-Schließen',
-  Open = 'Menü-Öffnen',
-  AlreadyOpen = 'Menü-Bereits geöffnet',
+  Close = 'Workspace-Menü schließen',
+  Open = 'Workspace-Menü öffnen',
+  AlreadyOpen = 'Menü-bereits geöffnet',
 }
 
 @Component({
@@ -14,6 +14,7 @@ enum MenuStatus {
   styleUrls: ['./workspacebutton.component.scss']
 })
 export class WorkspacebuttonComponent {
+  hovered: boolean = false;
   value: string = MenuStatus.Close;
 
   constructor(public respService: ResponsiveService, public ws: WorkspaceService) {

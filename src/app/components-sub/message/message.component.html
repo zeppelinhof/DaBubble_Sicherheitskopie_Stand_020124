@@ -1,4 +1,4 @@
-<div class="message-div-container">
+<div *ngIf="this.clickedContact.name" class="message-div-container">
   <div class="message-header-container">
     <div
       class="content-user"
@@ -87,4 +87,16 @@
     [userId]="clickedContact.customId"
     style="z-index: 100"
   ></app-settings-user-data-message>
+</div>
+
+<div *ngIf="!this.clickedContact.name" [class.grow]="!this.ws.showSideLeft" class="message-div-container">
+  <div class="welcome-explaination">
+    <h1>Willkommen bei DABubble!</h1>
+    <div style="font-size: 26px;">Deine Features im Überblick:</div>
+    <ul style="font-size: 18px;">
+      <li>Direkt-Nachrichten schreiben</li>
+      <li>Channels erstellen und beitreten</li>
+      <li>Auf spezielle Channel-Nachrichten in Threads antworten</li>
+    </ul>
+  </div>
 </div>

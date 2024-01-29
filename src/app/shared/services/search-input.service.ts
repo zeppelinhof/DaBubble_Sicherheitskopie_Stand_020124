@@ -63,7 +63,6 @@ export class SearchInputService {
       const fullName = `${member.name}`.toLowerCase();
       const userImage = member.img;
       console.log(userImage);
-      debugger;
       if (this.ws.showAddMembers) {
         this.refreshMemberList(existingMembers);
       }
