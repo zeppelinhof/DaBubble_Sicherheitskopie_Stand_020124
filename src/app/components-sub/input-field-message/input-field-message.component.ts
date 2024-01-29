@@ -170,7 +170,7 @@ export class InputFieldMessageComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-
+      this.storService.endLoading();
 
     }
 

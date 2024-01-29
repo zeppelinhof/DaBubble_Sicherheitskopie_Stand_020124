@@ -74,6 +74,8 @@ export class DisplayChooseAvatarComponent {
     setTimeout(() => {
       this.auth.signUp(this.newUser, this.password);
     }, 680);
+
+    
   }
 
   /**
@@ -127,4 +129,5 @@ export class DisplayChooseAvatarComponent {
       inputElement.value = '';
     }
   }
+  
 }

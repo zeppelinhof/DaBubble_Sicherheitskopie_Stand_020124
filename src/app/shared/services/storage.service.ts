@@ -15,6 +15,7 @@ export class StorageService   {
   imageUrls: string[] = [];
   channelCurrentUrl!: string;
   hideLoader: boolean = true;
+  loader: boolean = false;
 
   
 
@@ -38,6 +39,13 @@ export class StorageService   {
     }
   }
 
+  endLoading(){
+    this.loader = true;
+    setTimeout(() =>{
+      this.loader = false;
+    }, 1200)
+  }
+
   async getFileUrl(fileName: string): Promise<void> {
     const storage = getStorage();
     const storageRef = ref(storage);
@@ -53,15 +61,15 @@ export class StorageService   {
     }
   }
 
-  deleteFile() {
-    const storage = getStorage();
-    const desertRef = ref(storage, this.channelCurrentUrl);
-    deleteObject(desertRef)
-      .then(() => {
-        // File deleted successfully
-      })
-      .catch((error) => {
-        // Uh-oh, an error occurred!
-      });
-  }
+  // deleteFile() {
+  //   const storage = getStorage();
+  //   const desertRef = ref(storage, this.channelCurrentUrl);
+  //   deleteObject(desertRef)
+  //     .then(() => {
+  //       // File deleted successfully
+  //     })
+  //     .catch((error) => {
+  //       // Uh-oh, an error occurred!
+  //     });
+  // }
 }

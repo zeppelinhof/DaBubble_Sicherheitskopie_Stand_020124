@@ -27,8 +27,8 @@ export class InputFieldThreadComponent {
     public cs: ChannelService, 
     private _eref: ElementRef, 
     private ts: ThreadService, 
-    private storService: StorageService,
-    private ws: WorkspaceService) {}
+    public storService: StorageService,
+    private ws: WorkspaceService, ) {}
 
 
   fileExplorer(event: any): void {
@@ -39,7 +39,7 @@ export class InputFieldThreadComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-
+      this.storService.endLoading();
 
     }
 

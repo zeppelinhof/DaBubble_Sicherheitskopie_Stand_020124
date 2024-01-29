@@ -60,13 +60,11 @@ export class InputFieldChannelComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-
+      this.storService.endLoading();
 
     }
   }
-  log(){
-    console.log("ello");
-  }
+  
 
   sendMessage(): void {
     if (this.input !== '' || this.selectedFile) {
@@ -90,9 +88,7 @@ export class InputFieldChannelComponent {
     this.clearAll();
   }
 
-  clearSelectedFile() {
-    this.selectedFile = null;
-  }
+ 
 
   clearAll() {
     this.clearFileInput();
@@ -103,15 +99,22 @@ export class InputFieldChannelComponent {
     this.service.inputFilled = false;
 
   }
+  clearUrl() {
+    this.storService.channelCurrentUrl = "";
+  }
+
   clearFileInput() {
     if (this.fileInputRef) {
       this.fileInputRef.value = '';
     }
   }
 
-  clearUrl() {
-    this.storService.channelCurrentUrl = "";
+  clearSelectedFile() {
+    this.selectedFile = null;
   }
+
+ 
+
 
   inputIsFilled() {
     if (this.input !== "") {
