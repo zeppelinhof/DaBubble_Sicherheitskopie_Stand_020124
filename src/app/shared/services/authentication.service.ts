@@ -46,7 +46,11 @@ export class AuthenticationService {
   googleLoginInProgress: boolean = false;
   loggedGoggleUser: User = new User();
 
-  constructor(private userService: UserService, private cs: ChannelService, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private cs: ChannelService,
+    private router: Router
+  ) {}
 
   /**
    * Signs up a new user with the provided user information and password.
@@ -79,10 +83,23 @@ export class AuthenticationService {
     let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1';
 
     // Nachricht bei eingeloggtem User speichern
-    let defaultMessage = new Message(defaultUserId, messageId, 'Hi', this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())));
+    let defaultMessage = new Message(
+      defaultUserId,
+      messageId,
+      'Hi',
+      this.cs.getCleanMessageTimeJson(
+        new MessageTime(
+          new Date().getDate(),
+          this.cs.todaysDate(),
+          this.cs.getTime()
+        )
+      )
+    );
     // Nachricht bei Default-User Sophia speichern
     this.userService.updateDefaultUser(
-      { chats: [this.userService.getCleanMessageJson(defaultMessage)] }, defaultUserId);
+      { chats: [this.userService.getCleanMessageJson(defaultMessage)] },
+      defaultUserId
+    );
 
     return [defaultMessage];
   }
@@ -108,7 +125,8 @@ export class AuthenticationService {
           this.loggedGoggleUser.customId = user.uid || '';
           this.loggedGoggleUser.name = user.displayName || '';
           this.loggedGoggleUser.email = user.email || '';
-          this.loggedGoggleUser.img = 'assets/imgs/userMale3.png';          
+          this.loggedGoggleUser.img =
+            user.photoURL || 'assets/imgs/userMale3.png';
           this.checkIfNewGoogleUser(user.email);
         }
       })
@@ -211,8 +229,8 @@ export class AuthenticationService {
     await this.userService.updateUser({ status: 'offline' }, this.loggedUser);
     const auth = getAuth();
     signOut(auth)
-      .then(() => { })
-      .catch((error) => { });
+      .then(() => {})
+      .catch((error) => {});
   }
 
   /**
@@ -222,7 +240,7 @@ export class AuthenticationService {
   sendEmailToResetPw(email: string) {
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
-      .then(() => { })
+      .then(() => {})
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
