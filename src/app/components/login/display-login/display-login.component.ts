@@ -92,7 +92,7 @@ export class DisplayLoginComponent {
     const numberForNewGuest = maxGuestNumber + 1;
     this.newGuestUser.name = `Gast${numberForNewGuest}`;
     this.newGuestUser.email = `guest${numberForNewGuest}@bubble.de`;
-    this.newGuestUser.img = 'userMale3.png';
+    this.newGuestUser.img = 'assets/imgs/userMale3.png';
     this.newGuestUserPassword = '#23ffgwßffpü"!!**';
     this.guestGetsSignedUpandLoggedIn();
   }
