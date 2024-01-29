@@ -74,7 +74,10 @@ export class DisplayChooseAvatarComponent {
     this.deleteLocalStorage();
     this.animations.newUserSuccess = true;
     setTimeout(() => {
+      this.animations.newUserSuccess = false;
       this.auth.signUp(this.newUser, this.password);
+      this.selectedFile = null;
+      this.storService.channelCurrentUrl = '';
     }, 680);
   }
 
