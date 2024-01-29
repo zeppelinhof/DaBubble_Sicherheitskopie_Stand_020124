@@ -72,15 +72,16 @@ export class DisplayChooseAvatarComponent {
       this.newUser.img = this.storService.channelCurrentUrl;
     }
     this.deleteLocalStorage();
+    document.body.style.overflow = 'hidden';
     this.animations.newUserSuccess = true;
     setTimeout(() => {
       this.animations.newUserSuccess = false;
+
       this.auth.signUp(this.newUser, this.password);
+      document.body.style.overflow = 'unset';
       this.selectedFile = null;
       this.storService.channelCurrentUrl = '';
-    }, 680);
-
-    
+    }, 1200);
   }
 
   /**
@@ -134,5 +135,4 @@ export class DisplayChooseAvatarComponent {
       inputElement.value = '';
     }
   }
-  
 }

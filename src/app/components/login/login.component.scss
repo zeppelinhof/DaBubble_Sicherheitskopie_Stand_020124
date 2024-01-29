@@ -219,10 +219,11 @@ main {
 
 .overlay-container {
   position: absolute;
-  top: 0px;
+  top: 0p;
   left: 0;
   right: 0;
   bottom: 0;
+  height: 100vh;
   background-color: rgb(47, 47, 47);
   opacity: 0.5;
   z-index: 20;
