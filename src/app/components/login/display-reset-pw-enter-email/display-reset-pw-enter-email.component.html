@@ -72,6 +72,6 @@
   </form>
 </section>
 
-<div *ngIf="animations.emailWasSent" class="overlay-text">
+<div *ngIf="animations.emailWasSent$ | async" class="overlay-text">
   <img src="assets/icons/send_white.png" alt="" /> E-Mail wurde gesendet
 </div>

@@ -1,1 +1,8 @@
 <router-outlet></router-outlet>
+<div
+  *ngIf="
+    router.url.includes('login/choose-avatar') ||
+    router.url.includes('login/reset-pw-enter-email')
+  "
+  class="overlay-container"
+></div>

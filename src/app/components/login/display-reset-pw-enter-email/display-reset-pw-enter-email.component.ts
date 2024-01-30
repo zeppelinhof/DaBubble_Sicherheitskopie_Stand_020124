@@ -48,9 +48,10 @@ export class DisplayResetPwEnterEmailComponent {
   saveResetAndSendEmail() {
     const emailForPwReset = this.forgotPwEnterEmailForm.get('email').value;
     this.auth.sendEmailToResetPw(emailForPwReset);
-    this.animations.emailWasSent = true;
+    document.body.style.overflow = 'hidden';
+    this.animations.setEmailWasSent(true);
     setTimeout(() => {
-      this.animations.emailWasSent = false;
+      this.animations.setEmailWasSent(false);
       this.router.navigate(['login/display-login']);
     }, 1000);
     localStorage.setItem('userIdForPwReset', this.userId);

@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { Component, OnChanges, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AnimationsService } from 'src/app/shared/services/animations.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-login',

@@ -74,11 +74,10 @@ export class DisplayChooseAvatarComponent {
     }
     this.deleteLocalStorage();
     document.body.style.overflow = 'hidden';
-    this.animations.newUserSuccess = true;
+    this.animations.setNewUserSuccess(true);
     setTimeout(() => {
-      this.animations.newUserSuccess = false;
+      this.animations.setNewUserSuccess(false);
       this.auth.signUp(this.newUser, this.password);
-      document.body.style.overflow = 'unset';
       this.selectedFile = null;
       this.storService.channelCurrentUrl = '';
     }, 1200);
