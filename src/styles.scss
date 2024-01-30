@@ -67,22 +67,22 @@ button {
 
 .btn-wrap {
   display: flex;
-  justify-content: flex-end;
-
-  .btn-purple {
-    display: flex;
-    justify-content: center;
-    background-color: $purple3;
-    border-radius: 25px;
-    padding: 12px 25px;
-    color: white;
-    cursor: pointer;
-  }
+  justify-content: flex-end;  
 
   .btn-grey {
     @extend .btn-purple;
     background-color: $grey;
   }
+}
+
+.btn-purple {
+  display: flex;
+  justify-content: center;
+  background-color: $purple3;
+  border-radius: 25px;
+  padding: 12px 25px;
+  color: white;
+  cursor: pointer;
 }
 
 #emoji-container {
