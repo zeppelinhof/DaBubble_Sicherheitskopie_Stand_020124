@@ -43,7 +43,7 @@ export class HeaderComponent {
 
   focusInput() {
     if (this.input && this.input.nativeElement) {
-      this.input.nativeElement.focus();
+      this.input.nativeElement.focus();;
     }
   }
 

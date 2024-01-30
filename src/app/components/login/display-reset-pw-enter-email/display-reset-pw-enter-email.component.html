@@ -32,6 +32,7 @@
         class="input-layout"
         type="email"
         placeholder="beispielname@email.com"
+        autocomplete="email"
       />
       <span
         *ngIf="
@@ -63,5 +64,6 @@
   </form>
 </section>
 
-<div *ngIf="emailWasSent" class="overlay-container"></div>
-<span *ngIf="emailWasSent" class="overlay-text">E-Mail wurde gesendet</span>
+<div *ngIf="animations.emailWasSent" class="overlay-text">
+  <img src="assets/icons/send_white.png" alt="" /> E-Mail wurde gesendet
+</div>

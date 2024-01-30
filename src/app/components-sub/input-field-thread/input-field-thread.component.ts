@@ -22,13 +22,14 @@ export class InputFieldThreadComponent {
   allMembers: any = [];
   private fileInputRef: HTMLInputElement | undefined;
   selectedFile: File | null = null;
+  loader: boolean = false;
   
   constructor(public service: InputService, 
     public cs: ChannelService, 
     private _eref: ElementRef, 
     private ts: ThreadService, 
-    private storService: StorageService,
-    private ws: WorkspaceService) {}
+    public storService: StorageService,
+    private ws: WorkspaceService, ) {}
 
 
   fileExplorer(event: any): void {
@@ -39,11 +40,19 @@ export class InputFieldThreadComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-
+      this.endLoading();
 
     }
 
   }
+
+  endLoading(){
+    this.loader = true;
+    setTimeout(() =>{
+      this.loader = false;
+    }, 1200)
+  }
+
   clearAll() {
     this.clearFileInput();
     this.clearSelectedFile();

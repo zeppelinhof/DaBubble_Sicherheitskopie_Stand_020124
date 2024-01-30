@@ -173,3 +173,47 @@ section {
     right: 30%;
   }
 }
+
+@media only screen and (max-width: 1700px) {
+  .overlay-text {
+    padding: 28px;
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .overlay-text {
+    padding: 30px;
+    font-size: 28px;
+    right: 0;
+    animation: rightToLeft-tablet 0.3s ease forwards;
+  }
+}
+
+@keyframes rightToLeft-tablet {
+  100% {
+    right: 15%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .overlay-text {
+    padding: 25px;
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .overlay-text {
+    padding: 20px;
+    font-size: 22px;
+    right: 0;
+    animation: rightToLeft-tablet 0.3s ease forwards;
+  }
+
+  @keyframes rightToLeft-tablet {
+    100% {
+      right: 100px;
+    }
+  }
+}

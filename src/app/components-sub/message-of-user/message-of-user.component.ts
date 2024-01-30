@@ -32,6 +32,7 @@ export class MessageOfUserComponent {
   threadsOfMessage!: ThreadInterface[];
   imagePreview: boolean = false;
 
+
   constructor(
     public us: UserService,
     public cs: ChannelService,
@@ -53,6 +54,10 @@ export class MessageOfUserComponent {
     });
   }
 
+  checkLog(){
+    console.log(this.threadMessageData.file);
+    
+  }
   savePreviousMessage() {
     this.previousMessage = this.data.message || this.messageData.message;
   }

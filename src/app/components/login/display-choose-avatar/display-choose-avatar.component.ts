@@ -3,6 +3,7 @@ import { AuthenticationService } from './../../../shared/services/authentication
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { AnimationsService } from 'src/app/shared/services/animations.service';
 
 @Component({
   selector: 'app-display-choose-avatar',
@@ -32,7 +33,8 @@ export class DisplayChooseAvatarComponent {
   constructor(
     private auth: AuthenticationService,
     private router: Router,
-    public storService: StorageService
+    public storService: StorageService,
+    public animations: AnimationsService
   ) {
     this.checkDataLocalStorage();
   }
@@ -70,10 +72,16 @@ export class DisplayChooseAvatarComponent {
       this.newUser.img = this.storService.channelCurrentUrl;
     }
     this.deleteLocalStorage();
-    this.newUserSuccess = true;
+    document.body.style.overflow = 'hidden';
+    this.animations.newUserSuccess = true;
     setTimeout(() => {
+      this.animations.newUserSuccess = false;
+
       this.auth.signUp(this.newUser, this.password);
-    }, 680);
+      document.body.style.overflow = 'unset';
+      this.selectedFile = null;
+      this.storService.channelCurrentUrl = '';
+    }, 1200);
   }
 
   /**
