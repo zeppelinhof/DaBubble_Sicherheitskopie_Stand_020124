@@ -21,12 +21,30 @@ export class DashboardComponent {
       this.zone.run(() => {
         this.checkSizeRightSide();
         this.checkSizeLeftSide();
+        this.checkEverything();
       });
-    },10); // Ändere die Verzögerung nach Bedarf
+    },100); // Ändere die Verzögerung nach Bedarf
   }
 
   onInit(){
     this.checkFirstLoadMobile();
+  }
+
+  checkEverything(){
+    if(window.innerWidth  >= 610){
+      this.repService.sideLeftVisible = false;
+      this.repService.sideRightVisible = false;
+      this.repService.routerIsVisible = true;
+      console.log("resize");
+      
+    }
+    if(window.innerWidth  <= 610){
+      this.repService.sideLeftVisible = false;
+      this.repService.sideRightVisible = false;
+      this.repService.routerIsVisible = true;
+      console.log("resize");
+      
+    }
   }
 
   checkFirstLoadMobile(){

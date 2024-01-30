@@ -14,7 +14,7 @@ import {
 export class StorageService   {
   imageUrls: string[] = [];
   channelCurrentUrl!: string;
-  hideLoader: boolean = true;
+  hideloader:boolean = true;
   
 
   
