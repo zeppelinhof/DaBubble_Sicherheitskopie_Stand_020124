@@ -9,21 +9,23 @@ section {
 
 .headline-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  position: relative;
-  img {
-    position: absolute;
-    left: -8px;
-    padding: 8px;
-    cursor: pointer;
-    &:hover {
+  .container-img {
+    display: flex;
+    justify-content: flex-start;
+    img {
       padding: 8px;
-      border-radius: 50px;
-      background-color: $light-violet;
-      color: $purple;
+      cursor: pointer;
+      &:hover {
+        padding: 8px;
+        border-radius: 50px;
+        background-color: $light-violet;
+        color: $purple;
+      }
     }
   }
+
   span {
     color: $purple3;
     font-size: 46px;

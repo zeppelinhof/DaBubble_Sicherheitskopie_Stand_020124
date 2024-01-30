@@ -1,30 +1,32 @@
 <section>
   <div class="headline-container">
-    <img
-      *ngIf="!arrowBackIsHovered && isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-    />
-    <img
-      *ngIf="arrowBackIsHovered && isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      routerLink="../create-account"
-      src="assets/icons/arrow_back_purple.png"
-      alt="icon of purple arrow"
-    />
-    <img
-      *ngIf="!isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-      routerLink="../create-account"
-    />
-
+    <div class="container-img">
+      <img
+        *ngIf="!arrowBackIsHovered && isDesktop"
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+      />
+      <img
+        *ngIf="arrowBackIsHovered && isDesktop"
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        routerLink="../create-account"
+        src="assets/icons/arrow_back_purple.png"
+        alt="icon of purple arrow"
+      />
+      <img
+        *ngIf="!isDesktop"
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+        routerLink="../create-account"
+      />
+    </div>
     <span>Wähle deinen Avatar</span>
+    <div style="width: 0.01px"></div>
   </div>
   <div class="container-profile-image">
     <img
