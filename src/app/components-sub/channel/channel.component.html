@@ -41,7 +41,7 @@
                   {{ this.clickedChannel.name }}
                 </div>
                 <div *ngIf="!editNameButton" class="input-wrap">
-                  <input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name" />
+                  <input maxlength="20" class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name" />
                 </div>
               </div>
             </div>
@@ -65,7 +65,7 @@
                   {{ this.clickedChannel.description }}
                 </div>
                 <div *ngIf="!editDescriptionButton" class="input-wrap">
-                  <input class="inputfield" type="text" [(ngModel)]="this.clickedChannel.description" />
+                  <input maxlength="20" class="inputfield" type="text" [(ngModel)]="this.clickedChannel.description" />
                 </div>
               </div>
 
