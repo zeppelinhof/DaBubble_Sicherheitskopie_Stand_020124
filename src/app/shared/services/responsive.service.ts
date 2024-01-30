@@ -31,13 +31,19 @@ export class ResponsiveService {
       this.sideLeftVisible = false;
       this.routerIsVisible = true;
       this.sideRightVisible = false;
+    } else{ 
+      this.routerIsVisible = true;
+      this.sideRightVisible = false;
     }
 
   }
   onlyThread() {
-    if (window.innerWidth < 960) {
+    if (window.innerWidth < 1200) {
       this.sideLeftVisible = false;
       this.routerIsVisible = false;
+      this.sideRightVisible = true;
+      console.log("threadopen");
+    } else {
       this.sideRightVisible = true;
     }
 
