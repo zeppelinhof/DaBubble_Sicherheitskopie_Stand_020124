@@ -197,8 +197,8 @@ export class SearchInputService {
   }
 
   addMembersFromFirstChannel() {
-    if (this.getChannels()[0].members) {
-      for (let member of this.getChannels()[0].members) {
+    if (this.ws.getChannels()[0].members) {
+      for (let member of this.ws.getChannels()[0].members) {
         if (this.notUserLoggedIn(member)) {
           // avoid userLogged in 2 times in members
           this.cs.newChannel.members?.push(member);
