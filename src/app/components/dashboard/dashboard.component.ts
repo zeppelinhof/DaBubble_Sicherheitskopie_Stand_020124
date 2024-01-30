@@ -21,12 +21,30 @@ export class DashboardComponent {
       this.zone.run(() => {
         this.checkSizeRightSide();
         this.checkSizeLeftSide();
+        this.checkEverything();
       });
-    },10); // Ändere die Verzögerung nach Bedarf
+    },100); // Ändere die Verzögerung nach Bedarf
   }
 
   onInit(){
     this.checkFirstLoadMobile();
+  }
+
+  checkEverything(){
+    if(window.innerWidth  >= 610){
+      this.repService.sideLeftVisible = false;
+      this.repService.sideRightVisible = false;
+      this.repService.routerIsVisible = true;
+      console.log("resize");
+      
+    }
+    if(window.innerWidth  <= 610){
+      this.repService.sideLeftVisible = false;
+      this.repService.sideRightVisible = false;
+      this.repService.routerIsVisible = true;
+      console.log("resize");
+      
+    }
   }
 
   checkFirstLoadMobile(){
@@ -40,7 +58,6 @@ export class DashboardComponent {
   checkSizeRightSide() {
     if (window.innerWidth < 1335) {
       this.repService.sideRightVisible = false;
-      // console.log(window.innerWidth);
     } else {
       this.repService.sideRightVisible = true;
     }
@@ -49,7 +66,6 @@ export class DashboardComponent {
   checkSizeLeftSide() {
     if (window.innerWidth < 960) {
       this.repService.sideLeftVisible = false;
-      // console.log(window.innerWidth);
     } else {
       this.repService.sideLeftVisible = true;
     }

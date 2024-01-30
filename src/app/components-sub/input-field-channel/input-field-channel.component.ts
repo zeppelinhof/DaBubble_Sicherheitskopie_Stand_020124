@@ -32,6 +32,7 @@ export class InputFieldChannelComponent {
   selectedFile: File | null = null;
   imageUrls: string[] = [];
   url: any;
+  loader: boolean = false;
 
   constructor(
     public service: InputService,
@@ -40,17 +41,17 @@ export class InputFieldChannelComponent {
     private _eref: ElementRef,
     public storService: StorageService,
     private ws: WorkspaceService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCurrentChannel();
     this.ws.getEnterKeyPress().subscribe(event => {
       this.sendMessage();
     });
-    
+
   }
-  
-  
+
+
 
   fileExplorer(event: any): void {
     this.fileInputRef = event.target as HTMLInputElement;
@@ -60,11 +61,18 @@ export class InputFieldChannelComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-      this.storService.endLoading();
+      this.endLoading();
 
     }
   }
-  
+
+  endLoading() {
+    this.loader = true;
+    setTimeout(() => {
+      this.loader = false;
+    }, 1200)
+  }
+
 
   sendMessage(): void {
     if (this.input !== '' || this.selectedFile) {
@@ -78,17 +86,16 @@ export class InputFieldChannelComponent {
         // ↓ file already uploaded 
         file: this.storService.getUrlFromStorage(),
       };
-      
+
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
-      console.log("das ist newMessage: ", newMessage);
       this.ws.scrollToBottom('scrollChannelMessages');
     }
-    
+
     this.addMemberToChannel(this.cs.clickedChannel.value);
     this.clearAll();
   }
 
- 
+
 
   clearAll() {
     this.clearFileInput();
@@ -113,7 +120,7 @@ export class InputFieldChannelComponent {
     this.selectedFile = null;
   }
 
- 
+
 
 
   inputIsFilled() {
@@ -122,11 +129,9 @@ export class InputFieldChannelComponent {
     } else {
       this.service.inputFilled = false;
     }
-    console.log(this.service.inputFilled);
-    
   }
-  
-  
+
+
 
   // fills allMembers array with all users in the current channel
   getCurrentChannel() {

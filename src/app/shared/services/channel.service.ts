@@ -260,7 +260,6 @@ export class ChannelService {
     const hours: string = ('0' + now.getHours()).slice(-2);
     const minutes: string = ('0' + now.getMinutes()).slice(-2);
     const timeString: string = `${hours}:${minutes}`;
-    // console.log(timeString);
     return timeString + ' Uhr';
   }
 
@@ -316,18 +315,11 @@ export class ChannelService {
         ) {
           return true;
         }
-      } catch (error) {
-        console.log(error);
+      } catch {
+        return false
       }
       return false;
     }
     return false;
-  }
-
-  // sending message to firebase allMessages array[] with help of customId of current channel
-  sendMessageToChannel(id: any, message: Message) {
-    // const allChannelsRef = collection(this.firestore, `channels/${id}/allMessages`);
-    // addDoc(allChannelsRef, message);
-    // console.log('Message und Id', message, id);
   }
 }

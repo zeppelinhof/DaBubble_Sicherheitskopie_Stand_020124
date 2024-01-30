@@ -100,8 +100,6 @@ export class MessageOfUserComponent {
       this.saveChannelMessage();
     } else if (this.messageType === 'threadMessage') {
       this.saveThreadMessage();
-    } else {
-      console.log('Speichern nicht erfolgreich');
     }
     this.closeEditWindow();
   }

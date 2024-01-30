@@ -19,9 +19,10 @@ import { AuthenticationService } from 'src/app/shared/services/authentication.se
 export class SideLeftComponent {
   firestore: Firestore = inject(Firestore);
   arrowClickedChannels: boolean = false;
-  arrowClickedContacts: boolean = false;
+  arrowClickedContacts: boolean = true;
   rightArrowChannels: boolean = false;
   rightArrowContacts: boolean = false;
+  notExpired: boolean = true;
 
   myUserId: any = [];
 
@@ -31,7 +32,18 @@ export class SideLeftComponent {
     public cs: ChannelService,
     public respService: ResponsiveService,
     public auth: AuthenticationService
-  ) {}
+  ) { }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.notExpired = false
+    }, 10000);
+  }
+
+  showHints(){
+    return this.notExpired && this.ws.getUsers().length === 1;
+  }
+
 
   clickDownArrowChannels() {
     this.arrowClickedChannels = this.rightArrowChannels =

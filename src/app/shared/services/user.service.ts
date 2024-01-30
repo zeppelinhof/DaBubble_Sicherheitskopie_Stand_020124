@@ -1,3 +1,6 @@
+/**
+ * UserService stellt Methoden für die Verwaltung von Benutzerdaten bereit.
+ */
 import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
@@ -30,15 +33,27 @@ export class UserService {
 
   unsubUsers;
 
+  /**
+   * Initialisiert den Dienst, abonniert die Benutzerliste und die Liste aller Benutzer nach Benutzername.
+   */
   constructor() {
     this.unsubUsers = this.subUserList();
     this.subAllUsersListFindUserName();
   }
 
+  /**
+   * Gibt den eingeloggten Benutzer zurück.
+   * @returns Der eingeloggte Benutzer.
+   */
   userLoggedIn(): User {
     return this.getUserFromCollection(this.loggedInUser);
   }
 
+  /**
+   * Abonniert die Liste der Benutzer.
+   * Aktualisiert myUsers und docIdCustomIdMatching bei Änderungen.
+   * @returns Die Funktion zum Beenden des Abonnements.
+   */
   async subUserList() {
     const qu = query(collection(this.firestore, 'allUsers'));
     onSnapshot(qu, (querySnapshot) => {
@@ -54,34 +69,54 @@ export class UserService {
     });
   }
 
+  /**
+   * Aktualisiert einen Benutzer in der Datenbank.
+   * @param newValue - Die neuen Werte für den Benutzer.
+   * @param user - Der zu aktualisierende Benutzer.
+   */
   async updateUser(newValue: any, user: User) {
     let docRef = await this.getSingleDocRef('allUsers', user.customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       })
       .then(() => {
-        console.log('user updated');
+        return
       });
   }
 
+   /**
+   * Aktualisiert den Standardbenutzer Sophia in der Datenbank.
+   * @param newValue - Die neuen Werte für den Benutzer.
+   * @param customId - Die benutzerdefinierte ID des zu aktualisierenden Benutzers Sophia.
+   */
   async updateDefaultUser(newValue: any, customId: string) {
     let docRef = this.getSingleDocRef('allUsers', customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       })
       .then(() => {
-        console.log('user updated');
+        return
       });
   }
 
+  /**
+   * Gibt die Firestore-Referenz für ein bestimmtes Dokument zurück.
+   * @param colId - Die Sammlungs-ID.
+   * @param docId - Die Dokument-ID.
+   * @returns Die Firestore-Referenz für das Dokument.
+   */
   getSingleDocRef(colId: string, docId: string) {
     let realDocId = this.getRealDocId(docId);
     return doc(collection(this.firestore, colId), realDocId);
   }
 
-  // Anhand customId aus Authentification den User in Collection allUsers finden
+  /**
+   * Sucht den Benutzer in der myUsers-Liste basierend auf seiner customId.
+   * @param loggedInUser - Der eingeloggte Benutzer.
+   * @returns Der gefundene Benutzer.
+   */
   getUserFromCollection(loggedInUser: User): User {
     for (let index = 0; index < this.myUsers.length; index++) {
       const user = this.myUsers[index];
@@ -92,8 +127,12 @@ export class UserService {
     return new User();
   }
 
-  // Anhand der customId (Parameter docId) des Users, welche ihm aus Authentification übergeben wurde
-  // wird seine Id in der Collection allUsers über die Matching-Tabelle "docIdCustomIdMatching" ermittelt.
+  /**
+   * Anhand der customId (Parameter docId) des Users, welche ihm aus Authentification übergeben wurde
+   * Ermittelt die tatsächliche Dokument-ID aus der Matching-Tabelle.
+   * @param docId - Die Dokument-ID aus der Matching-Tabelle.
+   * @returns Die tatsächliche Dokument-ID.
+   */
   getRealDocId(docId: string) {
     const realDocId = this.docIdCustomIdMatching.find(
       (val: any) => val['customId'] === docId
@@ -101,6 +140,11 @@ export class UserService {
     return realDocId ? realDocId['docId'] : '';
   }
 
+  /**
+   * Setzt den aktuell ausgewählten Kontakt.
+   * Aktualisiert das clickedContact-Verhalten basierend auf der geklickten Kontakt-ID.
+   * @param elementId - Die benutzerdefinierte ID des ausgewählten Kontakts.
+   */
   setCurrentContact(elementId: string) {
     const userList = this.myUsers;
     if (this.myUsers) {
@@ -113,6 +157,10 @@ export class UserService {
     }
   }
 
+  /**
+   * Aktualisiert die Ansicht für den ausgewählten Kontakt.
+   * @param id - Die benutzerdefinierte ID des ausgewählten Kontakts.
+   */
   setContactView(id: string) {
     this.clickedContactId.next(id);
     this.setCurrentContact(this.clickedContactId.value);
@@ -172,8 +220,12 @@ export class UserService {
     });
   }
 
-  // Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an mich verschickt hat und
-  // (c) deren messageId bei mir existiert (damit nicht Nachrichten bei mir von clickedContact angezeigt werden, die er an andere User verschickt hat)
+
+  /**
+   * Es werden nur Nachrichten angezeigt die (a) ich clickedContact verschickt habe oder (b) die clickedContact an mich verschickt hat und
+   * deren messageId bei mir existiert (damit nicht Nachrichten bei mir von clickedContact angezeigt werden, die er an andere User verschickt hat)
+   * @returns Ein Array von Chats mit dem ausgewählten Benutzer.
+   */
   chatsWithClickedUser() {
     let chats;
     let userLoggedInCustomId = this.userLoggedIn().customId;
@@ -197,12 +249,22 @@ export class UserService {
   }
 
 
+  /**
+   * Überprüft, ob eine Nachricht in den eigenen Chats existiert.
+   * @param messageIdToCheck - Die Nachrichten-ID zum Überprüfen.
+   * @returns True, wenn die Nachricht in den eigenen Chats existiert, sonst False.
+   */
   messageExitsInOwnChats(messageIdToCheck: number) {
     return this.userLoggedIn().chats?.find(
       (chat) => chat.messageId == messageIdToCheck
     );
   }
 
+  /**
+   * Überprüft, ob es sich bei einer Nachricht um einen eigenen Chat handelt.
+   * @param ownMessageId - Die Nachrichten-ID für den eigenen Chat.
+   * @returns True, wenn es sich um einen eigenen Chat handelt, sonst False.
+   */
   onlyOwnChat(ownMessageId: number): boolean {  
     return this.myUsers.every((user) => {
       return !user.chats?.some((chat) => {
@@ -212,6 +274,11 @@ export class UserService {
   }
   
 
+  /**
+ * Gibt den Benutzernamen für eine bestimmte Benutzer-ID zurück.
+ * @param userCustomId - Die benutzerdefinierte ID des Benutzers.
+ * @returns Der Benutzername oder 'loading', wenn der Benutzer nicht gefunden wird.
+ */
   getUserName(userCustomId: string) {
     let user = this.allUsersForUserName.find(
       (user) => user.customId === userCustomId
@@ -219,11 +286,21 @@ export class UserService {
     return user ? user.name : 'loading';
   }
 
+  /**
+ * Gibt den Bildpfad für das Benutzerbild basierend auf der Benutzer-ID zurück.
+ * @param userCustomId - Die benutzerdefinierte ID des Benutzers.
+ * @returns Der Default-Bildpfad oder 'assets/imgs/person.png', wenn der Benutzer nicht gefunden wird.
+ */
   getUserImage(userCustomId: string) {
     let user = this.myUsers.find((user) => user.customId === userCustomId);
     return user ? user.img : 'assets/imgs/person.png';
   }
 
+  /**
+ * Gibt den Online-Status für einen Benutzer basierend auf seiner Benutzer-ID zurück.
+ * @param userCustomId - Die benutzerdefinierte ID des Benutzers.
+ * @returns Der Online-Status oder 'offline', wenn der Benutzer nicht gefunden wird.
+ */
   getUserOnlineStats(userCustomId: string) {
     let user = this.myUsers.find((user) => user.customId === userCustomId);
     return user ? user.status : 'offline';

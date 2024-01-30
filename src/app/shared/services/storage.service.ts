@@ -14,8 +14,8 @@ import {
 export class StorageService   {
   imageUrls: string[] = [];
   channelCurrentUrl!: string;
-  hideLoader: boolean = true;
-  loader: boolean = false;
+  hideloader:boolean = true;
+  
 
   
 
@@ -39,12 +39,7 @@ export class StorageService   {
     }
   }
 
-  endLoading(){
-    this.loader = true;
-    setTimeout(() =>{
-      this.loader = false;
-    }, 1200)
-  }
+ 
 
   async getFileUrl(fileName: string): Promise<void> {
     const storage = getStorage();

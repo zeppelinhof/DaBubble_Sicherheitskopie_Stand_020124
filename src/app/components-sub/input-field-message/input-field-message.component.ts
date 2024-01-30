@@ -25,6 +25,7 @@ export class InputFieldMessageComponent {
   showUserList: boolean = false;
   private fileInputRef: HTMLInputElement | undefined;
   selectedFile: File | null = null;
+  loader: boolean = false;
 
   constructor(
     public service: InputService,
@@ -130,9 +131,8 @@ export class InputFieldMessageComponent {
           this.storService.getUrlFromStorage(),
         ),
       );
-    } finally {
-      console.log('updated');
-      
+    } catch(err) {
+      return    
     }
   }
   
@@ -170,12 +170,17 @@ export class InputFieldMessageComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-      this.storService.endLoading();
+      this.endLoading();
 
     }
 
   }
-
+  endLoading(){
+    this.loader = true;
+    setTimeout(() =>{
+      this.loader = false;
+    }, 1200)
+  }
   btnVisible(): void {
     this.service.isWritingMessage = true;
     

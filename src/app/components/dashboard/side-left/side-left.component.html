@@ -5,7 +5,11 @@
 
       <div class="headline-white-box">Code learning</div>
     </div>
-    <img class="logo-start-direct-message" src="assets/icons/edit_square.png" routerLink="new-message" />
+    <div style="position: relative;">
+      <div [ngClass]="{'hint-wrap': showHints()}">
+        <img class="button-dm" src="assets/icons/edit_square.png" routerLink="new-message" />
+      </div>
+    </div>
   </div>
 
   <div class="overview-panel">
@@ -81,23 +85,16 @@
     <div *ngIf="arrowClickedContacts" class="control-scroll-area">
       <div *ngIf="arrowClickedContacts" class="list-container-contacts">
         <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
-          <div class="logo-item-contact">
-            <div class="container-user-img">
-              <img
-                class="profile-image"
-                [src]="this.us.getUserImage(user.customId)"
-              />
-              <div
-                *ngIf="us.getUserOnlineStats(user.customId) === 'online'"
-                class="online"
-              ></div>
-              <div
-                *ngIf="us.getUserOnlineStats(user.customId) === 'offline'"
-                class="offline"
-              ></div>
+          <div style="position: relative;">
+            <div class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
+              <div class="container-user-img">
+                <img class="profile-image" [src]="this.us.getUserImage(user.customId)" />
+                <div *ngIf="us.getUserOnlineStats(user.customId) === 'online'" class="online"></div>
+                <div *ngIf="us.getUserOnlineStats(user.customId) === 'offline'" class="offline"></div>
+              </div>
+              <div>{{ user.name }}</div>
+              {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
             </div>
-            <div>{{ user.name }}</div>
-            {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
           </div>
         </div>
       </div>

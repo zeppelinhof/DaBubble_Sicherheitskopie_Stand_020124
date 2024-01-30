@@ -22,6 +22,7 @@ export class InputFieldThreadComponent {
   allMembers: any = [];
   private fileInputRef: HTMLInputElement | undefined;
   selectedFile: File | null = null;
+  loader: boolean = false;
   
   constructor(public service: InputService, 
     public cs: ChannelService, 
@@ -39,11 +40,19 @@ export class InputFieldThreadComponent {
       this.selectedFile = selectedFile;
       this.btnVisible();
       this.storService.uploadToStorage(this.selectedFile);
-      this.storService.endLoading();
+      this.endLoading();
 
     }
 
   }
+
+  endLoading(){
+    this.loader = true;
+    setTimeout(() =>{
+      this.loader = false;
+    }, 1200)
+  }
+
   clearAll() {
     this.clearFileInput();
     this.clearSelectedFile();
