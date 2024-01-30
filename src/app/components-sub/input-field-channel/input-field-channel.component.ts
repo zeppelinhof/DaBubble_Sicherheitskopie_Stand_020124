@@ -88,7 +88,6 @@ export class InputFieldChannelComponent {
       };
 
       this.cs.sendMessageToDB(newMessage, this.clickedChannel.customId);
-      console.log("das ist newMessage: ", newMessage);
       this.ws.scrollToBottom('scrollChannelMessages');
     }
 
@@ -130,8 +129,6 @@ export class InputFieldChannelComponent {
     } else {
       this.service.inputFilled = false;
     }
-    console.log(this.service.inputFilled);
-
   }
 
 

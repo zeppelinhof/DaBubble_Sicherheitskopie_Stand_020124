@@ -67,22 +67,22 @@ button {
 
 .btn-wrap {
   display: flex;
-  justify-content: flex-end;
-
-  .btn-purple {
-    display: flex;
-    justify-content: center;
-    background-color: $purple3;
-    border-radius: 25px;
-    padding: 12px 25px;
-    color: white;
-    cursor: pointer;
-  }
+  justify-content: flex-end;  
 
   .btn-grey {
     @extend .btn-purple;
     background-color: $grey;
   }
+}
+
+.btn-purple {
+  display: flex;
+  justify-content: center;
+  background-color: $purple3;
+  border-radius: 25px;
+  padding: 12px 25px;
+  color: white;
+  cursor: pointer;
 }
 
 #emoji-container {
@@ -410,7 +410,7 @@ button {
   transform-origin: left top;
   white-space: nowrap;
   /* Damit wird der Text in einer einzigen horizontalen Linie angezeigt */
-  box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);
+  box-shadow: -4px 4px 7px rgba(0, 0, 0, 0.2);  
   cursor: pointer;
   transition: 100ms;
   z-index: 10;
@@ -433,6 +433,47 @@ button {
     }
   }
 }
+
+.circle-wrap {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.circle-rotating {
+  width: 40px;
+  height: 40px;
+  // background-image: conic-gradient(#f00, #ff0, #0ff, #00f);
+  background-image: url(/assets/imgs/workspace_logo.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  cursor: pointer;
+  animation: rotate 0.5s infinite linear paused;
+
+  @keyframes rotate {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  &:hover {
+    animation-play-state: running;
+  }
+}
+
+.circle-rotating {
+  rotate: 0deg;
+  transition: rotate 3s cubic-bezier(0.5, 1, 1, 1);
+}
+
+.circle-rotating:hover {
+  rotate: -720deg;
+}
+
 // responsive
 @media (max-width: 1458px) {
   .side-right-container {

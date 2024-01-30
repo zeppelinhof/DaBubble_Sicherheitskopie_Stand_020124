@@ -59,7 +59,7 @@
         </div>
 
         <div class="options">
-          <div class="option" (click)="changeRadioButton()">
+          <div *ngIf="ws.getChannels()[0]" class="option" (click)="changeRadioButton()">
             <div class="radio-wrap">
               <img
                 *ngIf="!this.ws.radioButtonFirst"
@@ -74,7 +74,7 @@
                 <span
                   (click)="sis.addMembersFromFirstChannel()"
                   class="first-channel-name"
-                  >{{ sis.getChannels()[0].name }}</span
+                  >{{ ws.getChannels()[0].name }}</span
                 >
                 hinzufügen
               </div>

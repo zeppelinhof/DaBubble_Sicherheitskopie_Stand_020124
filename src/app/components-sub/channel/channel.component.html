@@ -187,7 +187,7 @@
             );
             switchShowAddMembersInExistingChannel();
             additionalMembers = []
-          " class="btn-grey">
+          " class="btn-grey" [ngClass]="{'btn-purple': additionalMembers.length > 1}">
           Hinzufügen
         </div>
       </div>
@@ -208,5 +208,8 @@
       <li>Channels erstellen und beitreten</li>
       <li>Auf spezielle Channel-Nachrichten in Threads antworten</li>
     </ul>
+  </div>
+  <div class="circle-wrap">
+    <div class="circle-rotating"></div>
   </div>
 </div>

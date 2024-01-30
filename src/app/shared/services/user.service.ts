@@ -58,10 +58,10 @@ export class UserService {
     let docRef = await this.getSingleDocRef('allUsers', user.customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       })
       .then(() => {
-        console.log('user updated');
+        return
       });
   }
 
@@ -69,10 +69,10 @@ export class UserService {
     let docRef = this.getSingleDocRef('allUsers', customId);
     await updateDoc(docRef, newValue)
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       })
       .then(() => {
-        console.log('user updated');
+        return
       });
   }
 
