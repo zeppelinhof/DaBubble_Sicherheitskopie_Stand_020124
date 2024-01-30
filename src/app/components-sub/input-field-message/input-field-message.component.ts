@@ -131,9 +131,8 @@ export class InputFieldMessageComponent {
           this.storService.getUrlFromStorage(),
         ),
       );
-    } finally {
-      console.log('updated');
-      
+    } catch(err) {
+      return    
     }
   }
   
