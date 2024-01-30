@@ -2,14 +2,14 @@
   <div class="header">
     <span>Dein Profil bearbeiten</span>
     <img
-      *ngIf="!closeIsHovered"
+      *ngIf="!closeIsHovered && isDesktop"
       (mouseover)="closeIsHovered = true"
       (mouseout)="closeIsHovered = false"
       src="/assets/icons/close.png"
       alt="icon to close dialog"
     />
     <img
-      *ngIf="closeIsHovered"
+      *ngIf="closeIsHovered && isDesktop"
       (mouseover)="closeIsHovered = true"
       (mouseout)="closeIsHovered = false"
       (click)="
@@ -17,6 +17,17 @@
         settingsService.editUserDataIsOpen = false
       "
       src="/assets/icons/close-purple.png"
+      alt="icon to close dialog"
+    />
+    <img
+      *ngIf="!isDesktop"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="
+        settingsService.menuIsOpen = true;
+        settingsService.editUserDataIsOpen = false
+      "
+      src="/assets/icons/close.png"
       alt="icon to close dialog"
     />
   </div>

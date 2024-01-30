@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 })
 export class SettingsEditUserDataComponent {
   closeIsHovered: boolean = false;
+  isDesktop = window.innerWidth > 768;
 
   constructor(
     public userService: UserService,

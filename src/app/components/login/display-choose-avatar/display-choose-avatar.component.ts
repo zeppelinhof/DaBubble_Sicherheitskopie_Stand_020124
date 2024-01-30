@@ -12,6 +12,7 @@ import { AnimationsService } from 'src/app/shared/services/animations.service';
 })
 export class DisplayChooseAvatarComponent {
   arrowBackIsHovered: boolean = false;
+  isDesktop = window.innerWidth > 768;
   newUser: User = new User();
   choosenAvatar: string | null = null;
   showNoImage: boolean = false;
@@ -76,7 +77,6 @@ export class DisplayChooseAvatarComponent {
     this.animations.newUserSuccess = true;
     setTimeout(() => {
       this.animations.newUserSuccess = false;
-
       this.auth.signUp(this.newUser, this.password);
       document.body.style.overflow = 'unset';
       this.selectedFile = null;

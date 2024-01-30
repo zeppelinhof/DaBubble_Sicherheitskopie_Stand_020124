@@ -10,6 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SettingsUserDataMessageComponent {
   closeIsHovered: boolean = false;
+  isDesktop = window.innerWidth > 768;
   @Input() userName: string = '';
   @Input() userEmail: string = '';
   @Input() userId: string = '';

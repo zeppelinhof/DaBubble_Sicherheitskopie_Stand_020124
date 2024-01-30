@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./display-reset-pw-enter-pw.component.scss'],
 })
 export class DisplayResetPwEnterPwComponent {
+  isDesktop = window.innerWidth > 768;
   passwort: string = '';
   passwortConfirm: string = '';
   arrowBackIsHovered: boolean = false;

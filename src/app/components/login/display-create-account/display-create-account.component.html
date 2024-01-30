@@ -1,19 +1,27 @@
 <section>
   <div class="headline-container">
     <img
-      *ngIf="!arrowBackIsHovered"
+      *ngIf="!arrowBackIsHovered && isDesktop"
       (mouseover)="arrowBackIsHovered = true"
       (mouseout)="arrowBackIsHovered = false"
       src="assets/icons/arrow_back.png"
       alt="icon of black arrow"
     />
     <img
-      *ngIf="arrowBackIsHovered"
+      *ngIf="arrowBackIsHovered && isDesktop"
       (mouseover)="arrowBackIsHovered = true"
       (mouseout)="arrowBackIsHovered = false"
       routerLink="/login"
       src="assets/icons/arrow_back_purple.png"
       alt="icon of purple arrow"
+    />
+    <img
+      *ngIf="!isDesktop"
+      (mouseover)="arrowBackIsHovered = true"
+      (mouseout)="arrowBackIsHovered = false"
+      src="assets/icons/arrow_back.png"
+      alt="icon of black arrow"
+      routerLink="/login"
     />
     <div>Konto erstellen</div>
   </div>

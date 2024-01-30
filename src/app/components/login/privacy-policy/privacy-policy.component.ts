@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-privacy-policy',
@@ -8,15 +8,10 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class PrivacyPolicyComponent {
   arrowBackIsHovered: boolean = false;
-  constructor(private router: Router) {
-    this.handleBackButton();
-  }
+  isDesktop = window.innerWidth > 768;
+  constructor(private location: Location) {}
 
-  private handleBackButton() {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        //hier hinzufügen, was passieren soll, wenn Route geändert wurde - nichts
-      }
-    });
+  backToPreviousRoute(): void {
+    this.location.back();
   }
 }

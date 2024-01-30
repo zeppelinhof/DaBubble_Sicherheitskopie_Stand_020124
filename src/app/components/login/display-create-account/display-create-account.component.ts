@@ -12,6 +12,7 @@ import { Component, inject } from '@angular/core';
 })
 export class DisplayCreateAccountComponent {
   arrowBackIsHovered: boolean = false;
+  isDesktop = window.innerWidth > 768;
   user: User = new User();
   sighUpSuccess: boolean | null = null;
 

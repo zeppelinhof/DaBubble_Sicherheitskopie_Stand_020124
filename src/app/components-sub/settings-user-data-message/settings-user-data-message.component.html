@@ -2,7 +2,7 @@
   <div class="header">
     <span>Profil</span>
     <img
-      *ngIf="!closeIsHovered"
+      *ngIf="!closeIsHovered && isDesktop"
       (mouseover)="closeIsHovered = true"
       (mouseout)="closeIsHovered = false"
       (click)="settingsService.closeMenu()"
@@ -10,11 +10,19 @@
       alt="icon to close dialog"
     />
     <img
-      *ngIf="closeIsHovered"
+      *ngIf="closeIsHovered && isDesktop"
       (mouseover)="closeIsHovered = true"
       (mouseout)="closeIsHovered = false"
       (click)="settingsService.closeMenu()"
       src="/assets/icons/close-purple.png"
+      alt="icon to close dialog"
+    />
+    <img
+      *ngIf="!isDesktop"
+      (mouseover)="closeIsHovered = true"
+      (mouseout)="closeIsHovered = false"
+      (click)="settingsService.closeMenu()"
+      src="/assets/icons/close.png"
       alt="icon to close dialog"
     />
   </div>

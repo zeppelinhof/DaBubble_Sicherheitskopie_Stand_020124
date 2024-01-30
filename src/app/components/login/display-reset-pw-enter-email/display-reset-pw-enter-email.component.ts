@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
 })
 export class DisplayResetPwEnterEmailComponent {
   arrowBackIsHovered: boolean = false;
+  isDesktop = window.innerWidth > 768;
   userId: string = '';
   emailWasSent = false;
 
