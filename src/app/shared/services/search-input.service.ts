@@ -1,3 +1,8 @@
+/**
+ * Der Service für die Sucheingabe, der Funktionen zur Verfügung stellt, um Mitglieder und Nachrichten zu filtern,
+ * Kanäle zu erstellen und Fenster zu schließen.
+ */
+
 import { Injectable } from '@angular/core';
 
 import { ChannelService } from './channel.service';
@@ -32,6 +37,12 @@ export class SearchInputService {
     return this.cs.myChannels;
   }
 
+  /**
+   * Überprüft, ob alle Felder für die Kanalerstellung ausgefüllt sind.
+   *
+   * @param {User} userLoggedIn - Der angemeldete Benutzer.
+   * @returns {Boolean} - True, wenn alle Felder ausgefüllt sind; sonst false.
+   */
   allFieldsFilled(userLoggedIn: User): Boolean {
     if (this.newChannelAlreadyExists()) {
       // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
@@ -51,10 +62,20 @@ export class SearchInputService {
     return this.ws.inputName != '' && this.ws.inputDescription != '';
   }
 
+  /**
+   * Überprüft, ob bereits ein neuer Kanal existiert.
+   *
+   * @returns {Boolean} - True, wenn ein neuer Kanal existiert; sonst false.
+   */
   newChannelAlreadyExists() {
     return this.cs.newChannel && this.cs.newChannel.members.length > 0;
   }
 
+  /**
+   * Filtert Mitglieder basierend auf dem eingegebenen Suchbegriff.
+   *
+   * @param {User[]} existingMembers - Die bereits ausgewählten Mitglieder.
+   */
   filterMembers(existingMembers: User[]) {
     this.ws.showAddMembers = true;
     const searchTerm = this.ws.inputMember.toLowerCase();
@@ -73,12 +94,20 @@ export class SearchInputService {
     });
   }
 
+  /**
+   * Filtert relevante Daten basierend auf dem eingegebenen Suchbegriff.
+   */
   filterCodeLearning() {
     this.ws.globalResults = true;
     const searchTerm = this.ws.inputGlobalSearch.toLowerCase();
     this.relevantData(searchTerm);
   }
 
+  /**
+ * Filtert relevante Daten basierend auf dem eingegebenen Suchbegriff und aktualisiert die Liste der gefilterten Nachrichten.
+ *
+ * @param {string} searchTerm - Der eingegebene Suchbegriff.
+ */
   relevantData(searchTerm: string) {
     this.filteredMessages = this.relevantDirectMessages(
       this.us.userLoggedIn(),
@@ -88,6 +117,13 @@ export class SearchInputService {
       .concat(this.relevantThreadMessages(searchTerm)); // relevante Thread-Nachrichten anhängen
   }
 
+  /**
+ * Filtert relevante Direkt-Nachrichten basierend auf dem eingegebenen Suchbegriff und gibt eine Liste der gefundenen Nachrichten zurück.
+ *
+ * @param {User} userLoggedIn - Der eingeloggte Benutzer.
+ * @param {string} searchTerm - Der eingegebene Suchbegriff.
+ * @returns {any[]} - Eine Liste der relevanten Direkt-Nachrichten.
+ */
   relevantDirectMessages(userLoggedIn: User, searchTerm: string): any[] {
     let messagesList = [];
     if (userLoggedIn.chats) {
@@ -142,6 +178,13 @@ export class SearchInputService {
     return relevantThreadMessages;
   }
 
+  /**
+ * Überprüft, ob ein Mitglied mit der angegebenen E-Mail-Adresse bereits in der Liste vorhandener Mitglieder enthalten ist.
+ *
+ * @param {string} email - Die E-Mail-Adresse des zu überprüfenden Mitglieds.
+ * @param {User[]} existingMembers - Die Liste der bereits ausgewählten Mitglieder.
+ * @returns {boolean} - `true`, wenn das Mitglied bereits ausgewählt ist, andernfalls `false`.
+ */
   memberAlreadySelected(email: string, existingMembers: User[]): boolean {
     const members = existingMembers;
     if (members) {
@@ -156,6 +199,11 @@ export class SearchInputService {
     return true;
   }
 
+  /**
+   * Fügt ein Mitglied zur Liste neuer Kanalmitglieder hinzu.
+   *
+   * @param {User} user - Das hinzuzufügende Mitglied.
+   */
   addMember(user: User) {
     this.cs.newChannel.members?.push(user);
   }
@@ -172,6 +220,11 @@ export class SearchInputService {
     }
   }
 
+  /**
+ * Aktualisiert die Liste der gefilterten Mitglieder nach einer Verzögerung von 1000 Millisekunden.
+ *
+ * @param {User[]} existingMembers - Die Liste der bereits ausgewählten Mitglieder.
+ */
   refreshMemberList(existingMembers: User[]) {
     setTimeout(() => {
       if (this.ws.showAddMembers) {
@@ -180,6 +233,11 @@ export class SearchInputService {
     }, 1000);
   }
 
+  /**
+ * Aktualisiert die Liste der gefilterten Nachrichten nach einer Verzögerung von 1000 Millisekunden.
+ *
+ * @param {User[]} existingMembers - Die Liste der bereits ausgewählten Mitglieder.
+ */
   refreshMessageList(existingMembers: User[]) {
     setTimeout(() => {
       if (this.ws.showAddMembers) {
@@ -196,6 +254,9 @@ export class SearchInputService {
     this.ws.inputMember = '';
   }
 
+  /**
+ * Fügt Mitglieder aus dem ersten Kanal in dem eingeloggter User Mitglied ist hinzu, wenn vorhanden.
+ */
   addMembersFromFirstChannel() {
     if (this.ws.getChannels()[0].members) {
       for (let member of this.ws.getChannels()[0].members) {

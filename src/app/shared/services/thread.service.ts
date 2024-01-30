@@ -7,7 +7,6 @@ import { ChannelService } from './channel.service';
 import { MessageTime } from 'src/app/models/message-time';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { StorageService } from './storage.service';
-import { InputService } from './input.service';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { Router } from '@angular/router';
 import { WorkspaceService } from './workspace.service';
@@ -18,12 +17,12 @@ import { WorkspaceService } from './workspace.service';
 export class ThreadService {
   clickedChannel!: Channel;
   threadVisible: boolean = false;
-  
+
   constructor(private ws: WorkspaceService, private router: Router, private us: UserService, private cs: ChannelService, public storService: StorageService, private resService: ResponsiveService) { }
 
-
-  
-
+  /**
+   * Setzt die Topic-Nachricht für den aktuellen Thread.
+   */
   setTopicMessage() {
     let topicThread: ThreadInterface =
     {
@@ -34,11 +33,15 @@ export class ThreadService {
       createdTime: this.cs.clickedMessage.value.createdTime,
       file: this.cs.clickedMessage.value.file
     }
-    
+
     this.addThreadmessage(topicThread, this.cs.clickedChannel.value, this.cs.clickedMessage.value);
     this.threadVisible = true;
   }
 
+  /**
+   * Erstellt oder zeigt den Thread für die angegebene Nachricht.
+   * @param data - Die Nachricht, für die der Thread erstellt oder angezeigt werden soll.
+   */
   createOrShowThread(data: Message) {
     this.cs.clickedMessage.next(data);
     this.clickedChannel = this.clickedChannel;
@@ -47,9 +50,13 @@ export class ThreadService {
       this.setTopicMessage();
     }
     // this.resService.closeRouter();
-    
+
   }
 
+  /**
+   * Zeigt alle Threads für die angegebene Nachricht.
+   * @param data - Die Nachricht, für die die Threads angezeigt werden sollen.
+   */
   showThreads(data: Message) {
     this.ws.threadContainerIsVisible = true;
     this.cs.clickedMessage.next(data);
@@ -57,9 +64,10 @@ export class ThreadService {
     this.threadVisible = true;
   }
 
-
-  
-
+  /**
+   * Fügt eine Thread-Antwort basierend auf dem angegebenen Eingabewert hinzu.
+   * @param input - Die Eingabe für die Thread-Antwort.
+   */
   addThreadAnswer(input: string) {
     let threadAnswer: ThreadInterface =
     {
@@ -78,9 +86,14 @@ export class ThreadService {
     }
 
     this.addThreadmessage(threadAnswer, this.clickedChannel, this.cs.clickedMessage.value);
-    
   }
 
+  /**
+   * Fügt eine Thread-Nachricht hinzu.
+   * @param thread - Das Thread-Objekt, das hinzugefügt werden soll.
+   * @param clickedChannel - Das ausgewählte Channel-Objekt.
+   * @param msgDta - Die Nachricht, für die der Thread hinzugefügt wird.
+   */
   addThreadmessage(thread: ThreadInterface, clickedChannel: Channel, msgDta: Message) {
     // messageData kommt von Direktnachrichten; msgDta von Channel-Nachrichten
     this.cs.updateChannel({ allMessages: this.allThreadsWithNewThreadmessage(thread, clickedChannel, msgDta) }, clickedChannel);
@@ -88,6 +101,13 @@ export class ThreadService {
     this.ws.showEmojis = !this.ws.showEmojis;
   }
 
+  /**
+   * Gibt alle Nachrichten mit der neuen Thread-Nachricht zurück.
+   * @param thread - Das Thread-Objekt, das hinzugefügt werden soll.
+   * @param chatroom - Das Chatroom-Objekt.
+   * @param messageData - Die Nachricht, für die der Thread hinzugefügt wird.
+   * @returns Ein Array mit allen Nachrichten, einschließlich der neuen Thread-Nachricht.
+   */
   allThreadsWithNewThreadmessage(thread: ThreadInterface, chatroom: any, messageData: Message) {
     this.ws.allChatsTemp = [];
     if (chatroom.allMessages) {
@@ -103,6 +123,13 @@ export class ThreadService {
     return this.ws.allChatsTemp;
   }
 
+  /**
+   * Verarbeitet die Threads mit der neuen Thread-Nachricht.
+   * @param thread - Das Thread-Objekt, das hinzugefügt werden soll.
+   * @param chat - Die Chat-Nachricht, die überprüft wird.
+   * @param messageClickedId - Die Nachrichten-ID, für die der Thread hinzugefügt wird.
+   * @param messageDBId - Die Datenbank-ID der Nachricht.
+   */
   threatsWithNewThreat(thread: ThreadInterface, chat: Message, messageClickedId: number, messageDBId: number) {
     // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
     // so soll die neue Nachricht eingetragen werden.
