@@ -89,7 +89,7 @@ export class WorkspaceService {
         );
         return onlyMyChannels;
       }
-    } catch(err){
+    } catch (err) {
       console.error('Keine bearbeitbaren Channels.');
       return [];
     }
@@ -272,29 +272,33 @@ export class WorkspaceService {
 
   // für Global Search
   scrollToElementByContent(content: string, type: string) {
-    // zu Threadnachricht scrollen
-    if (type === 'threadMessage') {
-      let sideRightContainer = document.getElementsByClassName('side-right-container');
-      let elements = sideRightContainer[0].getElementsByClassName('thread-message-container');
+    try {
+      // zu Threadnachricht scrollen
+      if (type === 'threadMessage') {
+        let sideRightContainer = document.getElementsByClassName('side-right-container');
+        let elements = sideRightContainer[0].getElementsByClassName('thread-message-container');
 
-      for (let i = 0; i < elements.length; i++) {
-        let element = elements[i];
-        if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          break;
+        for (let i = 0; i < elements.length; i++) {
+          let element = elements[i];
+          if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            break;
+          }
+        }
+        // zu Direktnachricht oder Channelnachricht scrollen
+      } else {
+        let elements = document.getElementsByClassName('thread-message-container');
+
+        for (let i = 0; i < elements.length; i++) {
+          let element = elements[i];
+          if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            break;
+          }
         }
       }
-      // zu Direktnachricht oder Channelnachricht scrollen
-    } else {
-      let elements = document.getElementsByClassName('thread-message-container');
-
-      for (let i = 0; i < elements.length; i++) {
-        let element = elements[i];
-        if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          break;
-        }
-      }
+    } catch{
+      return
     }
   }
 
