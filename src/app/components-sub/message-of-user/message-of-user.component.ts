@@ -11,6 +11,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { InputService } from 'src/app/shared/services/input.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-message-of-user',
@@ -40,7 +41,8 @@ export class MessageOfUserComponent {
     public storService: StorageService,
     public ts: ThreadService,
     public is: InputService,
-    public auth: AuthenticationService
+    public auth: AuthenticationService,
+    public respService: ResponsiveService,
   ) {}
 
   ngOnInit(): void {

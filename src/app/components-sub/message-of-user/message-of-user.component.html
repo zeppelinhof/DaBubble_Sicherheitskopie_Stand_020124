@@ -129,7 +129,7 @@
 <div *ngIf="hasAnswers()" class="link-to-answers" [ngClass]="{
     'left-0': !checkIfOwnMessage(),
     'flex-end': checkIfOwnMessage()
-  }" (click)="ts.showThreads(this.data); ws.scrollToBottom('scrollThreadMessages')">
+  }" (click)="this.respService.onlyThread(); ts.showThreads(this.data); ws.scrollToBottom('scrollThreadMessages')">
   <div class="answer-amount-wrap">
     <div class="amount">{{ data.threads.length - 1 }}</div>
     <div *ngIf="data.threads.length == 2">Antwort</div>
