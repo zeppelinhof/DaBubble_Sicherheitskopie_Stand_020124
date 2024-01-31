@@ -98,15 +98,7 @@
     </app-message-reaction>
   </div>
 
-  <div class="imagePreview" *ngIf="this.imagePreview">
-    <div (click)="this.imagePreview = false" class="close-icon-container">
-      <img class="close-icon-normal" src="assets/icons/close.png" />
-      <img class="close-icon-purple" src="assets/icons/close_purple.png" />
-    </div>
-    <img [src]="
-        this.data.file || this.messageData.file || this.threadMessageData.file
-      " />
-  </div>
+  
 </div>
 
 <div class="message-reactions-wrap" [ngClass]="{ 'flex-end': checkIfOwnMessage() }">
@@ -149,4 +141,14 @@
       {{ data.threads[data.threads.length - 1].createdTime["fullDay"] }}
     </div>
   </div>
+</div>
+
+<div (click)="this.imagePreview = false" class="imagePreview" *ngIf="this.imagePreview">
+  <div (click)="this.imagePreview = false" class="close-icon-container">
+    <img class="close-icon-normal" src="assets/icons/close.png" />
+    <img class="close-icon-purple" src="assets/icons/close_purple.png" />
+  </div>
+  <img [src]="
+      this.data.file || this.messageData.file || this.threadMessageData.file
+    " />
 </div>

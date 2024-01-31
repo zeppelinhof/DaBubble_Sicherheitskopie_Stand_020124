@@ -84,9 +84,9 @@
     <!-- hier eingefügt -->
     <div *ngIf="arrowClickedContacts" class="control-scroll-area">
       <div *ngIf="arrowClickedContacts" class="list-container-contacts">
-        <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
+        <div (click)="this.respService.onlyMessage()" *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
           <div style="position: relative;">
-            <div class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
+            <div  class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
               <div class="container-user-img">
                 <img class="profile-image" [src]="this.us.getUserImage(user.customId)" />
                 <div *ngIf="us.getUserOnlineStats(user.customId) === 'online'" class="online"></div>

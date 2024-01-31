@@ -37,6 +37,18 @@ export class ResponsiveService {
     }
 
   }
+  onlyMessage() {
+    if (window.innerWidth < 960) {
+      this.sideLeftVisible = false;
+      this.routerIsVisible = true;
+      this.sideRightVisible = false;
+    } else{ 
+      this.routerIsVisible = true;
+      this.sideRightVisible = false;
+    }
+
+  }
+
   onlyThread() {
     if (window.innerWidth < 1200) {
       this.sideLeftVisible = false;

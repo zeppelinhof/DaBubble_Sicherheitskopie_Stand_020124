@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { MessageOfUserComponent } from '../message-of-user/message-of-user.component';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 
 @Component({
   selector: 'app-message',
@@ -28,7 +29,8 @@ export class MessageComponent {
     public us: UserService,
     public cs: ChannelService,
     public ws: WorkspaceService,
-    public settingsService: UserSettingsService
+    public settingsService: UserSettingsService,
+    public repsService: ResponsiveService
   ) {}
 
   ngOnInit(): void {

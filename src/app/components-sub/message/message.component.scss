@@ -126,6 +126,18 @@
   z-index: 90;
 }
 
+.arrow-back-mobile{
+  cursor: pointer;
+  height: 22px !important;
+  width: 22px !important;
+  padding: 5px;
+  object-fit: cover;
+  &:hover{ 
+    background-color: rgb(236,238,254);
+    
+  }
+}
+
 .div-user-profile {
   position: absolute;
   top: 0;
@@ -153,6 +165,13 @@
   }
 }
 
+
+@media (max-width: 610px) {
+  .message-header-container{
+    padding: 12px;
+  }
+}
+
 @media (max-width: 500px) {
   app-settings-user-data-message {
     width: 100%;
@@ -161,3 +180,5 @@
     align-items: center;
   }
 }
+
+
