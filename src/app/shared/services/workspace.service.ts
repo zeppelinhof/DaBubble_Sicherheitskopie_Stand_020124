@@ -129,7 +129,7 @@ export class WorkspaceService {
  * Aktualisiert zusätzlich den Status der Werte für Mitglieder und die Sichtbarkeit des Workspace-Buttons.
  */
   openCloseCreateChannel() {
-    this.showCreateChannel = this.showCreateChannel ? false : true;
+    this.showCreateChannel = !this.showCreateChannel;
     this.addMemberClearValues();
     this.workspaceButtonVisible = !this.workspaceButtonVisible;
   }
