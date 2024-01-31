@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
 import { User } from 'src/app/models/user';
@@ -28,6 +29,7 @@ export class InputFieldMessageComponent {
   loader: boolean = false;
 
   constructor(
+    private router: Router,
     public service: InputService,
     public us: UserService,
     private cs: ChannelService,
@@ -40,8 +42,11 @@ export class InputFieldMessageComponent {
     this.getCurrentUser();
 
     this.ws.getEnterKeyPress().subscribe(event => {
-      // sendDirectMessage aufrufen, wenn die Enter-Taste gedrückt wird
-      this.sendDirectMessage();
+      // sendDirectMessage aufrufen, wenn die Enter-Taste gedrückt wird    
+      if (this.router.url === '/dashboard/new-message') {
+        this.router.navigate(['dashboard', 'message']);               
+      }
+      this.sendDirectMessage(); 
     });
   }
 
@@ -65,7 +70,7 @@ export class InputFieldMessageComponent {
         this.us.userLoggedIn()
       );
       this.clearAll();
-      this.ws.scrollToBottom('scrollDirectMessages') 
+      this.ws.scrollToBottom('scrollDirectMessages')
     }
   }
 
@@ -77,7 +82,7 @@ export class InputFieldMessageComponent {
       allChats.push(chat);
     }
     allChats.push(this.addNewMessage(messageId));
-    
+
     return allChats;
   }
 
@@ -90,7 +95,7 @@ export class InputFieldMessageComponent {
     this.service.inputFilled = false;
 
   }
-  
+
   // clean help-functions 
   clearUrl() {
     this.storService.channelCurrentUrl = "";
@@ -131,11 +136,11 @@ export class InputFieldMessageComponent {
           this.storService.getUrlFromStorage(),
         ),
       );
-    } catch(err) {
-      return    
+    } catch (err) {
+      return
     }
   }
-  
+
 
   // Für emojis und @
   addEmoji($event: any) {
@@ -175,21 +180,21 @@ export class InputFieldMessageComponent {
     }
 
   }
-  endLoading(){
+  endLoading() {
     this.loader = true;
-    setTimeout(() =>{
+    setTimeout(() => {
       this.loader = false;
     }, 1200)
   }
   btnVisible(): void {
     this.service.isWritingMessage = true;
-    
-    
-    
+
+
+
   }
   btnNotVisible(): void {
     this.service.isWritingMessage = false;
-    
+
 
   }
 }
