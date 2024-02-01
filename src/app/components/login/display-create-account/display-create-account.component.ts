@@ -39,25 +39,27 @@ export class DisplayCreateAccountComponent {
    * Handles the form submission if the form is valid, contains a dot in the email, and the user does not already exist.
    * If all conditions are met, the user is registered in Firebase Authentication.
    */
-  submit(): void {
+  submit() {
     if (
       this.signUpFormIsValid() &&
       this.checkInputEmailContainsDot() &&
       !this.userIsAlreadyExisting()
     ) {
-      this.saveDataAndShowAvatarRoute();
+      this.saveDataAndNavigateToAvatarRoute();
     }
   }
 
   /**
    * Checks if the signup form is valid.
+   * @returns {boolean} - True if form is valid.
    */
   signUpFormIsValid(): boolean {
     return this.signUpForm.valid;
   }
 
   /**
-   * Checks if the email in the signup form contains a dot. Firebase requires a dot in the domain part of the email.
+   * Checks if the email in the signup form contains a dot and @.
+   * @returns {boolean} - True if email is valid.
    */
   checkInputEmailContainsDot(): boolean {
     const emailInputField = this.signUpForm.get('email');
@@ -72,6 +74,7 @@ export class DisplayCreateAccountComponent {
 
   /**
    * Checks if the user with the provided signup email already exists.
+   * @returns {boolean} - True if user is existing.
    */
   userIsAlreadyExisting(): boolean {
     const emailInputField = this.signUpForm.get('email').value;
@@ -84,7 +87,7 @@ export class DisplayCreateAccountComponent {
   /**
    * Saves user data to the local storage and navigates to the 'choose-avatar' route.
    */
-  saveDataAndShowAvatarRoute(): void {
+  saveDataAndNavigateToAvatarRoute() {
     const { name, email, password } = this.signUpForm.value;
     localStorage.setItem('signUpName', this.signUpForm.get('name').value);
     localStorage.setItem('signUpEmail', this.signUpForm.get('email').value);
