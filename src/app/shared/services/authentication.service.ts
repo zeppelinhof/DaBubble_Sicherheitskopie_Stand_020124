@@ -78,6 +78,10 @@ export class AuthenticationService {
       });
   }
 
+  /**
+   * Sends a default message and updates the chat for the new user.
+   * @returns {Message[]} - An array containing the sent default message.
+   */
   sendDefaultMessage() {
     let messageId = Date.now();
     let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1';
@@ -114,6 +118,12 @@ export class AuthenticationService {
     signInWithRedirect(auth, provider);
   }
 
+  /**
+   * Retrieves user data from Google authentication.
+   * Uses GoogleAuthProvider and Auth to get the user's information.
+   * Checks if the user is new and updates the logged Google user details accordingly.
+   * @returns {Promise<void>} - A promise that resolves when the user data retrieval is complete.
+   */
   async getGoogleUserData() {
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
@@ -135,6 +145,11 @@ export class AuthenticationService {
       });
   }
 
+  /**
+   * Checks if the Google-authenticated user is new based on their email.
+   * Queries the user collection with the provided email and adds the user if not found.
+   * @param {string | null} emailToBeChecked - The email to be checked for new user status.
+   */
   async checkIfNewGoogleUser(emailToBeChecked: string | null) {
     const qu = query(this.allUserCol, where('email', '==', emailToBeChecked));
     onSnapshot(qu, (querySnapshot) => {
@@ -149,6 +164,10 @@ export class AuthenticationService {
     });
   }
 
+  /**
+   * Adds a new Google-authenticated user to the database.
+   * Initializes user chats with a default message and sends user data to the database.
+   */
   addNewGoogleUser() {
     this.loggedGoggleUser.chats = this.sendDefaultMessage();
     this.userService.sendDocToDB(this.loggedGoggleUser);
@@ -157,12 +176,11 @@ export class AuthenticationService {
   /**
    * Logs in a user with the provided email and password.
    * Navigates to the '/dashboard' route after successful login.
-   *
    * @param {string} email - The email of the user.
    * @param {string} password - The password of the user.
    * @param {string | null} name - The name of the new signed user (can be a string or null).
    */
-  login(email: string, password: string, updateUser?: 'updateUser') {
+  login(email: string, password: string) {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -177,7 +195,7 @@ export class AuthenticationService {
   }
 
   /**
-   * Checks if a user is logged in. If logged in, navigates to path.
+   * Checks if a user is logged in and navigates to path.
    */
   async checkIfUserIslogged() {
     const auth = getAuth();
@@ -206,10 +224,14 @@ export class AuthenticationService {
     this.setOnlineStatus();
   }
 
+  /**
+   * Sets the online status for the logged-in user with a 2.5-second delay.
+   * Updates the user's status to 'online' after the delay.
+   */
   setOnlineStatus() {
     setTimeout(() => {
       this.userService.updateUser({ status: 'online' }, this.loggedUser);
-    }, 2000);
+    }, 2500);
   }
 
   /**
