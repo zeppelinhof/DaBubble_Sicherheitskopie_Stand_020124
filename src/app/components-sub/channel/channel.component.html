@@ -180,14 +180,7 @@
       </div>
 
       <div class="btn-wrap">
-        <div (click)="
-            cs.updateChannel(
-              { members: cs.getCleanMemberJson(additionalMembers) },
-              clickedChannel
-            );
-            switchShowAddMembersInExistingChannel();
-            additionalMembers = []
-          " class="btn-grey" [ngClass]="{'btn-purple': additionalMembers.length > 1}">
+        <div (click)="addAMember()" class="btn-grey" [ngClass]="{'btn-purple': additionalMembers.length > 1}">
           Hinzufügen
         </div>
       </div>

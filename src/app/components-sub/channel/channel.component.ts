@@ -82,7 +82,7 @@ export class ChannelComponent {
     this.ws.inputMember = '';
   }
 
-  addPreviousMembers() {
+  addPreviousMembers() {    
     // additionalMembers nimmt die zusätzlichen Members auf und fügt die bisherigen Members (einmal) hinzu
     if (!this.previousAdded) {
       this.previousAdded = true;
@@ -90,6 +90,7 @@ export class ChannelComponent {
         this.additionalMembers.push(member);
       });
     }
+    this.previousAdded = false;
   }
   previewNumberMembers(): string {
     let numberMembers = this.clickedChannel.members.length;
@@ -112,5 +113,15 @@ export class ChannelComponent {
       this.clickedChannel
     );
     this.changeDescriptionToInput();
+  }
+
+  addAMember(){
+    debugger
+    this.cs.updateChannel(
+      { members: this.cs.getCleanMemberJson(this.additionalMembers) },
+      this.clickedChannel
+    );
+    this.switchShowAddMembersInExistingChannel();
+    this.additionalMembers = []
   }
 }
