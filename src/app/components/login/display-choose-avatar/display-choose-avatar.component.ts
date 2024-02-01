@@ -40,12 +40,12 @@ export class DisplayChooseAvatarComponent {
     this.checkDataLocalStorage();
   }
 
+  /**
+   * Checks if user provided necessary account data;
+   * navigates to login if not, sets new user data otherwise.
+   */
   checkDataLocalStorage() {
-    if (
-      !localStorage.getItem('signUpPassword') ||
-      !localStorage.getItem('signUpName') ||
-      !localStorage.getItem('signUpEmail')
-    ) {
+    if (this.userProvidedNoAccountData()) {
       this.router.navigate(['login/display-login']);
     } else {
       this.setNewUserData();
@@ -53,73 +53,112 @@ export class DisplayChooseAvatarComponent {
   }
 
   /**
-   * Sets the chosen avatar image path.
-   * @param imagePath - The path of the selected avatar image.
+   * Checks if user provided necessary account data.
+   * @returns {boolean} - True if account data is missing, false otherwise.
    */
-  setAvatarImage(imagePath: string): void {
-    this.choosenAvatar = imagePath;
-    this.resetUploadedImage();
+  userProvidedNoAccountData() {
+    return (
+      !localStorage.getItem('signUpPassword') ||
+      !localStorage.getItem('signUpName') ||
+      !localStorage.getItem('signUpEmail')
+    );
   }
 
   /**
-   *
-   * Sets user data, signs up the user using AuthenticationService,
-   * and deletes corresponding data from localStorage.
+   * Sets new user data from local storage.
    */
-  createNewUser(): void {
-    if (this.choosenAvatar) {
-      this.newUser.img = this.choosenAvatar;
-    } else {
-      this.newUser.img = this.storService.channelCurrentUrl;
-    }
-    this.deleteLocalStorage();
-    document.body.style.overflow = 'hidden';
-    this.animations.setNewUserSuccess(true);
-    setTimeout(() => {
-      this.animations.setNewUserSuccess(false);
-      this.auth.signUp(this.newUser, this.password);
-      this.selectedFile = null;
-      this.storService.channelCurrentUrl = '';
-    }, 1200);
-  }
-
-  /**
-   * Sets new user data based on the values stored in localStorage.
-   */
-  setNewUserData(): void {
+  setNewUserData() {
     this.password = localStorage.getItem('signUpPassword')!;
     this.newUser.name = localStorage.getItem('signUpName')!;
     this.newUser.email = localStorage.getItem('signUpEmail')!;
   }
 
   /**
-   * Deletes signUp-related data from localStorage.
+   * Creates a new user, sets user image, deletes local storage,
+   * shows/hides animation, and signs up the user.
    */
-  deleteLocalStorage(): void {
+  createNewUser(): void {
+    this.setNewUserImage();
+    this.deleteLocalStorage();
+    this.showAnimation();
+    setTimeout(() => {
+      this.hideAnimation();
+      this.signNewUserUp();
+      this.resetUploadedImage();
+    }, 1200);
+  }
+
+  /**
+   * Sets the new user image based on user's choice or.
+   */
+  setNewUserImage() {
+    if (this.choosenAvatar) {
+      this.newUser.img = this.choosenAvatar;
+    } else {
+      this.newUser.img = this.storService.channelCurrentUrl;
+    }
+  }
+
+  /**
+   * Deletes account-related data from local storage.
+   */
+  deleteLocalStorage() {
     localStorage.removeItem('signUpPassword');
     localStorage.removeItem('signUpName');
     localStorage.removeItem('signUpEmail');
   }
 
   /**
-   * Resets the chosen avatar to null.
+   * Shows the success animation and disables body scroll.
+   */
+  showAnimation() {
+    document.body.style.overflow = 'hidden';
+    this.animations.setNewUserSuccess(true);
+  }
+
+  /**
+   * Hides the success animation.
+   */
+  hideAnimation() {
+    this.animations.setNewUserSuccess(false);
+  }
+
+  /**
+   * Signs up the new user.
+   */
+  signNewUserUp() {
+    this.auth.signUp(this.newUser, this.password);
+  }
+
+  /**
+   * Resets the uploaded image data.
+   */
+  resetUploadedImage() {
+    this.storService.channelCurrentUrl = '';
+    this.selectedFile = null;
+  }
+
+  /**
+   * Sets the chosen avatar image and resets the uploaded image.
+   * @param {string} imagePath - The path of the chosen avatar image.
+   */
+  setAvatarImage(imagePath: string) {
+    this.choosenAvatar = imagePath;
+    this.resetUploadedImage();
+  }
+
+  /**
+   * Resets the chosen avatar image.
    */
   resetAvatarImage() {
     this.choosenAvatar = null;
   }
 
   /**
-   * Resets the uploaded image URL in the storage service.
+   * Uploads a new image to storage asynchronously, assigning it a unique name.
+   * @returns {Promise<any>} - A promise that resolves when the upload is complete.
    */
-  resetUploadedImage() {
-    this.storService.channelCurrentUrl = '';
-  }
-
-  /**
-   * Handles the file explorer functionality by uploading the selected file with number to storage.
-   *
-   */
-  async fileExplorer(): Promise<any> {
+  async uploadNewImage(): Promise<any> {
     const inputElement = this.inputUpload.nativeElement as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedFile = inputElement.files[0];
