@@ -10,9 +10,5 @@ export class ImprintComponent {
   arrowBackIsHovered: boolean = false;
   isDesktop = window.innerWidth > 768;
 
-  constructor(private location: Location) {}
-
-  backToPreviousRoute(): void {
-    this.location.back();
-  }
+  constructor(public location: Location) {}
 }
