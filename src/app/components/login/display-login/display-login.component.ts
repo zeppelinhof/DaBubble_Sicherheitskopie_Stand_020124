@@ -36,6 +36,10 @@ export class DisplayLoginComponent {
     this.setBodyOverflow();
   }
 
+  /**
+   * Sets body overflow property based on the current route.
+   * If the current route includes 'display-login', it hides overflow temporarily for animation.
+   */
   setBodyOverflow() {
     const currentRoute = this.router.url;
     if (currentRoute.includes('display-login')) {
@@ -47,7 +51,7 @@ export class DisplayLoginComponent {
   }
 
   /**
-   * Submits the login form, logs in the user if the form is valid, and the user exists.
+   * Submits the login form if valid and the user exists.
    */
   submit() {
     if (this.loginFormIsValid() && this.checkUserIsExisting())
@@ -55,14 +59,16 @@ export class DisplayLoginComponent {
   }
 
   /**
-   * Checks if the signup form is valid.
+   * Checks if the login form is valid.
+   * @returns {boolean} - True if the login form is valid, false otherwise.
    */
   loginFormIsValid(): boolean {
     return this.loginForm.valid;
   }
 
   /**
-   * Checks if the user with the provided login email is existing.
+   * Checks if a user with the provided email exists.
+   * @returns {boolean} - True if the user exists, false otherwise.
    */
   checkUserIsExisting() {
     const emailInputField = this.loginForm.get('email').value;
@@ -73,7 +79,7 @@ export class DisplayLoginComponent {
   }
 
   /**
-   * Logs in the user using the provided email and password from the login form.
+   * Logs in the user with the provided credentials.
    */
   userLogsIn() {
     this.auth.login(
@@ -82,10 +88,8 @@ export class DisplayLoginComponent {
     );
   }
 
-  /////////////////////////////GUEST-LOGIN/////////////////////////////
-
   /**
-   * Sets guest user data by determining the next available guest number + standard name, email and password.
+   * Sets guest user data and signs up and logs in the guest user.
    */
   setGuestData() {
     const maxGuestNumber = this.checkMaxGuestNumber();
@@ -98,17 +102,10 @@ export class DisplayLoginComponent {
   }
 
   /**
-   * Signs up the guest user and logs them in.
-   */
-  guestGetsSignedUpandLoggedIn() {
-    this.auth.signUp(this.newGuestUser, this.newGuestUserPassword);
-  }
-
-  /**
-   * Checks the maximum guest number from existing guest users.
+   * Checks the maximum guest number and returns it.
    * @returns {number} - The maximum guest number.
    */
-  checkMaxGuestNumber() {
+  checkMaxGuestNumber(): number {
     this.getRegisteredGuestNumbers();
     if (this.noGuestUsersRegistered()) {
       return 350;
@@ -118,6 +115,9 @@ export class DisplayLoginComponent {
     }
   }
 
+  /**
+   * Retrieves registered guest numbers.
+   */
   getRegisteredGuestNumbers() {
     this.userService.myUsers.forEach((user) => {
       if (user.name.includes('Gast')) {
@@ -130,10 +130,24 @@ export class DisplayLoginComponent {
     });
   }
 
-  noGuestUsersRegistered() {
+  /**
+   * Checks if there are no guest users registered.
+   * @returns {boolean} - True if no guest users are registered, false otherwise.
+   */
+  noGuestUsersRegistered(): boolean {
     return this.guestNumbers.length === 0;
   }
 
+  /**
+   * Signs up and logs in the guest user.
+   */
+  guestGetsSignedUpandLoggedIn() {
+    this.auth.signUp(this.newGuestUser, this.newGuestUserPassword);
+  }
+
+  /**
+   * Initiates Google login by navigating to the Google screen and signing in with Google.
+   */
   googleLogin() {
     this.router.navigate(['/google-screen']);
     this.auth.signInWithGoogle();
