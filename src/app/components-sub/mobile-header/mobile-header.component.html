@@ -93,7 +93,7 @@
           [routerLink]="getRouterLink(msgData)"
           (click)="sis.clearSearchInput(); openChat(msgData)"
         >
-          <img class="profile-image" src="assets/imgs/userMale3.png" />
+          <img class="profile-image" [src]="this.us.getUserImage(this.msgData.userCustomId)" />
           <div class="name-text">
             <div>{{ messagePreview(msgData) }}</div>
             <div class="searchHitSourceName">

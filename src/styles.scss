@@ -446,12 +446,10 @@ button {
 .circle-rotating {
   width: 40px;
   height: 40px;
-  // background-image: conic-gradient(#f00, #ff0, #0ff, #00f);
   background-image: url("assets/imgs/workspace_logo.png");
   background-size: contain;
   background-repeat: no-repeat;
   border-radius: 10px;
-  cursor: pointer;
   animation: rotate 0.5s infinite linear paused;
 
   @keyframes rotate {
