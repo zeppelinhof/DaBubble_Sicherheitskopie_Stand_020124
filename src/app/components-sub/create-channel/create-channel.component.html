@@ -8,7 +8,8 @@
       class="dialog"
       [ngClass]="{
         'to-background': this.ws.showAddMembers && !this.ws.radioButtonFirst,
-        'dialog-gray': this.ws.showAddMembers && rs.mobileMode()
+        'dialog-gray': this.ws.showAddMembers && rs.mobileMode(),
+        'no-border-radius-bottom': !rs.mobileMode() && this.ws.showAddMembers
       }"
     >
       <!-- this.ws.dialogGeneralData  -->
@@ -131,7 +132,7 @@
     <!-- User Auswahl-Menü -->
     <div
       *ngIf="this.ws.showAddMembers && !this.ws.radioButtonFirst"
-      class="choose-members-wrap"
+      class="choose-members-wrap" [ngClass]="{'no-border-radius-top': !rs.mobileMode()}"
     >
       <div class="first-line">
         <div class="headline-white-box">Mitglieder</div>

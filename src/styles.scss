@@ -473,6 +473,17 @@ button {
   rotate: -720deg;
 }
 
+.no-border-radius-bottom{
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.no-border-radius-top{
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  background-color: yellow;
+}
+
 // responsive
 @media (max-width: 1458px) {
   .side-right-container {
@@ -515,5 +526,5 @@ button {
 
   .circle-wrap{
     display: none;
-  }
+  }  
 }
