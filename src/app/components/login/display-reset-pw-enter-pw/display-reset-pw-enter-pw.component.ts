@@ -14,7 +14,7 @@ export class DisplayResetPwEnterPwComponent {
   passwortConfirm: string = '';
   arrowBackIsHovered: boolean = false;
   linkIsExpired: boolean = false;
-  oobCode: string;
+  oobCode: string = '';
 
   newPasswortForm: any = new FormGroup({
     passwordFirstInput: new FormControl('', [
@@ -40,7 +40,7 @@ export class DisplayResetPwEnterPwComponent {
    * If the OOB code is not present in the query parameters, it defaults to null.
    */
   getOobCode() {
-    this.oobCode = this.route.snapshot.queryParams['oobCode'] || null;
+    this.oobCode = this.route.snapshot.queryParams['oobCode'] || '';
   }
 
   /**

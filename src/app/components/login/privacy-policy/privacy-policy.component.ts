@@ -9,9 +9,6 @@ import { Location } from '@angular/common';
 export class PrivacyPolicyComponent {
   arrowBackIsHovered: boolean = false;
   isDesktop = window.innerWidth > 768;
-  constructor(private location: Location) {}
 
-  backToPreviousRoute(): void {
-    this.location.back();
-  }
+  constructor(public location: Location) {}
 }

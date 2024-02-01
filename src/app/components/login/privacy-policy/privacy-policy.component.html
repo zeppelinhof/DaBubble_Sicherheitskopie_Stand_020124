@@ -11,7 +11,7 @@
       *ngIf="arrowBackIsHovered && isDesktop"
       (mouseover)="arrowBackIsHovered = true"
       (mouseout)="arrowBackIsHovered = false"
-      (click)="backToPreviousRoute()"
+      (click)="location.back()"
       src="assets/icons/arrow_back_purple.png"
       alt="icon of purple arrow"
     />
@@ -19,7 +19,7 @@
       *ngIf="!isDesktop"
       (mouseover)="arrowBackIsHovered = true"
       (mouseout)="arrowBackIsHovered = false"
-      (click)="backToPreviousRoute()"
+      (click)="location.back()"
       src="assets/icons/arrow_back.png"
       alt="icon of black arrow"
     />
