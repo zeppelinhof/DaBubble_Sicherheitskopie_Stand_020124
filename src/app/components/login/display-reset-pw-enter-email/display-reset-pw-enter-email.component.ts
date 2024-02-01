@@ -4,6 +4,7 @@ import { AnimationsService } from 'src/app/shared/services/animations.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-display-reset-pw-enter-email',
@@ -28,9 +29,10 @@ export class DisplayResetPwEnterEmailComponent {
   ) {}
 
   /**
-   * Checks if the user with the provided login email is existing.
+   * Checks if the user with the provided login email is existing and sets the user id.
+   * @returns {boolean} - True if the user exists, false otherwise.
    */
-  checkUserIsExisting() {
+  checkUserIsExisting(): User | undefined {
     const emailInputField = this.forgotPwEnterEmailForm.get('email').value;
     const emailExists = this.userService.myUsers.find(
       (user) => user.email === emailInputField
@@ -48,12 +50,35 @@ export class DisplayResetPwEnterEmailComponent {
   saveResetAndSendEmail() {
     const emailForPwReset = this.forgotPwEnterEmailForm.get('email').value;
     this.auth.sendEmailToResetPw(emailForPwReset);
-    document.body.style.overflow = 'hidden';
-    this.animations.setEmailWasSent(true);
+    this.showAnimation();
     setTimeout(() => {
-      this.animations.setEmailWasSent(false);
+      this.hideAnimation();
       this.router.navigate(['login/display-login']);
     }, 1000);
+    this.setLocalStorage();
+  }
+
+  /**
+   * Shows the success animation and disables body scroll.
+   */
+  showAnimation() {
+    document.body.style.overflow = 'hidden';
+    this.animations.setEmailWasSent(true);
+  }
+
+  /**
+   * Hides the success animation.
+   */
+  hideAnimation() {
+    this.animations.setEmailWasSent(false);
+  }
+
+  /**
+   * Sets local storage items for password reset.
+   * - Sets 'userIdForPwReset' with the current user's ID.
+   * - Sets 'pwResetRequestTime' with the current date and time.
+   */
+  setLocalStorage() {
     localStorage.setItem('userIdForPwReset', this.userId);
     const currentDateAndTime = new Date().toISOString();
     localStorage.setItem('pwResetRequestTime', currentDateAndTime);
