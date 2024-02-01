@@ -24,15 +24,17 @@ export class SettingsEditUserDataComponent {
   });
 
   /**
-   * Checks if no data has been entered in the user data form.
+   * Checks if no valid data is entered in the change user data form.
+   * @returns {boolean} - True if the form is not valid or if the name value is present, false otherwise.
    */
-  noDataEntered() {
+  noDataEntered(): boolean {
     const nameValue = this.changeUserDataForm.get('name')?.value;
     return !this.changeUserDataForm.valid || nameValue;
   }
 
   /**
-   * Asynchronously updates user data based on the entered values in the form.
+   * Changes the user data, updating the name if provided.
+   * Closes the menu after updating the user data.
    */
   async changeUserData() {
     const nameValue = this.changeUserDataForm.get('name')?.value;
