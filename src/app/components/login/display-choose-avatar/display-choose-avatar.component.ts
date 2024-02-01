@@ -77,7 +77,7 @@ export class DisplayChooseAvatarComponent {
    * Creates a new user, sets user image, deletes local storage,
    * shows/hides animation, and signs up the user.
    */
-  createNewUser(): void {
+  createNewUser() {
     this.setNewUserImage();
     this.deleteLocalStorage();
     this.showAnimation();
