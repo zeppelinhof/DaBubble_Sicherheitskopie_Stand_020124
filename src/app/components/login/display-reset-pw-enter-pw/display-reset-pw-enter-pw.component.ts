@@ -40,7 +40,7 @@ export class DisplayResetPwEnterPwComponent {
    * in local storage. If the difference between the stored time and the current time
    * is greater than 12 hours, linkIsExpired is set to true.
    */
-  checkPwResetLinkExpiration(): void {
+  checkPwResetLinkExpiration() {
     const storedTime = localStorage.getItem('pwResetRequestTime');
     if (!storedTime) {
       this.linkIsExpired = true;
@@ -55,18 +55,22 @@ export class DisplayResetPwEnterPwComponent {
     }
   }
 
+  /**
+   * Checks if the entered passwords match.
+   * @returns {boolean} - True if passwords match, false otherwise.
+   */
   passwordsMatch() {
-    this.passwort = this.newPasswortForm.get('passwordFirstInput')?.value;
-    this.passwortConfirm = this.newPasswortForm.get(
+    const password = this.newPasswortForm.get('passwordFirstInput')?.value;
+    const confirmPassword = this.newPasswortForm.get(
       'passwordSecondInput'
     )?.value;
-    if (this.passwort === this.passwortConfirm) {
-      return true;
-    } else {
-      return false;
-    }
+
+    return password === confirmPassword;
   }
 
+  /**
+   * Initiates the process to change the user's password when the user is not logged in.
+   */
   changePasswort() {
     this.auth.changePwWhenUserIsNotLogged(this.oobCode, this.passwort);
   }
