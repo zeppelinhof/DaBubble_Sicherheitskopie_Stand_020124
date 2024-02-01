@@ -57,7 +57,7 @@ export class MessageOfUserComponent {
   }
 
   checkLog(){
-    console.log(this.threadMessageData.file);
+    // console.log(this.threadMessageData.file);
     
   }
   savePreviousMessage() {

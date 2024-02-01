@@ -154,7 +154,7 @@ export class InputFieldMessageComponent {
   }
 
   openFileExplorer() {
-    console.log('openFileExplorer');
+    // console.log('openFileExplorer');
   }
 
   closeAllDivs() {

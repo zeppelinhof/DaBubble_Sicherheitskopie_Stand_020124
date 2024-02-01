@@ -35,14 +35,14 @@ export class DashboardComponent {
       this.repService.sideLeftVisible = false;
       this.repService.sideRightVisible = false;
       this.repService.routerIsVisible = true;
-      console.log("resize");
+      // console.log("resize");
       
     }
     if(window.innerWidth  <= 610){
       this.repService.sideLeftVisible = false;
       this.repService.sideRightVisible = false;
       this.repService.routerIsVisible = true;
-      console.log("resize");
+      // console.log("resize");
       
     }
   }

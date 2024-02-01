@@ -51,7 +51,7 @@ export class StorageService   {
         const url = await getDownloadURL(file);
         let urlToString = url.toString();
         this.channelCurrentUrl = urlToString;
-        console.log('Aktuelle URL', this.channelCurrentUrl);
+        // console.log('Aktuelle URL', this.channelCurrentUrl);
       }
     }
   }

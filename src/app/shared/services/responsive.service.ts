@@ -54,7 +54,7 @@ export class ResponsiveService {
       this.sideLeftVisible = false;
       this.routerIsVisible = false;
       this.sideRightVisible = true;
-      console.log("threadopen");
+      // console.log("threadopen");
     } else {
       this.sideRightVisible = true;
     }

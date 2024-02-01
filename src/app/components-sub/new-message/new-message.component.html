@@ -25,10 +25,32 @@
         (input)="filterMembers()"
         class="inputfield"
         placeholder="An: #channel oder @jemand oder E-Mail Adresse"
-      />
+      />      
     </div>
 
-    <div *ngIf="showAddMember" class="choose-members-wrap">
+    
+
+    <div *ngIf="showAddChannel" class="choose-members-wrap">
+      <div class="first-line">
+        <div class="headline-white-box">Channels</div>
+        <div class="around-close" (click)="openCloseAdd()">
+          <img src="assets/icons/close.png" />
+        </div>
+      </div>
+      <div class="user-list-wrap">
+        <div class="user-list">
+          <div
+            class="oneUser-line"
+            *ngFor="let channel of filteredChannels"
+            (click)="addChannel(channel); clearSearchInput()"
+          >
+            <div class="name-text"># {{ channel.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="showAddMember" class="choose-members-wrap-new-message">
       <div class="first-line">
         <div class="headline-white-box">Mitglieder</div>
         <div class="around-close" (click)="openCloseAdd()">
@@ -54,25 +76,6 @@
       </div>
     </div>
 
-    <div *ngIf="showAddChannel" class="choose-members-wrap">
-      <div class="first-line">
-        <div class="headline-white-box">Channels</div>
-        <div class="around-close" (click)="openCloseAdd()">
-          <img src="assets/icons/close.png" />
-        </div>
-      </div>
-      <div class="user-list-wrap">
-        <div class="user-list">
-          <div
-            class="oneUser-line"
-            *ngFor="let channel of filteredChannels"
-            (click)="addChannel(channel); clearSearchInput()"
-          >
-            <div class="name-text"># {{ channel.name }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <!-- inner info card -->
   <div class="inner-info-card-container">

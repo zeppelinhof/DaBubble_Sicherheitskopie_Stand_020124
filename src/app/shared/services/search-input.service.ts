@@ -83,7 +83,7 @@ export class SearchInputService {
     this.filteredMembers = this.getUsers().filter((member) => {
       const fullName = `${member.name}`.toLowerCase();
       const userImage = member.img;
-      console.log(userImage);
+      // console.log(userImage);
       if (this.ws.showAddMembers) {
         this.refreshMemberList(existingMembers);
       }
