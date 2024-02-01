@@ -31,8 +31,16 @@ export class DisplayResetPwEnterPwComponent {
     private auth: AuthenticationService,
     private route: ActivatedRoute
   ) {
-    this.oobCode = this.route.snapshot.queryParams['oobCode'] || null;
+    this.getOobCode();
     this.checkPwResetLinkExpiration();
+  }
+
+  /**
+   * Retrieves the oob code from the query parameters of the current route.
+   * If the OOB code is not present in the query parameters, it defaults to null.
+   */
+  getOobCode() {
+    this.oobCode = this.route.snapshot.queryParams['oobCode'] || null;
   }
 
   /**
