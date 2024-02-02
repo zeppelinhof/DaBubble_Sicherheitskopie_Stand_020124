@@ -6,7 +6,7 @@
       <div class="headline-white-box">Code learning</div>
     </div>
     <div style="position: relative;">
-      <div [ngClass]="{'hint-wrap': showHints()}">
+      <div (click)="this.respService.onlyMessage()" [ngClass]="{'hint-wrap': showHints()}">
         <img class="button-dm" src="assets/icons/edit_square.png" routerLink="new-message" />
       </div>
     </div>
@@ -84,9 +84,9 @@
     <!-- hier eingefügt -->
     <div *ngIf="arrowClickedContacts" class="control-scroll-area">
       <div *ngIf="arrowClickedContacts" class="list-container-contacts">
-        <div (click)="this.respService.onlyMessage()" *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
+        <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
           <div style="position: relative;">
-            <div  class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
+            <div (click)="this.respService.onlyMessage()"  class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
               <div class="container-user-img">
                 <img class="profile-image" [src]="this.us.getUserImage(user.customId)" />
                 <div *ngIf="us.getUserOnlineStats(user.customId) === 'online'" class="online"></div>
