@@ -167,8 +167,7 @@ export class ChannelComponent {
  * Anschließend wird das Fenster zum Hinzufügen von Mitgliedern geschlossen und die
  * Liste der zusätzlichen Mitglieder wird zurückgesetzt.
  */
-  addAMember(){
-    debugger
+  addAMember(){    
     this.cs.updateChannel(
       { members: this.cs.getCleanMemberJson(this.additionalMembers) },
       this.clickedChannel

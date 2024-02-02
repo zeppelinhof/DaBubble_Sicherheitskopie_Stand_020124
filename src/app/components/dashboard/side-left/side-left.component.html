@@ -81,7 +81,7 @@
         </div>
       </div>
     </div>
-    <!-- hier eingefügt -->
+
     <div *ngIf="arrowClickedContacts" class="control-scroll-area">
       <div *ngIf="arrowClickedContacts" class="list-container-contacts">
         <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">

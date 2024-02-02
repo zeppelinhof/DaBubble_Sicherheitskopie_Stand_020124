@@ -50,7 +50,7 @@ export class AuthenticationService {
     private userService: UserService,
     private cs: ChannelService,
     private router: Router
-  ) {}
+  ) { }
 
   /**
    * Signs up a new user with the provided user information and password.
@@ -66,7 +66,9 @@ export class AuthenticationService {
         const user = userCredential.user;
         newUser.customId = user.uid;
         newUser.status = 'offline';
-        newUser.chats = this.sendDefaultMessage();
+        newUser.chats = this.setDefaultMessage();
+        // Create own Chat        
+        newUser.chats.push(this.createDefaultMessage(Date.now(), user.uid, 'Eigener Chat. Ich bin einziger Empfänger.'));
         this.userService.sendDocToDB(newUser);
       })
       .then(() => {
@@ -82,15 +84,28 @@ export class AuthenticationService {
    * Sends a default message and updates the chat for the new user.
    * @returns {Message[]} - An array containing the sent default message.
    */
-  sendDefaultMessage() {
+  setDefaultMessage() {
     let messageId = Date.now();
     let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1';
+    let messageText = 'Hi';
 
     // Nachricht bei eingeloggtem User speichern
-    let defaultMessage = new Message(
+    let defaultMessage = this.createDefaultMessage(messageId, defaultUserId, messageText);
+
+    // Nachricht bei Default-User Sophia speichern
+    this.userService.updateDefaultUser(
+      { chats: [this.userService.getCleanMessageJson(defaultMessage)] },
+      defaultUserId
+    );
+
+    return [defaultMessage];
+  }
+
+  createDefaultMessage(messageId: number, defaultUserId: string, messageText: string) {
+    return new Message(
       defaultUserId,
       messageId,
-      'Hi',
+      messageText,
       this.cs.getCleanMessageTimeJson(
         new MessageTime(
           new Date().getDate(),
@@ -99,13 +114,6 @@ export class AuthenticationService {
         )
       )
     );
-    // Nachricht bei Default-User Sophia speichern
-    this.userService.updateDefaultUser(
-      { chats: [this.userService.getCleanMessageJson(defaultMessage)] },
-      defaultUserId
-    );
-
-    return [defaultMessage];
   }
 
   /**
@@ -169,7 +177,7 @@ export class AuthenticationService {
    * Initializes user chats with a default message and sends user data to the database.
    */
   addNewGoogleUser() {
-    this.loggedGoggleUser.chats = this.sendDefaultMessage();
+    this.loggedGoggleUser.chats = this.setDefaultMessage();
     this.userService.sendDocToDB(this.loggedGoggleUser);
   }
 
@@ -251,8 +259,8 @@ export class AuthenticationService {
     await this.userService.updateUser({ status: 'offline' }, this.loggedUser);
     const auth = getAuth();
     signOut(auth)
-      .then(() => {})
-      .catch((error) => {});
+      .then(() => { })
+      .catch((error) => { });
   }
 
   /**
@@ -262,7 +270,7 @@ export class AuthenticationService {
   sendEmailToResetPw(email: string) {
     const auth = getAuth();
     sendPasswordResetEmail(auth, email)
-      .then(() => {})
+      .then(() => { })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
