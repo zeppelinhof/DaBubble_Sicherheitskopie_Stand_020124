@@ -432,6 +432,17 @@ export class WorkspaceService {
     return modifiedWords.join(' ');
   }
 
+  /**
+   * Inputfelder fokussieren
+   * @param id - I des Elements auf welches der Autofokus gesetzt wird
+   */
+  setAutofocus(id: string) {
+    let element = document.getElementById(id);
+    if (element) {
+      element.focus();
+    }
+  }
+
 
 
 }

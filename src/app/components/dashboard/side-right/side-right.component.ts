@@ -25,6 +25,6 @@ export class SideRightComponent {
       .subscribe((threads: ThreadInterface[]) => {
         this.threadsOfMessage = threads;
       });
-  }
+  }  
 
 }

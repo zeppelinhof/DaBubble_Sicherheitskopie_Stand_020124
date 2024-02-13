@@ -1,6 +1,6 @@
 <div class="input-box-container">
   <input type="text" (input)="this.service.onInputChannel($event)" placeholder="Nachricht an #{{clickedChannel.name}}"
-    [ngClass]="{'selected-input': isInputSelected}" [(ngModel)]="input" />
+    [ngClass]="{'selected-input': isInputSelected}" id="inputChannel" [(ngModel)]="input" />
 
   <div class="bottom-container-of-input">
     <div class="add-data-to-input-box-container">

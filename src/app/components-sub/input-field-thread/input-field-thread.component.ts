@@ -23,13 +23,17 @@ export class InputFieldThreadComponent {
   private fileInputRef: HTMLInputElement | undefined;
   selectedFile: File | null = null;
   loader: boolean = false;
-  
-  constructor(public service: InputService, 
-    public cs: ChannelService, 
-    private _eref: ElementRef, 
-    private ts: ThreadService, 
+
+  constructor(public service: InputService,
+    public cs: ChannelService,
+    private _eref: ElementRef,
+    private ts: ThreadService,
     public storService: StorageService,
-    private ws: WorkspaceService, ) {}
+    private ws: WorkspaceService,) { }
+
+  ngAfterViewInit() {
+    this.ws.setAutofocus('inputThread')
+  }
 
 
   fileExplorer(event: any): void {
@@ -46,9 +50,9 @@ export class InputFieldThreadComponent {
 
   }
 
-  endLoading(){
+  endLoading() {
     this.loader = true;
-    setTimeout(() =>{
+    setTimeout(() => {
       this.loader = false;
     }, 1200)
   }
@@ -64,7 +68,7 @@ export class InputFieldThreadComponent {
   clearSelectedFile() {
     this.selectedFile = null;
   }
-  
+
   clearInput() {
     this.input = '';
   }
@@ -95,12 +99,12 @@ export class InputFieldThreadComponent {
       this.sendThreadMessage();
     });
   }
-  
+
   sendThreadMessage() {
     if (this.input !== '' || this.selectedFile) {
       this.ts.addThreadAnswer(this.ws.separateLongWords(this.input));
       this.clearAll();
-      this.ws.scrollToBottom('scrollThreadMessages') 
+      this.ws.scrollToBottom('scrollThreadMessages')
     }
   }
 
@@ -109,7 +113,7 @@ export class InputFieldThreadComponent {
     this.cs.clickedChannel.subscribe((ch: Channel) => {
       this.ts.clickedChannel = ch;
       this.allMembers = [];
-      this.allMembers.push(this.ts.clickedChannel.members);     
+      this.allMembers.push(this.ts.clickedChannel.members);
     });
   }
   addEmoji($event: any) {
@@ -120,7 +124,7 @@ export class InputFieldThreadComponent {
   collectMemberFromList(item: any) {
     this.input += '@' + item;
     this.closeShowUserList();
-  
+
 
   }
   closeShowUserList() {

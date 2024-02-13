@@ -48,7 +48,10 @@ export class InputFieldChannelComponent {
     this.ws.getEnterKeyPress().subscribe(event => {
       this.sendMessage();
     });
+  }
 
+  ngAfterViewInit() {
+    this.ws.setAutofocus('inputChannel')
   }
 
 

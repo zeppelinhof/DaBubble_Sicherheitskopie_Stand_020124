@@ -44,11 +44,16 @@ export class InputFieldMessageComponent {
     this.ws.getEnterKeyPress().subscribe(event => {
       // sendDirectMessage aufrufen, wenn die Enter-Taste gedrückt wird    
       if (this.router.url === '/dashboard/new-message') {
-        this.router.navigate(['dashboard', 'message']);               
+        this.router.navigate(['dashboard', 'message']);
       }
-      this.sendDirectMessage(); 
+      this.sendDirectMessage();
     });
   }
+
+  ngAfterViewInit() {
+    this.ws.setAutofocus('inputMessage')
+  }
+  
 
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
