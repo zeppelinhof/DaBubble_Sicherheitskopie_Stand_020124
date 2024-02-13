@@ -41,7 +41,7 @@ export class SideLeftComponent {
   }
 
   showHints(){
-    return this.notExpired && this.ws.getUsers().length === 1;
+    return this.notExpired && this.ws.getUsers().length === 2;
   }
 
 
