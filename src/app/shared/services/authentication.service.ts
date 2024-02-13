@@ -86,7 +86,7 @@ export class AuthenticationService {
    */
   setDefaultMessage() {
     let messageId = Date.now();
-    let defaultUserId = 'lb8OZ3BDULhTkFDDS7OK8kNIISt1';
+    let defaultUserId = '7BR5omysraYudYctXswwMASVEYP2';
     let messageText = 'Hi';
 
     // Nachricht bei eingeloggtem User speichern
