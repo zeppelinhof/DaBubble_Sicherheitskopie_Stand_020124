@@ -66,7 +66,6 @@ export class SideLeftComponent {
     this.cs.setChannelView(cn.customId);
     this.cs.getAllMessagesFromChannel(cn.customId);
     this.ws.scrollToBottom('scrollChannelMessages');
-    this.ws.setAutofocus('inputChannel');
   }
 
   async setContact(user: User) {

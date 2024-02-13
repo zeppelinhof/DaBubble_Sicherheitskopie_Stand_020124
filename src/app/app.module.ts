@@ -88,12 +88,12 @@ import { GoogleScreenComponent } from './components/login/google-screen/google-s
     ReactiveFormsModule,
     provideFirebaseApp(() =>
       initializeApp({
-        projectId: 'dabubble-d4948',
-        appId: '1:567130022113:web:caa3fc9e6b5e87cff357a0',
-        storageBucket: 'dabubble-d4948.appspot.com',
-        apiKey: 'AIzaSyCgNO6pPE0zcljEZxH6OacoaO2DywdeFxs',
-        authDomain: 'dabubble-d4948.firebaseapp.com',
-        messagingSenderId: '567130022113',
+        projectId: 'dabubble-103e0',
+        appId: '1:70509923390:web:61bdc1681f8174a4d1156f',
+        storageBucket: 'dabubble-103e0.appspot.com',
+        apiKey: 'AIzaSyC5RQtRRhPW7ONg3KcrZ3gPCEekvBZf_5M',
+        authDomain: 'dabubble-103e0.firebaseapp.com',
+        messagingSenderId: '70509923390',
       })
     ),
     provideAuth(() => getAuth()),
