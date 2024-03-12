@@ -17,8 +17,7 @@ import { NewMessageComponent } from './components-sub/new-message/new-message.co
 const routes: Routes = [
   /*login*/
   {
-    path: 'login',
-    component: LoginComponent,
+    path: 'login', component: LoginComponent,
     children: [
       { path: '', redirectTo: 'display-login', pathMatch: 'full' },
       { path: 'display-login', component: DisplayLoginComponent },
@@ -57,4 +56,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
