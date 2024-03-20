@@ -84,7 +84,6 @@ import { GoogleScreenComponent } from './components/login/google-screen/google-s
     BrowserModule,
     AppRoutingModule,
     PickerModule,
-    FormsModule,
     ReactiveFormsModule,
     provideFirebaseApp(() =>
       initializeApp({
