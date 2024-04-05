@@ -13,6 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChannelComponent } from './components-sub/channel/channel.component';
 import { MessageComponent } from './components-sub/message/message.component';
 import { NewMessageComponent } from './components-sub/new-message/new-message.component';
+import { CrisisDetailResolverService } from './shared/crisis-detail-resolver-service.service';
 
 const routes: Routes = [
   /*login*/
@@ -50,6 +51,13 @@ const routes: Routes = [
     path: 'google-screen',
     component: GoogleScreenComponent,
   },
+  {
+    path: '/your-path',
+    component: CrisisDetailResolverService,
+    resolve: {
+      crisis: CrisisDetailResolverService
+    }
+  }
 ];
 
 @NgModule({
