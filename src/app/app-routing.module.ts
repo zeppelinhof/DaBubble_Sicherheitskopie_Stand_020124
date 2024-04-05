@@ -40,9 +40,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: '', redirectTo: 'channel', pathMatch: 'full' },
+      { path: '', redirectTo: 'channel', pathMatch: 'full' }, // URL leer => zur Seite mit dem Pfad 'channel' weitergeleiten
       { path: 'channel', component: ChannelComponent },
       { path: 'message', component: MessageComponent },
+      // Mit PickerModule --> siehe https://ultimatecourses.com/blog/lazy-load-standalone-components-via-load-component
       { path: 'new-message', component: NewMessageComponent },
     ],
   },
@@ -50,10 +51,14 @@ const routes: Routes = [
     path: 'google-screen',
     component: GoogleScreenComponent,
   },
+  { path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
+  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes)], 
+  // Dadurch weiß Angular, dass das AppRoutingModule ein Routing-Modul ist und 
+  // forRoot() gibt an, dass es sich um das Root-Routing-Modul handelt
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

@@ -227,7 +227,7 @@ export class AuthenticationService {
    */
   setPathWhenLogged() {
     if (!this.router.url.includes('dashboard')) {
-      this.router.navigate(['/dashboard/channel']);
+      // this.router.navigate(['/dashboard/channel']);
     }
     this.setOnlineStatus();
   }

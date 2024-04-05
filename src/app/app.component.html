@@ -1,8 +1,9 @@
+<button type="button" routerLink="/customers">Customers</button>
+<button type="button" routerLink="/orders">Orders</button>
+<button type="button" routerLink="/dashboard">Home</button>
+
 <router-outlet></router-outlet>
-<div
-  *ngIf="
+<div *ngIf="
     router.url.includes('login/choose-avatar') ||
     router.url.includes('login/reset-pw-enter-email')
-  "
-  class="overlay-container"
-></div>
+  " class="overlay-container"></div>

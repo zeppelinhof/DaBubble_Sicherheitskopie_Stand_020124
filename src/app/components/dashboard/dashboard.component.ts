@@ -28,6 +28,7 @@ export class DashboardComponent {
 
   onInit(){
     this.checkFirstLoadMobile();
+    console.log('dashboard  loaded');
   }
 
   checkEverything(){

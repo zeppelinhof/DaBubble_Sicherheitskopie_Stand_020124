@@ -40,6 +40,7 @@ import { SettingsEditUserDataComponent } from './components-sub/settings-edit-us
 import { SettingsUserDataMessageComponent } from './components-sub/settings-user-data-message/settings-user-data-message.component';
 import { WorkspacebuttonComponent } from './components-sub/workspacebutton/workspacebutton.component';
 import { GoogleScreenComponent } from './components/login/google-screen/google-screen.component';
+import { CustomersModule } from './customers/customers.module';
 
 
 @NgModule({

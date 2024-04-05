@@ -41,6 +41,7 @@ export class MessageComponent {
     this.us.clickedContact.subscribe((user: User) => {
       this.clickedContact = user;
     });
+    
   }
 
   ngAfterViewInit() {
