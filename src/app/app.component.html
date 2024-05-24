@@ -3,7 +3,9 @@
 <button type="button" routerLink="/dashboard">Home</button>
 
 <router-outlet></router-outlet>
-<div *ngIf="
-    router.url.includes('login/choose-avatar') ||
-    router.url.includes('login/reset-pw-enter-email')
-  " class="overlay-container"></div>
+@if (
+  router.url.includes('login/choose-avatar') ||
+  router.url.includes('login/reset-pw-enter-email')
+  ) {
+  <div class="overlay-container"></div>
+}

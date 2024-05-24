@@ -1,15 +1,21 @@
-<div *ngIf="this.cs.allMessagesChannel[0]" class="messages-channel-container" id="scrollChannelMessages">
-  <div *ngFor="let item of this.cs.clickedChannel.value.allMessages; let i = index">
-    <div *ngIf="this.cs.checkIfNewDay(this.cs.clickedChannel.value.allMessages, i)" class="new-day-date">
-      <div class="dateSeparatorAreaLeft">
-        <div class="dateSeparator"></div>
+@if (this.cs.allMessagesChannel[0]) {
+  <div class="messages-channel-container" id="scrollChannelMessages">
+    @for (item of this.cs.clickedChannel.value.allMessages; track item; let i = $index) {
+      <div>
+        @if (this.cs.checkIfNewDay(this.cs.clickedChannel.value.allMessages, i)) {
+          <div class="new-day-date">
+            <div class="dateSeparatorAreaLeft">
+              <div class="dateSeparator"></div>
+            </div>
+            <div class="date-text">{{ this.cs.isToday(item.createdTime['day']) ? 'Heute' : item.createdTime['fullDay'] }}
+            </div>
+            <div class="dateSeparatorAreaRight">
+              <div class="dateSeparator"></div>
+            </div>
+          </div>
+        }
+        <app-message-of-user [data]="item" [messageType]="'channelMessage'"></app-message-of-user>
       </div>
-      <div class="date-text">{{ this.cs.isToday(item.createdTime['day']) ? 'Heute' : item.createdTime['fullDay'] }}
-      </div>
-      <div class="dateSeparatorAreaRight">
-        <div class="dateSeparator"></div>
-      </div>
-    </div>
-    <app-message-of-user [data]="item" [messageType]="'channelMessage'"></app-message-of-user>
+    }
   </div>
-</div>
+}

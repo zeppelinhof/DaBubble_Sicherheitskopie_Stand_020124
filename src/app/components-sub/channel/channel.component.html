@@ -1,208 +1,238 @@
-<div *ngIf="this.clickedChannel.name" [class.grow]="!this.ws.showSideLeft" class="channel-div-container"
-  [ngClass]="{'dialog-gray': this.ws.globalResults && rs.mobileMode()}">
-  <div class="channel-header-container">
-    <div class="channel-info-container">
-      <div class="channel-info-unfold" (click)="showInfo()">
-        <img src="assets/icons/hasthTag.png" />
-        <div class="channel-name">{{ this.clickedChannel.name || 'Leg los!' }}</div>
-        <img src="assets/icons/arrowDown.png" />
-      </div>
-
-      <!-- infoVisible -->
-      <div class="wrap" *ngIf="infoVisible">
-        <div class="dialog-channel-info">
-          <div class="headline">
-            <div class="hash_name">
-              <img src="assets/icons/hasthTag.png" />
-              <div class="channel-name">{{ this.clickedChannel.name }}</div>
-            </div>
-            <div (click)="showInfo()" class="around-close">
-              <img src="assets/icons/close.png" alt="" />
-            </div>
-          </div>
-          <div class="main-info">
-            <div class="info-part">
-              <div class="first-line">
-                <div class="h-name">Channel-Name</div>
-                <div *ngIf="editNameButton && !rs.mobileMode()" (click)="changeNameToInput()" class="edit">
-                  Bearbeiten
+@if (this.clickedChannel.name) {
+  <div [class.grow]="!this.ws.showSideLeft" class="channel-div-container"
+    [ngClass]="{'dialog-gray': this.ws.globalResults && rs.mobileMode()}">
+    <div class="channel-header-container">
+      <div class="channel-info-container">
+        <div class="channel-info-unfold" (click)="showInfo()">
+          <img src="assets/icons/hasthTag.png" />
+          <div class="channel-name">{{ this.clickedChannel.name || 'Leg los!' }}</div>
+          <img src="assets/icons/arrowDown.png" />
+        </div>
+        <!-- infoVisible -->
+        @if (infoVisible) {
+          <div class="wrap">
+            <div class="dialog-channel-info">
+              <div class="headline">
+                <div class="hash_name">
+                  <img src="assets/icons/hasthTag.png" />
+                  <div class="channel-name">{{ this.clickedChannel.name }}</div>
                 </div>
-                <img *ngIf="editNameButton && rs.mobileMode()" (click)="changeNameToInput()"
-                  src="assets/icons/edit-pencil.png" />
-                <div *ngIf="!editNameButton && !rs.mobileMode()" (click)="saveName()" class="edit">
-                  Speichern
-                </div>
-                <img *ngIf="!editNameButton && rs.mobileMode()" (click)="saveName()"
-                  src="assets/icons/submit-changes.png" />
-              </div>
-              <div class="second-line">
-                <img src="assets/icons/hasthTag.png" />
-                <div *ngIf="editNameButton" class="info-text">
-                  {{ this.clickedChannel.name }}
-                </div>
-                <div *ngIf="!editNameButton" class="input-wrap">
-                  <input maxlength="20" class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name" />
+                <div (click)="showInfo()" class="around-close">
+                  <img src="assets/icons/close.png" alt="" />
                 </div>
               </div>
-            </div>
-            <div class="info-part">
-              <div class="first-line">
-                <div class="h-name">Beschreibung</div>
-                <div *ngIf="editDescriptionButton && !rs.mobileMode()" (click)="changeDescriptionToInput()"
-                  class="edit">
-                  Bearbeiten
-                </div>
-                <img *ngIf="editDescriptionButton && rs.mobileMode()" (click)="changeDescriptionToInput()"
-                  src="assets/icons/edit-pencil.png" />
-                <div *ngIf="!editDescriptionButton && !rs.mobileMode()" (click)="saveDescription()" class="edit">
-                  Speichern
-                </div>
-                <img *ngIf="!editDescriptionButton && rs.mobileMode()" (click)="saveDescription()"
-                  src="assets/icons/submit-changes.png" />
-              </div>
-              <div class="second-line description-scroll">
-                <div *ngIf="editDescriptionButton" class="info-text">
-                  {{ this.clickedChannel.description }}
-                </div>
-                <div *ngIf="!editDescriptionButton" class="input-wrap">
-                  <input maxlength="20" class="inputfield" type="text" [(ngModel)]="this.clickedChannel.description" />
-                </div>
-              </div>
-
-              <div class="separator"></div>
-              <div class="h-name">Erstellt von</div>
-              <div class="created-by">
-                {{ this.clickedChannel.createdBy.name }}
-              </div>
-            </div>
-
-            <div class="info-part">
-              <div class="h-members">Mitglieder</div>
-              <div class="members-list-wrap">
-                <div class="img-name" *ngFor="let member of clickedChannel.members">
-                  <img [src]="this.us.getUserImage(member.customId)" />
-                  <div class="user-name">{{ member.name }}</div>
-                </div>
-                <div *ngIf="rs.mobileMode()" class="img-name">
-                  <div class="add-member-info" (click)="switchShowAddMembersInExistingChannel()">
-                    <img class="add-user-normal-info img-add-users" src="assets/icons/person_add.png" />
-                    <img class="add-user-purple-info img-add-users" src="assets/icons/person_add_purple.png" />
+              <div class="main-info">
+                <div class="info-part">
+                  <div class="first-line">
+                    <div class="h-name">Channel-Name</div>
+                    @if (editNameButton && !rs.mobileMode()) {
+                      <div (click)="changeNameToInput()" class="edit">
+                        Bearbeiten
+                      </div>
+                    }
+                    @if (editNameButton && rs.mobileMode()) {
+                      <img (click)="changeNameToInput()"
+                        src="assets/icons/edit-pencil.png" />
+                    }
+                    @if (!editNameButton && !rs.mobileMode()) {
+                      <div (click)="saveName()" class="edit">
+                        Speichern
+                      </div>
+                    }
+                    @if (!editNameButton && rs.mobileMode()) {
+                      <img (click)="saveName()"
+                        src="assets/icons/submit-changes.png" />
+                    }
                   </div>
-                  <div class="user-name">Mitglieder hinzufügen</div>
+                  <div class="second-line">
+                    <img src="assets/icons/hasthTag.png" />
+                    @if (editNameButton) {
+                      <div class="info-text">
+                        {{ this.clickedChannel.name }}
+                      </div>
+                    }
+                    @if (!editNameButton) {
+                      <div class="input-wrap">
+                        <input maxlength="20" class="inputfield" type="text" [(ngModel)]="this.clickedChannel.name" />
+                      </div>
+                    }
+                  </div>
+                </div>
+                <div class="info-part">
+                  <div class="first-line">
+                    <div class="h-name">Beschreibung</div>
+                    @if (editDescriptionButton && !rs.mobileMode()) {
+                      <div (click)="changeDescriptionToInput()"
+                        class="edit">
+                        Bearbeiten
+                      </div>
+                    }
+                    @if (editDescriptionButton && rs.mobileMode()) {
+                      <img (click)="changeDescriptionToInput()"
+                        src="assets/icons/edit-pencil.png" />
+                    }
+                    @if (!editDescriptionButton && !rs.mobileMode()) {
+                      <div (click)="saveDescription()" class="edit">
+                        Speichern
+                      </div>
+                    }
+                    @if (!editDescriptionButton && rs.mobileMode()) {
+                      <img (click)="saveDescription()"
+                        src="assets/icons/submit-changes.png" />
+                    }
+                  </div>
+                  <div class="second-line description-scroll">
+                    @if (editDescriptionButton) {
+                      <div class="info-text">
+                        {{ this.clickedChannel.description }}
+                      </div>
+                    }
+                    @if (!editDescriptionButton) {
+                      <div class="input-wrap">
+                        <input maxlength="20" class="inputfield" type="text" [(ngModel)]="this.clickedChannel.description" />
+                      </div>
+                    }
+                  </div>
+                  <div class="separator"></div>
+                  <div class="h-name">Erstellt von</div>
+                  <div class="created-by">
+                    {{ this.clickedChannel.createdBy.name }}
+                  </div>
+                </div>
+                <div class="info-part">
+                  <div class="h-members">Mitglieder</div>
+                  <div class="members-list-wrap">
+                    @for (member of clickedChannel.members; track member) {
+                      <div class="img-name">
+                        <img [src]="this.us.getUserImage(member.customId)" />
+                        <div class="user-name">{{ member.name }}</div>
+                      </div>
+                    }
+                    @if (rs.mobileMode()) {
+                      <div class="img-name">
+                        <div class="add-member-info" (click)="switchShowAddMembersInExistingChannel()">
+                          <img class="add-user-normal-info img-add-users" src="assets/icons/person_add.png" />
+                          <img class="add-user-purple-info img-add-users" src="assets/icons/person_add_purple.png" />
+                        </div>
+                        <div class="user-name">Mitglieder hinzufügen</div>
+                      </div>
+                    }
+                  </div>
+                </div>
+                <div class="btn-wrap">
+                  <div class="btn-purple" (click)="this.cs.leaveChannel()">
+                    Channel verlassen
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="btn-wrap">
-              <div class="btn-purple" (click)="this.cs.leaveChannel()">
-                Channel verlassen
-              </div>
+          </div>
+        }
+      </div>
+      <div class="channel-all-user-plus-add">
+        <div class="channel-user-img-container">
+          @for (item of clickedChannel.members.slice(0, 4); track item) {
+            <img [src]="this.us.getUserImage(item.customId)" />
+          }
+        </div>
+        <div class="channel-user-counter">
+          <div>{{ previewNumberMembers() }}</div>
+        </div>
+        <div class="channel-add-user-container" (click)="switchShowAddMembersInExistingChannel()">
+          <img class="add-user-normal" src="assets/icons/person_add.png" />
+          <img class="add-user-purple" src="assets/icons/person_add_purple.png" />
+        </div>
+      </div>
+    </div>
+    <!-- Leute hinzufügen Feld -->
+    @if (ws.showAddMembersInExistingChannel) {
+      <div class="wrap">
+        <div class="dialog add-members-mobile">
+          <div class="first-line">
+            <div class="headline-white-box">Leute hinzufügen</div>
+            <div (click)="switchShowAddMembersInExistingChannel()" class="around-close">
+              <img src="assets/icons/close.png" />
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="channel-all-user-plus-add">
-      <div class="channel-user-img-container">
-        <img *ngFor="let item of clickedChannel.members.slice(0, 4)" [src]="this.us.getUserImage(item.customId)" />
-      </div>
-
-      <div class="channel-user-counter">
-        <div>{{ previewNumberMembers() }}</div>
-      </div>
-
-      <div class="channel-add-user-container" (click)="switchShowAddMembersInExistingChannel()">
-        <img class="add-user-normal" src="assets/icons/person_add.png" />
-        <img class="add-user-purple" src="assets/icons/person_add_purple.png" />
-      </div>
-    </div>
-  </div>
-
-  <!-- Leute hinzufügen Feld -->
-  <div class="wrap" *ngIf="ws.showAddMembersInExistingChannel">
-    <div class="dialog add-members-mobile">
-      <div class="first-line">
-        <div class="headline-white-box">Leute hinzufügen</div>
-        <div (click)="switchShowAddMembersInExistingChannel()" class="around-close">
-          <img src="assets/icons/close.png" />
-        </div>
-      </div>
-
-      <!-- Inputfield -->
-      <div class="selected-members">
-        <div *ngFor="let item of additionalMembers" class="complete-member">
-          <img class="profile-image" [src]="this.us.getUserImage(item.customId)" />
-          <div class="complete-name">
-            {{ item.name }}
-          </div>
-          <div class="remove-member" (click)="removeMember(item.email)">
-            <img class="close-normal" src="assets/icons/close.png" />
-            <img class="close-purple" src="assets/icons/close_purple.png" />
-          </div>
-        </div>
-
+          <!-- Inputfield -->
+          <div class="selected-members">
+            @for (item of additionalMembers; track item) {
+              <div class="complete-member">
+                <img class="profile-image" [src]="this.us.getUserImage(item.customId)" />
+                <div class="complete-name">
+                  {{ item.name }}
+                </div>
+                <div class="remove-member" (click)="removeMember(item.email)">
+                  <img class="close-normal" src="assets/icons/close.png" />
+                  <img class="close-purple" src="assets/icons/close_purple.png" />
+                </div>
+              </div>
+            }
         <input [(ngModel)]="this.ws.inputMember" (input)="
             sis.allFieldsFilled(us.userLoggedIn());
             addPreviousMembers();
             sis.filterMembers(additionalMembers)
           " class="inputfield" placeholder="Name eingeben" />
-      </div>
-
-      <!-- Dropdown-Liste -->
-      <div class="choose-members-wrap" *ngIf="this.ws.showAddMembers">
-        <div class="first-line">
-          <div class="headline-white-box">Mitglieder</div>
-          <div class="around-close" (click)="this.ws.closeAddMembers()">
-            <img src="assets/icons/close.png" />
-          </div>
-        </div>
-        <div class="user-list-wrap">
-          <div class="user-list">
-            <div class="oneUser-line" *ngFor="let user of sis.filteredMembers"
-              (click)="additionalMembers.push(user); sis.clearSearchInput()">
-              <img class="profile-image" [src]="this.us.getUserImage(this.user.customId)" />
-              <div class="name-text">
-                {{ user.name }}
-                {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
+            </div>
+            <!-- Dropdown-Liste -->
+            @if (this.ws.showAddMembers) {
+              <div class="choose-members-wrap">
+                <div class="first-line">
+                  <div class="headline-white-box">Mitglieder</div>
+                  <div class="around-close" (click)="this.ws.closeAddMembers()">
+                    <img src="assets/icons/close.png" />
+                  </div>
+                </div>
+                <div class="user-list-wrap">
+                  <div class="user-list">
+                    @for (user of sis.filteredMembers; track user) {
+                      <div class="oneUser-line"
+                        (click)="additionalMembers.push(user); sis.clearSearchInput()">
+                        <img class="profile-image" [src]="this.us.getUserImage(this.user.customId)" />
+                        <div class="name-text">
+                          {{ user.name }}
+                          {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
+                        </div>
+                      </div>
+                    }
+                  </div>
+                  <div class="add-object-wrap">
+                    <div class="add-object" (click)="sis.clearSearchInput()">
+                      <div class="add-img-wrap">
+                        <img class="add-standard" src="assets/icons/add_members_button.png" />
+                      </div>
+                      <div class="text-add-object">Mitglieder hinzufügen</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+            <div class="btn-wrap">
+              <div (click)="addAMember()" class="btn-grey" [ngClass]="{'btn-purple': additionalMembers.length > 1}">
+                Hinzufügen
               </div>
             </div>
           </div>
-          <div class="add-object-wrap">
-            <div class="add-object" (click)="sis.clearSearchInput()">
-              <div class="add-img-wrap">
-                <img class="add-standard" src="assets/icons/add_members_button.png" />
-              </div>
-              <div class="text-add-object">Mitglieder hinzufügen</div>
-            </div>
-          </div>
         </div>
-      </div>
+      }
+      <app-messages-channel></app-messages-channel>
+      <app-input-field-channel></app-input-field-channel>
+    </div>
+  }
 
-      <div class="btn-wrap">
-        <div (click)="addAMember()" class="btn-grey" [ngClass]="{'btn-purple': additionalMembers.length > 1}">
-          Hinzufügen
-        </div>
+  @if (!this.clickedChannel.name) {
+    <div [class.grow]="!this.ws.showSideLeft" class="channel-div-container ">
+      <div class="welcome-explaination">
+        <h1>Willkommen bei DABubble!</h1>
+        <div style="font-size: 26px;">Deine Features im Überblick:</div>
+        <ul style="font-size: 18px;">
+          <li>Direkt-Nachrichten schreiben</li>
+          <li>Channels erstellen und beitreten</li>
+          <li>Auf Channel-Nachrichten in Threads antworten</li>
+        </ul>
+      </div>
+      <div class="circle-wrap">
+        <div class="circle-rotating"></div>
       </div>
     </div>
-  </div>
-
-  <app-messages-channel></app-messages-channel>
-
-  <app-input-field-channel></app-input-field-channel>
-</div>
-
-<div *ngIf="!this.clickedChannel.name" [class.grow]="!this.ws.showSideLeft" class="channel-div-container ">
-  <div class="welcome-explaination">
-    <h1>Willkommen bei DABubble!</h1>
-    <div style="font-size: 26px;">Deine Features im Überblick:</div>
-    <ul style="font-size: 18px;">
-      <li>Direkt-Nachrichten schreiben</li>
-      <li>Channels erstellen und beitreten</li>
-      <li>Auf Channel-Nachrichten in Threads antworten</li>
-    </ul>
-  </div>
-  <div class="circle-wrap">
-    <div class="circle-rotating"></div>
-  </div>
-</div>
+  }

@@ -1,80 +1,94 @@
-<div *ngIf="this.clickedContact.name" class="message-div-container">
-  <div class="message-header-container">
-    <div class="content-user" (click)="settingsService.profilIsOpenThroughMessage = true">
-      <div class="container-img">
-        <img [src]="this.us.getUserImage(this.clickedContact.customId)" />
-        <div *ngIf="
+@if (this.clickedContact.name) {
+  <div class="message-div-container">
+    <div class="message-header-container">
+      <div class="content-user" (click)="settingsService.profilIsOpenThroughMessage = true">
+        <div class="container-img">
+          <img [src]="this.us.getUserImage(this.clickedContact.customId)" />
+          @if (
             this.us.getUserOnlineStats(this.clickedContact.customId) == 'online'
-          " class="online"></div>
-        <div *ngIf="
+            ) {
+            <div class="online"></div>
+          }
+          @if (
             this.us.getUserOnlineStats(this.clickedContact.customId) ==
             'offline'
-          " class="offline"></div>
+            ) {
+            <div class="offline"></div>
+          }
+        </div>
+        <div class="message-user-name">{{ this.clickedContact.name }}</div>
       </div>
-      <div class="message-user-name">{{ this.clickedContact.name }}</div>
+      <div>
+        <img (click)="this.repsService.onlyWorksSpace()" class="arrow-back-mobile" src="assets/icons/arrowBack.png" alt="">
+      </div>
     </div>
-    <div>
-      <img (click)="this.repsService.onlyWorksSpace()" class="arrow-back-mobile" src="assets/icons/arrowBack.png" alt="">
+    <div class="messages-channel-container" id="scrollDirectMessages">
+      @for (chat of us.chatsWithClickedUser(); track chat; let i = $index) {
+        <div>
+          @if (this.cs.checkIfNewDay(us.chatsWithClickedUser(), i)) {
+            <div class="new-day-date">
+              <div class="dateSeparatorAreaLeft">
+                <div class="dateSeparator"></div>
+              </div>
+              <div class="date-text">
+                {{
+                this.cs.isToday(chat.createdTime["day"])
+                ? "Heute"
+                : chat.createdTime["fullDay"]
+                }}
+              </div>
+              <div class="dateSeparatorAreaRight">
+                <div class="dateSeparator"></div>
+              </div>
+            </div>
+          }
+          <app-message-of-user [messageData]="chat" [messageType]="'directMessage'"></app-message-of-user>
+        </div>
+      }
     </div>
-  </div>
-
-  <div class="messages-channel-container" id="scrollDirectMessages">
-    <div *ngFor="let chat of us.chatsWithClickedUser(); let i = index">
-      <div *ngIf="this.cs.checkIfNewDay(us.chatsWithClickedUser(), i)" class="new-day-date">
-        <div class="dateSeparatorAreaLeft">
-          <div class="dateSeparator"></div>
+    <!-- inner info card -->
+    @if (!this.service.isWritingMessage && noChatsAvailable()) {
+      <div class="inner-info-card-container">
+        <div class="message-inner-container">
+          <img src="assets/imgs/userMale2.png" />
+          <div class="message-inner-name">{{ this.clickedContact.name }}</div>
         </div>
-        <div class="date-text">
-          {{
-          this.cs.isToday(chat.createdTime["day"])
-          ? "Heute"
-          : chat.createdTime["fullDay"]
-          }}
-        </div>
-        <div class="dateSeparatorAreaRight">
-          <div class="dateSeparator"></div>
+        <div class="this-conversation-text-container">
+          <div>Diese Unterhaltung findet nur zwischen</div>
+          <div class="name-of-chat-partner">&#64;{{ this.clickedContact.name }}</div>
+          <div>und dir statt.</div>
         </div>
       </div>
-      <app-message-of-user [messageData]="chat" [messageType]="'directMessage'"></app-message-of-user>
-    </div>
+    }
+    <app-input-field-message></app-input-field-message>
   </div>
+}
 
-  <!-- inner info card -->
-  <div *ngIf="!this.service.isWritingMessage && noChatsAvailable()" class="inner-info-card-container">
-    <div class="message-inner-container">
-      <img src="assets/imgs/userMale2.png" />
-      <div class="message-inner-name">{{ this.clickedContact.name }}</div>
-    </div>
-
-    <div class="this-conversation-text-container">
-      <div>Diese Unterhaltung findet nur zwischen</div>
-      <div class="name-of-chat-partner">&#64;{{ this.clickedContact.name }}</div>
-      <div>und dir statt.</div>
-    </div>
-  </div>
-
-  <app-input-field-message></app-input-field-message>
-</div>
-
-<div class="bg-user-profile" *ngIf="settingsService.profilIsOpenThroughMessage"
+@if (settingsService.profilIsOpenThroughMessage) {
+  <div class="bg-user-profile"
   (click)="settingsService.profilIsOpenThroughMessage = false"></div>
+}
 
-<div *ngIf="settingsService.profilIsOpenThroughMessage" class="div-user-profile">
-  <app-settings-user-data-message [userName]="clickedContact.name" [userEmail]="clickedContact.email"
+@if (settingsService.profilIsOpenThroughMessage) {
+  <div class="div-user-profile">
+    <app-settings-user-data-message [userName]="clickedContact.name" [userEmail]="clickedContact.email"
     [userId]="clickedContact.customId" style="z-index: 100"></app-settings-user-data-message>
-</div>
+  </div>
+}
 
-<div *ngIf="!this.clickedContact.name" [class.grow]="!this.ws.showSideLeft" class="message-div-container">
-  <div class="welcome-explaination">
-    <h1>Willkommen bei DABubble!</h1>
-    <div style="font-size: 26px;">Deine Features im Überblick:</div>
-    <ul style="font-size: 18px;">
-      <li>Direkt-Nachrichten schreiben</li>
-      <li>Channels erstellen und beitreten</li>
-      <li>Auf Channel-Nachrichten in Threads antworten</li>
-    </ul>
+@if (!this.clickedContact.name) {
+  <div [class.grow]="!this.ws.showSideLeft" class="message-div-container">
+    <div class="welcome-explaination">
+      <h1>Willkommen bei DABubble!</h1>
+      <div style="font-size: 26px;">Deine Features im Überblick:</div>
+      <ul style="font-size: 18px;">
+        <li>Direkt-Nachrichten schreiben</li>
+        <li>Channels erstellen und beitreten</li>
+        <li>Auf Channel-Nachrichten in Threads antworten</li>
+      </ul>
+    </div>
+    <div class="circle-wrap">
+      <div class="circle-rotating"></div>
+    </div>
   </div>
-  <div class="circle-wrap">
-    <div class="circle-rotating"></div>
-  </div>
-</div>
+}

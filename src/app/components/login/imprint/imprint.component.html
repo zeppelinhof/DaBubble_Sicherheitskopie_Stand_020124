@@ -1,28 +1,31 @@
 <section>
   <div class="arrow-container">
-    <img
-      *ngIf="!arrowBackIsHovered && isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-    />
-    <img
-      *ngIf="arrowBackIsHovered && isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      (click)="location.back()"
-      src="assets/icons/arrow_back_purple.png"
-      alt="icon of purple arrow"
-    />
-    <img
-      *ngIf="!isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      (click)="location.back()"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-    />
+    @if (!arrowBackIsHovered && isDesktop) {
+      <img
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+        />
+    }
+    @if (arrowBackIsHovered && isDesktop) {
+      <img
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        (click)="location.back()"
+        src="assets/icons/arrow_back_purple.png"
+        alt="icon of purple arrow"
+        />
+    }
+    @if (!isDesktop) {
+      <img
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        (click)="location.back()"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+        />
+    }
   </div>
 
   <span class="headline">Impressum</span>

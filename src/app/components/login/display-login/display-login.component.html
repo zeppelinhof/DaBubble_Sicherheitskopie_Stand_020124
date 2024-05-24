@@ -14,71 +14,75 @@
         type="email"
         placeholder="beispiel@email.com"
         autocomplete="email"
-      />
-      <span
-        *ngIf="
+        />
+        @if (
           loginForm.get('email')?.value.length > 0 &&
           !this.checkUserIsExisting()
-        "
-        class="error"
-      >
-        Diese E-Mail-Adresse ist nicht registriert.
-      </span>
-    </div>
-    <div class="container-input-field">
-      <img src="assets/icons/lock.png" alt="icon of lock" />
-      <input
-        required
-        formControlName="password"
-        class="input-layout"
-        type="password"
-        placeholder="Passwort"
-      />
-      <span
-        class="error"
-        *ngIf="loginForm.get('password')?.hasError('minlength')"
-        >Das Passwort hat mind. 8 Zeichen</span
-      >
-      <span class="error" *ngIf="this.auth.passwordLoginIsWrong"
-        >Das Passwort ist leider falsch</span
-      >
-    </div>
-    <div class="forgot-password-container">
-      <a routerLink="../reset-pw-enter-email">Passwort vergessen?</a>
-    </div>
+          ) {
+          <span
+            class="error"
+            >
+            Diese E-Mail-Adresse ist nicht registriert.
+          </span>
+        }
+      </div>
+      <div class="container-input-field">
+        <img src="assets/icons/lock.png" alt="icon of lock" />
+        <input
+          required
+          formControlName="password"
+          class="input-layout"
+          type="password"
+          placeholder="Passwort"
+          />
+          @if (loginForm.get('password')?.hasError('minlength')) {
+            <span
+              class="error"
+              >Das Passwort hat mind. 8 Zeichen</span
+              >
+          }
+          @if (this.auth.passwordLoginIsWrong) {
+            <span class="error"
+              >Das Passwort ist leider falsch</span
+              >
+            }
+          </div>
+          <div class="forgot-password-container">
+            <a routerLink="../reset-pw-enter-email">Passwort vergessen?</a>
+          </div>
 
-    <div class="or-container">
-      <img src="assets/imgs/line.png" alt="image of samall line" />
-      <span>ODER</span>
-    </div>
+          <div class="or-container">
+            <img src="assets/imgs/line.png" alt="image of samall line" />
+            <span>ODER</span>
+          </div>
 
-    <button
-      type="button"
-      (click)="this.googleLogin()"
-      class="button-layout btn-google"
-    >
-      <img src="assets/icons/google.png" alt="image of google icon" />
-      <span>Anmelden mit Google</span>
-    </button>
+          <button
+            type="button"
+            (click)="this.googleLogin()"
+            class="button-layout btn-google"
+            >
+            <img src="assets/icons/google.png" alt="image of google icon" />
+            <span>Anmelden mit Google</span>
+          </button>
 
-    <div class="register-container">
-      <button
-        (click)="submit()"
-        type="submit"
-        [disabled]="!loginForm.valid"
-        [class.btn-form-not-valid]="!loginForm.valid"
-        [class.btn-login-valid]="loginForm.valid"
-        class="button-layout btn-login"
-      >
-        Anmelden
-      </button>
-      <button
-        (click)="setGuestData()"
-        type="button"
-        class="button-layout btn-login-guest"
-      >
-        Gäste-Login
-      </button>
-    </div>
-  </form>
-</section>
+          <div class="register-container">
+            <button
+              (click)="submit()"
+              type="submit"
+              [disabled]="!loginForm.valid"
+              [class.btn-form-not-valid]="!loginForm.valid"
+              [class.btn-login-valid]="loginForm.valid"
+              class="button-layout btn-login"
+              >
+              Anmelden
+            </button>
+            <button
+              (click)="setGuestData()"
+              type="button"
+              class="button-layout btn-login-guest"
+              >
+              Gäste-Login
+            </button>
+          </div>
+        </form>
+      </section>

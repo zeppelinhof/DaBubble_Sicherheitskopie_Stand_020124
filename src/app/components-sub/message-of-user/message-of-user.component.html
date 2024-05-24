@@ -1,36 +1,48 @@
 <div class="thread-user-container" [ngClass]="{ 'row-reverse': checkIfOwnMessage() }">
   <div class="thread-user-img-container">
-    <img *ngIf="messageType == 'channelMessage'" [src]="
+    @if (messageType == 'channelMessage') {
+<img [src]="
         checkIfOwnMessage()
           ? this.us.getUserImage(this.auth.loggedUser.customId)
           : this.us.getUserImage(this.data.userCustomId)
       " alt="image of user" />
-    <img *ngIf="messageType == 'directMessage'" [src]="
+    }
+    @if (messageType == 'directMessage') {
+<img [src]="
         checkIfOwnMessage()
           ? this.us.getUserImage(this.auth.loggedUser.customId)
           : this.us.getUserImage(this.messageData.userCustomId)
       " alt="image of user" />
-    <img *ngIf="messageType == 'threadMessage'" [src]="
+    }
+    @if (messageType == 'threadMessage') {
+<img [src]="
         checkIfOwnMessage()
           ? this.us.getUserImage(this.auth.loggedUser.customId)
           : this.us.getUserImage(this.threadMessageData.userCustomId)
       " alt="image of user" />
+    }
   </div>
 
   <div class="info-and-message-box" [ngStyle]="{ width: getEditMode ? '100%' : 'auto' }"
     (mouseover)="reactionChoice(true)" (mouseleave)="reactionChoice(false)">
     <div class="thread-info-container" [ngClass]="{ 'row-reverse': checkIfOwnMessage() }">
-      <div *ngIf="messageType == 'channelMessage'" class="thread-user-name">
-        {{ us.getUserName(this.data.userCustomId) }}
-      </div>
+      @if (messageType == 'channelMessage') {
+        <div class="thread-user-name">
+          {{ us.getUserName(this.data.userCustomId) }}
+        </div>
+      }
 
-      <div *ngIf="messageType == 'directMessage'" class="thread-user-name">
-        {{ us.getUserName(this.messageData.userCustomId) }}
-      </div>
+      @if (messageType == 'directMessage') {
+        <div class="thread-user-name">
+          {{ us.getUserName(this.messageData.userCustomId) }}
+        </div>
+      }
 
-      <div *ngIf="messageType == 'threadMessage'" class="thread-user-name">
-        {{ us.getUserName(this.threadMessageData.userCustomId) }}
-      </div>
+      @if (messageType == 'threadMessage') {
+        <div class="thread-user-name">
+          {{ us.getUserName(this.threadMessageData.userCustomId) }}
+        </div>
+      }
       <div class="thread-message-time">
         {{
         (this.data && this.data.createdTime["time"]) ||
@@ -40,76 +52,97 @@
       </div>
     </div>
 
-    <div class="image-of-user-container" [ngClass]="{ 'row-reverse': checkIfOwnMessage() }"
-      *ngIf="this.data.file ||this.messageData.file ||(this.threadMessageData && this.threadMessageData.file)"
-      (click)="this.imagePreview = true; this.checkLog()">
-      <img class="image-of-storage" [src]="this.data.file || this.messageData.file || this.threadMessageData.file" />
-    </div>
+    @if (this.data.file ||this.messageData.file ||(this.threadMessageData && this.threadMessageData.file)) {
+      <div class="image-of-user-container" [ngClass]="{ 'row-reverse': checkIfOwnMessage() }"
+        (click)="this.imagePreview = true; this.checkLog()">
+        <img class="image-of-storage" [src]="this.data.file || this.messageData.file || this.threadMessageData.file" />
+      </div>
+    }
 
-    <div *ngIf="
-        this.data.message ||
-        this.messageData.message ||
-        (this.threadMessageData && this.threadMessageData.answer)
-      " class="thread-message-container" [ngClass]="{
+    @if (
+      this.data.message ||
+      this.messageData.message ||
+      (this.threadMessageData && this.threadMessageData.answer)
+      ) {
+<div class="thread-message-container" [ngClass]="{
         purple2: !checkIfOwnMessage(),
         'border-radius-own-message': checkIfOwnMessage()
       }">
-      <div *ngIf="!getEditMode">
-        {{
-        this.data.message ||
-        this.messageData.message ||
-        this.threadMessageData.answer
-        }}
-      </div>
-      <div *ngIf="getEditMode && messageType == 'channelMessage'">
-        <input class="inputfield" type="text" [(ngModel)]="this.data.message" />
-      </div>
-      <div *ngIf="getEditMode && messageType == 'directMessage'">
-        <input class="inputfield" type="text" [(ngModel)]="this.messageData.message" />
-      </div>
-      <div *ngIf="getEditMode && messageType == 'threadMessage'">
-        <input class="inputfield" type="text" [(ngModel)]="this.threadMessageData.answer" />
-      </div>
-      <div *ngIf="getEditMode" class="panel-wrap">
-        <div class="hover-area">
-          <img class="icon" src="assets/reactions/add_reaction.png" />
-          <img class="icon_purple" src="assets/reactions/add_reaction_purple.png" />
-        </div>
-        <div class="buttons">
-          <div *ngIf="getEditMode" class="btn-wrap">
-            <div class="btn-purple" (click)="takePreviousMessage(); closeEditWindow()">
-              Abbrechen
+        @if (!getEditMode) {
+          <div>
+            {{
+            this.data.message ||
+            this.messageData.message ||
+            this.threadMessageData.answer
+            }}
+          </div>
+        }
+        @if (getEditMode && messageType == 'channelMessage') {
+          <div>
+            <input class="inputfield" type="text" [(ngModel)]="this.data.message" />
+          </div>
+        }
+        @if (getEditMode && messageType == 'directMessage') {
+          <div>
+            <input class="inputfield" type="text" [(ngModel)]="this.messageData.message" />
+          </div>
+        }
+        @if (getEditMode && messageType == 'threadMessage') {
+          <div>
+            <input class="inputfield" type="text" [(ngModel)]="this.threadMessageData.answer" />
+          </div>
+        }
+        @if (getEditMode) {
+          <div class="panel-wrap">
+            <div class="hover-area">
+              <img class="icon" src="assets/reactions/add_reaction.png" />
+              <img class="icon_purple" src="assets/reactions/add_reaction_purple.png" />
+            </div>
+            <div class="buttons">
+              @if (getEditMode) {
+                <div class="btn-wrap">
+                  <div class="btn-purple" (click)="takePreviousMessage(); closeEditWindow()">
+                    Abbrechen
+                  </div>
+                </div>
+              }
+              @if (getEditMode) {
+                <div class="btn-wrap">
+                  <div class="btn-purple" style="background-color: white; color: #444df2" (click)="saveEditedMessage()">
+                    Speichern
+                  </div>
+                </div>
+              }
             </div>
           </div>
-          <div *ngIf="getEditMode" class="btn-wrap">
-            <div class="btn-purple" style="background-color: white; color: #444df2" (click)="saveEditedMessage()">
-              Speichern
-            </div>
-          </div>
-        </div>
+        }
       </div>
-    </div>
+    }
     <!-- showReactionChoice" -->
-    <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data"
-      [threadMessageData]="threadMessageData" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel"
-      *ngIf="showReactionChoice" [withEditMessageOption]="checkIfOwnMessage()"
-      (editMode)="receiveValueFromChild($event)" (newThread)="ts.createOrShowThread(this.data)"
-      [messageOfLoggedInUser]="checkIfOwnMessage()">
-    </app-message-reaction>
+    @if (showReactionChoice) {
+      <app-message-reaction [messageType]="messageType" [messageData]="messageData" [data]="data"
+        [threadMessageData]="threadMessageData" [clickedContact]="clickedContact" [clickedChannel]="clickedChannel"
+        [withEditMessageOption]="checkIfOwnMessage()"
+        (editMode)="receiveValueFromChild($event)" (newThread)="ts.createOrShowThread(this.data)"
+        [messageOfLoggedInUser]="checkIfOwnMessage()">
+      </app-message-reaction>
+    }
   </div>
 
-  
+
 </div>
 
 <div class="message-reactions-wrap" [ngClass]="{ 'flex-end': checkIfOwnMessage() }">
-  <ng-container *ngFor="
-      let emoji of (messageType === 'directMessage'
-        ? messageData.emojis
-        : messageType === 'threadMessage'
-        ? threadMessageData.emojis
-        : data.emojis) || []
-    ">
-    <div class="reaction-type-wrap" *ngIf="emoji.amount > 0" (click)="
+  @for (
+    emoji of (messageType === 'directMessage'
+    ? messageData.emojis
+    : messageType === 'threadMessage'
+    ? threadMessageData.emojis
+    : data.emojis) || []
+    ; track
+    emoji) {
+    @if (emoji.amount > 0) {
+<div class="reaction-type-wrap" (click)="
         ws.addReaction(
           emoji.path,
           this.messageType,
@@ -120,35 +153,44 @@
           this.threadMessageData
         )
       ">
-      <div class="img-wrap"><img [src]="emoji.path" /></div>
-      <div class="amount-reaction-type">{{ emoji.amount }}</div>
-    </div>
-  </ng-container>
+        <div class="img-wrap"><img [src]="emoji.path" /></div>
+        <div class="amount-reaction-type">{{ emoji.amount }}</div>
+      </div>
+    }
+  }
 </div>
 
-<div *ngIf="hasAnswers()" class="link-to-answers" [ngClass]="{
+@if (hasAnswers()) {
+<div class="link-to-answers" [ngClass]="{
     'left-0': !checkIfOwnMessage(),
     'flex-end': checkIfOwnMessage()
   }" (click)="this.respService.onlyThread(); ts.showThreads(this.data); ws.scrollToBottom('scrollThreadMessages'); ws.setAutofocus('inputThread')">
-  <div class="answer-amount-wrap">
-    <div class="amount">{{ data.threads.length - 1 }}</div>
-    <div *ngIf="data.threads.length == 2">Antwort</div>
-    <div *ngIf="data.threads.length > 2">Antworten</div>
-  </div>
-  <div class="last-answer-time">
-    <div>Letzte Antwort:&nbsp;</div>
-    <div class="time">
-      {{ data.threads[data.threads.length - 1].createdTime["fullDay"] }}
+    <div class="answer-amount-wrap">
+      <div class="amount">{{ data.threads.length - 1 }}</div>
+      @if (data.threads.length == 2) {
+        <div>Antwort</div>
+      }
+      @if (data.threads.length > 2) {
+        <div>Antworten</div>
+      }
+    </div>
+    <div class="last-answer-time">
+      <div>Letzte Antwort:&nbsp;</div>
+      <div class="time">
+        {{ data.threads[data.threads.length - 1].createdTime["fullDay"] }}
+      </div>
     </div>
   </div>
-</div>
+}
 
-<div (click)="this.imagePreview = false" class="imagePreview" *ngIf="this.imagePreview">
-  <div (click)="this.imagePreview = false" class="close-icon-container">
-    <img class="close-icon-normal" src="assets/icons/close.png" />
-    <img class="close-icon-purple" src="assets/icons/close_purple.png" />
-  </div>
+@if (this.imagePreview) {
+  <div (click)="this.imagePreview = false" class="imagePreview">
+    <div (click)="this.imagePreview = false" class="close-icon-container">
+      <img class="close-icon-normal" src="assets/icons/close.png" />
+      <img class="close-icon-purple" src="assets/icons/close_purple.png" />
+    </div>
   <img [src]="
       this.data.file || this.messageData.file || this.threadMessageData.file
     " />
-</div>
+    </div>
+  }

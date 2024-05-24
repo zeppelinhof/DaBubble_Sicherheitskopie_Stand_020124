@@ -1,30 +1,33 @@
 <div class="user-profil">
   <div class="header">
     <span>Profil</span>
-    <img
-      *ngIf="!closeIsHovered && isDesktop"
-      (mouseover)="closeIsHovered = true"
-      (mouseout)="closeIsHovered = false"
-      (click)="settingsService.closeMenu()"
-      src="assets/icons/close.png"
-      alt="icon to close dialog"
-    />
-    <img
-      *ngIf="closeIsHovered && isDesktop"
-      (mouseover)="closeIsHovered = true"
-      (mouseout)="closeIsHovered = false"
-      (click)="settingsService.closeMenu()"
-      src="assets/icons/close-purple.png"
-      alt="icon to close dialog"
-    />
-    <img
-      *ngIf="!isDesktop"
-      (mouseover)="closeIsHovered = true"
-      (mouseout)="closeIsHovered = false"
-      (click)="settingsService.closeMenu()"
-      src="/assets/icons/close.png"
-      alt="icon to close dialog"
-    />
+    @if (!closeIsHovered && isDesktop) {
+      <img
+        (mouseover)="closeIsHovered = true"
+        (mouseout)="closeIsHovered = false"
+        (click)="settingsService.closeMenu()"
+        src="assets/icons/close.png"
+        alt="icon to close dialog"
+        />
+    }
+    @if (closeIsHovered && isDesktop) {
+      <img
+        (mouseover)="closeIsHovered = true"
+        (mouseout)="closeIsHovered = false"
+        (click)="settingsService.closeMenu()"
+        src="assets/icons/close-purple.png"
+        alt="icon to close dialog"
+        />
+    }
+    @if (!isDesktop) {
+      <img
+        (mouseover)="closeIsHovered = true"
+        (mouseout)="closeIsHovered = false"
+        (click)="settingsService.closeMenu()"
+        src="/assets/icons/close.png"
+        alt="icon to close dialog"
+        />
+    }
   </div>
   <div class="img-container">
     <img [src]="this.us.getUserImage(userId)" alt="image of user" />
@@ -34,14 +37,18 @@
       {{ userName }}
     </span>
   </div>
-  <div *ngIf="this.us.getUserOnlineStats(userId) == 'online'" class="online">
-    <div class="circle"></div>
-    <span>Aktiv</span>
-  </div>
-  <div *ngIf="this.us.getUserOnlineStats(userId) == 'offline'" class="offline">
-    <div class="circle"></div>
-    <span>Abwesend</span>
-  </div>
+  @if (this.us.getUserOnlineStats(userId) == 'online') {
+    <div class="online">
+      <div class="circle"></div>
+      <span>Aktiv</span>
+    </div>
+  }
+  @if (this.us.getUserOnlineStats(userId) == 'offline') {
+    <div class="offline">
+      <div class="circle"></div>
+      <span>Abwesend</span>
+    </div>
+  }
   <div class="email-container">
     <div class="email-text">
       <img src="assets/icons/mail-black.png" alt="icon of mail" />
@@ -57,7 +64,7 @@
   <button
     (click)="settingsService.profilIsOpenThroughMessage = false"
     class="button-layout btn-message"
-  >
+    >
     <img src="assets/icons/message.png" alt="icon of message" />Nachricht
   </button>
 </div>

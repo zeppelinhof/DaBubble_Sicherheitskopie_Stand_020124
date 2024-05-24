@@ -1,105 +1,116 @@
-<div *ngIf="this.respService.sideLeftVisible" class="side-left-container">
-  <div class="first-line">
-    <div class="logo-headline">
-      <img class="logo-code-learning" src="assets/imgs/workspace_logo.png" />
-
-      <div class="headline-white-box">Code learning</div>
-    </div>
-    <div style="position: relative;">
-      <div (click)="this.respService.onlyMessage()" [ngClass]="{'hint-wrap': showHints()}">
-        <img class="button-dm" src="assets/icons/edit_square.png" routerLink="new-message" />
+@if (this.respService.sideLeftVisible) {
+  <div class="side-left-container">
+    <div class="first-line">
+      <div class="logo-headline">
+        <img class="logo-code-learning" src="assets/imgs/workspace_logo.png" />
+        <div class="headline-white-box">Code learning</div>
       </div>
-    </div>
-  </div>
-
-  <div class="overview-panel">
-    <div class="overview-channels">
-      <div class="dropdown-line">
-        <div (click)="clickDownArrowChannels()" class="arrow-headline">
-          <div class="arrow_img_wrap">
-            <img class="dropdown_arrow" [class.right-arrow]="rightArrowChannels"
-              src="assets/icons/arrow_drop_down.png" />
-            <img class="dropdown_arrow_purple" [class.right-arrow]="rightArrowChannels"
-              src="assets/icons/arrow_drop_down_purple.png" />
-          </div>
-
-          <div class="dots-headline">
-            <div class="dots_wrap">
-              <img class="dots_standard" src="assets/icons/three_dots.png" />
-              <img class="dots_purple" src="assets/icons/three_dots_purple.png" />
-            </div>
-            <div class="headline-secondary">Channels</div>
-          </div>
-        </div>
-        <div class="add-member">
-          <img (click)="this.ws.openCloseCreateChannel()" class="add-icon" src="assets/icons/add.png" />
-          <img (click)="this.ws.openCloseCreateChannel()" class="add-icon_purple" src="assets/icons/add_purple.png" />
+      <div style="position: relative;">
+        <div (click)="this.respService.onlyMessage()" [ngClass]="{'hint-wrap': showHints()}">
+          <img class="button-dm" src="assets/icons/edit_square.png" routerLink="new-message" />
         </div>
       </div>
     </div>
-
-    <div *ngIf="arrowClickedChannels" class="control-scroll-area">
-      <div *ngIf="arrowClickedChannels" class="list-container-channels">
-        <div *ngFor="let cn of ws.getChannels()" class="item-line" routerLink="channel"
-          (click)="setChannel(cn); this.respService.onlyChannel()">
-          <div class="logo-item-channel">
-            <img src="assets/icons/tag.png" />
-            <div class="oneName-channel">
-              {{ cn.name }}
-            </div>
-          </div>
-        </div>
-        <div (click)="this.ws.openCloseCreateChannel()" class="add-object-wrap">
-          <div class="add-object">
-            <div class="add-img-wrap">
-              <img class="add-standard" src="assets/icons/add_circle.png" />
-              <img class="add-purple" src="assets/icons/add_circle_purple.png" />
-            </div>
-            <div class="text-add-object">Channel hinzufügen</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="overview-direct-messages">
-      <div class="dropdown-line">
-        <div (click)="clickDownArrowContacts()" class="arrow-headline">
-          <div class="arrow_img_wrap">
-            <img [class.right-arrow]="rightArrowContacts" class="dropdown_arrow"
-              src="assets/icons/arrow_drop_down.png" />
-            <img [class.right-arrow]="rightArrowContacts" class="dropdown_arrow_purple"
-              src="assets/icons/arrow_drop_down_purple.png" />
-          </div>
-
-          <div class="dots-headline">
-            <div class="account_circle_wrap">
-              <img class="account_circle_standard" src="assets/icons/account_circle.png" />
-              <img class="account_circle_purple" src="assets/icons/account_circle_purple.png" />
-            </div>
-            <div class="headline-secondary">Direktnachrichten</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="arrowClickedContacts" class="control-scroll-area">
-      <div *ngIf="arrowClickedContacts" class="list-container-contacts">
-        <div *ngFor="let user of ws.getUsers()" class="item-line" routerLink="message" (click)="setContact(user)">
-          <div style="position: relative;">
-            <div (click)="this.respService.onlyMessage()"  class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
-              <div class="container-user-img">
-                <img class="profile-image" [src]="this.us.getUserImage(user.customId)" />
-                <div *ngIf="us.getUserOnlineStats(user.customId) === 'online'" class="online"></div>
-                <div *ngIf="us.getUserOnlineStats(user.customId) === 'offline'" class="offline"></div>
+    <div class="overview-panel">
+      <div class="overview-channels">
+        <div class="dropdown-line">
+          <div (click)="clickDownArrowChannels()" class="arrow-headline">
+            <div class="arrow_img_wrap">
+              <img class="dropdown_arrow" [class.right-arrow]="rightArrowChannels"
+                src="assets/icons/arrow_drop_down.png" />
+                <img class="dropdown_arrow_purple" [class.right-arrow]="rightArrowChannels"
+                  src="assets/icons/arrow_drop_down_purple.png" />
+                </div>
+                <div class="dots-headline">
+                  <div class="dots_wrap">
+                    <img class="dots_standard" src="assets/icons/three_dots.png" />
+                    <img class="dots_purple" src="assets/icons/three_dots_purple.png" />
+                  </div>
+                  <div class="headline-secondary">Channels</div>
+                </div>
               </div>
-              <div>{{ user.name }}</div>
-              {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
+              <div class="add-member">
+                <img (click)="this.ws.openCloseCreateChannel()" class="add-icon" src="assets/icons/add.png" />
+                <img (click)="this.ws.openCloseCreateChannel()" class="add-icon_purple" src="assets/icons/add_purple.png" />
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+          @if (arrowClickedChannels) {
+            <div class="control-scroll-area">
+              @if (arrowClickedChannels) {
+                <div class="list-container-channels">
+                  @for (cn of ws.getChannels(); track cn) {
+                    <div class="item-line" routerLink="channel"
+                      (click)="setChannel(cn); this.respService.onlyChannel()">
+                      <div class="logo-item-channel">
+                        <img src="assets/icons/tag.png" />
+                        <div class="oneName-channel">
+                          {{ cn.name }}
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  <div (click)="this.ws.openCloseCreateChannel()" class="add-object-wrap">
+                    <div class="add-object">
+                      <div class="add-img-wrap">
+                        <img class="add-standard" src="assets/icons/add_circle.png" />
+                        <img class="add-purple" src="assets/icons/add_circle_purple.png" />
+                      </div>
+                      <div class="text-add-object">Channel hinzufügen</div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          <div class="overview-direct-messages">
+            <div class="dropdown-line">
+              <div (click)="clickDownArrowContacts()" class="arrow-headline">
+                <div class="arrow_img_wrap">
+                  <img [class.right-arrow]="rightArrowContacts" class="dropdown_arrow"
+                    src="assets/icons/arrow_drop_down.png" />
+                    <img [class.right-arrow]="rightArrowContacts" class="dropdown_arrow_purple"
+                      src="assets/icons/arrow_drop_down_purple.png" />
+                    </div>
+                    <div class="dots-headline">
+                      <div class="account_circle_wrap">
+                        <img class="account_circle_standard" src="assets/icons/account_circle.png" />
+                        <img class="account_circle_purple" src="assets/icons/account_circle_purple.png" />
+                      </div>
+                      <div class="headline-secondary">Direktnachrichten</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              @if (arrowClickedContacts) {
+                <div class="control-scroll-area">
+                  @if (arrowClickedContacts) {
+                    <div class="list-container-contacts">
+                      @for (user of ws.getUsers(); track user) {
+                        <div class="item-line" routerLink="message" (click)="setContact(user)">
+                          <div style="position: relative;">
+                            <div (click)="this.respService.onlyMessage()"  class="logo-item-contact" [ngClass]="{'hint-wrap': showHints()}">
+                              <div class="container-user-img">
+                                <img class="profile-image" [src]="this.us.getUserImage(user.customId)" />
+                                @if (us.getUserOnlineStats(user.customId) === 'online') {
+                                  <div class="online"></div>
+                                }
+                                @if (us.getUserOnlineStats(user.customId) === 'offline') {
+                                  <div class="offline"></div>
+                                }
+                              </div>
+                              <div>{{ user.name }}</div>
+                              {{ user.customId === this.us.userLoggedIn().customId ? '(Du)' : '' }}
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
 
-<!-- this.ws.showCreateChannel -->
+        <!-- this.ws.showCreateChannel -->

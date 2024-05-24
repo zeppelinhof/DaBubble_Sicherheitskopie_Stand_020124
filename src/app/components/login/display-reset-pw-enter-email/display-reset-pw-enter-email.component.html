@@ -1,29 +1,32 @@
 <section>
   <div class="headline-container">
     <div class="container-img">
-      <img
-        *ngIf="!arrowBackIsHovered && isDesktop"
-        (mouseover)="arrowBackIsHovered = true"
-        (mouseout)="arrowBackIsHovered = false"
-        src="assets/icons/arrow_back.png"
-        alt="icon of black arrow"
-      />
-      <img
-        *ngIf="arrowBackIsHovered && isDesktop"
-        (mouseover)="arrowBackIsHovered = true"
-        (mouseout)="arrowBackIsHovered = false"
-        routerLink="../display-login"
-        src="assets/icons/arrow_back_purple.png"
-        alt="icon of purple arrow"
-      />
-      <img
-        *ngIf="!isDesktop"
-        (mouseover)="arrowBackIsHovered = true"
-        (mouseout)="arrowBackIsHovered = false"
-        routerLink="../display-login"
-        src="assets/icons/arrow_back.png"
-        alt="icon of black arrow"
-      />
+      @if (!arrowBackIsHovered && isDesktop) {
+        <img
+          (mouseover)="arrowBackIsHovered = true"
+          (mouseout)="arrowBackIsHovered = false"
+          src="assets/icons/arrow_back.png"
+          alt="icon of black arrow"
+          />
+      }
+      @if (arrowBackIsHovered && isDesktop) {
+        <img
+          (mouseover)="arrowBackIsHovered = true"
+          (mouseout)="arrowBackIsHovered = false"
+          routerLink="../display-login"
+          src="assets/icons/arrow_back_purple.png"
+          alt="icon of purple arrow"
+          />
+      }
+      @if (!isDesktop) {
+        <img
+          (mouseover)="arrowBackIsHovered = true"
+          (mouseout)="arrowBackIsHovered = false"
+          routerLink="../display-login"
+          src="assets/icons/arrow_back.png"
+          alt="icon of black arrow"
+          />
+      }
     </div>
     <div class="container-text">
       <span>Passwort</span>
@@ -41,37 +44,40 @@
         type="email"
         placeholder="beispielname@email.com"
         autocomplete="email"
-      />
-      <span
-        *ngIf="
+        />
+        @if (
           forgotPwEnterEmailForm.get('email')?.value.length > 0 &&
           !this.checkUserIsExisting()
-        "
-        class="error"
-      >
-        Diese E-Mail-Adresse ist nicht registriert.
-      </span>
-    </div>
+          ) {
+          <span
+            class="error"
+            >
+            Diese E-Mail-Adresse ist nicht registriert.
+          </span>
+        }
+      </div>
 
-    <span class="we-send-email"
-      >Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern
-      können.</span
-    >
+      <span class="we-send-email"
+        >Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern
+        können.</span
+        >
 
-    <div class="send-me-email-container">
-      <button
-        (click)="forgotPwEnterEmailForm.valid && saveResetAndSendEmail()"
+        <div class="send-me-email-container">
+          <button
+            (click)="forgotPwEnterEmailForm.valid && saveResetAndSendEmail()"
         [class.btn-login-valid]="
           forgotPwEnterEmailForm.valid && this.checkUserIsExisting()
         "
-        class="button-layout"
-      >
-        E-Mail senden
-      </button>
-    </div>
-  </form>
-</section>
+            class="button-layout"
+            >
+            E-Mail senden
+          </button>
+        </div>
+      </form>
+    </section>
 
-<div *ngIf="animations.emailWasSent$ | async" class="overlay-text">
-  <img src="assets/icons/send_white.png" alt="" /> E-Mail wurde gesendet
-</div>
+    @if (animations.emailWasSent$ | async) {
+      <div class="overlay-text">
+        <img src="assets/icons/send_white.png" alt="" /> E-Mail wurde gesendet
+      </div>
+    }

@@ -1,31 +1,36 @@
 <header>
   <img src="assets/imgs/logo.png" alt="image of logo" />
-  <div *ngIf="router.url === '/login/display-login'" class="container-text">
-    <span>Neu bei DABubble?</span>
-    <a routerLink="create-account" class="create-account">Konto erstellen</a>
-  </div>
+  @if (router.url === '/login/display-login') {
+    <div class="container-text">
+      <span>Neu bei DABubble?</span>
+      <a routerLink="create-account" class="create-account">Konto erstellen</a>
+    </div>
+  }
 </header>
 
 <main>
   <div class="display-container">
     <router-outlet></router-outlet>
   </div>
-  <div
-    *ngIf="router.url === '/login/display-login'"
-    class="container-text-mobile"
-  >
-    <span>Neu bei DABubble?</span>
-    <a routerLink="create-account" class="create-account">Konto erstellen</a>
-  </div>
+  @if (router.url === '/login/display-login') {
+    <div
+      class="container-text-mobile"
+      >
+      <span>Neu bei DABubble?</span>
+      <a routerLink="create-account" class="create-account">Konto erstellen</a>
+    </div>
+  }
   <div class="imprint-privacy-policy">
     <a routerLink="imprint" class="create-account">Impressum</a>
     <a routerLink="privacy-policy" class="create-account">Datenschutz</a>
   </div>
 </main>
 
-<div *ngIf="router.url === '/login/display-login'" class="animation-container">
-  <div class="content">
-    <img src="./assets/imgs/logo-no-text.png" alt="logo" />
-    <span class="animation-text">DABubble</span>
+@if (router.url === '/login/display-login') {
+  <div class="animation-container">
+    <div class="content">
+      <img src="./assets/imgs/logo-no-text.png" alt="logo" />
+      <span class="animation-text">DABubble</span>
+    </div>
   </div>
-</div>
+}

@@ -56,6 +56,6 @@ export class MessageComponent {
   }
 
   noChatsAvailable() {
-    this.us.clickedContact.value.chats?.length == 0;
+    return this.us.clickedContact.value.chats?.length == 0;
   }
 }

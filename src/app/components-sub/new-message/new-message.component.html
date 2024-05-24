@@ -3,97 +3,111 @@
     <div class="message-user-name">Neue Nachricht</div>
 
     <div class="selected-members">
-      <div *ngIf="member.name" class="complete-member">
-        <div class="complete-name">{{ member.name }}</div>
-        <div class="remove-member" (click)="removeMember(member.email)">
-          <img class="close-normal" src="assets/icons/close.png" />
-          <img class="close-purple" src="assets/icons/close_purple.png" />
+      @if (member.name) {
+        <div class="complete-member">
+          <div class="complete-name">{{ member.name }}</div>
+          <div class="remove-member" (click)="removeMember(member.email)">
+            <img class="close-normal" src="assets/icons/close.png" />
+            <img class="close-purple" src="assets/icons/close_purple.png" />
+          </div>
         </div>
-      </div>
+      }
 
-      <div *ngIf="channel.name" class="complete-member">
-        <div class="complete-name">{{ channel.name }}</div>
-        <div class="remove-member" (click)="removeChannel(channel.name)">
-          <img class="close-normal" src="assets/icons/close.png" />
-          <img class="close-purple" src="assets/icons/close_purple.png" />
+      @if (channel.name) {
+        <div class="complete-member">
+          <div class="complete-name">{{ channel.name }}</div>
+          <div class="remove-member" (click)="removeChannel(channel.name)">
+            <img class="close-normal" src="assets/icons/close.png" />
+            <img class="close-purple" src="assets/icons/close_purple.png" />
+          </div>
         </div>
-      </div>
+      }
 
       <input
         [(ngModel)]="this.inputValue"
         (input)="filterMembers()"
         class="inputfield"
         placeholder="An: #channel oder @jemand oder E-Mail Adresse"
-      />      
-    </div>
-
-    
-
-    <div *ngIf="showAddChannel" class="choose-members-wrap">
-      <div class="first-line">
-        <div class="headline-white-box">Channels</div>
-        <div class="around-close" (click)="openCloseAdd()">
-          <img src="assets/icons/close.png" />
-        </div>
+        />
       </div>
-      <div class="user-list-wrap">
-        <div class="user-list">
-          <div
-            class="oneUser-line"
-            *ngFor="let channel of filteredChannels"
-            (click)="addChannel(channel); clearSearchInput()"
-          >
-            <div class="name-text"># {{ channel.name }}</div>
+
+
+
+      @if (showAddChannel) {
+        <div class="choose-members-wrap">
+          <div class="first-line">
+            <div class="headline-white-box">Channels</div>
+            <div class="around-close" (click)="openCloseAdd()">
+              <img src="assets/icons/close.png" />
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="showAddMember" class="choose-members-wrap-new-message">
-      <div class="first-line">
-        <div class="headline-white-box">Mitglieder</div>
-        <div class="around-close" (click)="openCloseAdd()">
-          <img src="assets/icons/close.png" />
-        </div>
-      </div>
-      <div class="user-list-wrap">
-        <div class="user-list">
-          <div
-            class="oneUser-line"
-            *ngFor="let user of filteredMembers"
-            (click)="addMember(user); clearSearchInput()"
-          >
-            <img
-              class="profile-image"
-              [src]="this.us.getUserImage(this.user.customId)"
-            />
-            <div class="name-text">
-              {{ user.name }}
+          <div class="user-list-wrap">
+            <div class="user-list">
+              @for (channel of filteredChannels; track channel) {
+                <div
+                  class="oneUser-line"
+                  (click)="addChannel(channel); clearSearchInput()"
+                  >
+                  <div class="name-text"># {{ channel.name }}</div>
+                </div>
+              }
             </div>
           </div>
         </div>
+      }
+
+      @if (showAddMember) {
+        <div class="choose-members-wrap-new-message">
+          <div class="first-line">
+            <div class="headline-white-box">Mitglieder</div>
+            <div class="around-close" (click)="openCloseAdd()">
+              <img src="assets/icons/close.png" />
+            </div>
+          </div>
+          <div class="user-list-wrap">
+            <div class="user-list">
+              @for (user of filteredMembers; track user) {
+                <div
+                  class="oneUser-line"
+                  (click)="addMember(user); clearSearchInput()"
+                  >
+                  <img
+                    class="profile-image"
+                    [src]="this.us.getUserImage(this.user.customId)"
+                    />
+                    <div class="name-text">
+                      {{ user.name }}
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        }
+
       </div>
-    </div>
+      <!-- inner info card -->
+      <div class="inner-info-card-container">
+        <div class="message-inner-container">
+          <img [src]="this.us.getUserImage(this.auth.loggedUser.customId)" />
+          <div class="message-inner-name"></div>
+        </div>
 
-  </div>
-  <!-- inner info card -->
-  <div class="inner-info-card-container">
-    <div class="message-inner-container">
-      <img [src]="this.us.getUserImage(this.auth.loggedUser.customId)" />
-      <div class="message-inner-name"></div>
-    </div>
+        @if (member.name) {
+          <div class="this-conversation-text-container">
+            <div>Diese Unterhaltung findet nur zwischen</div>
+            <div class="name-of-chat-partner">&#64;{{ member.name }}</div>
+            <div>und dir statt.</div>
+          </div>
+        }
+      </div>
 
-    <div *ngIf="member.name" class="this-conversation-text-container">
-      <div>Diese Unterhaltung findet nur zwischen</div>
-      <div class="name-of-chat-partner">&#64;{{ member.name }}</div>
-      <div>und dir statt.</div>
+      @if (lastSearchType == '@') {
+        <app-input-field-message
+        ></app-input-field-message>
+      }
+      @if (lastSearchType == '#') {
+        <app-input-field-channel
+        ></app-input-field-channel>
+      }
     </div>
-  </div>
-
-  <app-input-field-message
-    *ngIf="lastSearchType == '@'"
-  ></app-input-field-message>
-  <app-input-field-channel
-    *ngIf="lastSearchType == '#'"
-  ></app-input-field-channel>
-</div>

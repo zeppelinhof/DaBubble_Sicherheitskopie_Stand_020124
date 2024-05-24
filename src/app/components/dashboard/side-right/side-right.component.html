@@ -1,49 +1,51 @@
-<div *ngIf="this.ws.threadContainerIsVisible" class="side-right-container">
-
-  <div class="inner-padding-of-thread">
-    <div class="thread-header-container">
-      <div class="thread-header-title">Thread</div>
-      <!-- {{ts.clickedChannel.name || '?'}} -->
-      <div class="thread-name"># {{cs.clickedChannel.value.name}}</div>
-    </div>
-    <div (click)="this.ws.threadContainerIsVisible = !this.ws.threadContainerIsVisible" class="close-icon-container">
-      <img class="close-icon-normal" src="assets/icons/close.png" />
-      <img class="close-icon-purple" src="assets/icons/close_purple.png">
-      <img (click)="this.respService.onlyChannel()" class="arrow-back-mobile" src="assets/icons/arrowBack.png" alt="">
-    </div>
-  </div>
-
-
-  <div *ngIf="ts.threadVisible" class="messages-channel-container" id="scrollThreadMessages">
-    <div *ngFor="let thread of threadsOfMessage; let i = index">
-      <!-- Datumstrenner für jeden Tag -->
-      <div *ngIf="this.cs.checkIfNewDay(threadsOfMessage, i)" class="new-day-date">
-        <div class="dateSeparatorAreaLeft">
-          <div class="dateSeparator"></div>
-        </div>
-        <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay']
-          }}</div>
-        <div class="dateSeparatorAreaRight">
-          <div class="dateSeparator"></div>
-        </div>
+@if (this.ws.threadContainerIsVisible) {
+  <div class="side-right-container">
+    <div class="inner-padding-of-thread">
+      <div class="thread-header-container">
+        <div class="thread-header-title">Thread</div>
+        <!-- {{ts.clickedChannel.name || '?'}} -->
+        <div class="thread-name"># {{cs.clickedChannel.value.name}}</div>
       </div>
-
-      <app-message-of-user [threadMessageData]="thread" [messageType]="'threadMessage'"></app-message-of-user>
-
-      <!-- Trenner unter Topic-Message -->
-      <div *ngIf="cs.threadsOfMessage.value.length > 1 && i == 0" class="amount-answers-wrap">
-        <div class="amount-text">
-          {{ cs.threadsOfMessage.value.length - 1 }} {{ cs.threadsOfMessage.value.length - 1 === 1 ? 'Antwort' :
-          'Antworten' }}
-        </div>
-        <div class="amountSeparatorAreaRight">
-          <div class="dateSeparator"></div>
-        </div>
+      <div (click)="this.ws.threadContainerIsVisible = !this.ws.threadContainerIsVisible" class="close-icon-container">
+        <img class="close-icon-normal" src="assets/icons/close.png" />
+        <img class="close-icon-purple" src="assets/icons/close_purple.png">
+        <img (click)="this.respService.onlyChannel()" class="arrow-back-mobile" src="assets/icons/arrowBack.png" alt="">
       </div>
-
     </div>
+    @if (ts.threadVisible) {
+      <div class="messages-channel-container" id="scrollThreadMessages">
+        @for (thread of threadsOfMessage; track thread; let i = $index) {
+          <div>
+            <!-- Datumstrenner für jeden Tag -->
+            @if (this.cs.checkIfNewDay(threadsOfMessage, i)) {
+              <div class="new-day-date">
+                <div class="dateSeparatorAreaLeft">
+                  <div class="dateSeparator"></div>
+                </div>
+                <div class="date-text">{{ this.cs.isToday(thread.createdTime['day']) ? 'Heute' : thread.createdTime['fullDay']
+                }}</div>
+                <div class="dateSeparatorAreaRight">
+                  <div class="dateSeparator"></div>
+                </div>
+              </div>
+            }
+            <app-message-of-user [threadMessageData]="thread" [messageType]="'threadMessage'"></app-message-of-user>
+            <!-- Trenner unter Topic-Message -->
+            @if (cs.threadsOfMessage.value.length > 1 && i == 0) {
+              <div class="amount-answers-wrap">
+                <div class="amount-text">
+                  {{ cs.threadsOfMessage.value.length - 1 }} {{ cs.threadsOfMessage.value.length - 1 === 1 ? 'Antwort' :
+                  'Antworten' }}
+                </div>
+                <div class="amountSeparatorAreaRight">
+                  <div class="dateSeparator"></div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+    <app-input-field-thread></app-input-field-thread>
   </div>
-
-
-  <app-input-field-thread></app-input-field-thread>
-</div>
+}

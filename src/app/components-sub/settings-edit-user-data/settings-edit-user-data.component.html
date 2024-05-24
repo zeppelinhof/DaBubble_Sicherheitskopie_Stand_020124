@@ -1,89 +1,93 @@
 <div class="edit-user-data">
   <div class="header">
     <span>Dein Profil bearbeiten</span>
-    <img
-      *ngIf="!closeIsHovered && isDesktop"
-      (mouseover)="closeIsHovered = true"
-      (mouseout)="closeIsHovered = false"
-      src="assets/icons/close.png"
-      alt="icon to close dialog"
-    />
-    <img
-      *ngIf="closeIsHovered && isDesktop"
-      (mouseover)="closeIsHovered = true"
-      (mouseout)="closeIsHovered = false"
+    @if (!closeIsHovered && isDesktop) {
+      <img
+        (mouseover)="closeIsHovered = true"
+        (mouseout)="closeIsHovered = false"
+        src="assets/icons/close.png"
+        alt="icon to close dialog"
+        />
+    }
+    @if (closeIsHovered && isDesktop) {
+      <img
+        (mouseover)="closeIsHovered = true"
+        (mouseout)="closeIsHovered = false"
       (click)="
         settingsService.menuIsOpen = true;
         settingsService.editUserDataIsOpen = false
       "
-      src="assets/icons/close-purple.png"
-      alt="icon to close dialog"
-    />
-    <img
-      *ngIf="!isDesktop"
-      (mouseover)="closeIsHovered = true"
-      (mouseout)="closeIsHovered = false"
+        src="assets/icons/close-purple.png"
+        alt="icon to close dialog"
+        />
+    }
+    @if (!isDesktop) {
+      <img
+        (mouseover)="closeIsHovered = true"
+        (mouseout)="closeIsHovered = false"
       (click)="
         settingsService.menuIsOpen = true;
         settingsService.editUserDataIsOpen = false
       "
-      src="assets/icons/close.png"
-      alt="icon to close dialog"
-    />
+        src="assets/icons/close.png"
+        alt="icon to close dialog"
+        />
+    }
   </div>
   <div class="img-container">
     <img
       [src]="this.userService.getUserImage(this.auth.loggedUser.customId)"
       alt="image of user"
-    />
-  </div>
-  <form
-    (submit)="changeUserData()"
-    ngNativeValidate
-    [formGroup]="changeUserDataForm"
-  >
-    <div class="name">
-      <img src="assets/icons/account_circle.png" alt="icon of profile" />
-      <span>Vollständiger Name</span>
+      />
     </div>
-    <div class="container-input-field">
-      <input
-        required
-        formControlName="name"
-        type="text"
+    <form
+      (submit)="changeUserData()"
+      ngNativeValidate
+      [formGroup]="changeUserDataForm"
+      >
+      <div class="name">
+        <img src="assets/icons/account_circle.png" alt="icon of profile" />
+        <span>Vollständiger Name</span>
+      </div>
+      <div class="container-input-field">
+        <input
+          required
+          formControlName="name"
+          type="text"
         placeholder="{{
           this.userService.getUserName(this.auth.loggedUser.customId)
         }}"
-      />
-      <span
-        *ngIf="changeUserDataForm.get('name')?.hasError('minlength')"
-        class="error"
-        >Der Name sollte mind. 3 Zeichen enthalten</span
-      >
-    </div>
+          />
+          @if (changeUserDataForm.get('name')?.hasError('minlength')) {
+            <span
+              class="error"
+              >Der Name sollte mind. 3 Zeichen enthalten</span
+              >
+          }
+        </div>
 
-    <span class="enter-name-text">Gebe hier deinen neuen Profilnamen ein</span>
+        <span class="enter-name-text">Gebe hier deinen neuen Profilnamen ein</span>
 
-    <div class="btns-container">
-      <button
+        <div class="btns-container">
+          <button
         (click)="
           settingsService.menuIsOpen = true;
           settingsService.editUserDataIsOpen = false
         "
-        type="button"
-        class="button-layout btn-cancel"
-      >
-        Abbrechen
-      </button>
-      <button
-        type="submit"
-        [disabled]="!changeUserDataForm.valid"
-        [class.btn-save-not-valid]="!changeUserDataForm.valid"
-        [class.btn-save-valid]="changeUserDataForm.valid"
-        class="button-layout btn-save"
-      >
-        Speichern
-      </button>
+            type="button"
+            class="button-layout btn-cancel"
+            >
+            Abbrechen
+          </button>
+          <button
+            type="submit"
+            [disabled]="!changeUserDataForm.valid"
+            [class.btn-save-not-valid]="!changeUserDataForm.valid"
+            [class.btn-save-valid]="changeUserDataForm.valid"
+            class="button-layout btn-save"
+            >
+            Speichern
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
-</div>

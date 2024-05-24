@@ -1,29 +1,32 @@
 <section>
   <div class="headline-container">
     <div class="container-img">
-      <img
-        *ngIf="!arrowBackIsHovered && isDesktop"
-        (mouseover)="arrowBackIsHovered = true"
-        (mouseout)="arrowBackIsHovered = false"
-        src="assets/icons/arrow_back.png"
-        alt="icon of black arrow"
-      />
-      <img
-        *ngIf="arrowBackIsHovered && isDesktop"
-        (mouseover)="arrowBackIsHovered = true"
-        (mouseout)="arrowBackIsHovered = false"
-        routerLink="../reset-pw-enter-email"
-        src="assets/icons/arrow_back_purple.png"
-        alt="icon of purple arrow"
-      />
-      <img
-        *ngIf="!isDesktop"
-        (mouseover)="arrowBackIsHovered = true"
-        (mouseout)="arrowBackIsHovered = false"
-        routerLink="../reset-pw-enter-email"
-        src="assets/icons/arrow_back.png"
-        alt="icon of black arrow"
-      />
+      @if (!arrowBackIsHovered && isDesktop) {
+        <img
+          (mouseover)="arrowBackIsHovered = true"
+          (mouseout)="arrowBackIsHovered = false"
+          src="assets/icons/arrow_back.png"
+          alt="icon of black arrow"
+          />
+      }
+      @if (arrowBackIsHovered && isDesktop) {
+        <img
+          (mouseover)="arrowBackIsHovered = true"
+          (mouseout)="arrowBackIsHovered = false"
+          routerLink="../reset-pw-enter-email"
+          src="assets/icons/arrow_back_purple.png"
+          alt="icon of purple arrow"
+          />
+      }
+      @if (!isDesktop) {
+        <img
+          (mouseover)="arrowBackIsHovered = true"
+          (mouseout)="arrowBackIsHovered = false"
+          routerLink="../reset-pw-enter-email"
+          src="assets/icons/arrow_back.png"
+          alt="icon of black arrow"
+          />
+      }
     </div>
     <div class="container-text">
       <span>Passwort</span>
@@ -32,66 +35,72 @@
     <div style="width: 0.01px"></div>
   </div>
 
-  <form
-    ngNativeValidate
-    [formGroup]="newPasswortForm"
-    *ngIf="!linkIsExpired"
-    action=""
-  >
-    <div class="container-input-field">
-      <img src="assets/icons/lock.png" alt="icon of lock" />
-      <input
-        required
-        formControlName="passwordFirstInput"
-        class="input-layout"
-        type="password"
-        placeholder="Neues Passwort"
-      />
-      <span
-        *ngIf="newPasswortForm.get('passwordFirstInput')?.hasError('minlength')"
-        class="error"
-        >Das Passwort sollte mind. 8 Zeichen enthalten</span
+  @if (!linkIsExpired) {
+    <form
+      ngNativeValidate
+      [formGroup]="newPasswortForm"
+      action=""
       >
-      <span
-        class="error"
-        *ngIf="
-          !newPasswortForm.get('passwordFirstInput')?.hasError('minlength') &&
-          newPasswortForm.get('passwordFirstInput')?.hasError('pattern')
-        "
-        >Sonderzeichen & Zahl muss eingegeben werden
-      </span>
-    </div>
-    <div class="container-input-field">
-      <img src="assets/icons/lock.png" alt="icon of lock" />
-      <input
-        required
-        formControlName="passwordSecondInput"
-        class="input-layout"
-        type="password"
-        placeholder="Neues Passwort bestätigen"
-      />
-      <span
-        *ngIf="
-          newPasswortForm.get('passwordSecondInput')?.value.length > 0 &&
-          !passwordsMatch()
-        "
-        class="error"
-        >Ihre Kennwörter stimmen nicht überein.</span
-      >
-    </div>
-    <div class="change-password">
-      <button
-        (click)="changePasswort()"
-        class="button-layout"
-        [class.btn-login-valid]="newPasswortForm.valid && this.passwordsMatch()"
-      >
-        Passwort ändern
-      </button>
-    </div>
-  </form>
+      <div class="container-input-field">
+        <img src="assets/icons/lock.png" alt="icon of lock" />
+        <input
+          required
+          formControlName="passwordFirstInput"
+          class="input-layout"
+          type="password"
+          placeholder="Neues Passwort"
+          />
+          @if (newPasswortForm.get('passwordFirstInput')?.hasError('minlength')) {
+            <span
+              class="error"
+              >Das Passwort sollte mind. 8 Zeichen enthalten</span
+              >
+          }
+          @if (
+            !newPasswortForm.get('passwordFirstInput')?.hasError('minlength') &&
+            newPasswortForm.get('passwordFirstInput')?.hasError('pattern')
+            ) {
+            <span
+              class="error"
+              >Sonderzeichen & Zahl muss eingegeben werden
+            </span>
+          }
+        </div>
+        <div class="container-input-field">
+          <img src="assets/icons/lock.png" alt="icon of lock" />
+          <input
+            required
+            formControlName="passwordSecondInput"
+            class="input-layout"
+            type="password"
+            placeholder="Neues Passwort bestätigen"
+            />
+            @if (
+              newPasswortForm.get('passwordSecondInput')?.value.length > 0 &&
+              !passwordsMatch()
+              ) {
+              <span
+                class="error"
+                >Ihre Kennwörter stimmen nicht überein.</span
+                >
+            }
+          </div>
+          <div class="change-password">
+            <button
+              (click)="changePasswort()"
+              class="button-layout"
+              [class.btn-login-valid]="newPasswortForm.valid && this.passwordsMatch()"
+              >
+              Passwort ändern
+            </button>
+          </div>
+        </form>
+      }
 
-  <span *ngIf="linkIsExpired" class="link-has-expired"
-    >Der Link zum Zurücksetzen des Passwortes ist leider abgelaufen.<br />
-    Bitte fordere einen neuen an.
-  </span>
-</section>
+      @if (linkIsExpired) {
+        <span class="link-has-expired"
+          >Der Link zum Zurücksetzen des Passwortes ist leider abgelaufen.<br />
+          Bitte fordere einen neuen an.
+        </span>
+      }
+    </section>

@@ -10,7 +10,7 @@
         (settingsService.menuIsOpen = !settingsService.menuIsOpen)
     "
     class="current-user"
-  >
+    >
     <div class="name-of-user">
       {{ this.us.getUserName(this.auth.loggedUser.customId) }}
     </div>
@@ -20,88 +20,98 @@
         class="current-user-img"
         [src]="this.us.getUserImage(this.auth.loggedUser.customId)"
         alt=""
-      />
-      <div *ngIf="this.auth.loggedUserOnline" class="online"></div>
-    </div>
-    <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
-    <img
-      class="arrow-down-icon-purple"
-      src="assets/icons/arrowDownPurple.png"
-      alt=""
-    />
-  </div>
-
-  <div
-    class="container-all-settings"
-    [ngClass]="{ mobileMenu: settingsService.menuIsOpen }"
-    *ngIf="settingsService.settingsAreOpen"
-  >
-    <app-settings-user-menu
-      *ngIf="settingsService.menuIsOpen"
-    ></app-settings-user-menu>
-    <app-settings-user-data
-      *ngIf="settingsService.profilIsOpen"
-    ></app-settings-user-data>
-    <app-settings-edit-user-data
-      *ngIf="settingsService.editUserDataIsOpen"
-    ></app-settings-edit-user-data>
-  </div>
-</header>
-
-<div
-  (click)="settingsService.closeMenu()"
-  *ngIf="settingsService.settingsAreOpen"
-  class="bg-userSettings"
-></div>
-
-<div class="input-field-container">
-  <div class="input-field-inside">
-    <div (click)="this.focusInput()" class="search-bar-icon">
-      <img src="assets/icons/search.png" />
-    </div>
-    <input
-      #input
-      type="text"
-      placeholder="Code learning durchsuchen"
-      [(ngModel)]="this.ws.inputGlobalSearch"
-      (input)="sis.filterCodeLearning()"
-    />
-  </div>
-
-  <!-- Global Result-List -->
-  <!-- <div class="choose-members-wrap" *ngIf="this.ws.globalResults">
-    <div class="first-line">
-      <div class="headline-white-box">Globale Suche</div>
-      <div class="around-close" (click)="this.ws.closeGlobalResults()">
-        <img src="assets/icons/close.png" />        
+        />
+        @if (this.auth.loggedUserOnline) {
+          <div class="online"></div>
+        }
       </div>
-    </div>
-  </div> -->
-  <!-- Global Result-List -->
-  <div class="choose-members-header-wrap" *ngIf="this.ws.globalResults">
-    <div class="first-line">
-      <div class="headline-white-box">Globale Suche</div>
-      <div class="around-close" (click)="this.ws.closeGlobalResults()">
-        <img src="assets/icons/close.png" />
+      <img class="arrow-down-icon" src="assets/icons/arrowDown.png" alt="" />
+      <img
+        class="arrow-down-icon-purple"
+        src="assets/icons/arrowDownPurple.png"
+        alt=""
+        />
       </div>
-    </div>
-    <div class="user-list-wrap">
-      <div class="user-list">
+
+      @if (settingsService.settingsAreOpen) {
         <div
-          class="oneUser-line"
-          *ngFor="let msgData of sis.filteredMessages"
-          [routerLink]="getRouterLink(msgData)"
-          (click)="sis.clearSearchInput(); openChat(msgData)"
-        >
-          <img class="profile-image" [src]="this.us.getUserImage(this.msgData.userCustomId)" />
-          <div class="name-text">
-            <div>{{ messagePreview(msgData) }}</div>
-            <div class="searchHitSourceName">
-              von {{ getMessageSource(msgData) }}
+          class="container-all-settings"
+          [ngClass]="{ mobileMenu: settingsService.menuIsOpen }"
+          >
+          @if (settingsService.menuIsOpen) {
+            <app-settings-user-menu
+            ></app-settings-user-menu>
+          }
+          @if (settingsService.profilIsOpen) {
+            <app-settings-user-data
+            ></app-settings-user-data>
+          }
+          @if (settingsService.editUserDataIsOpen) {
+            <app-settings-edit-user-data
+            ></app-settings-edit-user-data>
+          }
+        </div>
+      }
+    </header>
+
+    @if (settingsService.settingsAreOpen) {
+      <div
+        (click)="settingsService.closeMenu()"
+        class="bg-userSettings"
+      ></div>
+    }
+
+    <div class="input-field-container">
+      <div class="input-field-inside">
+        <div (click)="this.focusInput()" class="search-bar-icon">
+          <img src="assets/icons/search.png" />
+        </div>
+        <input
+          #input
+          type="text"
+          placeholder="Code learning durchsuchen"
+          [(ngModel)]="this.ws.inputGlobalSearch"
+          (input)="sis.filterCodeLearning()"
+          />
+        </div>
+
+        <!-- Global Result-List -->
+        <!-- <div class="choose-members-wrap" *ngIf="this.ws.globalResults">
+        <div class="first-line">
+          <div class="headline-white-box">Globale Suche</div>
+          <div class="around-close" (click)="this.ws.closeGlobalResults()">
+            <img src="assets/icons/close.png" />
+          </div>
+        </div>
+      </div> -->
+      <!-- Global Result-List -->
+      @if (this.ws.globalResults) {
+        <div class="choose-members-header-wrap">
+          <div class="first-line">
+            <div class="headline-white-box">Globale Suche</div>
+            <div class="around-close" (click)="this.ws.closeGlobalResults()">
+              <img src="assets/icons/close.png" />
+            </div>
+          </div>
+          <div class="user-list-wrap">
+            <div class="user-list">
+              @for (msgData of sis.filteredMessages; track msgData) {
+                <div
+                  class="oneUser-line"
+                  [routerLink]="getRouterLink(msgData)"
+                  (click)="sis.clearSearchInput(); openChat(msgData)"
+                  >
+                  <img class="profile-image" [src]="this.us.getUserImage(this.msgData.userCustomId)" />
+                  <div class="name-text">
+                    <div>{{ messagePreview(msgData) }}</div>
+                    <div class="searchHitSourceName">
+                      von {{ getMessageSource(msgData) }}
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
           </div>
         </div>
-      </div>
+      }
     </div>
-  </div>
-</div>

@@ -1,28 +1,31 @@
 <section>
   <div class="headline-container">
-    <img
-      *ngIf="!arrowBackIsHovered && isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-    />
-    <img
-      *ngIf="arrowBackIsHovered && isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      routerLink="/login"
-      src="assets/icons/arrow_back_purple.png"
-      alt="icon of purple arrow"
-    />
-    <img
-      *ngIf="!isDesktop"
-      (mouseover)="arrowBackIsHovered = true"
-      (mouseout)="arrowBackIsHovered = false"
-      src="assets/icons/arrow_back.png"
-      alt="icon of black arrow"
-      routerLink="/login"
-    />
+    @if (!arrowBackIsHovered && isDesktop) {
+      <img
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+        />
+    }
+    @if (arrowBackIsHovered && isDesktop) {
+      <img
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        routerLink="/login"
+        src="assets/icons/arrow_back_purple.png"
+        alt="icon of purple arrow"
+        />
+    }
+    @if (!isDesktop) {
+      <img
+        (mouseover)="arrowBackIsHovered = true"
+        (mouseout)="arrowBackIsHovered = false"
+        src="assets/icons/arrow_back.png"
+        alt="icon of black arrow"
+        routerLink="/login"
+        />
+    }
     <div>Konto erstellen</div>
   </div>
   <span class="description">
@@ -38,80 +41,86 @@
         class="input-layout"
         type="text"
         placeholder="Name und Nachname"
-      />
-      <span *ngIf="signUpForm.get('name')?.hasError('minlength')" class="error"
-        >Der Name sollte mind. 3 Zeichen enthalten</span
-      >
-    </div>
-    <div class="container-input-field">
-      <img src="assets/icons/mail.png" alt="icon of mail" />
-      <input
-        required
-        formControlName="email"
-        class="input-layout"
-        type="email"
-        placeholder="beispielname@email.com"
-        autocomplete="email"
-      />
-      <span
-        *ngIf="
-          signUpForm.get('email')?.value.length > 0 &&
-          (signUpForm.get('email')?.hasError('email') ||
+        />
+        @if (signUpForm.get('name')?.hasError('minlength')) {
+          <span class="error"
+            >Der Name sollte mind. 3 Zeichen enthalten</span
+            >
+        }
+      </div>
+      <div class="container-input-field">
+        <img src="assets/icons/mail.png" alt="icon of mail" />
+        <input
+          required
+          formControlName="email"
+          class="input-layout"
+          type="email"
+          placeholder="beispielname@email.com"
+          autocomplete="email"
+          />
+          @if (
+            signUpForm.get('email')?.value.length > 0 &&
+            (signUpForm.get('email')?.hasError('email') ||
             !checkInputEmailContainsDot())
-        "
-        class="error"
-      >
-        Diese E-Mail-Adresse ist leider ungültig.
-      </span>
-      <span
-        *ngIf="
-          signUpForm.get('email')?.value.length > 0 &&
-          this.userIsAlreadyExisting()
-        "
-        class="error"
-      >
-        Diese E-Mail-Adresse existiert bereits.
-      </span>
-    </div>
-    <div class="container-input-field">
-      <img src="assets/icons/lock.png" alt="icon of lock" />
-      <input
-        required
-        formControlName="password"
-        class="input-layout"
-        type="password"
-        placeholder="Passwort"
-      />
-      <span
-        *ngIf="signUpForm.get('password')?.hasError('minlength')"
-        class="error"
-        >Das Passwort sollte mind. 8 Zeichen enthalten</span
-      >
-      <span
-        class="error"
-        *ngIf="
-          !signUpForm.get('password')?.hasError('minlength') &&
-          signUpForm.get('password')?.hasError('pattern')
-        "
-        >Sonderzeichen & Zahl muss eingegeben werden
-      </span>
-    </div>
+            ) {
+            <span
+              class="error"
+              >
+              Diese E-Mail-Adresse ist leider ungültig.
+            </span>
+          }
+          @if (
+            signUpForm.get('email')?.value.length > 0 &&
+            this.userIsAlreadyExisting()
+            ) {
+            <span
+              class="error"
+              >
+              Diese E-Mail-Adresse existiert bereits.
+            </span>
+          }
+        </div>
+        <div class="container-input-field">
+          <img src="assets/icons/lock.png" alt="icon of lock" />
+          <input
+            required
+            formControlName="password"
+            class="input-layout"
+            type="password"
+            placeholder="Passwort"
+            />
+            @if (signUpForm.get('password')?.hasError('minlength')) {
+              <span
+                class="error"
+                >Das Passwort sollte mind. 8 Zeichen enthalten</span
+                >
+            }
+            @if (
+              !signUpForm.get('password')?.hasError('minlength') &&
+              signUpForm.get('password')?.hasError('pattern')
+              ) {
+              <span
+                class="error"
+                >Sonderzeichen & Zahl muss eingegeben werden
+              </span>
+            }
+          </div>
 
-    <label class="checkbox-privacy-policy">
-      <input required formControlName="agreement" type="checkbox" /> Ich stimme
-      der <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
-    </label>
+          <label class="checkbox-privacy-policy">
+            <input required formControlName="agreement" type="checkbox" /> Ich stimme
+            der <a routerLink="/privacy-policy">Datenschutzerklärung</a> zu.
+          </label>
 
-    <div class="continue-container">
-      <button
-        type="submit"
-        class="button-layout"
-        [disabled]="!signUpForm.valid"
-        [class.btn-form-not-valid]="!signUpForm.valid"
-        [class.btn-continue-valid]="signUpForm.valid"
-      >
-        Weiter
-      </button>
-    </div>
-  </form>
-</section>
+          <div class="continue-container">
+            <button
+              type="submit"
+              class="button-layout"
+              [disabled]="!signUpForm.valid"
+              [class.btn-form-not-valid]="!signUpForm.valid"
+              [class.btn-continue-valid]="signUpForm.valid"
+              >
+              Weiter
+            </button>
+          </div>
+        </form>
+      </section>
