@@ -8,11 +8,15 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { MessageOfUserComponent } from '../message-of-user/message-of-user.component';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { InputFieldMessageComponent } from '../input-field-message/input-field-message.component';
+import { SettingsUserDataMessageComponent } from '../settings-user-data-message/settings-user-data-message.component';
 
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
+  imports:[InputFieldMessageComponent, MessageOfUserComponent, SettingsUserDataMessageComponent],
   styleUrls: ['./message.component.scss'],
+  standalone: true
 })
 export class MessageComponent {
   @ViewChild('scroll') scroll!: ElementRef;

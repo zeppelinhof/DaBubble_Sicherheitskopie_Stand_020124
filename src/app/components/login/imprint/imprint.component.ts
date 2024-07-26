@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
   selector: 'app-imprint',
   templateUrl: './imprint.component.html',
   styleUrls: ['./imprint.component.scss'],
+  standalone: true
 })
 export class ImprintComponent {
   arrowBackIsHovered: boolean = false;

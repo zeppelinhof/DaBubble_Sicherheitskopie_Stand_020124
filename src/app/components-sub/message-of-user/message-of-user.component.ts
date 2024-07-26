@@ -12,11 +12,16 @@ import { ThreadInterface } from 'src/app/interfaces/thread.interface';
 import { InputService } from 'src/app/shared/services/input.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { CommonModule } from '@angular/common';
+import { MessageReactionComponent } from '../message-reaction/message-reaction.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-message-of-user',
   templateUrl: './message-of-user.component.html',
   styleUrls: ['./message-of-user.component.scss'],
+  imports: [CommonModule, MessageReactionComponent, FormsModule],
+  standalone: true
 })
 export class MessageOfUserComponent {
   @Input() messageData: Message = new Message(); // für Direktnachrichten

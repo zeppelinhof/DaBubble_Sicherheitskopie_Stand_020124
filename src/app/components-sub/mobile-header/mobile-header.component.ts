@@ -9,11 +9,19 @@ import { ThreadService } from 'src/app/shared/services/thread.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { RouterLink } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SettingsEditUserDataComponent } from '../settings-edit-user-data/settings-edit-user-data.component';
+import { SettingsUserDataComponent } from '../settings-user-data/settings-user-data.component';
+import { SettingsUserMenuComponent } from '../settings-user-menu/settings-user-menu.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mobile-header',
   templateUrl: './mobile-header.component.html',
   styleUrls: ['./mobile-header.component.scss'],
+  imports: [RouterLink, ReactiveFormsModule, SettingsEditUserDataComponent, SettingsUserDataComponent, SettingsUserMenuComponent, FormsModule, CommonModule],
+  standalone: true
 })
 export class MobileHeaderComponent {
   userSettings: boolean = false;

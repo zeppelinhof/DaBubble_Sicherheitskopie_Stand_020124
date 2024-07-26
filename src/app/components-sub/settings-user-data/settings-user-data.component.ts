@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   selector: 'app-settings-user-data',
   templateUrl: './settings-user-data.component.html',
   styleUrls: ['./settings-user-data.component.scss'],
+  standalone: true
 })
 export class SettingsUserDataComponent {
   closeIsHovered: boolean = false;

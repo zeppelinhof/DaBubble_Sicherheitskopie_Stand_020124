@@ -1,10 +1,19 @@
 import { Component, HostListener, NgZone, OnInit } from '@angular/core';
+import { CreateChannelComponent } from 'src/app/components-sub/create-channel/create-channel.component';
+import { WorkspacebuttonComponent } from 'src/app/components-sub/workspacebutton/workspacebutton.component';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { SideRightComponent } from './side-right/side-right.component';
+import { RouterOutlet } from '@angular/router';
+import { SideLeftComponent } from './side-left/side-left.component';
+import { HeaderComponent } from './header/header.component';
+import { MobileHeaderComponent } from 'src/app/components-sub/mobile-header/mobile-header.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  imports: [WorkspacebuttonComponent, CreateChannelComponent, SideRightComponent, RouterOutlet, SideLeftComponent, HeaderComponent, MobileHeaderComponent],
+  standalone: true
 })
 export class DashboardComponent {
   private resizeTimeout: any;

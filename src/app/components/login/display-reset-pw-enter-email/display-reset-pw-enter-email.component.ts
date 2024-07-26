@@ -2,14 +2,17 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { AnimationsService } from 'src/app/shared/services/animations.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { User } from 'src/app/models/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-display-reset-pw-enter-email',
   templateUrl: './display-reset-pw-enter-email.component.html',
   styleUrls: ['./display-reset-pw-enter-email.component.scss'],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  standalone: true
 })
 export class DisplayResetPwEnterEmailComponent {
   arrowBackIsHovered: boolean = false;

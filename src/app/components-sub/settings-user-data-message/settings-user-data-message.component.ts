@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-settings-user-data-message',
   templateUrl: './settings-user-data-message.component.html',
   styleUrls: ['./settings-user-data-message.component.scss'],
+  standalone: true
 })
 export class SettingsUserDataMessageComponent {
   closeIsHovered: boolean = false;

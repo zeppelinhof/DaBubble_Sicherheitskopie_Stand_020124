@@ -1,4 +1,7 @@
 import { Component, ElementRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Channel } from 'src/app/models/channel';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -14,6 +17,8 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   host: {
     '(document:click)': 'onClick($event)',
   },
+  imports: [PickerModule, FormsModule],
+  standalone: true
 })
 export class InputFieldThreadComponent {
   showEmojis: boolean = false;

@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   selector: 'app-settings-user-menu',
   templateUrl: './settings-user-menu.component.html',
   styleUrls: ['./settings-user-menu.component.scss'],
+  standalone: true
 })
 export class SettingsUserMenuComponent {
   profileIsHovered: boolean = false;

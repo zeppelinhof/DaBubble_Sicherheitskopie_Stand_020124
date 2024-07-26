@@ -1,5 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
 import { User } from 'src/app/models/user';
@@ -17,6 +21,8 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   host: {
     '(document:click)': 'onClick($event)',
   },
+  imports: [CommonModule, FormsModule, PickerModule],
+  standalone: true
 })
 export class InputFieldMessageComponent {
   clickedContact!: User;

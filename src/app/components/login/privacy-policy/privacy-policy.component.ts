@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss'],
+  standalone: true
 })
 export class PrivacyPolicyComponent {
   arrowBackIsHovered: boolean = false;

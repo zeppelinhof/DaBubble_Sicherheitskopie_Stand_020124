@@ -1,5 +1,5 @@
 import { UserService } from './../../shared/services/user.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserSettingsService } from './../../shared/services/user-settings.service';
 import { AuthenticationService } from './../../shared/services/authentication.service';
 import { Component } from '@angular/core';
@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
   selector: 'app-settings-edit-user-data',
   templateUrl: './settings-edit-user-data.component.html',
   styleUrls: ['./settings-edit-user-data.component.scss'],
+  imports: [ReactiveFormsModule],
+  standalone: true
 })
 export class SettingsEditUserDataComponent {
   closeIsHovered: boolean = false;

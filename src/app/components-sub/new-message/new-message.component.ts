@@ -6,11 +6,17 @@ import { User } from 'src/app/models/user';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { InputFieldMessageComponent } from '../input-field-message/input-field-message.component';
+import { InputFieldChannelComponent } from '../input-field-channel/input-field-channel.component';
 
 @Component({
   selector: 'app-new-message',
   templateUrl: './new-message.component.html',
   styleUrls: ['./new-message.component.scss'],
+  imports: [CommonModule, FormsModule, InputFieldMessageComponent, InputFieldChannelComponent],
+  standalone: true
 })
 export class NewMessageComponent {
   allUsers: User[];

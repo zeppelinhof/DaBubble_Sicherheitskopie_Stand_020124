@@ -2,13 +2,15 @@ import { InputService } from 'src/app/shared/services/input.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-display-create-account',
   templateUrl: './display-create-account.component.html',
   styleUrls: ['./display-create-account.component.scss'],
+  imports: [ReactiveFormsModule],
+  standalone: true
 })
 export class DisplayCreateAccountComponent {
   arrowBackIsHovered: boolean = false;

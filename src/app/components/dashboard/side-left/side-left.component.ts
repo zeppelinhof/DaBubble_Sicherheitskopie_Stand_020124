@@ -10,11 +10,14 @@ import { Message } from 'src/app/models/message';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-side-left',
   templateUrl: './side-left.component.html',
   styleUrls: ['./side-left.component.scss'],
+  imports: [CommonModule],
+  standalone: true
 })
 export class SideLeftComponent {
   firestore: Firestore = inject(Firestore);

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
@@ -11,7 +12,9 @@ enum MenuStatus {
 @Component({
   selector: 'app-workspacebutton',
   templateUrl: './workspacebutton.component.html',
-  styleUrls: ['./workspacebutton.component.scss']
+  styleUrls: ['./workspacebutton.component.scss'],
+  imports: [CommonModule],
+  standalone: true
 })
 export class WorkspacebuttonComponent {
   hovered: boolean = false;

@@ -1,5 +1,5 @@
 import { AuthenticationService } from './../../../shared/services/authentication.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-display-reset-pw-enter-pw',
   templateUrl: './display-reset-pw-enter-pw.component.html',
   styleUrls: ['./display-reset-pw-enter-pw.component.scss'],
+  imports: [FormsModule, ReactiveFormsModule],
+  standalone: true
 })
 export class DisplayResetPwEnterPwComponent {
   isDesktop = window.innerWidth > 768;

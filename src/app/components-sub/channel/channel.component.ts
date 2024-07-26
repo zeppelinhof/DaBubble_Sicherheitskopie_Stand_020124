@@ -8,11 +8,17 @@ import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import { InputFieldChannelComponent } from '../input-field-channel/input-field-channel.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MessagesChannelComponent } from '../messages-channel/messages-channel.component';
 
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
   styleUrls: ['./channel.component.scss'],
+  imports: [MessagesChannelComponent, InputFieldChannelComponent, FormsModule, ReactiveFormsModule, CommonModule],
+  standalone: true
 })
 export class ChannelComponent {
   clickedChannelId!: string;

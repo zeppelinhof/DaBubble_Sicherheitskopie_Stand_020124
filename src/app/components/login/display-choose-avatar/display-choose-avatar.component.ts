@@ -4,11 +4,14 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AnimationsService } from 'src/app/shared/services/animations.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-display-choose-avatar',
   templateUrl: './display-choose-avatar.component.html',
   styleUrls: ['./display-choose-avatar.component.scss'],
+  imports: [CommonModule],
+  standalone: true
 })
 export class DisplayChooseAvatarComponent {
   arrowBackIsHovered: boolean = false;

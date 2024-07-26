@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { getStorage, ref, uploadBytes } from '@angular/fire/storage';
+import { FormsModule, NgModel } from '@angular/forms';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { MessageTime } from 'src/app/models/message-time';
@@ -18,6 +21,8 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   host: {
     '(document:click)': 'onClick($event)',
   },
+  imports: [CommonModule, FormsModule, PickerModule],
+  standalone: true
 })
 export class InputFieldChannelComponent {
   @ViewChild('fileInput') fileInput!: any;

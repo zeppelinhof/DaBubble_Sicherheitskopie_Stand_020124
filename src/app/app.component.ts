@@ -1,6 +1,6 @@
 import { UserService } from 'src/app/shared/services/user.service';
 import { AnimationsService } from 'src/app/shared/services/animations.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthenticationService } from './shared/services/authentication.service';
 import {
   Component,
@@ -15,6 +15,8 @@ import { Subscription, combineLatest } from 'rxjs';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  imports: [RouterLink, RouterOutlet],
+  standalone: true
 })
 export class AppComponent {
   title = 'DABubble';

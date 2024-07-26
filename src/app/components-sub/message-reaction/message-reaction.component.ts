@@ -10,11 +10,14 @@ import { ThreadService } from 'src/app/shared/services/thread.service';
 import { ChannelService } from 'src/app/shared/services/channel.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-message-reaction',
   templateUrl: './message-reaction.component.html',
-  styleUrls: ['./message-reaction.component.scss']
+  styleUrls: ['./message-reaction.component.scss'],
+  imports: [CommonModule],
+  standalone: true
 })
 export class MessageReactionComponent {
   @Input() withEditMessageOption: boolean = true; // edit message option only for own messages available

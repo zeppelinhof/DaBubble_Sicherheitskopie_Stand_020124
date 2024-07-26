@@ -10,11 +10,19 @@ import { User } from 'src/app/models/user';
 import { ThreadService } from 'src/app/shared/services/thread.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ClickOutsideService } from 'src/app/shared/services/click-outside-directive.service';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { SettingsUserMenuComponent } from 'src/app/components-sub/settings-user-menu/settings-user-menu.component';
+import { SettingsUserDataComponent } from 'src/app/components-sub/settings-user-data/settings-user-data.component';
+import { SettingsEditUserDataComponent } from 'src/app/components-sub/settings-edit-user-data/settings-edit-user-data.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  imports: [ FormsModule, RouterLink, SettingsUserMenuComponent, SettingsUserDataComponent, SettingsEditUserDataComponent],
+  standalone: true
 })
 export class HeaderComponent {
   @ViewChild('input') input: ElementRef | undefined;

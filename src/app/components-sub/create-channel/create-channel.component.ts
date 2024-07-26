@@ -5,11 +5,15 @@ import { ChannelService } from 'src/app/shared/services/channel.service';
 import { SearchInputService } from 'src/app/shared/services/search-input.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-create-channel',
   templateUrl: './create-channel.component.html',
   styleUrls: ['./create-channel.component.scss'],
+  imports: [CommonModule, FormsModule],
+  standalone: true
 })
 export class CreateChannelComponent {
   showLengthInfo!: boolean;

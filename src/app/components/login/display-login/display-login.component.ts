@@ -4,13 +4,15 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { InputService } from 'src/app/shared/services/input.service';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { Component, Inject } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-display-login',
   templateUrl: './display-login.component.html',
   styleUrls: ['./display-login.component.scss'],
+  imports: [ReactiveFormsModule],
+  standalone: true
 })
 export class DisplayLoginComponent {
   newGuestUser: User = new User();
