@@ -185,7 +185,7 @@
                 </div>
                 <div class="user-list-wrap">
                   <div class="user-list">
-                    @for (user of sis.filteredMembers; track user) {
+                    @for (user of sis.filteredMembers(); track user) {
                       <div class="oneUser-line"
                         (click)="additionalMembers.push(user); sis.clearSearchInput()">
                         <img class="profile-image" [src]="this.us.getUserImage(this.user.customId)" />

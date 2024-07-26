@@ -120,7 +120,7 @@
       </div>
       <div class="user-list-wrap">
         <div class="user-list">
-          @for (user of sis.filteredMembers; track $index) {
+          @for (user of sis.filteredMembers(); track $index) {
           <div class="oneUser-line" (click)="sis.addMember(user); sis.clearSearchInput()">
             <img class="profile-image" [src]="user.img" />
             <div class="name-text">

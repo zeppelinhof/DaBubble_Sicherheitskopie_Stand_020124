@@ -52,10 +52,4 @@ export const routes: Routes = [
   }
 ];
 
-// @NgModule({
-//   imports: [RouterModule.forRoot(routes)], 
-//   // Dadurch weiß Angular, dass das AppRoutingModule ein Routing-Modul ist und 
-//   // forRoot() gibt an, dass es sich um das Root-Routing-Modul handelt
-//   exports: [RouterModule],
-// })
-export class AppRoutingModule { }
+export class AppRoutes { }

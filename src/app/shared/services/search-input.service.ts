@@ -3,7 +3,7 @@
  * Kanäle zu erstellen und Fenster zu schließen.
  */
 
-import { Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 import { ChannelService } from './channel.service';
 import { User } from 'src/app/models/user';
@@ -15,13 +15,14 @@ import { WorkspaceService } from './workspace.service';
   providedIn: 'root',
 })
 export class SearchInputService {
-  filteredMembers: User[] = [];
-  filteredMessages: any[] = [];
+  filteredMembers = signal<User[]>([])
+  filteredMessages = signal<any[]>([]);
   countDirectmessages: number = 0;
   countChannelmessages: number = 0;
 
+  private ws = inject(WorkspaceService)
+
   constructor(
-    private ws: WorkspaceService,
     private cs: ChannelService,
     private us: UserService
   ) {
@@ -80,9 +81,8 @@ export class SearchInputService {
     this.ws.showAddMembers = true;
     const searchTerm = this.ws.inputMember.toLowerCase();
 
-    this.filteredMembers = this.getUsers().filter((member) => {
+    this.filteredMembers.set(this.getUsers().filter((member) => {
       const fullName = `${member.name}`.toLowerCase();
-      const userImage = member.img;
       // console.log(userImage);
       if (this.ws.showAddMembers) {
         this.refreshMemberList(existingMembers);
@@ -91,7 +91,7 @@ export class SearchInputService {
         fullName.includes(searchTerm) &&
         !this.memberAlreadySelected(member.email, existingMembers)
       );
-    });
+    }))
   }
 
   /**
@@ -109,12 +109,12 @@ export class SearchInputService {
  * @param {string} searchTerm - Der eingegebene Suchbegriff.
  */
   relevantData(searchTerm: string) {
-    this.filteredMessages = this.relevantDirectMessages(
+    this.filteredMessages.set(this.relevantDirectMessages(
       this.us.userLoggedIn(),
       searchTerm
     ) // relevante Direkt-Nachrichten
-      .concat(this.relevantChannelMessages(searchTerm)) // relevante Channel-Nachrichten anhängen
-      .concat(this.relevantThreadMessages(searchTerm)); // relevante Thread-Nachrichten anhängen
+      .concat(this.relevantChannelMessages(searchTerm)) // relevante Channel-Nachrichten anhängen)
+      .concat(this.relevantThreadMessages(searchTerm))); // relevante Thread-Nachrichten anhängen
   }
 
   /**

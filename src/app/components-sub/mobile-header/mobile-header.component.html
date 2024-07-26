@@ -95,7 +95,7 @@
           </div>
           <div class="user-list-wrap">
             <div class="user-list">
-              @for (msgData of sis.filteredMessages; track msgData) {
+              @for (msgData of sis.filteredMessages(); track msgData) {
                 <div
                   class="oneUser-line"
                   [routerLink]="getRouterLink(msgData)"
