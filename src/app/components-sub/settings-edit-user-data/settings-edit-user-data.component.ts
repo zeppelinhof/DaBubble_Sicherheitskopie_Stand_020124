@@ -2,7 +2,9 @@ import { UserService } from './../../shared/services/user.service';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserSettingsService } from './../../shared/services/user-settings.service';
 import { AuthenticationService } from './../../shared/services/authentication.service';
-import { Component } from '@angular/core';
+import {Component, Inject, InjectionToken} from '@angular/core';
+
+export const INNERWIDTH = new InjectionToken<number>('number of inner width')
 
 @Component({
   selector: 'app-settings-edit-user-data',
@@ -13,12 +15,13 @@ import { Component } from '@angular/core';
 })
 export class SettingsEditUserDataComponent {
   closeIsHovered: boolean = false;
-  isDesktop = window.innerWidth > 768;
+  isDesktop = window.innerWidth > this.innerWidth;
 
   constructor(
     public userService: UserService,
     public auth: AuthenticationService,
-    public settingsService: UserSettingsService
+    public settingsService: UserSettingsService,
+    @Inject(INNERWIDTH) private readonly innerWidth: number
   ) {}
 
   changeUserDataForm: any = new FormGroup({

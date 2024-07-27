@@ -11,12 +11,13 @@ import { ResponsiveService } from 'src/app/shared/services/responsive.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { CommonModule } from '@angular/common';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-side-left',
   templateUrl: './side-left.component.html',
   styleUrls: ['./side-left.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   standalone: true
 })
 export class SideLeftComponent {

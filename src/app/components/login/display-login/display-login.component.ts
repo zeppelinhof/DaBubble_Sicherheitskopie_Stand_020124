@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/shared/services/user.service';
 import { InputService } from 'src/app/shared/services/input.service';
@@ -11,7 +11,7 @@ import { DOCUMENT } from '@angular/common';
   selector: 'app-display-login',
   templateUrl: './display-login.component.html',
   styleUrls: ['./display-login.component.scss'],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   standalone: true
 })
 export class DisplayLoginComponent {

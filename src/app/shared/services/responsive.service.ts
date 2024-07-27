@@ -1,18 +1,21 @@
-import { Injectable } from '@angular/core';
+import {Inject, inject, Injectable, InjectionToken} from '@angular/core';
+
+export const RESP_INNERWIDTH = new InjectionToken('responsive inner width')
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ResponsiveService {
   routerIsVisible: boolean = true;
   sideRightVisible: boolean = true;
   sideLeftVisible: boolean = true;
-  constructor() { 
-    
+  constructor(@Inject(RESP_INNERWIDTH) private readonly respInnerWidth: number) {
+
   }
 
   closeRouter() {
-    if (window.innerWidth <= 1458) {
+    if (window.innerWidth <= this.respInnerWidth) {
       this.routerIsVisible = false;
     }
   }
@@ -31,7 +34,7 @@ export class ResponsiveService {
       this.sideLeftVisible = false;
       this.routerIsVisible = true;
       this.sideRightVisible = false;
-    } else{ 
+    } else{
       this.routerIsVisible = true;
       this.sideRightVisible = false;
     }
@@ -42,7 +45,7 @@ export class ResponsiveService {
       this.sideLeftVisible = false;
       this.routerIsVisible = true;
       this.sideRightVisible = false;
-    } else{ 
+    } else{
       this.routerIsVisible = true;
       this.sideRightVisible = false;
     }
@@ -60,11 +63,10 @@ export class ResponsiveService {
     }
 
   }
-  
+
   mobileMode(): boolean{
     return window.innerWidth <= 610;
   }
 
 }
 
-  

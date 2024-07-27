@@ -17,8 +17,6 @@ import { WorkspaceService } from './workspace.service';
 export class SearchInputService {
   filteredMembers = signal<User[]>([])
   filteredMessages = signal<any[]>([]);
-  countDirectmessages: number = 0;
-  countChannelmessages: number = 0;
 
   private ws = inject(WorkspaceService)
 

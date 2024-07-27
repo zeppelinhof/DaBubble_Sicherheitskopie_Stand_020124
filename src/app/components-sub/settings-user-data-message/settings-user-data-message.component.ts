@@ -1,7 +1,9 @@
 import { UserSettingsService } from './../../shared/services/user-settings.service';
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { Component, Input } from '@angular/core';
+import {Component, Inject, InjectionToken, Input} from '@angular/core';
+
+export const INNERWIDTH = new InjectionToken<number>('number of inner width')
 
 @Component({
   selector: 'app-settings-user-data-message',
@@ -11,7 +13,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SettingsUserDataMessageComponent {
   closeIsHovered: boolean = false;
-  isDesktop = window.innerWidth > 768;
+  isDesktop = window.innerWidth > this.innerWidth;
   @Input() userName: string = '';
   @Input() userEmail: string = '';
   @Input() userId: string = '';
@@ -19,6 +21,7 @@ export class SettingsUserDataMessageComponent {
   constructor(
     public us: UserService,
     public auth: AuthenticationService,
-    public settingsService: UserSettingsService
+    public settingsService: UserSettingsService,
+    @Inject(INNERWIDTH) private readonly innerWidth: number
   ) {}
 }

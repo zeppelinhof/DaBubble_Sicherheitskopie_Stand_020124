@@ -1,17 +1,19 @@
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, Inject, InjectionToken} from '@angular/core';
+import {ActivatedRoute, RouterLink} from '@angular/router';
+
+export const INNERWIDTH = new InjectionToken<number>('number of inner width')
 
 @Component({
   selector: 'app-display-reset-pw-enter-pw',
   templateUrl: './display-reset-pw-enter-pw.component.html',
   styleUrls: ['./display-reset-pw-enter-pw.component.scss'],
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   standalone: true
 })
 export class DisplayResetPwEnterPwComponent {
-  isDesktop = window.innerWidth > 768;
+  isDesktop = window.innerWidth > this.innerWidth;
   passwort: string = '';
   passwortConfirm: string = '';
   arrowBackIsHovered: boolean = false;
@@ -31,7 +33,8 @@ export class DisplayResetPwEnterPwComponent {
 
   constructor(
     private auth: AuthenticationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(INNERWIDTH) private readonly innerWidth: number
   ) {
     this.getOobCode();
     this.checkPwResetLinkExpiration();

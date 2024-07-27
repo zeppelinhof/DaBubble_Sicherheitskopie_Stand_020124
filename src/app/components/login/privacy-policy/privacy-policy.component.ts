@@ -1,5 +1,7 @@
-import { Component, HostListener } from '@angular/core';
-import { Location } from '@angular/common';
+import {Component} from '@angular/core';
+import {Location} from '@angular/common';
+import {ChannelService} from "../../../shared/services/channel.service";
+
 
 @Component({
   selector: 'app-privacy-policy',
@@ -7,9 +9,10 @@ import { Location } from '@angular/common';
   styleUrls: ['./privacy-policy.component.scss'],
   standalone: true
 })
+
 export class PrivacyPolicyComponent {
   arrowBackIsHovered: boolean = false;
-  isDesktop = window.innerWidth > 768;
+  isDesktop = window.innerWidth > this.cs.innerWidth;
 
-  constructor(public location: Location) {}
+  constructor(public location: Location, private cs: ChannelService) {}
 }
