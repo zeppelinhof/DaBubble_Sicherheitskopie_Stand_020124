@@ -9,13 +9,11 @@ import {
   Firestore,
   onSnapshot,
   query,
-  updateDoc,
-  setDoc,
+  updateDoc
 } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
-import { User } from 'src/app/models/user';
 import { Message } from 'src/app/models/message';
-import { reload } from '@angular/fire/auth';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',

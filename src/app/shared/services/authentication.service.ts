@@ -1,36 +1,31 @@
-import { getLocaleTimeFormat } from '@angular/common';
 import { Router } from '@angular/router';
-import { UserService } from './user.service';
 import {
-  getAuth,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  sendPasswordResetEmail,
-  updateEmail,
+  getAuth,
   getRedirectResult,
-  verifyBeforeUpdateEmail,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithRedirect,
+  signOut
 } from 'firebase/auth';
+import { UserService } from './user.service';
 
 import {
   collection,
-  doc,
   Firestore,
   onSnapshot,
   query,
-  where,
+  where
 } from '@angular/fire/firestore';
 
-import { confirmPasswordReset } from '@angular/fire/auth';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { User } from 'src/app/models/user';
 import { inject, Injectable } from '@angular/core';
-import { ChannelService } from './channel.service';
-import { MessageTime } from 'src/app/models/message-time';
+import { confirmPasswordReset } from '@angular/fire/auth';
 import { Message } from 'src/app/models/message';
+import { MessageTime } from 'src/app/models/message-time';
+import { User } from 'src/app/models/user';
+import { ChannelService } from './channel.service';
 
 @Injectable({
   providedIn: 'root',
