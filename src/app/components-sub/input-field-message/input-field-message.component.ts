@@ -68,7 +68,6 @@ export class InputFieldMessageComponent {
   }
 
   sendDirectMessage() {
-    debugger
     if (this.input !== '' || this.selectedFile) {
       let messageId = Date.now();
       // Nachricht bei Empfänger hinterlegen

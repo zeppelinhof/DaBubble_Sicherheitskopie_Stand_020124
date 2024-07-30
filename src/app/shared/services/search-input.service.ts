@@ -45,20 +45,20 @@ export class SearchInputService {
   allFieldsFilled(userLoggedIn: User): Boolean {
     if (this.newChannelAlreadyExists()) {
       // diese Werte können vom Nutzer mehrfach für den Channel bei der Erstellung geändert werden
-      this.cs.newChannel.name = this.ws.inputName;
+      this.cs.newChannel.name = this.ws.inputName();
       this.cs.newChannel.description = this.ws.inputDescription;
     } else {
       // diese Werte werden nur einmal für den Channel gesetzt; userLoggedIn ist standardmäßig erster Member
       this.cs.newChannel = new Channel(
         '',
-        this.ws.inputName,
+        this.ws.inputName(),
         this.ws.inputDescription,
         [userLoggedIn],
         this.cs.todaysDate(),
         this.us.userLoggedIn()
       );
     }
-    return this.ws.inputName != '' && this.ws.inputDescription != '';
+    return this.ws.inputName() != '' && this.ws.inputDescription != '';
   }
 
   /**

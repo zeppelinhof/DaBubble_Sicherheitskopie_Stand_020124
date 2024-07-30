@@ -1,15 +1,8 @@
-import { UserService } from 'src/app/shared/services/user.service';
-import { AnimationsService } from 'src/app/shared/services/animations.service';
-import { Router, NavigationEnd, RouterLink, RouterOutlet } from '@angular/router';
-import { AuthenticationService } from './shared/services/authentication.service';
-import {
-  Component,
-  Renderer2,
-  ElementRef,
-  NgZone,
-  HostListener,
-} from '@angular/core';
-import { Subscription, combineLatest } from 'rxjs';
+import {AnimationsService} from 'src/app/shared/services/animations.service';
+import {NavigationEnd, Router, RouterLink, RouterOutlet} from '@angular/router';
+import {AuthenticationService} from './shared/services/authentication.service';
+import {Component, ElementRef, NgZone, Renderer2,} from '@angular/core';
+import {combineLatest, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +18,6 @@ export class AppComponent {
   constructor(
     private auth: AuthenticationService,
     public router: Router,
-    private userService: UserService,
     public animations: AnimationsService,
     private renderer: Renderer2,
     private el: ElementRef,

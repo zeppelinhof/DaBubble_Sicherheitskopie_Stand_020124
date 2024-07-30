@@ -29,7 +29,7 @@
         <div class="channel-property">
           <div class="channel-property-title">Beschreibung (optional)</div>
           <input [(ngModel)]="this.ws.inputDescription" (input)="sis.allFieldsFilled(us.userLoggedIn())"
-            class="channel-property-input" placeholder="Dein Text hier" />
+            class="channel-property-input" [placeholder]="'Beschreibung ' + ws.inputName()"/>
         </div>
       </div>
       }

@@ -11,7 +11,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore';
 import {BehaviorSubject} from 'rxjs';
-// import { Channel } from 'src/app/interfaces/channel';
+
 import {Channel} from 'src/app/models/channel';
 import {UserService} from './user.service';
 import {User} from 'src/app/models/user';
