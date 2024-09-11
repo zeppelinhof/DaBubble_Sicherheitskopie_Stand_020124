@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { InputFieldThreadComponent } from 'src/app/components-sub/input-field-thread/input-field-thread.component';
 import { MessageOfUserComponent } from 'src/app/components-sub/message-of-user/message-of-user.component';
 import { ThreadInterface } from 'src/app/interfaces/thread.interface';
@@ -18,7 +18,7 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class SideRightComponent {
 
-  threadsOfMessage = computed(() => this.cs.threadsOfMessage());
+  threadsOfMessage = this.cs.threadsOfMessage;
 
   constructor(public ws: WorkspaceService,
     public ts: ThreadService,

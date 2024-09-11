@@ -1,5 +1,5 @@
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { Component, Input, computed } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
@@ -35,7 +35,7 @@ export class MessageOfUserComponent {
   clickedContact!: User;
   clickedChannel!: Channel;
   unsubAllUsers: any;
-  threadsOfMessage = computed(()=> this.cs.threadsOfMessage())
+  threadsOfMessage = this.cs.threadsOfMessage;
   imagePreview: boolean = false;
 
 

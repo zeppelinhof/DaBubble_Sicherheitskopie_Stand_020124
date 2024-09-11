@@ -1,4 +1,4 @@
-import {Component, computed, ElementRef, signal} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from 'src/app/shared/services/user.service';
 
 import {ChannelService} from 'src/app/shared/services/channel.service';
