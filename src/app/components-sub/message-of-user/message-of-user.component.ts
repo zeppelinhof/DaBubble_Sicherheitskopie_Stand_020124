@@ -1,5 +1,5 @@
 import { AuthenticationService } from 'src/app/shared/services/authentication.service';
-import { Component, Input, ElementRef } from '@angular/core';
+import { Component, Input, computed } from '@angular/core';
 import { Channel } from 'src/app/models/channel';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
@@ -35,7 +35,7 @@ export class MessageOfUserComponent {
   clickedContact!: User;
   clickedChannel!: Channel;
   unsubAllUsers: any;
-  threadsOfMessage!: ThreadInterface[];
+  threadsOfMessage = computed(()=> this.cs.threadsOfMessage())
   imagePreview: boolean = false;
 
 
@@ -48,22 +48,18 @@ export class MessageOfUserComponent {
     public is: InputService,
     public auth: AuthenticationService,
     public respService: ResponsiveService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.unsubAllUsers = this.us.subAllUsersListFindUserName();
     this.getCurrentUser();
     this.getCurrentChannel();
     this.savePreviousMessage();
-
-    this.cs.threadsOfMessage.subscribe((threads: ThreadInterface[]) => {
-      this.threadsOfMessage = threads;
-    });
   }
-
-  checkLog(){
+  
+  checkLog() {
     // console.log(this.threadMessageData.file);
-    
+
   }
   savePreviousMessage() {
     this.previousMessage = this.data.message || this.messageData.message;
@@ -251,8 +247,8 @@ export class MessageOfUserComponent {
   }
 
   refreshedThreads(allThreads: ThreadInterface[]): ThreadInterface[] {
-    for (let inTh = 0; inTh < this.threadsOfMessage.length; inTh++) {
-      const thread = this.threadsOfMessage[inTh];
+    for (let inTh = 0; inTh < this.threadsOfMessage().length; inTh++) {
+      const thread = this.threadsOfMessage()[inTh];
       if (thread.messageId === this.threadMessageData.messageId) {
         // neue Nachricht eingetragen
         thread.answer = this.threadMessageData.answer;

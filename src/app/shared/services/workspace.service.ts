@@ -279,7 +279,7 @@ export class WorkspaceService {
  */
   threadUpdateEmoji(allChatsTemp: any[], threadMessageData: ThreadInterface, newEmojiPath: string) {
     for (let chat of allChatsTemp) {
-      if (chat.messageId === this.cs.threadsOfMessage.value[0].messageId) {
+      if (chat.messageId === this.cs.threadsOfMessage()[0].messageId) {
         for (let thread of chat.threads) {
           if (thread.messageId === threadMessageData.messageId) {
             let refreshedThread = this.getRefreshedThread(threadMessageData, newEmojiPath)

@@ -14,10 +14,10 @@
     </div>
     @if (ts.threadVisible) {
       <div class="messages-channel-container" id="scrollThreadMessages">
-        @for (thread of threadsOfMessage; track thread; let i = $index) {
+        @for (thread of threadsOfMessage(); track thread; let i = $index) {
           <div>
             <!-- Datumstrenner für jeden Tag -->
-            @if (this.cs.checkIfNewDay(threadsOfMessage, i)) {
+            @if (this.cs.checkIfNewDay(threadsOfMessage(), i)) {
               <div class="new-day-date">
                 <div class="dateSeparatorAreaLeft">
                   <div class="dateSeparator"></div>
@@ -31,10 +31,10 @@
             }
             <app-message-of-user [threadMessageData]="thread" [messageType]="'threadMessage'"></app-message-of-user>
             <!-- Trenner unter Topic-Message -->
-            @if (cs.threadsOfMessage.value.length > 1 && i == 0) {
+            @if (cs.threadsOfMessage().length > 1 && i == 0) {
               <div class="amount-answers-wrap">
                 <div class="amount-text">
-                  {{ cs.threadsOfMessage.value.length - 1 }} {{ cs.threadsOfMessage.value.length - 1 === 1 ? 'Antwort' :
+                  {{ cs.threadsOfMessage().length - 1 }} {{ cs.threadsOfMessage().length - 1 === 1 ? 'Antwort' :
                   'Antworten' }}
                 </div>
                 <div class="amountSeparatorAreaRight">

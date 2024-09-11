@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import {
   Firestore,
   addDoc,
@@ -28,7 +28,8 @@ export class ChannelService {
   allMessagesChannel: any = [];
   myChannels: any = {};
   myThreads: any = {};
-  threadsOfMessage = new BehaviorSubject<ThreadInterface[]>([]);
+  
+  threadsOfMessage = signal<ThreadInterface[]>([]);
 
   clickedChannelId = new BehaviorSubject<string>('');
   clickedChannel = new BehaviorSubject<Channel>(new Channel());
@@ -122,7 +123,7 @@ export class ChannelService {
         const thread = this.myThreads['threads'][index];
         messageList.push(thread);
       }
-      this.threadsOfMessage.next(messageList);
+      this.threadsOfMessage.set(messageList);
     }
   }
 
