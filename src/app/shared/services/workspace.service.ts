@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Channel } from 'src/app/models/channel';
-import { User } from 'src/app/models/user';
-import { UserService } from './user.service';
-import { Message } from 'src/app/models/message';
-import { ChannelService } from './channel.service';
-import { ThreadInterface } from 'src/app/interfaces/thread.interface';
-import { Observable, filter, fromEvent } from 'rxjs';
-import { ResponsiveService } from 'src/app/shared/services/responsive.service';
+import {effect, Injectable, signal} from '@angular/core';
+import {Channel} from 'src/app/models/channel';
+import {User} from 'src/app/models/user';
+import {UserService} from './user.service';
+import {Message} from 'src/app/models/message';
+import {ChannelService} from './channel.service';
+import {ThreadInterface} from 'src/app/interfaces/thread.interface';
+import {filter, fromEvent, Observable} from 'rxjs';
+import {ResponsiveService} from 'src/app/shared/services/responsive.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,10 @@ export class WorkspaceService {
   showAddMembersInExistingChannel: boolean = false;
   dialogGeneralData: boolean = true;
   radioButtonFirst: boolean = true;
-  inputName: string = '';
-  inputDescription: string = '';
+  inputName = signal<string>('');
+  inputDescription = '';
   inputMember: string = '';
   inputCertainMembers: User[] = [];
-  allCurrentChannels: Channel[] = [];
   threadContainerIsVisible: boolean = false;
   showEmojis: boolean = false;
   allChatsTemp: any[] = [];
@@ -49,15 +48,19 @@ export class WorkspaceService {
   inputGlobalSearch: string = '';
   messageToSearch: any;
 
-  constructor(private us: UserService, private cs: ChannelService, private respService: ResponsiveService) { }
+  constructor(private us: UserService, private cs: ChannelService, private respService: ResponsiveService) {
+    effect(()=>{
+      console.log('Current inputName is', this.inputName())
+    })
+  }
 
   // #region get Channels and Users
   /**
- * Gibt eine Liste von Benutzern zurück, die vom eingeloggten Benutzer angeschrieben wurden.
- * @returns Eine Liste von Benutzern.
- */
+   * Gibt eine Liste von Benutzern zurück, die vom eingeloggten Benutzer angeschrieben wurden.
+   * @returns Eine Liste von Benutzern.
+   */
   getUsers() {
-    // Es werden nur die User angezeigt, welche in ihrem Chat die customId von Logged In User haben 
+    // Es werden nur die User angezeigt, welche in ihrem Chat die customId von Logged In User haben
     // Also: Diejenigen, welche von Logged In User angeschrieben wurden
     const filteredUsers = this.us.myUsers.filter((user: User) => {
       if (this.us.userLoggedIn().chats && user.chats) {
@@ -90,14 +93,14 @@ export class WorkspaceService {
   }
 
   /**
- * Gibt eine Liste von Kanälen zurück, in denen der eingeloggte Benutzer Mitglied ist.
- * @returns Eine Liste von Kanälen.
- */
+   * Gibt eine Liste von Kanälen zurück, in denen der eingeloggte Benutzer Mitglied ist.
+   * @returns Eine Liste von Kanälen.
+   */
   getChannels() {
     try {
       // User logged in: hier sei vorläufig User logged in Markus mit Id 5oDYsPkUGMb9FPqmqNGB
-      // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist  
-      // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)    
+      // Es werden nur Channels angezeigt, in denen User Logged in ein Member ist
+      // (some wird verwendet, um zu überprüfen, ob mindestens ein Element im Array members die Bedingung erfüllt)
       if (this.cs.myChannels) {
         const onlyMyChannels = this.cs.myChannels.filter((channel: Channel) =>
           channel.members.some((member: User) => member.customId === this.us.userLoggedIn().customId)
@@ -111,10 +114,10 @@ export class WorkspaceService {
   }
 
   /**
- * Gibt den Namen eines Kanals anhand seiner ID zurück.
- * @param idForName - Die ID des Kanals.
- * @returns Der Name des Kanals.
- */
+   * Gibt den Namen eines Kanals anhand seiner ID zurück.
+   * @param idForName - Die ID des Kanals.
+   * @returns Der Name des Kanals.
+   */
   getNameOfChannel(idForName: string) {
     let channelName = this.getChannels().find((channel: Channel) => channel.customId === idForName);
     return channelName.name;
@@ -123,11 +126,10 @@ export class WorkspaceService {
   // #endregion
 
 
-
   /**
- * Öffnet oder schließt das Fenster zum Erstellen eines neuen Kanals.
- * Aktualisiert zusätzlich den Status der Werte für Mitglieder und die Sichtbarkeit des Workspace-Buttons.
- */
+   * Öffnet oder schließt das Fenster zum Erstellen eines neuen Kanals.
+   * Aktualisiert zusätzlich den Status der Werte für Mitglieder und die Sichtbarkeit des Workspace-Buttons.
+   */
   openCloseCreateChannel() {
     this.showCreateChannel = !this.showCreateChannel;
     this.addMemberClearValues();
@@ -148,7 +150,7 @@ export class WorkspaceService {
       this.showCreateChannel = false;
       this.dialogGeneralData = true;
       this.radioButtonFirst = true;
-      this.inputName = '';
+      this.inputName.set('');
       this.inputMember = '';
       this.inputDescription = '';
       this.inputCertainMembers = [];
@@ -158,42 +160,42 @@ export class WorkspaceService {
 
   //#region addReatcion
   /**
- * Fügt eine Reaktion zu einer Nachricht hinzu oder entfernt sie.
- * 
- * @param emojiPath - Der Pfad zum Emoji.
- * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
- * @param clickedContact - Der Benutzer, mit dem die Direktnachricht ausgetauscht wird (falls zutreffend).
- * @param clickedChannel - Der Kanal, in dem die Nachricht angezeigt wird (falls zutreffend).
- * @param messageData - Daten der ursprünglichen Nachricht.
- * @param data - Daten der Nachricht im Channel (falls zutreffend).
- * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
- */
+   * Fügt eine Reaktion zu einer Nachricht hinzu oder entfernt sie.
+   *
+   * @param emojiPath - Der Pfad zum Emoji.
+   * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
+   * @param clickedContact - Der Benutzer, mit dem die Direktnachricht ausgetauscht wird (falls zutreffend).
+   * @param clickedChannel - Der Kanal, in dem die Nachricht angezeigt wird (falls zutreffend).
+   * @param messageData - Daten der ursprünglichen Nachricht.
+   * @param data - Daten der Nachricht im Channel (falls zutreffend).
+   * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
+   */
   addReaction(emojiPath: string, messageType: string, clickedContact: User, clickedChannel: Channel, messageData: Message, data: Message, threadMessageData: ThreadInterface) {
-    // messageData kommt von Direktnachrichten; data von Channel-Nachrichten    
+    // messageData kommt von Direktnachrichten; data von Channel-Nachrichten
     if (messageType == 'directMessage') {
-      // Chat beim Empfänger updaten   
-      this.us.updateUser({ chats: this.allChatsWithNewEmoji(clickedContact, messageType, emojiPath, messageData) }, clickedContact);
-      // Chat bei Sender updaten   
-      this.us.updateUser({ chats: this.allChatsWithNewEmoji(this.us.userLoggedIn(), messageType, emojiPath, messageData) }, this.us.userLoggedIn());
+      // Chat beim Empfänger updaten
+      this.us.updateUser({chats: this.allChatsWithNewEmoji(clickedContact, messageType, emojiPath, messageData)}, clickedContact);
+      // Chat bei Sender updaten
+      this.us.updateUser({chats: this.allChatsWithNewEmoji(this.us.userLoggedIn(), messageType, emojiPath, messageData)}, this.us.userLoggedIn());
     } else if (messageType == 'threadMessage') {
-      this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data, threadMessageData) }, clickedChannel);
+      this.cs.updateChannel({allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data, threadMessageData)}, clickedChannel);
     } else { // für Channel-Message
-      this.cs.updateChannel({ allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data) }, clickedChannel);
+      this.cs.updateChannel({allMessages: this.allChatsWithNewEmoji(clickedChannel, messageType, emojiPath, data)}, clickedChannel);
     }
     this.showEmojis = !this.showEmojis;
   }
 
   /**
- * Aktualisiert die Nachrichten im Chatroom mit einem neuen Emoji und gibt das aktualisierte Array zurück.
- * 
- * @param chatroom - Der Chatroom, der aktualisiert werden soll.
- * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
- * @param newEmojiPath - Der Pfad zum neuen Emoji.
- * @param messageData - Daten der ursprünglichen Nachricht.
- * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
- * 
- * @returns Das aktualisierte Array der Chatnachrichten.
- */
+   * Aktualisiert die Nachrichten im Chatroom mit einem neuen Emoji und gibt das aktualisierte Array zurück.
+   *
+   * @param chatroom - Der Chatroom, der aktualisiert werden soll.
+   * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
+   * @param newEmojiPath - Der Pfad zum neuen Emoji.
+   * @param messageData - Daten der ursprünglichen Nachricht.
+   * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
+   *
+   * @returns Das aktualisierte Array der Chatnachrichten.
+   */
   allChatsWithNewEmoji(chatroom: any, messageType: string, newEmojiPath: string, messageData: Message, threadMessageData?: ThreadInterface) {
     this.allChatsTemp = [];
     const messagesArray = messageType === 'directMessage' ? chatroom.chats : chatroom.allMessages;
@@ -204,21 +206,21 @@ export class WorkspaceService {
     // Wenn Emoji für Thread
     if (threadMessageData) {
       this.allChatsTemp = this.threadUpdateEmoji(this.allChatsTemp, threadMessageData, newEmojiPath);
-      // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben      
+      // erster Thread (Topic-Thread) und Original-Channel-Nachricht sollen gleiche Emojis haben
       this.allChatsTemp[this.indexChangedMessage].threads[0].emojis = this.allChatsTemp[this.indexChangedMessage].emojis;
     }
     return this.allChatsTemp;
   }
 
   /**
- * Überprüft die Chatnachrichten im Array und aktualisiert sie mit einem neuen Emoji, falls erforderlich.
- * 
- * @param messagesArray - Das Array der Chatnachrichten.
- * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
- * @param messageData - Daten der ursprünglichen Nachricht.
- * @param newEmojiPath - Der Pfad zum neuen Emoji.
- * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
- */
+   * Überprüft die Chatnachrichten im Array und aktualisiert sie mit einem neuen Emoji, falls erforderlich.
+   *
+   * @param messagesArray - Das Array der Chatnachrichten.
+   * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
+   * @param messageData - Daten der ursprünglichen Nachricht.
+   * @param newEmojiPath - Der Pfad zum neuen Emoji.
+   * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
+   */
   checkIfThisChat(messagesArray: any[], messageType: string, messageData: Message, newEmojiPath: string, threadMessageData?: ThreadInterface) {
     for (let index = 0; index < messagesArray.length; index++) {
       const chat = messagesArray[index];
@@ -230,13 +232,13 @@ export class WorkspaceService {
   }
 
   /**
- * Ermittelt die messageId der geklickten Nachricht, um ein Emoji hinzuzufügen.
- * 
- * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
- * @param messageData - Daten der ursprünglichen Nachricht.
- * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
- * @returns Die messageId der geklickten Nachricht.
- */
+   * Ermittelt die messageId der geklickten Nachricht, um ein Emoji hinzuzufügen.
+   *
+   * @param messageType - Der Typ der Nachricht (Direktnachricht, Thread-Nachricht, Channel-Nachricht).
+   * @param messageData - Daten der ursprünglichen Nachricht.
+   * @param threadMessageData - Daten der Nachricht im Thread (falls zutreffend).
+   * @returns Die messageId der geklickten Nachricht.
+   */
   getMessageClickedId(messageType: string, messageData: Message, threadMessageData?: ThreadInterface) {
     if (messageType === 'threadMessage' && threadMessageData) {
       return threadMessageData.messageId;   // messageId from message clicked to add emoji
@@ -246,14 +248,14 @@ export class WorkspaceService {
   }
 
   /**
- * Aktualisiert die Nachrichten im Chatroom mit einem neuen Emoji.
- * 
- * @param index - Der Index der Nachricht im Chatroom.
- * @param chat - Die zu aktualisierende Nachricht.
- * @param messageClickedId - Die messageId der geklickten Nachricht.
- * @param messageDBId - Die messageId der ursprünglichen Nachricht in der Datenbank.
- * @param newEmojiPath - Der Pfad des neuen Emojis.
- */
+   * Aktualisiert die Nachrichten im Chatroom mit einem neuen Emoji.
+   *
+   * @param index - Der Index der Nachricht im Chatroom.
+   * @param chat - Die zu aktualisierende Nachricht.
+   * @param messageClickedId - Die messageId der geklickten Nachricht.
+   * @param messageDBId - Die messageId der ursprünglichen Nachricht in der Datenbank.
+   * @param newEmojiPath - Der Pfad des neuen Emojis.
+   */
   chatWithNewEmoji(index: number, chat: Message, messageClickedId: number, messageDBId: number, newEmojiPath: string) {
     // wenn die messageId der alten Nachricht gleich der messageId der bearbeiteten Nachricht ist
     // so soll die neue Nachricht eingetragen werden.
@@ -271,12 +273,12 @@ export class WorkspaceService {
   }
 
   /**
- * Aktualisiert die Emojis in allen Threads eines Chatrooms basierend auf einer neuen Emoji-Pfad.
- *
- * @param {any[]} allChatsTemp - Das Array mit Chatdaten.
- * @param {ThreadInterface} threadMessageData - Die Thread-Daten, die aktualisiert werden sollen.
- * @param {string} newEmojiPath - Der Pfad des neuen Emojis.
- */
+   * Aktualisiert die Emojis in allen Threads eines Chatrooms basierend auf einer neuen Emoji-Pfad.
+   *
+   * @param {any[]} allChatsTemp - Das Array mit Chatdaten.
+   * @param {ThreadInterface} threadMessageData - Die Thread-Daten, die aktualisiert werden sollen.
+   * @param {string} newEmojiPath - Der Pfad des neuen Emojis.
+   */
   threadUpdateEmoji(allChatsTemp: any[], threadMessageData: ThreadInterface, newEmojiPath: string) {
     for (let chat of allChatsTemp) {
       if (chat.messageId === this.cs.threadsOfMessage()[0].messageId) {
@@ -310,17 +312,17 @@ export class WorkspaceService {
   }
 
   /**
- * Fügt ein neues Emoji zum Chat hinzu oder entfernt es, abhängig davon, ob es bereits vorhanden ist.
- *
- * @param {any} chat - Der Chat, zu dem das Emoji hinzugefügt oder entfernt wird.
- * @param {number} emojiPathIndex - Der Index des Emojis im Chat. Wenn -1, bedeutet das, dass das Emoji nicht gefunden wurde und hinzugefügt werden soll.
- */
+   * Fügt ein neues Emoji zum Chat hinzu oder entfernt es, abhängig davon, ob es bereits vorhanden ist.
+   *
+   * @param {any} chat - Der Chat, zu dem das Emoji hinzugefügt oder entfernt wird.
+   * @param {number} emojiPathIndex - Der Index des Emojis im Chat. Wenn -1, bedeutet das, dass das Emoji nicht gefunden wurde und hinzugefügt werden soll.
+   */
   addOrRemoveEmoji(chat: any, emojiPathIndex: number, newEmojiPath: string) {
     const settingUser = this.us.userLoggedIn().customId;
 
     if (emojiPathIndex === -1) {
       // Neues Emoji hinzufügen
-      const newEmoji = { path: newEmojiPath, amount: 1, setByUser: [settingUser] };
+      const newEmoji = {path: newEmojiPath, amount: 1, setByUser: [settingUser]};
       chat.emojis.push(newEmoji);
     } else {
       const setByUserArray = chat.emojis[emojiPathIndex].setByUser;
@@ -341,13 +343,14 @@ export class WorkspaceService {
 
     return chat;
   }
+
   // #endregion
 
   /**
- * Scrollt das angegebene HTML-Element bis zum unteren Ende mit einer sanften Animation.
- *
- * @param {string} elementId - Die ID des HTML-Elements, das gescrollt werden soll.
- */
+   * Scrollt das angegebene HTML-Element bis zum unteren Ende mit einer sanften Animation.
+   *
+   * @param {string} elementId - Die ID des HTML-Elements, das gescrollt werden soll.
+   */
   scrollToBottom(elementId: string) {
     setTimeout(() => {
       let element = document.getElementById(elementId);
@@ -362,12 +365,12 @@ export class WorkspaceService {
 
 
   /**
- * Global Search
- * Scrollt zu dem HTML-Element, das den angegebenen Textinhalt enthält. Der Typ bestimmt den Kontext, in dem die Suche stattfindet.
- *
- * @param {string} content - Der Textinhalt, nach dem gesucht wird.
- * @param {string} type - Der Typ des Elements ('threadMessage', 'directMessage', 'channelMessage').
- */
+   * Global Search
+   * Scrollt zu dem HTML-Element, das den angegebenen Textinhalt enthält. Der Typ bestimmt den Kontext, in dem die Suche stattfindet.
+   *
+   * @param {string} content - Der Textinhalt, nach dem gesucht wird.
+   * @param {string} type - Der Typ des Elements ('threadMessage', 'directMessage', 'channelMessage').
+   */
   scrollToElementByContent(content: string, type: string) {
     try {
       // zu Threadnachricht scrollen
@@ -378,7 +381,7 @@ export class WorkspaceService {
         for (let i = 0; i < elements.length; i++) {
           let element = elements[i];
           if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            element.scrollIntoView({behavior: 'smooth', block: 'start'});
             break;
           }
         }
@@ -389,7 +392,7 @@ export class WorkspaceService {
         for (let i = 0; i < elements.length; i++) {
           let element = elements[i];
           if (element.textContent && element.textContent.toLowerCase().includes(content.trim())) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            element.scrollIntoView({behavior: 'smooth', block: 'start'});
             break;
           }
         }
@@ -400,24 +403,24 @@ export class WorkspaceService {
   }
 
   /**
- * Scrollt zu dem HTML-Element mit der angegebenen Nachrichten-ID.
- *
- * @param {string} messageId - Die Nachrichten-ID des Elements, zu dem gescrollt werden soll.
- */
+   * Scrollt zu dem HTML-Element mit der angegebenen Nachrichten-ID.
+   *
+   * @param {string} messageId - Die Nachrichten-ID des Elements, zu dem gescrollt werden soll.
+   */
   scrollToMessage(messageId: string) {
     const element = document.getElementById(messageId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
   }
 
   /**
- * um Überlauf in Bubbles zu vermeiden, werden lange Worte nach dem 25. Zeichen (charMax) aufgetrennt
- * Falls der Rest immer noch zu lang ist, wird die Funktion rekursiv erneut aufgerufen.
- *
- * @param {string} input - Der Eingabetext, der verarbeitet werden soll.
- * @returns {string} - Der modifizierte Text mit getrennten langen Wörtern.
- */
+   * um Überlauf in Bubbles zu vermeiden, werden lange Worte nach dem 25. Zeichen (charMax) aufgetrennt
+   * Falls der Rest immer noch zu lang ist, wird die Funktion rekursiv erneut aufgerufen.
+   *
+   * @param {string} input - Der Eingabetext, der verarbeitet werden soll.
+   * @returns {string} - Der modifizierte Text mit getrennten langen Wörtern.
+   */
   separateLongWords(input: string): string {
     let charMax = 25;
     const words = input.split(' ');
@@ -442,7 +445,6 @@ export class WorkspaceService {
       element.focus();
     }
   }
-
 
 
 }

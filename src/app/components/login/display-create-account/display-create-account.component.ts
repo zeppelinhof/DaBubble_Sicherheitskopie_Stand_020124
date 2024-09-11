@@ -1,20 +1,22 @@
 import { InputService } from 'src/app/shared/services/input.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { User } from 'src/app/models/user';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Component, inject } from '@angular/core';
+import {Component, Inject, inject, InjectionToken} from '@angular/core';
+
+export const INNERWIDTH = new InjectionToken<number>('number of inner width')
 
 @Component({
   selector: 'app-display-create-account',
   templateUrl: './display-create-account.component.html',
   styleUrls: ['./display-create-account.component.scss'],
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   standalone: true
 })
 export class DisplayCreateAccountComponent {
   arrowBackIsHovered: boolean = false;
-  isDesktop = window.innerWidth > 768;
+  isDesktop = window.innerWidth > this.innerWidth;
   user: User = new User();
   sighUpSuccess: boolean | null = null;
 
@@ -34,7 +36,8 @@ export class DisplayCreateAccountComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private inputService: InputService
+    private inputService: InputService,
+    @Inject(INNERWIDTH) private readonly innerWidth: number
   ) {}
 
   /**

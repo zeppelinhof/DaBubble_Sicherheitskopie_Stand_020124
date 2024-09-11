@@ -12,6 +12,7 @@ import { InputService } from 'src/app/shared/services/input.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { WorkspaceService } from 'src/app/shared/services/workspace.service';
+import {RouterLink} from "@angular/router";
 
 
 @Component({
@@ -21,7 +22,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   host: {
     '(document:click)': 'onClick($event)',
   },
-  imports: [CommonModule, FormsModule, PickerModule],
+  imports: [CommonModule, FormsModule, PickerModule, RouterLink],
   standalone: true
 })
 export class InputFieldChannelComponent {
@@ -91,7 +92,7 @@ export class InputFieldChannelComponent {
         createdTime: this.cs.getCleanMessageTimeJson(new MessageTime(new Date().getDate(), this.cs.todaysDate(), this.cs.getTime())),
         emojis: [{ path: '', amount: 0, setByUser: [''] }],
         threads: [],
-        // ↓ file already uploaded 
+        // ↓ file already uploaded
         file: this.storService.getUrlFromStorage(),
       };
 

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { EmojiModule } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { Message } from 'src/app/models/message';
@@ -21,7 +21,7 @@ import { WorkspaceService } from 'src/app/shared/services/workspace.service';
   host: {
     '(document:click)': 'onClick($event)',
   },
-  imports: [CommonModule, FormsModule, PickerModule],
+  imports: [CommonModule, FormsModule, PickerModule, RouterLink],
   standalone: true
 })
 export class InputFieldMessageComponent {
@@ -48,7 +48,7 @@ export class InputFieldMessageComponent {
     this.getCurrentUser();
 
     this.ws.getEnterKeyPress().subscribe(event => {
-      // sendDirectMessage aufrufen, wenn die Enter-Taste gedrückt wird    
+      // sendDirectMessage aufrufen, wenn die Enter-Taste gedrückt wird
       if (this.router.url === '/dashboard/new-message') {
         this.router.navigate(['dashboard', 'message']);
       }
@@ -59,7 +59,7 @@ export class InputFieldMessageComponent {
   ngAfterViewInit() {
     this.ws.setAutofocus('inputMessage')
   }
-  
+
 
   getCurrentUser() {
     this.us.clickedContact.subscribe((user: User) => {
@@ -107,7 +107,7 @@ export class InputFieldMessageComponent {
 
   }
 
-  // clean help-functions 
+  // clean help-functions
   clearUrl() {
     this.storService.channelCurrentUrl = "";
   }

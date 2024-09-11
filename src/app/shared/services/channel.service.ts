@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import {Injectable, inject, signal, InjectionToken, Inject} from '@angular/core';
 import {
   Firestore,
   addDoc,
@@ -10,17 +10,22 @@ import {
   setDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { BehaviorSubject } from 'rxjs';
-// import { Channel } from 'src/app/interfaces/channel';
-import { Channel } from 'src/app/models/channel';
-import { UserService } from './user.service';
-import { User } from 'src/app/models/user';
-import { Message } from 'src/app/models/message';
-import { MessageTime } from 'src/app/models/message-time';
-import { ThreadInterface } from 'src/app/interfaces/thread.interface';
+import {BehaviorSubject} from 'rxjs';
+
+import {Channel} from 'src/app/models/channel';
+import {UserService} from './user.service';
+import {User} from 'src/app/models/user';
+import {Message} from 'src/app/models/message';
+import {MessageTime} from 'src/app/models/message-time';
+import {ThreadInterface} from 'src/app/interfaces/thread.interface';
+
+export const WEEKDAYS = new InjectionToken<string>('german weekdays')
+export const INNERWIDTH = new InjectionToken<number>('number of inner width')
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class ChannelService {
   firestore: Firestore = inject(Firestore);
   allChannelsCol = collection(this.firestore, 'channels');
@@ -40,7 +45,9 @@ export class ChannelService {
   unsubChannels;
   unsubThreads;
 
-  constructor(private us: UserService) {
+  constructor(private us: UserService,
+              @Inject(WEEKDAYS) private readonly weekdaysArray: string[],
+              @Inject(INNERWIDTH) public readonly innerWidth: number) {
     this.unsubChannels = this.subChannelList();
     this.unsubThreads = this.subThreadList();
   }
@@ -211,7 +218,7 @@ export class ChannelService {
     const allMessagesFromDB = docSnapshot.get('allMessages') || [];
     this.allMessagesChannel.push(allMessagesFromDB);
     allMessagesFromDB.push(obj);
-    await updateDoc(allMsgRef, { allMessages: allMessagesFromDB });
+    await updateDoc(allMsgRef, {allMessages: allMessagesFromDB});
   }
 
   async sendDocToDB(item: Channel) {
@@ -250,7 +257,7 @@ export class ChannelService {
         (member: User) => member.customId !== userIdToRemove
       );
       this.updateChannel(
-        { members: updatedMembers },
+        {members: updatedMembers},
         this.clickedChannel.value
       );
     }
@@ -266,18 +273,10 @@ export class ChannelService {
 
   todaysDate(): string {
     const today = new Date();
-    const weekdays = [
-      'Sonntag',
-      'Montag',
-      'Dienstag',
-      'Mittwoch',
-      'Donnerstag',
-      'Freitag',
-      'Samstag',
-    ];
+    const weekdays = this.weekdaysArray;
     const weekday = weekdays[today.getDay()];
     const day = today.getDate();
-    const month = new Intl.DateTimeFormat('de-DE', { month: 'long' }).format(
+    const month = new Intl.DateTimeFormat('de-DE', {month: 'long'}).format(
       today
     );
 
@@ -308,11 +307,11 @@ export class ChannelService {
         if (
           (chatsofUser![index - 1] &&
             chatsofUser![index - 1]['createdTime']['day'] <
-              chatsofUser![index]['createdTime']['day']) ||
+            chatsofUser![index]['createdTime']['day']) ||
           (chatsofUser![index - 1]['createdTime']['day'] >
             chatsofUser![index]['createdTime']['day'] &&
             chatsofUser[index - 1]['messageId'] <
-              chatsofUser![index]['messageId'])
+            chatsofUser![index]['messageId'])
         ) {
           return true;
         }

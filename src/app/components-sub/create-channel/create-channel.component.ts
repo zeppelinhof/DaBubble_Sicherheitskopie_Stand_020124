@@ -1,12 +1,12 @@
-import { Component, ElementRef } from '@angular/core';
-import { UserService } from 'src/app/shared/services/user.service';
+import {Component, computed, ElementRef, signal} from '@angular/core';
+import {UserService} from 'src/app/shared/services/user.service';
 
-import { ChannelService } from 'src/app/shared/services/channel.service';
-import { SearchInputService } from 'src/app/shared/services/search-input.service';
-import { WorkspaceService } from 'src/app/shared/services/workspace.service';
-import { ResponsiveService } from 'src/app/shared/services/responsive.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {ChannelService} from 'src/app/shared/services/channel.service';
+import {SearchInputService} from 'src/app/shared/services/search-input.service';
+import {WorkspaceService} from 'src/app/shared/services/workspace.service';
+import {ResponsiveService} from 'src/app/shared/services/responsive.service';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-create-channel',
@@ -28,15 +28,15 @@ export class CreateChannelComponent {
   ) { this.showLengthInfo = false; }
 
   changeRadioButton() {
-    return (this.ws.radioButtonFirst = this.ws.radioButtonFirst ? false : true);
+    return (this.ws.radioButtonFirst = !this.ws.radioButtonFirst);
   }
 
   onInput() {
-    this.ws.inputName = this.ws.inputName.slice(0, this.maxNameLength); // Begrenzt auf 20 Zeichen
+    this.ws.inputName.set(this.ws.inputName().slice(0, this.maxNameLength)); // Begrenzt auf 20 Zeichen
     this.sis.allFieldsFilled(this.us.userLoggedIn());
-    this.showLengthInfo = this.ws.inputName.length === this.maxNameLength;
+    this.showLengthInfo = this.ws.inputName().length === this.maxNameLength;
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.showLengthInfo = false;
     }, 10000);
   }

@@ -1,21 +1,23 @@
 import { User } from 'src/app/models/user';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, ViewChild, ElementRef, InjectionToken, Inject} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AnimationsService } from 'src/app/shared/services/animations.service';
 import { CommonModule } from '@angular/common';
+
+export const INNERWIDTH = new InjectionToken<number>('number of inner width')
 
 @Component({
   selector: 'app-display-choose-avatar',
   templateUrl: './display-choose-avatar.component.html',
   styleUrls: ['./display-choose-avatar.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   standalone: true
 })
 export class DisplayChooseAvatarComponent {
   arrowBackIsHovered: boolean = false;
-  isDesktop = window.innerWidth > 768;
+  isDesktop = window.innerWidth > this.innerWidth;
   newUser: User = new User();
   choosenAvatar: string | null = null;
   showNoImage: boolean = false;
@@ -38,7 +40,8 @@ export class DisplayChooseAvatarComponent {
     private auth: AuthenticationService,
     private router: Router,
     public storService: StorageService,
-    public animations: AnimationsService
+    public animations: AnimationsService,
+    @Inject(INNERWIDTH) private readonly innerWidth: number
   ) {
     this.checkDataLocalStorage();
   }
